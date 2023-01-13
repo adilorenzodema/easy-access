@@ -1,0 +1,43 @@
+.mat-list-item {
+    height: auto;
+    margin: 5%;
+    width: 90% !important;
+    border-radius: 10px;
+
+    .mat-list-item-content {
+        display: block;
+        padding: 0px 15px;
+    }
+    a {
+        width: 100%;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        color: #0D2A47;
+        mat-icon {
+            color: #0D2A47;
+            margin-right: 8px;
+        }
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+.selected {
+    background-color: #f59cb8;
+}
+
+.selected:hover {
+    a {
+        &:hover {
+            color: #0D2A47;
+        }
+    }
+}
+
+.header-img {
+    width: 50%;
+    height: 50%;
+    display: inline-block;
+}

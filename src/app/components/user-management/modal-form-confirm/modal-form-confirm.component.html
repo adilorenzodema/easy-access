@@ -1,0 +1,21 @@
+<div *ngIf="data.isDelete else isActive">
+  <h1 mat-dialog-title> Disattivazione utente</h1>
+  <div mat-dialog-content>
+    Vorresti disattivare l'utente selezionato?
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="dialogRef.close(false)">No</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="dialogRef.close(true)">Si</button>
+  </div>
+</div>
+<ng-template #isActive>
+<h1 mat-dialog-title>Attivazione utente</h1>
+<div mat-dialog-content>
+  Vorresti ri-attivare l'utente selezionato?
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(false)">No</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="dialogRef.close(true)">Si</button>
+</div>
+
+</ng-template>

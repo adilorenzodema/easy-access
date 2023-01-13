@@ -1,0 +1,39 @@
+<ng-container>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #snav mode="side" opened class="example-sidenav" [fixedInViewport]="true" [fixedTopGap]="0"
+      [fixedBottomGap]="0">
+      <app-sidebar></app-sidebar> <!--componente-->
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <mat-toolbar class="example-header">
+        <!-- header -->
+        <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <button mat-icon-button>
+          <mat-icon>person</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button  mat-menu-item (click)="changePassword()">
+            <mat-icon>lock reset</mat-icon>
+            <span>Change password</span>
+          </button>
+        </mat-menu>
+        <button mat-icon-button>
+          <mat-icon (click)="logout()">logout</mat-icon>
+        </button>
+      </mat-toolbar>
+      <div class="page-content">
+        <!-- contenuto interno -->
+        <router-outlet></router-outlet>
+      </div>
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

@@ -1,0 +1,36 @@
+.example-container {
+  position: absolute;
+  top: 0px;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+}
+
+.example-sidenav {
+  width: 240px;
+  padding-top: 0px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  background: #F88DAD;
+}
+
+.example-header {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.page-content {
+  padding: 20px;
+}
+
+.menu-dropdown {
+  width: 380px;
+  max-width: unset !important;
+}

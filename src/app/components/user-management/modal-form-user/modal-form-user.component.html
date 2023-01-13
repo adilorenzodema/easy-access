@@ -1,0 +1,31 @@
+<form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" required formControlName="ctrlName" />
+    <mat-error>Inserire un nome corretto</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>Surname</mat-label>
+    <input matInput type="text" required formControlName="ctrlSurname" />
+    <mat-error>Inserire un cognome corretto</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" required formControlName="ctrlEmail" />
+    <mat-error>Inserire un email valida</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>Profilo </mat-label>
+    <mat-select formControlName="ctrlProfileCode" required>
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let profile of dropdownData" [value]="profile.profileCode">
+        {{ profile.profileName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+  <button mat-raised-button color="primary" (click)="onCancel()">Annulla</button>
+  <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid"
+    (click)="onSubmit(data ? false : true)">{{data ? 'Modifica': 'Invia'}}</button>
+</div>
