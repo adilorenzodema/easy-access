@@ -15,12 +15,12 @@ const routes: Routes = [
     path: '', component: TemplateComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
-        path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]
+        path: 'dashboard', component: DashboardComponent, /* canActivate: [AuthGuard] */
       },
       {
         path: 'user-management',
         loadChildren: () => import("src/app/components/user-management/user-management.module").then(m => m.UserManagementModule),
-        canActivate: [AuthGuard]
+        /* canActivate: [AuthGuard] */
       }
     ]
   }

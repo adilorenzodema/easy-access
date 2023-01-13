@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   header: {
-    imgSidebar: 'assets/images/logo-dema.png',
-    title: 'Template gui'
+    imgSidebar: 'assets/images/movyon.png',
+    title: 'Easy access'
   },
 };
 /*
