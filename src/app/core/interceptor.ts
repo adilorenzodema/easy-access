@@ -60,8 +60,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       return this.authService.refreshToken().pipe(
         switchMap((user) => {
           this.isRefreshing = false;
-          this.cookieService.set('Token', JSON.stringify(user.token));
-          this.cookieService.set('RefreshToken', JSON.stringify(user.refreshToken));
+          this.cookieService.set('Token',user.token);
+          this.cookieService.set('RefreshToken',user.refreshToken);
           const updateReq = request.clone({
             setParams: {
               token: user.token

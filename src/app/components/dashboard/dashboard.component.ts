@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getPermissionAPI();
+    /* this.getPermissionAPI(); */
   }
 
   ngOnDestroy(): void {

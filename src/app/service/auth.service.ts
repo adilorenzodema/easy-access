@@ -77,10 +77,10 @@ export class AuthService {
   }
 
   private getToken(): string {
-    return JSON.parse(this.cookieService.get('Token'));
+    return this.cookieService.get('Token');
   }
 
   private getRefreshToken(): string {
-    return JSON.parse(this.cookieService.get('RefreshToken'));
+    return this.cookieService.get('RefreshToken');
   }
 }

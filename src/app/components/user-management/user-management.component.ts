@@ -36,8 +36,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       ctrlSearch: [''],
       ctrlActive: [true]
     });
-    this.callGetAPI();
-    this.getPermissionAPI();
+    /* this.callGetAPI(); */
+    /* this.getPermissionAPI(); */
   }
 
   ngOnDestroy(): void {

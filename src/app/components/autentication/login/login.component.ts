@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
       (userInfo) => {
         this.cookieService.set('User', JSON.stringify(userInfo.user));
         this.cookieService.set('Menu', JSON.stringify(userInfo.menu));
-        this.cookieService.set('Token', JSON.stringify(userInfo.token));
-        this.cookieService.set('RefreshToken', JSON.stringify(userInfo.refreshToken));
+        this.cookieService.set('Token', userInfo.token);
+        this.cookieService.set('RefreshToken', userInfo.refreshToken);
         this.router.navigate(['/']);
       }
     );
