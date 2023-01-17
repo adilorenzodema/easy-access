@@ -8,6 +8,6 @@ export const MENUITEMS: Menu[]  = [
     id: 4, route: 'user-management', name: 'Gestione Utenti', icon: 'group', code: 'user-management'
   },
   {
-    id:6, route: 'area-management', name: 'Gestione Area', icon: 'group', code: 'area-management'
+    id:6, route: 'area-management', name: 'Gestione Area', icon: 'area_chart', code: 'area-management'
   }
 ];
