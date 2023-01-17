@@ -1,18 +1,13 @@
+import { Menu } from "src/app/components/domain/interface";
 
-export const MENUITEMS = [
+export const MENUITEMS: Menu[]  = [
   {
-    state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'home'
+    id: 1, route: 'dashboard', name: 'Dashboard', icon: 'home', code: 'dashboard'
   },
   {
-    state: 'tabs', name: 'Tabs', type: 'link', icon: 'calendar_month'
+    id: 4, route: 'user-management', name: 'Gestione Utenti', icon: 'group', code: 'user-management'
   },
   {
-    state: 'expansion', name: 'expansion panel', type: 'link', icon: 'vertical_align_center'
-  },
-  {
-    state: 'user-management', name: 'Gestione Utenti', type: 'link', icon: 'group'
-  },
-  {
-    state: 'help-page', name: 'Assistenza', type: 'link', icon: 'help'
+    id:6, route: 'area-management', name: 'Gestione Area', icon: 'group', code: 'area-management'
   }
 ];

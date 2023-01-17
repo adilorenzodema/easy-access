@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AuthGuard } from './core/guards';
 import { LoginComponent } from './components/autentication/login/login.component';
 import { TemplateComponent } from './template/template.component';
 import { SendMailComponent } from './components/autentication/send-mail/send-mail.component';
@@ -21,6 +20,11 @@ const routes: Routes = [
         path: 'user-management',
         loadChildren: () => import("src/app/components/user-management/user-management.module").then(m => m.UserManagementModule),
         /* canActivate: [AuthGuard] */
+      },
+      {
+        path: 'area-management',
+        loadChildren: () => import("src/app/components/area-management/area-management.module").then(m => m.AreaManagementModule),
+
       }
     ]
   }
