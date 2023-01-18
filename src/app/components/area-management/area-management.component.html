@@ -7,17 +7,17 @@
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
-    <span><button mat-raised-button class="actionButton" color="primary" (click)="addUser()">Aggiungi</button></span>
+    <span><button mat-raised-button class="actionButton" color="primary" (click)="addArea()">Aggiungi</button></span>
   </form>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!-- Property binding: e nel ts, datasource ha l'array di elementi -->
     <!-- Position Column -->
-    <ng-container matColumnDef="areaId">
+    <ng-container matColumnDef="idArea">
       <!-- matHeaderCellDef: direttiva strutturale di Angular Material, definisce l'header della colonna -->
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
       <!--matCellDef: direttiva strutturale di Angular Material, definisce il contenuto della colonna -->
-      <td mat-cell *matCellDef="let element"> {{element.areaId </td>
+      <td mat-cell *matCellDef="let element"> {{element.idArea}} </td>
     </ng-container>
 
     <ng-container matColumnDef="areaName">

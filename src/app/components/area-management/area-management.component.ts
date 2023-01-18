@@ -5,9 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
-import { UserManagementService } from 'src/app/service/user-management.service';
-import { User } from '../domain/class';
+import { Area } from '../domain/class';
 import { MatSort} from '@angular/material/sort';
+import { AreaManagementService } from 'src/app/service/area-management.service';
 
 @Component({
   selector: 'app-area-management',
@@ -17,13 +17,13 @@ import { MatSort} from '@angular/material/sort';
 export class AreaManagementComponent implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator ;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ['areaId', 'areaName', 'action'];
-  public dataSource = new MatTableDataSource<User>();
+  public displayedColumns: string[] = ['idArea', 'areaName', 'action'];
+  public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
   private subscription: Subscription[] = [];
 
   constructor(
-    private userManagementService: UserManagementService,
+    private areaManagementService: AreaManagementService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog) {
@@ -34,6 +34,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
       ctrlSearch: [''],
       ctrlActive: [true]
     });
+    this.callGetAPI();
   }
 
   ngOnDestroy(): void {
@@ -42,7 +43,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
     });
   }
 
-  public addUser(): void {
+  public addArea(): void {
    /*  const dialogRef = this.dialog.open(ModalFormUserComponent, { width: '40%', height: '50%', data:"" });
     dialogRef.afterClosed().subscribe(
       (result) => {
@@ -87,8 +88,8 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   public callGetAPI(): void {
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
-    this.subscription.push(this.userManagementService.getUserList(keyword, isActive).subscribe(
-      users => {this.dataSource.data = users;
+    this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe(
+      areas => {this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;}
     ));

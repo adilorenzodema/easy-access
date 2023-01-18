@@ -15,12 +15,25 @@ export class User {
   email: string;
   profileCode: string;
 
-  constructor( firstName:string, lastName: string,email: string, profileCode:string, userId?: number){
+  constructor(firstName: string, lastName: string, email: string, profileCode: string, userId?: number) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.profileCode = profileCode;
     if (userId) this.userId = userId;
+  }
+}
+
+export class Area {
+  idArea?: number;
+  areaName: string;
+	creationUser?: number;
+	creationDate?: Date;
+  modificationUser?: number;
+	modificationDate?: Date;
+
+  constructor(areaName: string, idArea?: number,creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date ) {
+    this.areaName = areaName;
   }
 }
 
