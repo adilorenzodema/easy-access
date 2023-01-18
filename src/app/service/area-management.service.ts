@@ -9,7 +9,7 @@ import { HttpUtils } from '../shared/utils/httpUtils';
   providedIn: 'root'
 })
 export class AreaManagementService {
-  private apiURL = 'http://localhost:8080//api/easyaccess/gestionearea';
+  private apiURL = 'http://localhost:8080/api/easyaccess/gestionearea';
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getAreaList(keyword: string): Observable<Area[]> {

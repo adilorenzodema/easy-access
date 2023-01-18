@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { Area } from '../domain/class';
 import { MatSort} from '@angular/material/sort';
 import { AreaManagementService } from 'src/app/service/area-management.service';
+import { areaMokup } from 'src/app/service/mokup/mokup';
 
 @Component({
   selector: 'app-area-management',
@@ -20,6 +21,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   public displayedColumns: string[] = ['idArea', 'areaName', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
+  public areaMokup: Area[] = areaMokup;
   private subscription: Subscription[] = [];
 
   constructor(
@@ -34,6 +36,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
       ctrlSearch: [''],
       ctrlActive: [true]
     });
+    console.log(areaMokup);
     this.callGetAPI();
   }
 
@@ -86,13 +89,17 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   }
 
   public callGetAPI(): void {
-    const keyword = this.search.get('ctrlSearch')?.value;
+      const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
     this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe(
       areas => {this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;}
     ));
+    /*  this.dataSource.data = areaMokup;
+    console.log("data" + this.dataSource.data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort; */
   }
 
   private getPermissionAPI(): void {

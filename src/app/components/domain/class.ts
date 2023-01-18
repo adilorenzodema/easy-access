@@ -25,8 +25,8 @@ export class User {
 }
 
 export class Area {
-  idArea?: number;
   areaName: string;
+  idArea?: number;
 	creationUser?: number;
 	creationDate?: Date;
   modificationUser?: number;
@@ -34,6 +34,7 @@ export class Area {
 
   constructor(areaName: string, idArea?: number,creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date ) {
     this.areaName = areaName;
+    if (idArea) this.idArea = idArea;
   }
 }
 

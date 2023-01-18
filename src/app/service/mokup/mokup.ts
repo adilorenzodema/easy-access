@@ -1,7 +1,33 @@
 import { User } from "src/app/components/domain/class";
 import { UserPermission } from "src/app/components/domain/interface";
+import { Area } from "src/app/components/domain/class";
 
-
+export const areaMokup: Area[] = [
+  {
+    idArea: 1,
+    areaName: "Campania",
+    creationUser: 1,
+    creationDate: new Date(1990, 4, 7) ,
+    modificationUser: 1,
+    modificationDate: new Date(2000, 4, 7),
+  },
+  {
+    idArea: 2,
+    areaName: "Toscana",
+    creationUser: 2,
+    creationDate: new Date(2001, 4, 7) ,
+    modificationUser: 2,
+    modificationDate: new Date(2002, 4, 7),
+  },
+  {
+    idArea: 3,
+    areaName: "Sardegna",
+    creationUser: 4,
+    creationDate: new Date(2021, 6, 9) ,
+    modificationUser: 5,
+    modificationDate: new Date(2022, 6, 9),
+  }
+]
 /*
 export const  userMokup: User[] = [
   {
