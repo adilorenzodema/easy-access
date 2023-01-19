@@ -15,8 +15,3 @@ export interface UserPermission {
   refreshToken: string;
   menu: Menu[];
 }
-
-export interface UserProfile{
-  profileCode: string ;
-  profileName: string;
-}

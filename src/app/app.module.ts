@@ -1,23 +1,19 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LibTemplateModule } from 'dema-movyon-template';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LoginComponent } from './components/autentication/login/login.component';
-import { MaterialModule } from './shared/modules/material.module';
-import { TemplateModule } from './template/template.module';
-import { SendMailComponent } from './components/autentication/send-mail/send-mail.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpConfigInterceptor } from './core/interceptor';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CookieService } from 'ngx-cookie-service';
-import { ResetPasswordComponent } from './components/autentication/reset-password/reset-password.component';
-import { environment } from 'src/environments/environment';
+import { MaterialModule } from './shared/modules/material.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,10 +22,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    LoginComponent,
-    SendMailComponent,
-    ResetPasswordComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +32,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ReactiveFormsModule,
     AppRoutingModule,
     MaterialModule,
-    TemplateModule,
+    LibTemplateModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
