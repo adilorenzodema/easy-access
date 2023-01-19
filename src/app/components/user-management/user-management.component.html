@@ -47,7 +47,7 @@
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element" style="text-align: end;">
         <button mat-icon-button><mat-icon style="color:#479AED" (click)="onEdit(element)">edit</mat-icon></button>
-        <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else isActive"><mat-icon style="color: red" (click)="onDelete(element.userId)">delete</mat-icon></button>
+        <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else isActive" (click)="onDelete(element.id)"><mat-icon style="color: red" (click)="onDelete(element.userId)">delete</mat-icon></button>
         <ng-template #isActive>
           <button mat-icon-button><mat-icon style="color: #479AED" (click)="onActivate(element.userId)">refresh</mat-icon></button>
         </ng-template>

@@ -10,6 +10,7 @@ import { MatSort} from '@angular/material/sort';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 //import { areaMokup } from 'src/app/service/mokup/mokup';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
+import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 
 @Component({
   selector: 'app-area-management',
@@ -65,16 +66,16 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
     );
   }
 
-  public onDelete(userId: number): void {
-    /* const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{isDelete:true}});
+  public onDelete(areaId: number): void {
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{isDelete:true}});
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.userManagementService.deleteUser(userId).subscribe(
+          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe(
             () => this.callGetAPI()
           ));
         }
-      }); */
+      });
   }
 
   public callGetAPI(): void {

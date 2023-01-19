@@ -12,7 +12,7 @@ import { HttpUtils } from '../shared/utils/httpUtils';
 })
 export class AuthService {
   public loginUser!: UserPermission;
-  private noAuthURL = "http://localhost:8080/noAuth";
+  private noAuthURL = "http://localhost:8080";
   private apiURL = "http://localhost:8080/auth";
 
 
@@ -21,7 +21,7 @@ export class AuthService {
     private cookieService: CookieService) { }
 
   login(loginUser: LoginUser): Observable<UserPermission> {
-    return this.http.post<UserPermission>(this.noAuthURL + '/login', loginUser)
+    return this.http.post<UserPermission>(this.noAuthURL + '/noAuth/login', loginUser)
       .pipe(catchError(err => { throw err; }));
   }
 
@@ -39,12 +39,12 @@ export class AuthService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken() })
     };
-    return this.http.post<UserPermission>(this.noAuthURL + '/refreshToken', { refreshToken: this.getRefreshToken() }, options)
+    return this.http.post<UserPermission>(this.noAuthURL + '/authRefresh/refreshToken', { refreshToken: this.getRefreshToken() }, options)
       .pipe(catchError(err => { throw err; }));
   }
 
   sendMailResetPassword(mail: string): Observable<void> {
-    return this.http.post<void>(this.noAuthURL + '/sendEmailResetPassword', { email: mail })
+    return this.http.post<void>(this.noAuthURL + '/noAuth/sendEmailResetPassword', { email: mail })
       .pipe(catchError(err => { throw err; }));
   }
 
