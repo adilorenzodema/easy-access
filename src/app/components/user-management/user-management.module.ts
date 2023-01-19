@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { UserManagementRoutingModule } from './user-management.routing';
+import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UserManagementRoutingModule } from './user-management.routing';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    UserManagementRoutingModule
+    UserManagementRoutingModule,
+    SharedComponentsModule
   ]
 })
 export class UserManagementModule { }
