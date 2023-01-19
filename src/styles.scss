@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+// template 
+.example-sidenav {
+    background: #49beaa !important;
+}
+
+a {
+    color: #0d2a47 !important;
+    mat-icon {
+        color: #0d2a47 !important;
+    }
+    &:hover {
+        color: white !important;
+    }
+}
+
+.selected {
+    background-color: #5bc4b2 !important;
+}
+
+.selected:hover {
+    a {
+        &:hover {
+            color: #0d2a47 !important;
+        }
+    }
+}
+
+// button
+.actionButton {
+    background-color: #479AED;
+    color: white;
+}
+

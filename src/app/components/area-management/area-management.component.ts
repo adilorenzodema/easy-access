@@ -2,15 +2,15 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/service/auth.service';
-import { Area } from '../domain/class';
-import { MatSort} from '@angular/material/sort';
 import { AreaManagementService } from 'src/app/service/area-management.service';
+import { Area } from '../domain/class';
 //import { areaMokup } from 'src/app/service/mokup/mokup';
-import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
+import { PermissionService } from 'src/app/service/permission.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
+import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
 
 @Component({
   selector: 'app-area-management',
@@ -28,7 +28,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
 
   constructor(
     private areaManagementService: AreaManagementService,
-    private authService: AuthService,
+    private permissionService: PermissionService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog) {
   }
@@ -97,7 +97,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
 
   private getPermissionAPI(): void {
     const currentUrl = (window.location.pathname).replace('/', '');
-    this.subscription.push(this.authService.getPermissionPage(currentUrl).subscribe(
+    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
       resp => console.log(resp)
     ));
   }

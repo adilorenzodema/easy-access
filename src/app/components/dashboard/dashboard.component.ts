@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/service/auth.service';
+import { PermissionService } from 'src/app/service/permission.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];
-  constructor(private authService: AuthService) { }
+  constructor(private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     /* this.getPermissionAPI(); */
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private getPermissionAPI(): void {
     const currentUrl = (window.location.pathname).replace('/', '');
-    this.subscription.push(this.authService.getPermissionPage(currentUrl).subscribe(
+    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
       resp => console.log(resp)
     ));
   }
