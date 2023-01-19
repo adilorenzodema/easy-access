@@ -25,15 +25,15 @@ export class User {
 }
 
 export class Area {
-  areaName: string;
+  nomeArea: string;
   idArea?: number;
 	creationUser?: number;
 	creationDate?: Date;
   modificationUser?: number;
 	modificationDate?: Date;
 
-  constructor(areaName: string, idArea?: number,creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date ) {
-    this.areaName = areaName;
+  constructor(nomeArea: string, idArea?: number,creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date ) {
+    this.nomeArea = nomeArea;
     if (idArea) this.idArea = idArea;
   }
 }

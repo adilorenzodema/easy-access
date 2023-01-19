@@ -5,10 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { AreaManagementRoutingModule } from './area-management.routing';
 import { AreaManagementComponent } from './area-management.component';
+import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
 
 @NgModule({
   declarations: [
     AreaManagementComponent,
+    ModalFormAreaComponent,
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { Area } from '../domain/class';
 import { MatSort} from '@angular/material/sort';
 import { AreaManagementService } from 'src/app/service/area-management.service';
-import { areaMokup } from 'src/app/service/mokup/mokup';
+//import { areaMokup } from 'src/app/service/mokup/mokup';
+import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
 
 @Component({
   selector: 'app-area-management',
@@ -18,10 +19,10 @@ import { areaMokup } from 'src/app/service/mokup/mokup';
 export class AreaManagementComponent implements OnInit,OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator ;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ['idArea', 'areaName', 'action'];
+  public displayedColumns: string[] = ['idArea', 'nomeArea','creationUser','creationDate','modificationUser','modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
-  public areaMokup: Area[] = areaMokup;
+  //public areaMokup: Area[] = areaMokup;
   private subscription: Subscription[] = [];
 
   constructor(
@@ -36,7 +37,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
       ctrlSearch: [''],
       ctrlActive: [true]
     });
-    console.log(areaMokup);
+    //console.log(areaMokup);
     this.callGetAPI();
   }
 
@@ -47,21 +48,21 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   }
 
   public addArea(): void {
-   /*  const dialogRef = this.dialog.open(ModalFormUserComponent, { width: '40%', height: '50%', data:"" });
+  const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data:"" });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };
       }
-    ); */
+    );
   }
 
   public onEdit(element: Element): void {
-   /*  const dialogRef = this.dialog.open(ModalFormUserComponent, { width: '40%', height: '50%', data: element });
+    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: element });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };
       }
-    ); */
+    );
   }
 
   public onDelete(userId: number): void {
@@ -76,26 +77,16 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
       }); */
   }
 
-  public onActivate(userId: number): void {
-   /*  const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{isDelete:false} });
-    dialogRef.afterClosed().subscribe(
-      (result) => {
-        if (result) {
-          this.subscription.push(this.userManagementService.activateUser(userId).subscribe(
-            () => this.callGetAPI()
-          ));
-        }
-      }); */
-  }
-
   public callGetAPI(): void {
       const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
     this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe(
       areas => {this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;}
+        this.dataSource.sort = this.sort;
+        console.log(this.dataSource.data);}
     ));
+
     /*  this.dataSource.data = areaMokup;
     console.log("data" + this.dataSource.data);
     this.dataSource.paginator = this.paginator;
