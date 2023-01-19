@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HttpConfigInterceptor } from './core/interceptor';
 import { MaterialModule } from './shared/modules/material.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
@@ -43,11 +42,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpConfigInterceptor,
-      multi: true,
-    },
     {
       provide: 'header',
       useValue: environment.header
