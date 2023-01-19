@@ -65,7 +65,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(userId: number): void {
-    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{isDelete:true}});
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{title: "Disattivazione Utente", content:"Desideri disattivare l'utente selezionato?"}});
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
@@ -76,12 +76,12 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       });
   }
 
-  public onActivate(userId: number): void {
-    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{isDelete:false} });
+  public onActivate(idArea: number): void {
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{ title: "Attivazione Utente", content: "Desideri riattivare l'utente selezionato?"} });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.userManagementService.activateUser(userId).subscribe(
+          this.subscription.push(this.userManagementService.activateUser(idArea).subscribe(
             () => this.callGetAPI()
           ));
         }

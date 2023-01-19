@@ -67,7 +67,8 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   }
 
   public onDelete(areaId: number): void {
-    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{isDelete:true}});
+    console.log(areaId);
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{ title: "Cancellazione Area", content: "Desisderi cancellare l'area selezionata?"}});
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
