@@ -18,6 +18,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieService } from 'ngx-cookie-service';
 import { ResetPasswordComponent } from './components/autentication/reset-password/reset-password.component';
 import { environment } from 'src/environments/environment';
+import { ParkManagementComponent } from './components/park-management/park-management.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,7 +30,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     DashboardComponent,
     LoginComponent,
     SendMailComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ParkManagementComponent
   ],
   imports: [
     BrowserModule,

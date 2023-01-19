@@ -27,14 +27,35 @@ export class User {
 export class Area {
   nomeArea: string;
   idArea?: number;
-	creationUser?: number;
-	creationDate?: Date;
+  creationUser?: number;
+  creationDate?: Date;
   modificationUser?: number;
-	modificationDate?: Date;
+  modificationDate?: Date;
 
-  constructor(nomeArea: string, idArea?: number,creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date ) {
+  constructor(nomeArea: string, idArea?: number, creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date) {
     this.nomeArea = nomeArea;
     if (idArea) this.idArea = idArea;
+  }
+}
+
+export class Park {
+  nomeParcheggio: string;
+  paese: string;
+  localita: string;
+  cap: string;
+  indirizzo: string;
+  idParcheggio?: number;
+  creationUser?: number;
+  creationDate?: Date;
+  modificationUser?: number;
+  modificationDate?: Date;
+  constructor( nomeParcheggio: string, paese: string, localita: string, cap: string, indirizzo: string, idParcheggio?: number, creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date) {
+    this.nomeParcheggio = nomeParcheggio;
+    this.paese = paese;
+    this.localita = localita;
+    this.cap = cap;
+    this.indirizzo = indirizzo;
+    if (idParcheggio) this.idParcheggio = idParcheggio;
   }
 }
 
