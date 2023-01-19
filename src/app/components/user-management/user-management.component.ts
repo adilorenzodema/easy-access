@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { UserManagementService } from 'src/app/service/user-management.service';
 import { User } from '../domain/class';
-import { ModalFormConfirmComponent } from './modal-form-confirm/modal-form-confirm.component';
+import { ModalFormConfirmComponent } from '../../shared/components/modal-form-confirm/modal-form-confirm.component';
 import { ModalFormUserComponent } from './modal-form-user/modal-form-user.component';
 import { MatSort} from '@angular/material/sort';
 
