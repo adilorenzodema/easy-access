@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard, LibLoginComponent, LibResetPasswordComponent, LibSendMailComponent, LibTemplateComponent } from 'dema-movyon-template';
+import { AuthGuard, LibTemplateComponent } from 'dema-movyon-template';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'login', component: LibLoginComponent },
-  { path: 'send-mail', component: LibSendMailComponent },
-  { path: 'reset-password', component: LibResetPasswordComponent },
   {
     path: '', component: LibTemplateComponent, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
