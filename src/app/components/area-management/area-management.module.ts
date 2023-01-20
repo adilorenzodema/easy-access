@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/app/shared/modules/material.module';
 import { AreaManagementRoutingModule } from './area-management.routing';
 import { AreaManagementComponent } from './area-management.component';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
+import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    AreaManagementRoutingModule
+    AreaManagementRoutingModule,
+    SharedComponentsModule
   ]
 })
 export class AreaManagementModule { }
