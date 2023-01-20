@@ -17,10 +17,10 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
   templateUrl: './area-management.component.html',
   styleUrls: ['./area-management.component.css']
 })
-export class AreaManagementComponent implements OnInit,OnDestroy {
-  @ViewChild('paginator') paginator!: MatPaginator ;
+export class AreaManagementComponent implements OnInit, OnDestroy {
+  @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ['idArea', 'nomeArea','creationUser','creationDate','modificationUser','modificationDate', 'action'];
+  public displayedColumns: string[] = ['idArea', 'nomeArea', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
   //public areaMokup: Area[] = areaMokup;
@@ -49,7 +49,7 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   }
 
   public addArea(): void {
-  const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data:"" });
+    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: "" });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };
@@ -68,7 +68,11 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
 
   public onDelete(areaId: number): void {
     console.log(areaId);
-    const dialogRef = this.dialog.open(ModalFormConfirmComponent, { width: '40%', height: '50%', data:{ title: "Cancellazione Area", content: "Desisderi cancellare l'area selezionata?"}});
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '40%', height: '50%', data: { title: "Cancellazione Area", content: "Desisderi cancellare l'area selezionata?" }
+      }
+    );
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
@@ -80,13 +84,15 @@ export class AreaManagementComponent implements OnInit,OnDestroy {
   }
 
   public callGetAPI(): void {
-      const keyword = this.search.get('ctrlSearch')?.value;
+    const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
     this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe(
-      areas => {this.dataSource.data = areas;
+      areas => {
+        this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);}
+        console.log(this.dataSource.data);
+      }
     ));
 
     /*  this.dataSource.data = areaMokup;

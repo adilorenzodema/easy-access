@@ -49,7 +49,9 @@ export class Park {
   creationDate?: Date;
   modificationUser?: number;
   modificationDate?: Date;
-  constructor( nomeParcheggio: string, paese: string, localita: string, cap: string, indirizzo: string, idParcheggio?: number, creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date) {
+  constructor(
+    nomeParcheggio: string, paese: string, localita: string, cap: string, indirizzo: string,
+    idParcheggio?: number, creationUser?: number, creationDate?: Date, modificationUser?: number, modificationDate?: Date) {
     this.nomeParcheggio = nomeParcheggio;
     this.paese = paese;
     this.localita = localita;
