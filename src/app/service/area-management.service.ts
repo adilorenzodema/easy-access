@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, of } from 'rxjs';
 import { Area } from '../components/domain/class';
-import { HttpUtils } from '../shared/utils/httpUtils';
 
 @Injectable({
   providedIn: 'root'

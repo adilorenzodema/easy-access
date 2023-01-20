@@ -3,26 +3,21 @@ import { Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-
+import { Park } from '../components/domain/class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionService {
-  private apiURL = "http://localhost:8080/auth";
+export class ParkManagementService {
+  private apiURL = 'http://localhost:8080/api/easyaccess/gestioneparcheggio';
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService) { }
-
-  getPermissionPage(menuItemKey: string): Observable<any> {
-    const token = this.getToken();
+  getParking(keyword: string): Observable<Park[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token, menuItemKey })
+      params: HttpUtils.createHttpParams({ token: this.getToken(), keyword: keyword })
     };
-    return this.http.post<any>(this.apiURL + '/getPagePermissions', null, options)
+    return this.http.get<Park[]>(this.apiURL + '/getParcheggi', options)
       .pipe(catchError(err => { throw err; }));
   }
 
