@@ -39,12 +39,12 @@ export class AreaManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  deleteArea(idArea: number): Observable<unknown> {
+  deleteArea(idArea: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken() })
     };
-    return this.http.post(this.apiURL + '/deleteArea/' + idArea, null, options)
+    return this.http.post<void>(this.apiURL + '/deleteArea/' + idArea, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 

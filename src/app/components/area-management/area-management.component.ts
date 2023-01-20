@@ -10,7 +10,7 @@ import { Area } from '../domain/class';
 //import { areaMokup } from 'src/app/service/mokup/mokup';
 import { PermissionService } from 'src/app/service/permission.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { ModalFormAreaComponent } from './modal-form-area/modal-form-area/modal-form-area.component';
+import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
 
 @Component({
   selector: 'app-area-management',
