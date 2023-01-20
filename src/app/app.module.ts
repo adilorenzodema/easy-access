@@ -6,14 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LibTemplateModule } from 'dema-movyon-template';
+import { LibMaterialModule, LibTemplateModule } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
-import { ParkManagementComponent } from './components/park-management/park-management.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MaterialModule } from './shared/modules/material.module';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,8 +20,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    ParkManagementComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +29,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    MaterialModule,
+    LibMaterialModule,
     LibTemplateModule,
     HttpClientModule,
     TranslateModule.forRoot({
