@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Park } from '../domain/class';
+import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-park-management',
@@ -20,7 +22,8 @@ export class ParkManagementComponent implements OnInit {
 
   constructor(
     private parkingService: ParkManagementService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +42,15 @@ export class ParkManagementComponent implements OnInit {
         this.dataSource.paginator = this.paginator,
         this.dataSource.sort = this.sort
       )
+    );
+  }
+
+  public addPark(): void {
+    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '50%', data: "" });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) { this.callGetAPI(); };
+      }
     );
   }
 
