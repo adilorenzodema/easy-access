@@ -24,21 +24,21 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (this.data.idParcheggio ) {
+    if (this.data.idParcheggio) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlParkName: [this.data.nomeParcheggio , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCountry: [this.data.paese , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCity: [this.data.localita , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCAP: [this.data.cap , [Validators.required, Validators.minLength(5),Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
-        ctrlParkAddress: [this.data.indirizzo , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
+        ctrlParkName: [this.data.nomeParcheggio, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCountry: [this.data.paese, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCity: [this.data.localita, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCAP: [this.data.cap, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
+        ctrlParkAddress: [this.data.indirizzo, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
-        ctrlParkName: [ null , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCountry: [ null , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCity: [ null , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCAP: [ null , [Validators.required,Validators.minLength(5),Validators.maxLength(5) ,Validators.pattern('^[0-9]*$')]],
-        ctrlParkAddress: [ null , [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
+        ctrlParkName: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCountry: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCity: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCAP: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
+        ctrlParkAddress: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
       });
     }
   }
@@ -57,7 +57,6 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     const address = this.inputUserForm.get('ctrlParkAddress')?.value;
     const formParkAdd = new Park(name, country, city, CAP, address);
     if (isAdd) {
-
       this.parkManagementService.addParking(formParkAdd).subscribe({
         next: (data: Park) => {
           console.log(data);
@@ -74,8 +73,13 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
         complete: () => this.dialogRef.close(true)
       });
     } else {
-     /*  const idArea = this.data.idArea;
-      const formParkEdit = new Park(name, idArea);
+      const idPark = this.data.idParcheggio;
+      const name = this.inputUserForm.get('ctrlParkName')?.value;
+      const country = this.inputUserForm.get('ctrlParkCountry')?.value;
+      const city = this.inputUserForm.get('ctrlParkCity')?.value;
+      const CAP = this.inputUserForm.get('ctrlParkCAP')?.value;
+      const address = this.inputUserForm.get('ctrlParkAddress')?.value;
+      const formParkEdit = new Park(name, country, city, CAP, address, idPark);
       this.parkManagementService.editParking(formParkEdit).subscribe({
         next: (data: Park) => {
           console.log(data);
@@ -90,7 +94,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
           this.snackBar.open("Errore!", "X");
         },
         complete: () => this.dialogRef.close(true)
-      }); */
+      });
     }
   }
 

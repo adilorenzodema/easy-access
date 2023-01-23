@@ -6,7 +6,7 @@
   </mat-form-field>
 </form>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
-  <button mat-raised-button color="primary" (click)="onCancel()">Annulla</button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(false)">Annulla</button>
   <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid"
     (click)="onSubmit(data ? false : true)">{{data ? 'Modifica': 'Inserisci'}}</button>
 </div>

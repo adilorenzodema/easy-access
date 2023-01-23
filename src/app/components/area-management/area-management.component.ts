@@ -47,17 +47,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     });
   }
 
-  public addArea(): void {
-    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: "" });
-    dialogRef.afterClosed().subscribe(
-      (result) => {
-        if (result) { this.callGetAPI(); };
-      }
-    );
-  }
-
-  public onEdit(element: Element): void {
-    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: element });
+  public addEdit(element?: Area): void {
+    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: element ? element : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };
@@ -66,7 +57,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(areaId: number): void {
-    console.log(areaId);
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '40%', height: '50%', data: { title: "Cancellazione Area", content: "Desisderi cancellare l'area selezionata?" }
@@ -91,11 +81,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
       }
     ));
-
-    /*  this.dataSource.data = areaMokup;
-    console.log("data" + this.dataSource.data);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; */
   }
 
   private getPermissionAPI(): void {

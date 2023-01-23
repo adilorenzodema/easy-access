@@ -82,14 +82,6 @@ export class ModalFormAreaComponent implements OnInit,OnDestroy {
     }
   }
 
-  public onCancel(): void {
-    this.dialogRef.close(false);
-  }
-
-  public onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 }
 
 

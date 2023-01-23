@@ -9,7 +9,7 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <span><button mat-raised-button class="actionButton" color="primary" (click)="addArea()">Aggiungi</button></span>
+      <span><button mat-raised-button class="actionButton" color="primary" (click)="addEdit()">Aggiungi</button></span>
     </form>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -51,7 +51,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" style="text-align: end;">
           <button mat-icon-button><mat-icon style="color:#479AED">directions_car</mat-icon></button>
-          <button mat-icon-button><mat-icon style="color:#479AED" (click)="onEdit(element)">edit</mat-icon></button>
+          <button mat-icon-button><mat-icon style="color:#479AED" (click)="addEdit(element)">edit</mat-icon></button>
           <button mat-icon-button>
             <mat-icon style="color: red" (click)="onDelete(element.idArea)">delete</mat-icon></button>
         </td>
