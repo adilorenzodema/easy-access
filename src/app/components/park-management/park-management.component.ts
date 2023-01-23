@@ -48,20 +48,20 @@ export class ParkManagementComponent implements OnInit {
       (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
+        this.dataSource.sort = this.sort,
+        console.log(park)
       )
     );
   }
 
   public callGetAPIFiltered(): void {
     const keyword = this.search.get('ctrlSearch')?.value;
-    console.log(this.idArea),
     this.parkingService.getParkingById(keyword, this.idArea).subscribe(
       (park) => (
-        console.log(park),
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
+        this.dataSource.sort = this.sort,
+        console.log(park)
       )
     );
   }

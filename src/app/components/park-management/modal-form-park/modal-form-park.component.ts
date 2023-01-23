@@ -24,13 +24,13 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (this.data.idParcheggio) {
+    if (this.data.idPark) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlParkName: [this.data.nomeParcheggio, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCountry: [this.data.paese, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCity: [this.data.localita, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkName: [this.data.namePark, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCountry: [this.data.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCity: [this.data.locality, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkCAP: [this.data.cap, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
-        ctrlParkAddress: [this.data.indirizzo, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
+        ctrlParkAddress: [this.data.address, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
@@ -73,7 +73,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
         complete: () => this.dialogRef.close(true)
       });
     } else {
-      const idPark = this.data.idParcheggio;
+      const idPark = this.data.idPark;
       const name = this.inputUserForm.get('ctrlParkName')?.value;
       const country = this.inputUserForm.get('ctrlParkCountry')?.value;
       const city = this.inputUserForm.get('ctrlParkCity')?.value;
