@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  beUrl: 'http://192.168.1.2:8085/',
+  //beUrl: 'http://192.168.1.2:8085/',
+  beUrl: 'http://localhost:8080/',
   header: {
     imgSidebar: 'assets/images/movyon.png',
     title: 'Easy access'
