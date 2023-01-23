@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Area } from '../components/domain/class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AreaManagementService {
-  private apiURL = 'http://localhost:8080/api/easyaccess/gestionearea';
+  private apiURL = environment.beUrl + 'api/easyaccess/gestionearea';
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   getAreaList(keyword: string): Observable<Area[]> {

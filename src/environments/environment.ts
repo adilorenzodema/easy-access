@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  beUrl: 'http://localhost:8080/',
   header: {
     imgSidebar: 'assets/images/movyon.png',
     title: 'Easy access'

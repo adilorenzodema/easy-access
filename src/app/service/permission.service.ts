@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PermissionService {
-  private apiURL = "http://localhost:8080/auth";
+  private apiURL = environment.beUrl +  "auth";
 
 
   constructor(
