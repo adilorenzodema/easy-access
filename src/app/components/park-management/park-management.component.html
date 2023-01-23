@@ -42,7 +42,7 @@
                 <td mat-cell *matCellDef="let element" style="text-align: end;">
                     <button mat-icon-button><mat-icon style="color:#479AED">area_chart</mat-icon></button>
                     <button mat-icon-button><mat-icon style="color:#479AED" (click)="addEditPark(element)">edit</mat-icon></button>
-                    <button mat-icon-button><mat-icon style="color: red">delete</mat-icon></button>
+                    <button mat-icon-button><mat-icon style="color: red" (click)="deletePark(element.idParcheggio)">delete</mat-icon></button>
                 </td>
             </ng-container>
 

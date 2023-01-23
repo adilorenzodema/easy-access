@@ -40,6 +40,15 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  deletePark(idPark: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: this.getToken() })
+    };
+    return this.http.delete<void>(this.apiURL + '/deleteParcheggio', options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   private getToken(): string {
     return this.cookieService.get('Token');
   }
