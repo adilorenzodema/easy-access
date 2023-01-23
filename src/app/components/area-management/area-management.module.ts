@@ -8,6 +8,7 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { LibMaterialModule } from 'dema-movyon-template';
 
+
 @NgModule({
   declarations: [
     AreaManagementComponent,
@@ -20,7 +21,7 @@ import { LibMaterialModule } from 'dema-movyon-template';
     ReactiveFormsModule,
     LibMaterialModule,
     AreaManagementRoutingModule,
-    SharedComponentsModule
+    SharedComponentsModule,
   ]
 })
 export class AreaManagementModule { }

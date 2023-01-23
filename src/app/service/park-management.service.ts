@@ -22,6 +22,15 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  getParkingById(keyword: string, idArea: number): Observable<Park[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: this.getToken(), keyword: keyword })
+    };
+    return this.http.get<Park[]>(this.apiURL + '/getParksByIdArea/' + idArea , options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   addParking(park: Park): Observable<Park> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -45,7 +54,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken() })
     };
-    return this.http.delete<void>(this.apiURL + '/deleteParcheggio', options)
+    return this.http.delete<void>(this.apiURL + '/deleteParcheggio/' + idPark, options)
       .pipe(catchError(err => { throw err; }));
   }
 

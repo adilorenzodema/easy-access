@@ -9,6 +9,7 @@ import { ModalFormParkComponent } from './modal-form-park/modal-form-park.compon
 import { MatDialog } from '@angular/material/dialog';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-park-management',
@@ -21,27 +22,43 @@ export class ParkManagementComponent implements OnInit {
   public search!: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
   public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'modificationDate', 'action'];
-
   private subscription: Subscription[] = [];
+  private idArea!: number;
 
   constructor(
     private parkingService: ParkManagementService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private router: Router
+  ) {
+    this.idArea = this.router.getCurrentNavigation()?.extras.state?.['idArea'] as number;
+  }
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
       ctrlActive: [true]
     });
-    this.callGetAPI();
+    this.idArea ? this.callGetAPIFiltered() : this.callGetAPI();
   }
 
   public callGetAPI(): void {
     const keyword = this.search.get('ctrlSearch')?.value;
     this.parkingService.getParking(keyword).subscribe(
       (park) => (
+        this.dataSource.data = park,
+        this.dataSource.paginator = this.paginator,
+        this.dataSource.sort = this.sort
+      )
+    );
+  }
+
+  public callGetAPIFiltered(): void {
+    const keyword = this.search.get('ctrlSearch')?.value;
+    console.log(this.idArea),
+    this.parkingService.getParkingById(keyword, this.idArea).subscribe(
+      (park) => (
+        console.log(park),
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
         this.dataSource.sort = this.sort
