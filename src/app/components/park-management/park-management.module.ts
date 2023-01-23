@@ -6,11 +6,13 @@ import { ParkManagementComponent } from './park-management.component';
 import { LibMaterialModule } from 'dema-movyon-template';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
 
 
 @NgModule({
   declarations: [
-    ParkManagementComponent
+    ParkManagementComponent,
+    ModalFormParkComponent
   ],
   imports: [
     CommonModule,

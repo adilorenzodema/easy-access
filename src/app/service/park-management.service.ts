@@ -22,6 +22,15 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  addParking(park: Park): Observable<Park> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: this.getToken() })
+    };
+    return this.http.post<Park>(this.apiURL + '/addParcheggio', park, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   private getToken(): string {
     return this.cookieService.get('Token');
   }
