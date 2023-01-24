@@ -9,7 +9,7 @@ import { Area } from '../components/domain/class';
   providedIn: 'root'
 })
 export class AreaManagementService {
-  private apiURL = this.beUrl + 'gestionearea';
+  private apiURL = this.beUrl + 'areamanagement';
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
@@ -20,7 +20,7 @@ export class AreaManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken(), keyword: keyword })
     };
-    return this.http.get<Area[]>(this.apiURL + '/getAree', options)
+    return this.http.get<Area[]>(this.apiURL + '/getAreas', options)
       .pipe(catchError(err => { throw err; }));
   }
 

@@ -20,7 +20,7 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
 export class AreaManagementComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ['idArea', 'nomeArea', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
+  public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
   //public areaMokup: Area[] = areaMokup;
@@ -37,7 +37,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     this.search = this.formBuilder.group({
       ctrlSearch: ['']
     });
-    //console.log(areaMokup);
     this.callGetAPI();
   }
 
@@ -79,6 +78,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
         this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(this.dataSource.data );
       }
     ));
   }

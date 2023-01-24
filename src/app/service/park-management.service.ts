@@ -9,7 +9,7 @@ import { Park } from '../components/domain/class';
   providedIn: 'root'
 })
 export class ParkManagementService {
-  private apiURL = this.beUrl + 'gestioneparcheggio';
+  private apiURL = this.beUrl + 'parkmanagement';
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
@@ -20,7 +20,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken(), keyword: keyword })
     };
-    return this.http.get<Park[]>(this.apiURL + '/getParcheggi', options)
+    return this.http.get<Park[]>(this.apiURL + '/getParks', options)
       .pipe(catchError(err => { throw err; }));
   }
 
@@ -38,7 +38,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken() })
     };
-    return this.http.post<Park>(this.apiURL + '/addParcheggio', park, options)
+    return this.http.post<Park>(this.apiURL + '/addPark', park, options)
       .pipe(catchError(err => { throw err; }));
   }
 
@@ -47,7 +47,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken() })
     };
-    return this.http.post<Park>(this.apiURL + '/editParcheggio', park, options)
+    return this.http.post<Park>(this.apiURL + '/editPark', park, options)
       .pipe(catchError(err => { throw err; }));
   }
 
@@ -56,7 +56,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: this.getToken() })
     };
-    return this.http.delete<void>(this.apiURL + '/deleteParcheggio/' + idPark, options)
+    return this.http.delete<void>(this.apiURL + '/deletePark/' + idPark, options)
       .pipe(catchError(err => { throw err; }));
   }
 
