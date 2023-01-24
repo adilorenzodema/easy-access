@@ -1,17 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, of } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Area } from '../components/domain/class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AreaManagementService {
-  private apiURL = environment.beUrl + 'api/easyaccess/gestionearea';
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  private apiURL = this.beUrl + 'api/easyaccess/gestionearea';
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    @Inject('beUrl') private beUrl: string) { }
 
   getAreaList(keyword: string): Observable<Area[]> {
     const options = {
