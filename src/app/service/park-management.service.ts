@@ -9,7 +9,7 @@ import { Park } from '../components/domain/class';
   providedIn: 'root'
 })
 export class ParkManagementService {
-  private apiURL = this.beUrl + 'api/easyaccess/gestioneparcheggio';
+  private apiURL = this.beUrl + 'gestioneparcheggio';
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,

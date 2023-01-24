@@ -9,7 +9,7 @@ import { Area } from '../components/domain/class';
   providedIn: 'root'
 })
 export class AreaManagementService {
-  private apiURL = this.beUrl + 'api/easyaccess/gestionearea';
+  private apiURL = this.beUrl + 'gestionearea';
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
