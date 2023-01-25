@@ -20,11 +20,11 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
 export class AreaManagementComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @Output() messageEvent = new EventEmitter<string>();
   public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
   //public areaMokup: Area[] = areaMokup;
+  public areaName! : string;
   private subscription: Subscription[] = [];
 
   constructor(
@@ -47,9 +47,9 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     });
   }
 
-  public sendMessage(areaName: string): void{
-    console.log("area", areaName);
-    this.messageEvent.emit(areaName);
+  public sendTitle(areaName: string): void{
+    this.areaName = areaName;
+    console.log("Area:", this.areaName);
   }
 
   public addEdit(element?: Area): void {

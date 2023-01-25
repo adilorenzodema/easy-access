@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,34 +11,34 @@ import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AreaManagementComponent } from '../area-management/area-management.component';
-import { ChangeDetectionStrategy } from '@angular/compiler';
+import { state } from '@angular/animations';
+
 
 @Component({
   selector: 'app-park-management',
   templateUrl: './park-management.component.html',
   styleUrls: ['./park-management.component.css']
 })
-export class ParkManagementComponent implements OnInit, AfterViewInit {
+export class ParkManagementComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(AreaManagementComponent) areaName: any;
-  message = "";
+
   public search!: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
   public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'modificationDate', 'action'];
-  public title!: string;
+  public areaName: string;
+  public idArea!: number;
   private subscription: Subscription[] = [];
-  private idArea!: number;
 
 
   constructor(
     private parkingService: ParkManagementService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private router: Router,
-    private cd: ChangeDetectorRef
+    private router: Router
   ) {
     this.idArea = this.router.getCurrentNavigation()?.extras.state?.['idArea'] as number;
+    this.areaName = this.router.getCurrentNavigation()?.extras.state?.['areaName'] as string;
   }
 
   ngOnInit(): void {
@@ -50,18 +50,7 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       this.callGetAPIFiltered();
     } else {
       this.callGetAPI();
-      this.title = "Gestione Parcheggi";
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.title = "Parcheggi appartenenti all'area " + this.areaName.message;
-    this.cd.detectChanges();
-  }
-
-  receiveMessage($event: any): void {
-    console.log("Event", $event);
-    this.message = $event;
   }
 
   public callGetAPI(): void {
