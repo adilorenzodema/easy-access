@@ -4,6 +4,7 @@ import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, of } from 'rxjs';
 import { Area } from '../components/domain/class';
+import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AreaManagementService {
   getAreaList(keyword: string): Observable<Area[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: this.getToken(), keyword: keyword })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword })
     };
     return this.http.get<Area[]>(this.apiURL + '/getAreas', options)
       .pipe(catchError(err => { throw err; }));
@@ -27,7 +28,7 @@ export class AreaManagementService {
   addArea(area: Area): Observable<Area> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: this.getToken() })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<Area>(this.apiURL + '/addArea', area, options)
       .pipe(catchError(err => { throw err; }));
@@ -36,7 +37,7 @@ export class AreaManagementService {
   editArea(area: Area): Observable<Area> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: this.getToken() })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<Area>(this.apiURL + '/editArea', area, options)
       .pipe(catchError(err => { throw err; }));
@@ -45,13 +46,9 @@ export class AreaManagementService {
   deleteArea(idArea: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: this.getToken() })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<void>(this.apiURL + '/deleteArea/' + idArea, null, options)
       .pipe(catchError(err => { throw err; }));
-  }
-
-  private getToken(): string {
-    return this.cookieService.get('Token');
   }
 }

@@ -11,7 +11,7 @@
       </mat-form-field>
       <span><button mat-raised-button class="actionButton" color="primary" (click)="addEdit()">Aggiungi</button></span>
     </form>
-
+    <mat-progress-bar *ngIf="complete" mode="indeterminate"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <!-- Property binding: e nel ts, datasource ha l'array di elementi -->
       <!-- Position Column -->

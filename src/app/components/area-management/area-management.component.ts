@@ -24,6 +24,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
+  public complete = true;
   //public areaMokup: Area[] = areaMokup;
   private subscription: Subscription[] = [];
 
@@ -47,7 +48,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     });
   }
 
-  public sendMessage(areaName: string): void{
+  public sendMessage(areaName: string): void {
     console.log("area", areaName);
     this.messageEvent.emit(areaName);
   }
@@ -78,15 +79,17 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   }
 
   public callGetAPI(): void {
+    this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
-    this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe(
-      areas => {
+    this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe({
+      next: areas => {
         this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data );
-      }
-    ));
+      },
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    }));
   }
 
   private getPermissionAPI(): void {

@@ -61,4 +61,12 @@ export class Park {
   }
 }
 
+export class Gate {
+  idGate: number;
+  gateName: string;
+  constructor(idGate: number, gateName: string) {
+    this.idGate = idGate;
+    this.gateName = gateName;
+  }
+}
 

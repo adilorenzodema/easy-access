@@ -24,6 +24,11 @@ const routes: Routes = [
         path: 'parking-management',
         loadChildren: () => import("src/app/components/park-management/park-management.module").then(m => m.ParkManagementModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'gate-management',
+        loadChildren: () => import("src/app/components/gate-management/gate-management.module").then(m => m.GateManagementModule),
+        canActivate: [AuthGuard]
       }
     ]
   }
