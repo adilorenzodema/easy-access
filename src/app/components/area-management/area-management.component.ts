@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,6 +20,7 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
 export class AreaManagementComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @Output() messageEvent = new EventEmitter<string>();
   public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
@@ -44,6 +45,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     this.subscription.forEach(subscription => {
       subscription.unsubscribe();
     });
+  }
+
+  public sendMessage(areaName: string): void{
+    console.log("area", areaName);
+    this.messageEvent.emit(areaName);
   }
 
   public addEdit(element?: Area): void {

@@ -1,0 +1,46 @@
+{
+  "error": {
+    "login": "Username o password sbagliate",
+    "unknown": "Errore sconosciuto",
+    "generic": "Errore lato server",
+    "validation": "Errore nella validazione",
+    "notAllowed": "Utente non abilitato",
+    "token": {
+      "notFound": "Token non trovato",
+      "wrongFormat": "Formato token errato",
+      "expired": "Token scaduto"
+    },
+    "refreshToken": {
+      "expired": "Refresh token scaduto"
+    },
+    "session": {
+      "expired": "Sessione scaduta"
+    },
+    "user": {
+      "configurationError": "Errore nella configurazione utente",
+      "noMenuFound": "Menu non trovato",
+      "notFound": "Utente non trovato",
+      "notActive": "Utente non attivo",
+      "alreadyActivated": "Utente già attivato",
+      "alreadyDeactivated": "Utente già disattivato"
+    },
+    "profile": {
+      "notFound": "Profilo non trovato"
+    },
+    "email": {
+      "notFound": "Email non trovata"
+    },
+    "menuItem": {
+      "notFound": "Funzione non trovata"
+    },
+    "resetPassword": {
+      "matching": "Le password inserite non sono uguali",
+      "oldPassword": {
+        "notValid": "Password non valida"
+      },
+      "sendLink": {
+        "emailError": "Errore nell'invio mail"
+      }
+    }
+  }
+}

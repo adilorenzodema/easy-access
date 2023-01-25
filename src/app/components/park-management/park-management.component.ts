@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,26 +10,33 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { AreaManagementComponent } from '../area-management/area-management.component';
+import { ChangeDetectionStrategy } from '@angular/compiler';
 
 @Component({
   selector: 'app-park-management',
   templateUrl: './park-management.component.html',
   styleUrls: ['./park-management.component.css']
 })
-export class ParkManagementComponent implements OnInit {
+export class ParkManagementComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(AreaManagementComponent) areaName: any;
+  message = "";
   public search!: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
   public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'modificationDate', 'action'];
+  public title!: string;
   private subscription: Subscription[] = [];
   private idArea!: number;
+
 
   constructor(
     private parkingService: ParkManagementService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {
     this.idArea = this.router.getCurrentNavigation()?.extras.state?.['idArea'] as number;
   }
@@ -39,7 +46,22 @@ export class ParkManagementComponent implements OnInit {
       ctrlSearch: [''],
       ctrlActive: [true]
     });
-    this.idArea ? this.callGetAPIFiltered() : this.callGetAPI();
+    if (this.idArea) {
+      this.callGetAPIFiltered();
+    } else {
+      this.callGetAPI();
+      this.title = "Gestione Parcheggi";
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.title = "Parcheggi appartenenti all'area " + this.areaName.message;
+    this.cd.detectChanges();
+  }
+
+  receiveMessage($event: any): void {
+    console.log("Event", $event);
+    this.message = $event;
   }
 
   public callGetAPI(): void {
