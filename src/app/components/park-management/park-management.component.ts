@@ -59,8 +59,7 @@ export class ParkManagementComponent implements OnInit {
       (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort,
-        console.log(park)
+        this.dataSource.sort = this.sort
       )
     );
   }
@@ -71,8 +70,7 @@ export class ParkManagementComponent implements OnInit {
       (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort,
-        console.log(park)
+        this.dataSource.sort = this.sort
       )
     );
   }

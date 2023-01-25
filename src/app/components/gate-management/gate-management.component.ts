@@ -12,6 +12,7 @@ import { Gate } from '../domain/class';
 export class GateManagementComponent implements OnInit {
   public displayedColumns: string[] = ['idGate', 'gateName', 'action'];
   public dataSource = new MatTableDataSource<Gate>();
+  public complete = true;
 
   private subscription: Subscription[] = [];
 
@@ -22,8 +23,11 @@ export class GateManagementComponent implements OnInit {
   }
 
   public callGetAPI(): void {
-    this.subscription.push(this.gateService.getAllGates().subscribe(
-      (gates) => this.dataSource.data = gates
-    ));
+    this.complete = false;
+    this.subscription.push(this.gateService.getAllGates().subscribe({
+      next: (gates) => this.dataSource.data = gates,
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    }));
   }
 }

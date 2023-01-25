@@ -1,5 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <mat-card-title fxLayout="row">Gestione Varchi</mat-card-title>
+    <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
             <ng-container matColumnDef="idGate">
