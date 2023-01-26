@@ -9,7 +9,7 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <span><button mat-raised-button class="actionButton" color="primary" (click)="addEdit()">Aggiungi</button></span>
+      <span><button mat-raised-button class="actionButton" (click)="addEdit()">Aggiungi</button></span>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -50,10 +50,14 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" style="text-align: end;">
-          <button mat-icon-button><mat-icon style="color:#479AED" [routerLink]="['/parking-management']" [state]="{idArea: element.idArea, areaName: element.areaName}">directions_car</mat-icon></button>
-          <button mat-icon-button><mat-icon style="color:#479AED" (click)="addEdit(element)">edit</mat-icon></button>
+          <button mat-icon-button><mat-icon style="color:#479AED" matTooltip="parcheggi associati"
+              [routerLink]="['/parking-management']"
+              [state]="{idArea: element.idArea, areaName: element.areaName}">directions_car</mat-icon></button>
+          <button mat-icon-button><mat-icon style="color:#479AED" matTooltip="modifica"
+              (click)="addEdit(element)">edit</mat-icon></button>
           <button mat-icon-button>
-            <mat-icon style="color: red" (click)="onDelete(element.idArea)">delete</mat-icon></button>
+            <mat-icon style="color: red" matTooltip="cancella"
+              (click)="onDelete(element.idArea)">delete</mat-icon></button>
         </td>
       </ng-container>
 

@@ -1,17 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ParkManagementService } from 'src/app/service/park-management.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ParkManagementService } from 'src/app/service/park-management.service';
+import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Park } from '../domain/class';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { AreaManagementComponent } from '../area-management/area-management.component';
-import { state } from '@angular/animations';
 
 
 @Component({
@@ -28,6 +26,7 @@ export class ParkManagementComponent implements OnInit {
   public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'modificationDate', 'action'];
   public areaName: string;
   public idArea!: number;
+  public complete = true;
   private subscription: Subscription[] = [];
 
 
@@ -54,32 +53,38 @@ export class ParkManagementComponent implements OnInit {
   }
 
   public callGetAPI(): void {
+    this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
-    this.parkingService.getParking(keyword).subscribe(
-      (park) => (
+    this.parkingService.getParking(keyword).subscribe({
+      next: (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
         this.dataSource.sort = this.sort
-      )
-    );
+      ),
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    });
   }
 
   public callGetAPIFiltered(): void {
+    this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
-    this.parkingService.getParkingById(keyword, this.idArea).subscribe(
-      (park) => (
+    this.parkingService.getParkingById(keyword, this.idArea).subscribe({
+      next: (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
         this.dataSource.sort = this.sort
-      )
-    );
+      ),
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    });
   }
 
   public addEditPark(park?: Park): void {
-    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '50%', data: park ? park : '' });
+    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '65%', data: park ? park : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
-        if (result) { this.callGetAPI(); };
+        if (result) { this.idArea ? this.callGetAPIFiltered() : this.callGetAPI(); };
       }
     );
   }
@@ -87,7 +92,11 @@ export class ParkManagementComponent implements OnInit {
   public deletePark(parkId: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
-        width: '40%', height: '50%', data: { title: "Cancellazione parcheggio", content: "Desisderi cancellare il parcheggio selezionato?" }
+        width: '30%', height: '30%',
+        data: {
+          title: "Cancellazione parcheggio", content: "Desisderi cancellare il parcheggio selezionato?"
+        },
+        autoFocus: false
       }
     );
     dialogRef.afterClosed().subscribe(
