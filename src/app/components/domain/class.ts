@@ -64,9 +64,11 @@ export class Park {
 export class Gate {
   idGate?: number;
   gateName: string;
-  constructor(gateName: string, idGate?: number) {
+  idPark: number;
+  constructor(gateName: string, idPark: number, idGate?: number) {
     if (idGate) this.idGate = idGate;
     this.gateName = gateName;
+    this.idPark = idPark;
   }
 }
 

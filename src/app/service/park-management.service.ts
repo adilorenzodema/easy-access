@@ -57,7 +57,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.delete<void>(this.apiURL + '/deletePark/' + idPark, options)
+    return this.http.post<void>(this.apiURL + '/deletePark/' + idPark, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 

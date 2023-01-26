@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GateService } from 'src/app/service/gate.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
@@ -23,19 +24,29 @@ export class GateManagementComponent implements OnInit {
   public dataSource = new MatTableDataSource<Gate>();
   public complete = true;
   public search!: FormGroup;
+  public idPark: number;
+  public namePark: string;
 
   private subscription: Subscription[] = [];
 
   constructor(
     private gateService: GateService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private router: Router) {
+    this.idPark = this.router.getCurrentNavigation()?.extras.state?.['idPark'] as number;
+    this.namePark = this.router.getCurrentNavigation()?.extras.state?.['namePark'] as string;
+  }
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: ['']
     });
-    this.callGetAPI();
+    if (this.idPark) {
+      this.callGetAPIFiltered();
+    } else {
+      this.callGetAPI();
+    }
   }
 
   public callGetAPI(): void {
@@ -49,6 +60,20 @@ export class GateManagementComponent implements OnInit {
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));
+  }
+
+  public callGetAPIFiltered(): void {
+    this.complete = false;
+    const keyword = this.search.get('ctrlSearch')?.value;
+    this.gateService.getGateByPark(this.idPark).subscribe({
+      next: (gate) => (
+        this.dataSource.data = gate,
+        this.dataSource.paginator = this.paginator,
+        this.dataSource.sort = this.sort
+      ),
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    });
   }
 
   public addEditGate(gate?: Gate): void {

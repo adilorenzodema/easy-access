@@ -26,6 +26,15 @@ export class GateService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  getGateByPark(idPark: number): Observable<Gate[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<Gate[]>(this.apiURL + '/getGatesByIdPark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   addGate(gate: Gate): Observable<Gate> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -49,7 +58,7 @@ export class GateService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.delete<void>(this.apiURL + '/deleteGate/' + idGate, options)
+    return this.http.post<void>(this.apiURL + '/deleteGate/' + idGate, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 }
