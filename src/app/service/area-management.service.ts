@@ -25,6 +25,15 @@ export class AreaManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  getAreasByIdPark(idPark: number): Observable<Area[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<Area[]>(this.apiURL + '/getAreasByIdPark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   addArea(area: Area): Observable<Area> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

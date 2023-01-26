@@ -1,15 +1,15 @@
-import { Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
-import { Area } from '../domain/class';
-//import { areaMokup } from 'src/app/service/mokup/mokup';
 import { PermissionService } from 'src/app/service/permission.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
+import { Area } from '../domain/class';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
 
 @Component({
@@ -24,7 +24,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
   public complete = true;
-  //public areaMokup: Area[] = areaMokup;
+  public idPark: number;
+  public namePark: string;
   public areaName!: string;
   private subscription: Subscription[] = [];
 
@@ -32,14 +33,21 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     private areaManagementService: AreaManagementService,
     private permissionService: PermissionService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private router: Router) {
+    this.idPark = this.router.getCurrentNavigation()?.extras.state?.['idPark'] as number;
+    this.namePark = this.router.getCurrentNavigation()?.extras.state?.['namePark'] as string;
   }
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: ['']
     });
-    this.callGetAPI();
+    if (this.idPark) {
+      this.callGetAPIFiltered();
+    } else {
+      this.callGetAPI();
+    }
   }
 
   ngOnDestroy(): void {
@@ -79,6 +87,20 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
     this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe({
+      next: areas => {
+        this.dataSource.data = areas;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    }));
+  }
+
+  public callGetAPIFiltered(): void {
+    this.complete = false;
+    const keyword = this.search.get('ctrlSearch')?.value;
+    this.subscription.push(this.areaManagementService.getAreasByIdPark(this.idPark).subscribe({
       next: areas => {
         this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;

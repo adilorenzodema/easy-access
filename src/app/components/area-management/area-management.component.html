@@ -1,11 +1,11 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-  <mat-card-title fxLayout="row">Gestione Aree</mat-card-title>
+  <app-title-area [namePark]="namePark" [idPark]="idPark"></app-title-area>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
       <mat-form-field appearance="outline" fxFlex="100">
         <mat-label>cerca</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-        <button matPrefix mat-icon-button (click)="callGetAPI()">
+        <button matPrefix mat-icon-button (click)="idPark ? callGetAPIFiltered() : callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
