@@ -5,9 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { PagePermissionService } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
-import { PermissionService } from 'src/app/service/permission.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Area } from '../domain/class';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
@@ -31,7 +31,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
 
   constructor(
     private areaManagementService: AreaManagementService,
-    private permissionService: PermissionService,
+    private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private router: Router) {
@@ -48,6 +48,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     } else {
       this.callGetAPI();
     }
+    this.getPermissionAPI();
   }
 
   ngOnDestroy(): void {

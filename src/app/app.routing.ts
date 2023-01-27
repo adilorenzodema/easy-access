@@ -29,6 +29,11 @@ const routes: Routes = [
         path: 'gate-management',
         loadChildren: () => import("src/app/components/gate-management/gate-management.module").then(m => m.GateManagementModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'permission-management',
+        loadChildren: () => import("src/app/components/permission-management/permission-routing.module").then(m => m.PermissionRoutingModule),
+        canActivate: [AuthGuard]
       }
     ]
   }
