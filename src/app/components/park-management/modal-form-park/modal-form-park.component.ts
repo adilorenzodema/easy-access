@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { Park } from 'src/app/components/domain/class';
 import { ParkManagementService } from 'src/app/service/park-management.service';
@@ -20,7 +20,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: Park,
     private formBuilder: FormBuilder,
     private parkManagementService: ParkManagementService,
-    private snackBar: MatSnackBar
+    private snackBar: SnackBar
   ) { }
 
   ngOnInit(): void {
@@ -60,15 +60,10 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
       this.parkManagementService.addParking(formParkAdd).subscribe({
         next: (data: Park) => {
           console.log(data);
-          this.snackBar.open("Parcheggio inserito!", "X", {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'INFO'
-          });
+          this.snackBar.showMessage("Parcheggio inserito!", 'INFO');
         },
         error: () => {
-          this.snackBar.open("Errore!", "X");
+          this.snackBar.showMessage("Errore!", 'ERROR');
         },
         complete: () => this.dialogRef.close(true)
       });
@@ -82,16 +77,10 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
       const formParkEdit = new Park(name, country, city, CAP, address, idPark);
       this.parkManagementService.editParking(formParkEdit).subscribe({
         next: (data: Park) => {
-          console.log(data);
-          this.snackBar.open("Parcheggio modificato!", "X", {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'INFO'
-          });
+          this.snackBar.showMessage("Parcheggio modificato!", 'INFO');
         },
         error: () => {
-          this.snackBar.open("Errore!", "X");
+          this.snackBar.showMessage("Errore!", 'ERROR');
         },
         complete: () => this.dialogRef.close(true)
       });

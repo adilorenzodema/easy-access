@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { Gate, Park } from 'src/app/components/domain/class';
 import { GateService } from 'src/app/service/gate.service';
@@ -22,14 +22,14 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private gateService: GateService,
     private parkService: ParkManagementService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBar,
     @Inject(MAT_DIALOG_DATA) public data: Gate
   ) { }
 
   ngOnInit(): void {
-    if (this.data.gateName) {
+    if (this.data.gateDescription) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlGateName: [this.data.gateName, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkId: [this.data.idPark, Validators.required]
       });
     } else {
@@ -56,15 +56,10 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     if (isAdd) {
       this.gateService.addGate(formGateAdd).subscribe({
         next: (data: Gate) => {
-          this.snackBar.open("Varco inserito!", "X", {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'INFO'
-          });
+          this.snackBar.showMessage("Varco inserito!", 'INFO');
         },
         error: () => {
-          this.snackBar.open("Errore!", "X");
+          this.snackBar.showMessage("Errore!", 'ERROR');
         },
         complete: () => this.dialogRef.close(true)
       });
@@ -75,15 +70,10 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const formGateEdit = new Gate(name, idPark, idGate);
       this.gateService.editGate(formGateEdit).subscribe({
         next: (data: Gate) => {
-          this.snackBar.open("Varco modificato!", "X", {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'INFO'
-          });
+          this.snackBar.showMessage("Varco modificato!", 'INFO');
         },
         error: () => {
-          this.snackBar.open("Errore!", "X");
+          this.snackBar.showMessage("Errore!", 'ERROR');
         },
         complete: () => this.dialogRef.close(true)
       });

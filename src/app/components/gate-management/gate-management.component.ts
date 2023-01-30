@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { GateService } from 'src/app/service/gate.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
@@ -20,7 +21,7 @@ import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.compon
 export class GateManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ['idGate', 'gateName', 'action'];
+  public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate', 'action'];
   public dataSource = new MatTableDataSource<Gate>();
   public complete = true;
   public search!: FormGroup;
@@ -32,6 +33,7 @@ export class GateManagementComponent implements OnInit {
   constructor(
     private gateService: GateService,
     private formBuilder: FormBuilder,
+    private snackBar: SnackBar,
     private dialog: MatDialog,
     private router: Router) {
     this.idPark = this.router.getCurrentNavigation()?.extras.state?.['idPark'] as number;
@@ -89,16 +91,18 @@ export class GateManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Cancellazione parcheggio", content: "Desisderi cancellare il parcheggio selezionato?" },
+        data: { title: "Cancellazione parcheggio", content: "Desideri cancellare il parcheggio selezionato?" },
         autoFocus: false
       }
     );
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.gateService.deleteGate(gateId).subscribe(
-            () => this.callGetAPI()
-          ));
+          this.subscription.push(this.gateService.deleteGate(gateId).subscribe({
+            next: () => this.callGetAPI(),
+            error: () => this.snackBar.showMessage('Errore nella rimozione', "ERROR"),
+            complete: () => this.snackBar.showMessage('Varco rimosso', "INFO")
+          }));
         }
       });
   }

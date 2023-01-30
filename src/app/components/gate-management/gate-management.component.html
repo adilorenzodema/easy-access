@@ -19,9 +19,14 @@
                 <td mat-cell *matCellDef="let element"> {{element.idGate}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="gateName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Nome </th>
-                <td mat-cell *matCellDef="let element"> {{element.gateName}} </td>
+            <ng-container matColumnDef="gateDescription">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Descrizione </th>
+                <td mat-cell *matCellDef="let element"> {{element.gateDescription}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="parkAssociate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Parcheggio associato </th>
+                <td mat-cell *matCellDef="let element"> {{element.park.nomeParcheggio}} </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
