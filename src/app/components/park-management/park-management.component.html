@@ -9,7 +9,8 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <span><button mat-raised-button class="actionButton" (click)="addEditPark()">Aggiungi</button></span>
+      <button mat-raised-button class="actionButton" *ngIf="idArea" [routerLink]="'../area-management'">Indietro</button>
+      <button mat-raised-button class="actionButton" (click)="addEditPark()">Aggiungi</button>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort [style.display]="dataSource.data.length === 0 ? 'none' : ''">
