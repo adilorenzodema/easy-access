@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { GateService } from 'src/app/service/gate.service';
+import { GateService } from 'src/app/service/gate-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Gate } from '../domain/class';
 import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.component';

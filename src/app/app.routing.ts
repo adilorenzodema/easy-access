@@ -32,7 +32,12 @@ const routes: Routes = [
       },
       {
         path: 'permission-management',
-        loadChildren: () => import("src/app/components/permission-management/permission-routing.module").then(m => m.PermissionRoutingModule),
+        loadChildren: () => import("src/app/components/permission-management/permission.module").then(m => m.PermissionModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'transit-management',
+        loadChildren: () => import("src/app/components/transit-management/transit-management.module").then(m => m.TransitManagementModule),
         canActivate: [AuthGuard]
       }
     ]
