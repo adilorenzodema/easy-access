@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { Permission } from '../components/domain/interface';
+import { Permission } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({

@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
-import { Permission } from '../domain/interface';
+import { Permission } from '../../domain/interface';
 
 @Component({
   selector: 'app-permission-management',

@@ -1,6 +1,6 @@
-import { User } from "src/app/components/domain/class";
-import { UserPermission } from "src/app/components/domain/interface";
-import { Area } from "src/app/components/domain/class";
+import { User } from "src/app/domain/class";
+import { UserPermission } from "src/app/domain/interface";
+import { Area } from "src/app/domain/class";
 
 /* export const areaMokup: Area[] = [
   {

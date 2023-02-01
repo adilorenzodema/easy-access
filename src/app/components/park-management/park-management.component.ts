@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Park } from '../domain/class';
+import { Park } from '../../domain/class';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
 
 

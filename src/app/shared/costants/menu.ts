@@ -1,4 +1,4 @@
-import { Menu } from "src/app/components/domain/interface";
+import { Menu } from "src/app/domain/interface";
 
 export const MENUITEMS: Menu[] = [
   {

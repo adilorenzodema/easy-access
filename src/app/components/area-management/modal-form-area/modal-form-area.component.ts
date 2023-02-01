@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { Area } from 'src/app/components/domain/class';
+import { Area } from 'src/app/domain/class';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 
 @Component({

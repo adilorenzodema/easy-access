@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { Gate, Park } from 'src/app/components/domain/class';
+import { Gate, Park } from 'src/app/domain/class';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 

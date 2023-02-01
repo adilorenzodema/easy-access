@@ -9,7 +9,7 @@ import { PagePermissionService } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Area } from '../domain/class';
+import { Area } from '../../domain/class';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
 
 @Component({
