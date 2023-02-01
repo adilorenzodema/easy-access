@@ -16,10 +16,10 @@ export class AreaManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getAreaList(keyword: string): Observable<Area[]> {
+  getAreaList(keyword: string, isActive: boolean): Observable<Area[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword, active: isActive })
     };
     return this.http.get<Area[]>(this.apiURL + '/getAreas', options)
       .pipe(catchError(err => { throw err; }));

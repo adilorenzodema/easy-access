@@ -42,7 +42,8 @@ export class GateManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
-      ctrlSearch: ['']
+      ctrlSearch: [''],
+      ctrlActive: [true]
     });
     if (this.idPark) {
       this.callGetAPIFiltered();
@@ -53,7 +54,9 @@ export class GateManagementComponent implements OnInit {
 
   public callGetAPI(): void {
     this.complete = false;
-    this.subscription.push(this.gateService.getAllGates().subscribe({
+    const keyword = this.search.get('ctrlSearch')?.value;
+    const isActive = this.search.get('ctrlActive')?.value;
+    this.subscription.push(this.gateService.getAllGates(keyword, isActive).subscribe({
       next: (gates) => (
         this.dataSource.data = gates,
         this.dataSource.sort = this.sort,

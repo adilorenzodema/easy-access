@@ -55,7 +55,8 @@ export class ParkManagementComponent implements OnInit {
   public callGetAPI(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
-    this.parkingService.getParking(keyword).subscribe({
+    const isActive = this.search.get('ctrlActive')?.value;
+    this.parkingService.getParking(keyword, isActive).subscribe({
       next: (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,

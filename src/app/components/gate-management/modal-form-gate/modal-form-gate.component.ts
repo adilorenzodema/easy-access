@@ -33,7 +33,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
         ctrlParkId: [this.data.idPark, Validators.required]
       });
     } else {
-      this.subscription.push(this.parkService.getParking('').subscribe(
+      this.subscription.push(this.parkService.getParking('', true).subscribe(
         (parks) => this.parks = parks
       ));
       this.inputUserForm = this.formBuilder.group({

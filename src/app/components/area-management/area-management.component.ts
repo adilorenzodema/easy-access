@@ -41,7 +41,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
-      ctrlSearch: ['']
+      ctrlSearch: [''],
+      ctrlActive: [true]
     });
     if (this.idPark) {
       this.callGetAPIFiltered();
@@ -87,7 +88,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   public callGetAPI(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
-    this.subscription.push(this.areaManagementService.getAreaList(keyword).subscribe({
+    const isActive = this.search.get('ctrlActive')?.value;
+    this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe({
       next: areas => {
         this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;

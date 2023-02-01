@@ -16,10 +16,10 @@ export class ParkManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getParking(keyword: string): Observable<Park[]> {
+  getParking(keyword: string, isActive: boolean): Observable<Park[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword, active: isActive })
     };
     return this.http.get<Park[]>(this.apiURL + '/getParks', options)
       .pipe(catchError(err => { throw err; }));
