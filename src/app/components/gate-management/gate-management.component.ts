@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { GateService } from 'src/app/service/gate-management.service';
+import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Gate } from '../../domain/class';
+import { Gate, Park } from '../../domain/class';
 import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.component';
 
 @Component({
@@ -28,6 +29,7 @@ export class GateManagementComponent implements OnInit {
   public idPark: number;
   public namePark: string;
 
+  private parks: Park[] = [];
   private subscription: Subscription[] = [];
 
   constructor(
@@ -90,11 +92,11 @@ export class GateManagementComponent implements OnInit {
     );
   }
 
-  public deletePark(gateId: number): void {
+  public deleteGate(gateId: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Cancellazione parcheggio", content: "Desideri cancellare il parcheggio selezionato?" },
+        data: { title: "Cancellazione varco", content: "Desideri cancellare il varco selezionato?" },
         autoFocus: false
       }
     );

@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBar } from 'dema-movyon-template';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { Gate, Park } from 'src/app/domain/class';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ParkManagementService } from 'src/app/service/park-management.service';
@@ -27,15 +27,15 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (this.data.gateDescription) {
+    this.subscription.push(this.parkService.getParking('', true).subscribe(
+      (respParks) => this.parks = respParks
+    ));
+    if (this.data) {
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkId: [this.data.idPark, Validators.required]
+        ctrlParkId: [this.data.park?.idPark, Validators.required]
       });
     } else {
-      this.subscription.push(this.parkService.getParking('', true).subscribe(
-        (parks) => this.parks = parks
-      ));
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkId: [null, Validators.required]
@@ -50,12 +50,12 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(isAdd: boolean): void {
-    const name = this.inputUserForm.get('ctrlGateName')?.value;
-    const idPark = this.inputUserForm.get('ctrlParkId')?.value;
-    const formGateAdd = new Gate(name, idPark);
     if (isAdd) {
+      const name = this.inputUserForm.get('ctrlGateName')?.value;
+      const idPark = this.inputUserForm.get('ctrlParkId')?.value;
+      const formGateAdd = new Gate(name, idPark);
       this.gateService.addGate(formGateAdd).subscribe({
-        next: (data: Gate) => {
+        next: () => {
           this.snackBar.showMessage("Varco inserito!", 'INFO');
         },
         error: () => {
@@ -66,10 +66,10 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     } else {
       const idGate = this.data.idGate;
       const name = this.inputUserForm.get('ctrlGateName')?.value;
-      const idPark = this.inputUserForm.get('ctrlParkId')?.value;
-      const formGateEdit = new Gate(name, idPark, idGate);
+      const park = this.inputUserForm.get('ctrlParkId')?.value;
+      const formGateEdit = new Gate(name, idGate, park);
       this.gateService.editGate(formGateEdit).subscribe({
-        next: (data: Gate) => {
+        next: () => {
           this.snackBar.showMessage("Varco modificato!", 'INFO');
         },
         error: () => {

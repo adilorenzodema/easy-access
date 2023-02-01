@@ -1,4 +1,4 @@
-import { User } from "./class";
+import { Gate, User } from "./class";
 
 
 export interface Menu {
@@ -17,15 +17,15 @@ export interface UserPermission {
 }
 
 export interface Transit {
-  idTransito: number;
-  codiceObu: string;
-  dataImpegno: Date;
+  idTransit: number;
+  codeObu: string;
+  idGate: Gate;
+  startDate: Date;
   flagAcknowledge: boolean;
-  tipoValidazione: string;
-  flagTransitato: boolean;
-  dataDisattivazione: Date;
-  idUserDisattivazione: number;
-  dataDisimpegno: Date;
+  validationType: string;
+  nackReason: string;
+  flagPassed: boolean;
+  endDate: Date;
   creationUser: number;
   creationDate: Date;
 }

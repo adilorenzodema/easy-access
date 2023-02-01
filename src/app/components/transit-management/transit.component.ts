@@ -17,7 +17,7 @@ import { Transit } from '../../domain/interface';
 export class TransitComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  public displayedColumns: string[] = ['idTransito', 'codiceObu'];
+  public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate'];
   public dataSource = new MatTableDataSource<Transit>();
   public start = moment(moment.now()).subtract(2, 'day');
   public end = moment(moment.now());
@@ -37,18 +37,20 @@ export class TransitComponent implements OnInit {
   }
 
   public callGetAPI(): void {
-    this.complete = false;
-    const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD');
-    const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD');
-    this.subscription.push(this.transitService.getTransitList(start, end).subscribe({
-      next: transit => {
-        this.dataSource.data = transit;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: () => this.complete = true,
-      complete: () => this.complete = true
-    }));
+    if (!this.formGroup.invalid) {
+      this.complete = false;
+      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD');
+      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD');
+      this.subscription.push(this.transitService.getTransitList(start, end).subscribe({
+        next: transit => {
+          this.dataSource.data = transit;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        },
+        error: () => this.complete = true,
+        complete: () => this.complete = true
+      }));
+    }
   }
 
 }

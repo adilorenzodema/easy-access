@@ -6,12 +6,39 @@
                 <mat-label>scegli un range di ricerca</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate formControlName="start">
-                    <input matEndDate formControlName="end">
+                    <input matEndDate formControlName="end" (dateChange)="callGetAPI()">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
                 <mat-error>errore nel range inserito </mat-error>
             </mat-form-field>
         </form>
+        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+            [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+            
+            <ng-container matColumnDef="idTransit">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.idTransit}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="codeObu">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Obu </th>
+                <td mat-cell *matCellDef="let element"> {{element.codeObu}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Data inizio </th>
+                <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+        </mat-paginator>
+        <div *ngIf="dataSource.data.length === 0"> nessun transito presente</div>
     </mat-card-content>
 </mat-card>

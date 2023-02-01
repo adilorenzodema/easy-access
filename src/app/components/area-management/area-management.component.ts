@@ -103,6 +103,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   public callGetAPIFiltered(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
+    const isActive = this.search.get('ctrlActive')?.value;
     this.subscription.push(this.areaManagementService.getAreasByIdPark(this.idPark).subscribe({
       next: areas => {
         this.dataSource.data = areas;
