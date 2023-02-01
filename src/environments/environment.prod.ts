@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
+  configFile: 'assets/config/config-app.json',
   header: {
-    imgSidebar: 'assets/images/logo-dema.png',
-    title: 'Template gui'
-  },
+    imgSidebar: 'assets/images/movyon.png',
+    title: 'Easy access'
+  }
 };
