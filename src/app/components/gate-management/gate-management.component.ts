@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,10 +8,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
+import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
-import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Gate, Park } from '../../domain/class';
+import { Park } from '../../domain/class';
 import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.component';
 
 @Component({
@@ -19,7 +19,7 @@ import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.compon
   templateUrl: './gate-management.component.html',
   styleUrls: ['./gate-management.component.css']
 })
-export class GateManagementComponent implements OnInit {
+export class GateManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate', 'action'];
@@ -52,6 +52,12 @@ export class GateManagementComponent implements OnInit {
     } else {
       this.callGetAPI();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(
+      (sub) => sub.unsubscribe()
+    );
   }
 
   public callGetAPI(): void {

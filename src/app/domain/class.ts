@@ -1,12 +1,3 @@
-export class LoginUser {
-  email: string;
-  password: string;
-
-  constructor(email: string, password: string) {
-    this.email = email;
-    this.password = password;
-  }
-}
 
 export class User {
   userId?: number;
@@ -58,17 +49,6 @@ export class Park {
     this.cap = cap;
     this.address = address;
     if (idPark) this.idPark = idPark;
-  }
-}
-
-export class Gate {
-  idGate?: number;
-  park?: Park;
-  gateDescription: string;
-  constructor(gateDescription: string, idGate?: number, park?: Park) {
-    if (idGate) this.idGate = idGate;
-    if (park) this.park = park;
-    this.gateDescription = gateDescription;
   }
 }
 

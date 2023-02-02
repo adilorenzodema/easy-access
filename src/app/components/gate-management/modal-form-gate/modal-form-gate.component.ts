@@ -2,8 +2,9 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBar } from 'dema-movyon-template';
-import { firstValueFrom, Subscription } from 'rxjs';
-import { Gate, Park } from 'src/app/domain/class';
+import { Subscription } from 'rxjs';
+import { Park } from 'src/app/domain/class';
+import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 
@@ -32,12 +33,12 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     ));
     if (this.data) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]],
         ctrlParkId: [this.data.park?.idPark, Validators.required]
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
-        ctrlGateName: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlGateName: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]],
         ctrlParkId: [null, Validators.required]
       });
     }
@@ -51,32 +52,24 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
 
   public onSubmit(isAdd: boolean): void {
     if (isAdd) {
-      const name = this.inputUserForm.get('ctrlGateName')?.value;
-      const idPark = this.inputUserForm.get('ctrlParkId')?.value;
-      const formGateAdd = new Gate(name, idPark);
-      this.gateService.addGate(formGateAdd).subscribe({
+      const gateName = this.inputUserForm.get('ctrlGateName')?.value;
+      const parkId = this.inputUserForm.get('ctrlParkId')?.value;
+      this.subscription.push(this.gateService.addGate(gateName, parkId).subscribe({
         next: () => {
           this.snackBar.showMessage("Varco inserito!", 'INFO');
         },
-        error: () => {
-          this.snackBar.showMessage("Errore!", 'ERROR');
-        },
         complete: () => this.dialogRef.close(true)
-      });
+      }));
     } else {
       const idGate = this.data.idGate;
-      const name = this.inputUserForm.get('ctrlGateName')?.value;
-      const park = this.inputUserForm.get('ctrlParkId')?.value;
-      const formGateEdit = new Gate(name, idGate, park);
-      this.gateService.editGate(formGateEdit).subscribe({
+      const gateName = this.inputUserForm.get('ctrlGateName')?.value;
+      const parkId = this.inputUserForm.get('ctrlParkId')?.value;
+      this.subscription.push(this.gateService.editGate(gateName, idGate, parkId).subscribe({
         next: () => {
           this.snackBar.showMessage("Varco modificato!", 'INFO');
         },
-        error: () => {
-          this.snackBar.showMessage("Errore!", 'ERROR');
-        },
         complete: () => this.dialogRef.close(true)
-      });
+      }));
     }
   }
 

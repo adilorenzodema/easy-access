@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { Gate } from '../domain/class';
+import { Gate } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -35,21 +35,21 @@ export class GateService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  addGate(gate: Gate): Observable<Gate> {
+  addGate(gateName: string, parkId: number): Observable<Gate> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<Gate>(this.apiURL + '/addGate', gate, options)
+    return this.http.post<Gate>(this.apiURL + '/addGate', {gateName: gateName, parkId: parkId}, options)
       .pipe(catchError(err => { throw err; }));
   }
 
-  editGate(gate: Gate): Observable<Gate> {
+  editGate(gateName: string, gateId: number, parkId: number): Observable<Gate> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<Gate>(this.apiURL + '/editGate', gate, options)
+    return this.http.post<Gate>(this.apiURL + '/editGate', {gateName: gateName, idGate: gateId, parkId: parkId}, options)
       .pipe(catchError(err => { throw err; }));
   }
 

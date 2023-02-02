@@ -3,24 +3,27 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { PermissionManagementService } from 'src/app/service/permission-management.service';
-import { Permission } from '../../domain/interface';
+import { PermissionType } from 'src/app/domain/interface';
+import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
 
 @Component({
-  selector: 'app-permission-management',
-  templateUrl: './permission-management.component.html',
-  styleUrls: ['./permission-management.component.css']
+  selector: 'app-permission-type',
+  templateUrl: './permission-type.component.html',
+  styles: [
+  ]
 })
-export class PermissionManagementComponent implements OnInit, OnDestroy {
+export class PermissionTypeComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   public complete = true;
-  public dataSource = new MatTableDataSource<Permission>();
-  public displayedColumns: string[] = ['idPermesso', 'codiceObu', 'descrizionePermesso'];
+  public dataSource = new MatTableDataSource<PermissionType>();
+  public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso'];
 
   private subscription: Subscription[] = [];
 
-  constructor(private permissionService: PermissionManagementService) { }
+  constructor(
+    private permissionTypeService: PermissionTypeManagementService
+  ) { }
 
   ngOnInit(): void {
     this.callGetAPI();
@@ -34,15 +37,15 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
 
   public callGetAPI(): void {
     this.complete = false;
-    this.subscription.push(this.permissionService.getPermission().subscribe({
-      next: (permission) => (
-        this.dataSource.data = permission,
+    this.permissionTypeService.getPermissionType().subscribe({
+      next: (park) => (
+        this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
         this.dataSource.sort = this.sort
       ),
       error: () => this.complete = true,
       complete: () => this.complete = true
-    }));
+    });
   }
 
 }

@@ -39,7 +39,13 @@ const routes: Routes = [
         path: 'transit-management',
         loadChildren: () => import("src/app/components/transit-management/transit-management.module").then(m => m.TransitManagementModule),
         canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: 'permission-type-management',
+        loadChildren:
+          () => import("src/app/components/permission-type-management/permission-type-management.module").then(m => m.PermissionTypeManagementModule),
+        canActivate: [AuthGuard]
+      },
     ]
   }
 ];

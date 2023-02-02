@@ -1,4 +1,4 @@
-import { Gate, User } from "./class";
+import { Park, User } from "./class";
 
 
 export interface Menu {
@@ -47,7 +47,8 @@ export interface Permission {
 }
 
 export interface PermissionType {
-  descrizioneTipoPermesso: string;
+  idPermissionType: number;
+  permissionTypeDesc: string;
   creationUser: number;
   creationDate: Date;
   modificationUser: number;
@@ -58,6 +59,25 @@ export interface Obu {
   codiceObu: string;
   nomeRiferimentoObu: string;
   targa: string;
+  creationUser: number;
+  creationDate: Date;
+  modificationUser: number;
+  modificationDate: Date;
+}
+
+export interface Gate {
+  idGate: number;
+  park: Park;
+  gateDescription: string;
+  flagActive: boolean;
+  gateDirection: string;
+  gateType: string;
+  ipAntenna: string;
+  portAntenna: number;
+  userAntenna: string;
+  passwordAntenna: string;
+  idUserDeactivation: number;
+  deactivationDate: Date;
   creationUser: number;
   creationDate: Date;
   modificationUser: number;
