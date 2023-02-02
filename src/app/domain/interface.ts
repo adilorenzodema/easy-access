@@ -31,18 +31,18 @@ export interface Transit {
 }
 
 export interface Permission {
-  idPermesso?: number;
-  idTipoPermesso?: PermissionType;
-  idObu?: Obu;
-  dataInizioValidita: Date;
-  dataFineValidita: Date;
-  flagAnnullato: boolean;
-  userAnnullamento?: number;
-  dataAnnullamento?: Date;
-  creationUser?: number;
-  creationDate?: Date;
-  modificationUser?: number;
-  modificationDate?: Date;
+  idPermission: number;
+  permissionType: PermissionType;
+  obu: Obu;
+  validationStartDate: Date;
+  issueValidationDate: Date;
+  flagCanceled: boolean;
+  cancelationUser: number;
+  cancelationDate: Date;
+  creationUser: number;
+  creationDate: Date;
+  modificationUser: number;
+  modificationDate: Date;
 
 }
 
@@ -56,9 +56,10 @@ export interface PermissionType {
 }
 
 export interface Obu {
-  codiceObu: string;
-  nomeRiferimentoObu: string;
-  targa: string;
+  idObu: number;
+  obuCode: string;
+  nameReferenceObu: string;
+  plate: string;
   creationUser: number;
   creationDate: Date;
   modificationUser: number;
