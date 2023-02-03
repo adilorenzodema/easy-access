@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
+import { SnackBar } from 'dema-movyon-template';
 import { UserAssociated } from 'src/app/domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 
@@ -12,13 +13,14 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
 export class ModalAreeUsersAssociationComponent implements OnInit {
   public users: UserAssociated[] = [];
   public grantedUsers: UserAssociated[] = [];
-  public selectedUser: UserAssociated[] = [];
+  public selectedUsers: UserAssociated[] = [];
   public viewModeUser = true;
   public complete = true;
 
   constructor(
     public dialogRef: MatDialogRef<ModalAreeUsersAssociationComponent>,
     private areaManageService: AreaManagementService,
+    private snackBar: SnackBar,
     @Inject(MAT_DIALOG_DATA) public data: number,
   ) { }
 
@@ -28,11 +30,12 @@ export class ModalAreeUsersAssociationComponent implements OnInit {
 
   public saveAssociation(): void {
     this.complete = false;
-    // console.log(this.selectedUser, this.usersGranted);
-    this.areaManageService.editAssociateUserArea(this.data, this.selectedUser).subscribe({
-      next: () => this.dialogRef.close(),
-      error: () => this.complete = true,
-      complete: () => this.complete = true
+    this.selectedUsers.forEach(
+      (selectedUser) => { if (!selectedUser.granted) selectedUser.granted = true; }
+    );
+    this.areaManageService.editAssociateUserArea(this.data, this.selectedUsers).subscribe({
+      error: () => (this.complete = true, this.selectedUsers = this.grantedUsers, this.snackBar.showMessage('errore nell`associazione', "ERROR")),
+      complete: () => (this.complete = true, this.dialogRef.close(), this.snackBar.showMessage('associazione eseguita con successo', "INFO"))
     });
   }
 
