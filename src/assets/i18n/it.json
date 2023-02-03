@@ -1,4 +1,31 @@
 {
+  "yes": "Si",
+  "template": {
+    "change_password": "Cambia password"
+  },
+  "manage_users": {
+    "searchLabel": "Cerca",
+    "title":"Gestione Utenti",
+    "add": "Aggiungi",
+    "active": "Attivi",
+    "inactive": "Inattivi",
+    "name": "Nome",
+    "surname": "Cognome",
+    "email": "E-mail",
+    "profile": "Profilo",
+    "edit": "Modifica",
+    "disactivate": "Disattiva",
+    "activate": "Attiva",
+    "nameError": "Un nome può contenere solamente lettere, spazi o apostrofi.",
+    "surnameError": "Un cognome può contenere solamente lettere, spazi o apostrofi.",
+    "emailError": "Perfavore, inserire un e-mail valida.",
+    "cancel": "Annulla",
+    "activateTitle": "Attivazione Utente",
+    "disactivateTitle": "Disattivazione Utente",
+    "activateConfirm": "Sei sicur* di voler riattivare l'utente selezionato?",
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?"
+  },
+  "text": "testo",
   "error": {
     "login": "Username o password sbagliate",
     "unknown": "Errore sconosciuto",
