@@ -8,6 +8,7 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { LibMaterialModule } from 'dema-movyon-template';
 import { TitleAreaComponent } from './title-area/title-area.component';
+import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { TitleAreaComponent } from './title-area/title-area.component';
     AreaManagementComponent,
     ModalFormAreaComponent,
     TitleAreaComponent,
+    ModalAreeUsersAssociationComponent,
   ],
   imports: [
     CommonModule,

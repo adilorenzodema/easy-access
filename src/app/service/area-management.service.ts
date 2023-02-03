@@ -4,6 +4,7 @@ import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, of } from 'rxjs';
 import { Area } from '../domain/class';
+import { UserAssociated } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -31,6 +32,24 @@ export class AreaManagementService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.get<Area[]>(this.apiURL + '/getAreasByIdPark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  getAssociateUserArea(idArea: number): Observable<UserAssociated[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<UserAssociated[]>(this.apiURL + '/getAssociateUserArea/' + idArea, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  editAssociateUserArea(idArea: number, users: UserAssociated[]): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/editAssociateUserArea/' + idArea, users, options)
       .pipe(catchError(err => { throw err; }));
   }
 

@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Area } from '../../domain/class';
+import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
 
 @Component({
@@ -113,6 +114,16 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));
+  }
+
+  public associationUser(idArea: number) : void {
+    const dialogRef = this.dialog.open(ModalAreeUsersAssociationComponent,
+      {
+        width: '50%', height: '80%',
+        data: idArea,
+        autoFocus: false
+      }
+    );
   }
 
   private getPermissionAPI(): void {

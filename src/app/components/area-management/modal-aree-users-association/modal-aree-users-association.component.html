@@ -1,0 +1,23 @@
+<ng-container *ngIf="viewModeUser else editMode">
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+        <mat-card-title>Utenti associati</mat-card-title>
+        <button mat-button class="actionButton" (click)="viewModeUser = false">modifica</button>
+    </div>
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let user of usersGranted">
+            {{user.firstName}}
+        </mat-list-item>
+    </mat-list>
+</ng-container>
+<ng-template #editMode>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+        <mat-card-title>Modifica utenti associati</mat-card-title>
+        <button mat-button class="actionButton" (click)="viewModeUser = true">annulla</button>
+        <button mat-button class="actionButton" (click)="saveAssociation()">salva</button>
+    </div>
+    <mat-selection-list [(ngModel)]="selectedUser">
+        <mat-list-option *ngFor="let user of users" [selected]="user.granted" [value]="user" color="primary">
+            {{user.firstName}}
+        </mat-list-option>
+    </mat-selection-list>
+</ng-template>

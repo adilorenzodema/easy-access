@@ -1,8 +1,7 @@
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { Area } from 'src/app/domain/class';

@@ -1,5 +1,17 @@
-import { Park, User } from "./class";
+import { Park } from "./class";
 
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profileCode: string;
+  profileName: string;
+}
+
+export interface UserAssociated extends User {
+  granted: boolean;
+}
 
 export interface Menu {
   id: number;
