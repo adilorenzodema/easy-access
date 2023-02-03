@@ -9,6 +9,7 @@ import { SharedComponentsModule } from 'src/app/shared/components/shared-compone
 import { LibMaterialModule } from 'dema-movyon-template';
 import { TitleAreaComponent } from './title-area/title-area.component';
 import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
+import { CheckSelectedPipe } from './modal-aree-users-association/check-selected.pipe';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ModalAreeUsersAssociationComponent } from './modal-aree-users-associati
     ModalFormAreaComponent,
     TitleAreaComponent,
     ModalAreeUsersAssociationComponent,
+    CheckSelectedPipe,
   ],
   imports: [
     CommonModule,

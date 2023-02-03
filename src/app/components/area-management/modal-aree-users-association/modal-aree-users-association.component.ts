@@ -11,9 +11,10 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
 })
 export class ModalAreeUsersAssociationComponent implements OnInit {
   public users: UserAssociated[] = [];
-  public usersGranted: UserAssociated[] = [];
+  public grantedUsers: UserAssociated[] = [];
   public selectedUser: UserAssociated[] = [];
   public viewModeUser = true;
+  public complete = true;
 
   constructor(
     public dialogRef: MatDialogRef<ModalAreeUsersAssociationComponent>,
@@ -26,10 +27,13 @@ export class ModalAreeUsersAssociationComponent implements OnInit {
   }
 
   public saveAssociation(): void {
+    this.complete = false;
     // console.log(this.selectedUser, this.usersGranted);
-    this.areaManageService.editAssociateUserArea(this.data, this.selectedUser).subscribe(
-      () => this.dialogRef.close()
-    );
+    this.areaManageService.editAssociateUserArea(this.data, this.selectedUser).subscribe({
+      next: () => this.dialogRef.close(),
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    });
   }
 
   private apiGetAssociateUserArea(): void {
@@ -37,7 +41,7 @@ export class ModalAreeUsersAssociationComponent implements OnInit {
       (users) => (
         this.users = users,
         users.forEach(
-          (user) => { if (user.granted) this.usersGranted.push(user); }
+          (user) => { if (user.granted) this.grantedUsers.push(user); }
         )
       )
     );
