@@ -61,4 +61,13 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  activatePark(idPark: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/activatePark/' + idPark, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
 }

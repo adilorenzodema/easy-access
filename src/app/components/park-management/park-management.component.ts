@@ -95,7 +95,7 @@ export class ParkManagementComponent implements OnInit {
       {
         width: '30%', height: '30%',
         data: {
-          title: "Cancellazione parcheggio", content: "Desisderi cancellare il parcheggio selezionato?"
+          title: "Cancellazione parcheggio", content: "Desideri disattivare il parcheggio selezionato?"
         },
         autoFocus: false
       }
@@ -110,4 +110,23 @@ export class ParkManagementComponent implements OnInit {
       });
   }
 
+  public activePark(parkId: number): void {
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '30%', height: '30%',
+        data: {
+          title: "Riattivazione parcheggio", content: "Desideri attivare il parcheggio disattivato?"
+        },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.parkingService.activatePark(parkId).subscribe(
+            () => this.callGetAPI()
+          ));
+        }
+      });
+  }
 }

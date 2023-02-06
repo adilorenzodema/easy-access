@@ -12,11 +12,13 @@
       <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
         {{search.controls['ctrlActive'].value ? 'attivi' : 'non attivi'}}
       </mat-slide-toggle>
-      <button mat-raised-button class="actionButton" *ngIf="idArea" [routerLink]="'../area-management'">Indietro</button>
+      <button mat-raised-button class="actionButton" *ngIf="idArea"
+        [routerLink]="'../area-management'">Indietro</button>
       <button mat-raised-button class="actionButton" (click)="addEditPark()">Aggiungi</button>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+      [style.display]="dataSource.data.length === 0 ? 'none' : ''">
       <!-- Property binding: e nel ts, datasource ha l'array di elementi -->
       <!-- Position Column -->
       <ng-container matColumnDef="idParcheggio">
@@ -53,15 +55,21 @@
               [state]="{idPark: element.idPark, namePark: element.namePark}">input</mat-icon></button>
           <button mat-icon-button><mat-icon style="color:#479AED" matTooltip="modifica"
               (click)="addEditPark(element)">edit</mat-icon></button>
-          <button mat-icon-button><mat-icon style="color: red" matTooltip="cancella"
+          <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else reactive"><mat-icon style="color: red" matTooltip="disattiva"
               (click)="deletePark(element.idPark)">delete</mat-icon></button>
+          <ng-template #reactive>
+            <button mat-icon-button><mat-icon style="color: #479AED" matTooltip="attiva"
+                (click)="activePark(element.idPark)">refresh</mat-icon></button>
+          </ng-template>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"
+        [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+    <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+      [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
     </mat-paginator>
     <div *ngIf="dataSource.data.length === 0"> nessun parcheggio presente</div>
   </mat-card-content>
