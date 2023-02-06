@@ -28,7 +28,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
       this.inputUserForm = this.formBuilder.group({
         ctrlParkName: [this.data.namePark, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkCountry: [this.data.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
-        ctrlParkCity: [this.data.locality, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlParkCity: [this.data.location, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkCAP: [this.data.cap, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
         ctrlParkAddress: [this.data.address, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
       });

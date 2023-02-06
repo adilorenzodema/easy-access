@@ -27,11 +27,11 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.data.idArea) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlAreaName: [this.data.areaName, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlAreaName: [this.data.areaName, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
-        ctrlAreaName: ['', [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+        ctrlAreaName: ['', [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       });
     }
   }

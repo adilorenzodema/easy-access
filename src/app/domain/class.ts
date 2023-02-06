@@ -16,7 +16,7 @@ export class Area {
 export class Park {
   namePark: string;
   country: string;
-  locality: string;
+  location: string;
   cap: string;
   address: string;
   idPark?: number;
@@ -29,7 +29,7 @@ export class Park {
     idPark?: number) {
     this.namePark = namePark;
     this.country = country;
-    this.locality = locality;
+    this.location = locality;
     this.cap = cap;
     this.address = address;
     if (idPark) this.idPark = idPark;
