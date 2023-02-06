@@ -24,6 +24,16 @@
     <input matInput type="text" required formControlName="ctrlParkAddress" />
     <mat-error>Inserire un indirizzo corretto</mat-error>
   </mat-form-field>
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label> Associazione Aree</mat-label>
+    <mat-select formControlName="ctrlAreaId" placeholder="Aree" multiple>
+      <mat-select-filter [displayMember]="'areaName'" [array]="areas" (filteredReturn)="areaFiltered = $event" required></mat-select-filter>
+      <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
+        {{item.areaName}}
+      </mat-option>
+    </mat-select>
+    <mat-error>Associare almeno un'area</mat-error>
+  </mat-form-field>
 </form>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
   <button mat-raised-button color="primary" (click)="onCancel()">Annulla</button>

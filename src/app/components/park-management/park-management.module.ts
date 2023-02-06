@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
 import { TitleParkComponent } from './title-park/title-park.component';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TitleParkComponent } from './title-park/title-park.component';
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    ParkManagementRoutingModule
+    ParkManagementRoutingModule,
+    MatSelectFilterModule
   ]
 })
 export class ParkManagementModule { }
