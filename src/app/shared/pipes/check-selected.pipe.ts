@@ -7,7 +7,7 @@ import { UserAssociated } from 'src/app/domain/interface';
 // se i selezionati sono gli stessi di quelli inizialmente presenti ritorna true
 export class CheckSelectedPipe implements PipeTransform {
 
-  transform(selectedUsers: UserAssociated[], grantedUsers: UserAssociated[]): boolean {
+  transform(selectedUsers: UserAssociated[], grantedUsers: UserAssociated[] ): boolean {
     if (JSON.stringify(selectedUsers) === JSON.stringify(grantedUsers)) {
       return true;
     } else {

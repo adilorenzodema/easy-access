@@ -19,20 +19,19 @@ export class Park {
   location: string;
   cap: string;
   address: string;
+  areaIdList?: number[];
   idPark?: number;
   creationUser?: number;
   creationDate?: Date;
   modificationUser?: number;
   modificationDate?: Date;
   constructor(
-    namePark: string, country: string, locality: string, cap: string, address: string,
-    idPark?: number) {
+    namePark: string, country: string, locality: string, cap: string, address: string) {
     this.namePark = namePark;
     this.country = country;
     this.location = locality;
     this.cap = cap;
     this.address = address;
-    if (idPark) this.idPark = idPark;
   }
 }
 

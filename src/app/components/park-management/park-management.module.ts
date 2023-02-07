@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
 import { TitleParkComponent } from './title-park/title-park.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
 
 
 @NgModule({
   declarations: [
     ParkManagementComponent,
     ModalFormParkComponent,
-    TitleParkComponent
+    TitleParkComponent,
+    ModalParksAreasAssociationComponent
   ],
   imports: [
     CommonModule,

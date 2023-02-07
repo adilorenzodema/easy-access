@@ -10,6 +10,7 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Park } from '../../domain/class';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
+import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
 
 
 @Component({
@@ -128,5 +129,15 @@ export class ParkManagementComponent implements OnInit {
           ));
         }
       });
+  }
+
+  public associationArea(idPark: number) : void {
+    const dialogRef = this.dialog.open(ModalParksAreasAssociationComponent,
+      {
+        width: '50%', height: '80%',
+        data: idPark,
+        autoFocus: false
+      }
+    );
   }
 }

@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { Park } from '../domain/class';
+import { Area, Park } from '../domain/class';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -24,6 +24,16 @@ export class ParkManagementService {
     return this.http.get<Park[]>(this.apiURL + '/getParks', options)
       .pipe(catchError(err => { throw err; }));
   }
+
+  getAssociateAreaPark(idPark: number): Observable<Area[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<Area[]>(this.apiURL + '/getAssociateAreaPark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
 
   getParkingById(keyword: string, idArea: number): Observable<Park[]> {
     const options = {

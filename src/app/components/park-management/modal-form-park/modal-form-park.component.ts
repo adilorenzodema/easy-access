@@ -36,7 +36,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
         ctrlParkCity: [this.data.location, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkCAP: [this.data.cap, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
         ctrlParkAddress: [this.data.address, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
-        ctrlAreaId: [null, [Validators.required]]
+        ctrlAreaIdList: [this.data.areaIdList, [Validators.required]]
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
@@ -45,7 +45,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
         ctrlParkCity: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
         ctrlParkCAP: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
         ctrlParkAddress: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],
-        ctrlAreaId: [null, [Validators.required]]
+        ctrlAreaIdList: [null, [Validators.required]]
       });
     }
   }
@@ -62,7 +62,9 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     const city = this.inputUserForm.get('ctrlParkCity')?.value;
     const CAP = this.inputUserForm.get('ctrlParkCAP')?.value;
     const address = this.inputUserForm.get('ctrlParkAddress')?.value;
+    const areaIdList = this.inputUserForm.get('ctrlAreaIdList')?.value;
     const formParkAdd = new Park(name, country, city, CAP, address);
+    formParkAdd.areaIdList = areaIdList;
     if (isAdd) {
       this.parkManagementService.addParking(formParkAdd).subscribe({
         next: (data: Park) => {
@@ -81,7 +83,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
       const city = this.inputUserForm.get('ctrlParkCity')?.value;
       const CAP = this.inputUserForm.get('ctrlParkCAP')?.value;
       const address = this.inputUserForm.get('ctrlParkAddress')?.value;
-      const formParkEdit = new Park(name, country, city, CAP, address, idPark);
+      const formParkEdit = new Park(name, country, city, CAP, address);
       this.parkManagementService.editParking(formParkEdit).subscribe({
         next: (data: Park) => {
           this.snackBar.showMessage("Parcheggio modificato!", 'INFO');

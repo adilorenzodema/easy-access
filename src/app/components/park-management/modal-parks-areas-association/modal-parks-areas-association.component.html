@@ -1,0 +1,23 @@
+<ng-container *ngIf="viewMode else editMode">
+  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+      <mat-card-title>Aree associate</mat-card-title>
+      <button mat-button class="actionButton" (click)="viewMode = false">modifica</button>
+  </div>
+  <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let area of areas">
+          {{area}}
+      </mat-list-item>
+  </mat-list>
+</ng-container>
+<ng-template #editMode>
+  <!-- <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+      <mat-card-title>Modifica aree associate</mat-card-title>
+      <button mat-button class="actionButton" (click)="viewMode = true">annulla</button>
+      <button mat-button class="actionButton" (click)="saveAssociation()" [disabled]="selectedUsers | isSameSelected : grantedUsers">salva</button>
+  </div>
+  <mat-selection-list [(ngModel)]="selectedUsers">
+      <mat-list-option *ngFor="let user of users" [selected]="user.granted" [value]="user" color="primary">
+          {{user.firstName}}
+      </mat-list-option>
+  </mat-selection-list> -->
+</ng-template>

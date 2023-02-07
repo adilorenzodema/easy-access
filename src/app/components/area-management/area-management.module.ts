@@ -9,7 +9,8 @@ import { SharedComponentsModule } from 'src/app/shared/components/shared-compone
 import { LibMaterialModule } from 'dema-movyon-template';
 import { TitleAreaComponent } from './title-area/title-area.component';
 import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
-import { CheckSelectedPipe } from './modal-aree-users-association/check-selected.pipe';
+import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
+
 
 
 @NgModule({
@@ -18,7 +19,6 @@ import { CheckSelectedPipe } from './modal-aree-users-association/check-selected
     ModalFormAreaComponent,
     TitleAreaComponent,
     ModalAreeUsersAssociationComponent,
-    CheckSelectedPipe,
   ],
   imports: [
     CommonModule,
@@ -28,6 +28,7 @@ import { CheckSelectedPipe } from './modal-aree-users-association/check-selected
     LibMaterialModule,
     AreaManagementRoutingModule,
     SharedComponentsModule,
+    PipesModuleModule
   ]
 })
 export class AreaManagementModule { }
