@@ -12,6 +12,7 @@ import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-
 import { Area } from '../../domain/class';
 import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-area-management',
@@ -31,6 +32,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   private subscription: Subscription[] = [];
 
   constructor(
+    public translate: TranslateService,
     private areaManagementService: AreaManagementService,
     private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
@@ -69,10 +71,12 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(areaId: number): void {
+    const title = this.translate.instant('manage_areas.disactivateTitle');
+    const content = this.translate.instant('manage_areas.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Cancellazione Area", content: "Desisderi cancellare l'area selezionata?" },
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -84,6 +88,27 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
           ));
         }
       });
+  }
+
+  public activateArea(areaId: number): void {
+    const title = this.translate.instant('manage_areas.activateTitle');
+    const content = this.translate.instant('manage_areas.activateConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '30%', height: '30%',
+        data: {title, content},
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.areaManagementService.activateArea(areaId).subscribe(
+            () => this.callGetAPI()
+          ));
+        }
+      });
+
   }
 
   public callGetAPI(): void {
@@ -116,7 +141,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public associationUser(idArea: number) : void {
+  public associationUser(idArea: number): void {
     const dialogRef = this.dialog.open(ModalAreeUsersAssociationComponent,
       {
         width: '50%', height: '80%',

@@ -10,6 +10,8 @@ import { LibMaterialModule } from 'dema-movyon-template';
 import { TitleAreaComponent } from './title-area/title-area.component';
 import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 
 
@@ -28,7 +30,8 @@ import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
     LibMaterialModule,
     AreaManagementRoutingModule,
     SharedComponentsModule,
-    PipesModuleModule
+    PipesModuleModule,
+    TranslateModule
   ]
 })
 export class AreaManagementModule { }

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-user',
@@ -10,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class ModalFormConfirmComponent {
   subscription: Subscription[] = [];
   constructor(
+    public translate: TranslateService,
     public dialogRef: MatDialogRef<ModalFormConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { title: string; content: string }
   ) { console.log(data); }

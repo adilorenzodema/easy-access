@@ -3,6 +3,33 @@
   "template": {
     "change_password": "Cambia password"
   },
+  "common":{
+    "searchLabel": "cerca",
+    "add": "Aggiungi",
+    "edit": "Modifica",
+    "disactivate": "Disattiva",
+    "activate": "Attiva",
+    "cancel": "Cancella",
+    "creationDate": "Data creazione",
+    "modificationUser": "Ultima modifica di",
+    "modificationDate": "Data ultima modifica"
+  },
+  "manage_areas":{
+    "title":"Gestione Aree",
+    "areaName": "Nome",
+    "active": "Attive",
+    "inactive": "Disattive",
+    "creationUser": "Creata da",
+    "areasAssociatedParks":"Aree associate con il parcheggio ",
+    "associatedParks": "Visualizza parcheggi associati",
+    "associatedUsers": "Visualizza utenti associati",
+    "noAres": "Nessuna area presente.",
+    "nameError": "Il nome di un'area può contenere solamente lettere, spazi o apostrofi.",
+    "activateTitle": "Attivazione Area",
+    "disactivateTitle": "Disattivazione Area",
+    "activateConfirm": "Sei sicur* di voler riattivare l'area selezionata?",
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'area selezionata?"
+  },
   "manage_users": {
     "searchLabel": "Cerca",
     "title":"Gestione Utenti",

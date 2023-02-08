@@ -79,4 +79,14 @@ export class AreaManagementService {
     return this.http.post<void>(this.apiURL + '/deleteArea/' + idArea, null, options)
       .pipe(catchError(err => { throw err; }));
   }
+
+  activateArea(idArea: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/activateArea/' + idArea, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
 }
