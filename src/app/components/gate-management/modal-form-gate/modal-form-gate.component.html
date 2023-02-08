@@ -4,7 +4,7 @@
     <input matInput type="text" required formControlName="ctrlGateName" autocomplete="off"/>
     <mat-error>Inserire un nome corretto</mat-error>
   </mat-form-field>
-  <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
     <mat-label>Associa parcheggio al varco</mat-label>
     <mat-select formControlName="ctrlParkId" required>
       <mat-option *ngFor="let park of parks" [value]="park.idPark">
