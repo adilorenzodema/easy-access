@@ -10,6 +10,7 @@ import { ModalFormParkComponent } from './modal-form-park/modal-form-park.compon
 import { TitleParkComponent } from './title-park/title-park.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
+import { EditParkComponent } from './edit-park/edit-park.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ModalParksAreasAssociationComponent } from './modal-parks-areas-associa
     ParkManagementComponent,
     ModalFormParkComponent,
     TitleParkComponent,
-    ModalParksAreasAssociationComponent
+    ModalParksAreasAssociationComponent,
+    EditParkComponent
   ],
   imports: [
     CommonModule,
