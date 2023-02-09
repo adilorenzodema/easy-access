@@ -80,7 +80,7 @@ export class EditParkComponent implements OnInit {
         })); */
     forkJoin({
       assAreas: this.parkManagementService.getAssociateAreaPark(this.park.idPark),
-      assGates: ""
+      assGates: this.parkManagementService.getAssociateAreaPark(this.park.idPark)
     }).subscribe({
       next: ({ assAreas, assGates }) => {
         console.log(assAreas)
