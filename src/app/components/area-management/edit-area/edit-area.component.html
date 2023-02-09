@@ -3,9 +3,9 @@
         <mat-card-title> Area {{area.areaName}}</mat-card-title>
         <div fxLayoutGap="5px">
             <button mat-button class="actionButton" *ngIf="viewModeUser else editButton"
-                (click)="viewModeUser = false; filter()">modifica</button>
+                (click)="changeViewEdit();">modifica</button>
             <ng-template #editButton>
-                <button mat-button class="actionButton" (click)="viewModeUser = true; filter()">annulla</button>
+                <button mat-button class="actionButton" (click)="changeViewEdit();">annulla</button>
                 <button mat-button class="actionButton" (click)="saveAssociation()">salva </button>
             </ng-template>
             <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
@@ -40,11 +40,11 @@
                         </mat-form-field>
                     </form>
 
-                    <mat-list role="list" [style.display]="viewModeUser ? '' : 'none'">
+                    <!-- <mat-list role="list" [style.display]="viewModeUser ? '' : 'none'">
                         <mat-list-item role="listitem" *ngFor="let user of filterGrantedUsers">
                             {{user.firstName}}
                         </mat-list-item>
-                    </mat-list>
+                    </mat-list> -->
 
                     <!-- <mat-selection-list [(ngModel)]="selectedUsers">
                             <mat-list-option *ngFor="let user of users" [selected]="user.granted" [value]="user"
@@ -53,13 +53,13 @@
                             </mat-list-option>
                         </mat-selection-list> -->
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-                        [style.display]="dataSource.data.length === 0 || viewModeUser ? 'none' : ''">
+                        [style.display]="dataSource.data.length === 0 ? 'none' : ''">
                         <ng-container matColumnDef="firstName">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                             <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
                         </ng-container>
 
-                        <ng-container matColumnDef="granted">
+                        <ng-container matColumnDef="granted" *ngIf="!viewModeUser">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Associazione </th>
                             <td mat-cell *matCellDef="let element">
                                 <mat-checkbox [(ngModel)]="element.granted" color="primary"></mat-checkbox>
@@ -71,7 +71,7 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
                     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-                        [style.display]="dataSource.data.length === 0 || viewModeUser  ? 'none' : ''">
+                        [style.display]="dataSource.data.length === 0  ? 'none' : ''">
                     </mat-paginator>
                 </div>
             </mat-tab>

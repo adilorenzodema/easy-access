@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -18,15 +18,15 @@ export class EditAreaComponent implements OnInit {
   public area: Area;
   public formGroup!: FormGroup;
   public dataSource = new MatTableDataSource<UserAssociated>;
-  public displayedColumns = ['firstName', 'granted'];
+  public displayedColumns = ['firstName'];
+  public users: UserAssociated[] = [];
   public grantedUsers: UserAssociated[] = [];
-  public filterGrantedUsers: UserAssociated[] = [];
   public viewModeUser = true;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private areaManageService: AreaManagementService
+    private areaManageService: AreaManagementService,
   ) {
     this.area = this.router.getCurrentNavigation()?.extras.state?.['area'] as Area;
     if (!this.area) { this.router.navigate(['/area-management']); }
@@ -43,14 +43,20 @@ export class EditAreaComponent implements OnInit {
 
   public filter(): void {
     const filterValue = this.formGroup.get('ctrlSearch')?.value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  public changeViewEdit(): void {
     if (this.viewModeUser) {
-      if (filterValue.length === 0) {
-        this.filterGrantedUsers = [...this.grantedUsers];
-      } else {
-        this.filterGrantedUsers = [...this.filterGrantedUsers.filter(x => x.firstName.toLowerCase().indexOf(filterValue) >= 0)];
-      }
+      this.dataSource.data = this.users;
+      this.dataSource.paginator = this.paginator;
+      this.displayedColumns = ['firstName', 'granted'];
+      this.viewModeUser = false;
     } else {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.data = this.grantedUsers;
+      this.dataSource.paginator = this.paginator;
+      this.displayedColumns = ['firstName'];
+      this.viewModeUser = true;
     }
   }
 
@@ -61,12 +67,12 @@ export class EditAreaComponent implements OnInit {
   private apiGetAssociateUserArea(): void {
     this.areaManageService.getAssociateUserArea(this.area.idArea).subscribe(
       (users) => (
-        this.dataSource.data = users,
-        this.dataSource.paginator = this.paginator,
+        this.users = users,
         users.forEach(
           (user) => { if (user.granted) this.grantedUsers.push(user); }
         ),
-        this.filterGrantedUsers = [...this.grantedUsers]
+        this.dataSource.data = this.grantedUsers,
+        this.dataSource.paginator = this.paginator
       )
     );
   }
