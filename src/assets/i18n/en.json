@@ -12,7 +12,9 @@
     "cancel": "Cancel",
     "creationDate": "Creation date",
     "modificationUser": "Last edited by",
-    "modificationDate": "Last edit date"
+    "modificationDate": "Last edit date",
+    "associateAreas":"Associate Areas",
+    "associateGates":"Associate Gates"
 
   },
   "manage_areas":{
@@ -52,6 +54,20 @@
     "disactivateTitle": "Disactivate User",
     "activateConfirm": "Are you sure you want to re-activate the selected user?",
     "disactivateConfirm": "Are you sure you want to disactivate the selected user?"
+  },
+  "manage_parks": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "parkName": "Name",
+    "parkAddress": "Address",
+    "parkLocation": "City",
+    "parkPostalCode": "Postal code",
+    "parkCountry": "Country",
+    "nameError": "A name can only contain letters, spaces or apostrophe.",
+    "addressError": "An address can only contain letters, numbers, spaces or apostrophe.",
+    "locationError": "A city can only contain letters, spaces or apostrophe.",
+    "postalCodeError": "TODO",
+    "countryError": "A country can only contain letters, spaces or apostrophe."
   },
   "text": "text",
   "error": {

@@ -11,6 +11,7 @@ import { TitleParkComponent } from './title-park/title-park.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
 import { EditParkComponent } from './edit-park/edit-park.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { EditParkComponent } from './edit-park/edit-park.component';
     FormsModule,
     ReactiveFormsModule,
     ParkManagementRoutingModule,
-    MatSelectFilterModule
+    MatSelectFilterModule,
+    TranslateModule
   ]
 })
 export class ParkManagementModule { }

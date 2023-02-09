@@ -12,7 +12,9 @@
     "cancel": "Cancella",
     "creationDate": "Data creazione",
     "modificationUser": "Ultima modifica di",
-    "modificationDate": "Data ultima modifica"
+    "modificationDate": "Data ultima modifica",
+    "associateAreas":"Associa Aree",
+    "associateGates":"Associa Varchi"
   },
   "manage_areas":{
     "title":"Gestione Aree",
@@ -51,6 +53,20 @@
     "disactivateTitle": "Disattivazione Utente",
     "activateConfirm": "Sei sicur* di voler riattivare l'utente selezionato?",
     "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?"
+  },
+  "manage_parks": {
+    "active": "Attivo",
+    "inactive": "Inattivo",
+    "parkName": "Nome",
+    "parkAddress": "Indirizzo",
+    "parkLocation": "Città",
+    "parkPostalCode": "CAP",
+    "parkCountry": "Stato",
+    "nameError": "Un nome può contenere solamente lettere, spazi o apostrofi.",
+    "addressError": "Un indirizzo può contenere solamente lettere,numeri, spazi o apostrofi.",
+    "locationError": "Una città può contenere solamente lettere, spazi o apostrofi.",
+    "postalCodeError": "TODO",
+    "countryError": "Uno stato può contenere solamente lettere, spazi o apostrofi."
   },
   "text": "testo",
   "error": {
