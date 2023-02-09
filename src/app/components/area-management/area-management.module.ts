@@ -7,8 +7,6 @@ import { AreaManagementComponent } from './area-management.component';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 import { LibMaterialModule } from 'dema-movyon-template';
-import { TitleAreaComponent } from './title-area/title-area.component';
-import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditAreaComponent } from './edit-area/edit-area.component';
@@ -20,9 +18,7 @@ import { EditAreaComponent } from './edit-area/edit-area.component';
   declarations: [
     AreaManagementComponent,
     ModalFormAreaComponent,
-    TitleAreaComponent,
-    ModalAreeUsersAssociationComponent,
-    EditAreaComponent,
+    EditAreaComponent
   ],
   imports: [
     CommonModule,

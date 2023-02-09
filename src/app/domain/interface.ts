@@ -13,6 +13,12 @@ export interface UserAssociated extends User {
   granted: boolean;
 }
 
+export interface ParkAssociated {
+  idPark: number;
+  namePark: string;
+  associated: boolean;
+}
+
 export interface Menu {
   id: number;
   code: string;

@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
+import { forkJoin } from 'rxjs';
 import { Area } from 'src/app/domain/class';
 import { UserAssociated } from 'src/app/domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
@@ -17,8 +19,8 @@ export class EditAreaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   public area: Area;
   public formGroup!: FormGroup;
-  public dataSource = new MatTableDataSource<UserAssociated>;
-  public displayedColumns = ['firstName'];
+  public dataSourceAssUsers = new MatTableDataSource<UserAssociated>;
+  public displayedColumnsUsers = ['firstName', 'lastName'];
   public users: UserAssociated[] = [];
   public grantedUsers: UserAssociated[] = [];
   public viewModeUser = true;
@@ -26,7 +28,8 @@ export class EditAreaComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private areaManageService: AreaManagementService,
+    private snackBar: SnackBar,
+    private areaManageService: AreaManagementService
   ) {
     this.area = this.router.getCurrentNavigation()?.extras.state?.['area'] as Area;
     if (!this.area) { this.router.navigate(['/area-management']); }
@@ -38,43 +41,51 @@ export class EditAreaComponent implements OnInit {
       ctrlCreationDate: [moment(this.area.creationDate).format('DD/mm/YYYY')],
       ctrlSearch: ['']
     });
-    this.apiGetAssociateUserArea();
+    this.apiGetAssociation();
   }
 
   public filter(): void {
     const filterValue = this.formGroup.get('ctrlSearch')?.value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSourceAssUsers.filter = filterValue.trim().toLowerCase();
   }
 
   public changeViewEdit(): void {
     if (this.viewModeUser) {
-      this.dataSource.data = this.users;
-      this.dataSource.paginator = this.paginator;
-      this.displayedColumns = ['firstName', 'granted'];
+      this.dataSourceAssUsers.data = this.users;
+      this.dataSourceAssUsers.paginator = this.paginator;
+      this.displayedColumnsUsers = this.displayedColumnsUsers.concat('granted');
       this.viewModeUser = false;
     } else {
-      this.dataSource.data = this.grantedUsers;
-      this.dataSource.paginator = this.paginator;
-      this.displayedColumns = ['firstName'];
+      this.dataSourceAssUsers.data = this.grantedUsers;
+      this.dataSourceAssUsers.paginator = this.paginator;
+      this.displayedColumnsUsers.pop();
       this.viewModeUser = true;
     }
   }
 
   public saveAssociation(): void {
-    console.log(this.dataSource.data)
+    this.areaManageService.editAssociateUserArea(this.area.idArea, this.dataSourceAssUsers.data).subscribe({
+      error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
+      complete: () => (
+        this.snackBar.showMessage('associazione eseguita con successo', "INFO"),
+        this.router.navigate(['area-management'])
+      )
+    });
   }
 
-  private apiGetAssociateUserArea(): void {
-    this.areaManageService.getAssociateUserArea(this.area.idArea).subscribe(
-      (users) => (
-        this.users = users,
-        users.forEach(
-          (user) => { if (user.granted) this.grantedUsers.push(user); }
-        ),
-        this.dataSource.data = this.grantedUsers,
-        this.dataSource.paginator = this.paginator
-      )
-    );
+  private apiGetAssociation(): void {
+    forkJoin({
+      assUsers: this.areaManageService.getAssociateUserArea(this.area.idArea),
+      assParks: this.areaManageService.getAssociateParkArea(this.area.idArea)
+    }).subscribe({
+      next: ({ assUsers, assParks }) => {
+        console.log(assParks)
+        this.users = assUsers;
+        assUsers.forEach((user) => { if (user.granted) this.grantedUsers.push(user); });
+        this.dataSourceAssUsers.data = this.grantedUsers;
+        this.dataSourceAssUsers.paginator = this.paginator;
+      }
+    });
   }
 
 }

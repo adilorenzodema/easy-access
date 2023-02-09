@@ -1,3 +1,4 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -46,7 +47,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       useValue: environment.header
     },
     { provide: 'env', useValue: environment },
-    CookieService
+    CookieService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]
 })

@@ -4,15 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { PagePermissionService } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Area } from '../../domain/class';
-import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-area-management',
@@ -26,8 +24,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource<Area>();
   public search!: FormGroup;
   public complete = true;
-  public idPark: number;
-  public namePark: string;
   public areaName!: string;
   private subscription: Subscription[] = [];
 
@@ -36,22 +32,14 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     private areaManagementService: AreaManagementService,
     private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog,
-    private router: Router) {
-    this.idPark = this.router.getCurrentNavigation()?.extras.state?.['idPark'] as number;
-    this.namePark = this.router.getCurrentNavigation()?.extras.state?.['namePark'] as string;
-  }
+    private dialog: MatDialog) {  }
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
       ctrlActive: [true]
     });
-    if (this.idPark) {
-      this.callGetAPIFiltered();
-    } else {
-      this.callGetAPI();
-    }
+    this.callGetAPI();
     this.getPermissionAPI();
   }
 
@@ -96,7 +84,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: {title, content},
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -126,33 +114,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public callGetAPIFiltered(): void {
-    this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
-    const isActive = this.search.get('ctrlActive')?.value;
-    this.subscription.push(this.areaManagementService.getAreasByIdPark(this.idPark).subscribe({
-      next: areas => {
-        this.dataSource.data = areas;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error: () => this.complete = true,
-      complete: () => this.complete = true
-    }));
-  }
-
-  public associationUser(idArea: number): void {
-    const dialogRef = this.dialog.open(ModalAreeUsersAssociationComponent,
-      {
-        width: '50%', height: '80%',
-        data: idArea,
-        autoFocus: false
-      }
-    );
-  }
-
   private getPermissionAPI(): void {
-    const currentUrl = (window.location.pathname).replace('/', '');
+    const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
       resp => null
     ));
