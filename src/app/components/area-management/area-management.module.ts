@@ -11,6 +11,7 @@ import { TitleAreaComponent } from './title-area/title-area.component';
 import { ModalAreeUsersAssociationComponent } from './modal-aree-users-association/modal-aree-users-association.component';
 import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { EditAreaComponent } from './edit-area/edit-area.component';
 
 
 
@@ -21,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ModalFormAreaComponent,
     TitleAreaComponent,
     ModalAreeUsersAssociationComponent,
+    EditAreaComponent,
   ],
   imports: [
     CommonModule,
