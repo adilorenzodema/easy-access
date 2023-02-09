@@ -1,10 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { Area, Park } from 'src/app/domain/class';
 import { AreaManagementService } from 'src/app/service/area-management.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { ParkManagementService } from 'src/app/service/park-management.service';
 
 @Component({
   selector: 'app-edit-park',
@@ -12,55 +15,81 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
   styleUrls: ['./edit-park.component.css']
 })
 export class EditParkComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  public viewMode = true;
   public complete = true;
   public park!: Park;
-  public idPark!: number;
-  public namePark!: string;
-  public address!: string;
-  public location!: string;
-  public cap!: string;
-  public country!: string;
   public active!: boolean;
   inputParkForm!: FormGroup;
+  public dataSource = new MatTableDataSource<Area>;
   areas: Area[] = [];
-  areaFiltered: Area[] = [];
+  public associatedAreas: Area[] = [];
   subscription: Subscription[] = [];
-  areaIdList: number[];
+  public displayedColumns = ['areaName'];
   constructor(
     public translate: TranslateService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private areaManagementService: AreaManagementService) {
+    private parkManagementService: ParkManagementService) {
 
-    this.idPark = this.router.getCurrentNavigation()?.extras.state?.['idPark'] as number;
-    this.namePark = this.router.getCurrentNavigation()?.extras.state?.['namePark'] as string;
-    this.address = this.router.getCurrentNavigation()?.extras.state?.['addressPark'] as string;
-    this.location = this.router.getCurrentNavigation()?.extras.state?.['localityPark'] as string;
-    this.cap = this.router.getCurrentNavigation()?.extras.state?.['capPark'] as string;
-    this.country = this.router.getCurrentNavigation()?.extras.state?.['countryPark'] as string;
+    this.park = this.router.getCurrentNavigation()?.extras.state?.['park'] as Park;
     this.active = this.router.getCurrentNavigation()?.extras.state?.['active'] as boolean;
-    this.areaIdList = this.router.getCurrentNavigation()?.extras.state?.['areaIdList'] as number[];
+    if (!this.park) { this.router.navigate(['/parking-management']); }
   }
 
   ngOnInit(): void {
-    this.getAreas();
     this.inputParkForm = this.formBuilder.group({
-      ctrlParkName: [this.namePark, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkAddress: [this.address, [Validators.required, Validators.pattern('[a-zA-Z0-9\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkLocation: [this.location, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkCAP: [this.cap, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkCountry: [this.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
-      ctrlAreaIdList: [this.areaIdList, [Validators.required]]
+      ctrlParkName: [this.park.namePark, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
+      ctrlParkAddress: [this.park.address, [Validators.required, Validators.pattern('[a-zA-Z0-9\u00C0-\u00FF\u0027 ]*')]],
+      ctrlParkLocation: [this.park.locality, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
+      ctrlParkCAP: [this.park.cap, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
+      ctrlParkCountry: [this.park.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
+      ctrlSearch: ['']
     });
+    this.getAreas();
+    console.log("Aree: " + this.areas);
+  }
+
+  public filter(): void {
+    const filterValue = this.inputParkForm.get('ctrlSearch')?.value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  public changeViewEdit(): void {
+    if (this.viewMode) {
+      this.dataSource.data = this.areas;
+      this.dataSource.paginator = this.paginator;
+      this.displayedColumns = ['areaName', 'associated'];
+      this.viewMode = false;
+    } else {
+      this.dataSource.data = this.associatedAreas;
+      this.dataSource.paginator = this.paginator;
+      this.displayedColumns = ['areaName'];
+      this.viewMode = true;
+    }
+  }
+
+  public saveAssociation(): void {
+    console.log(this.inputParkForm);
   }
 
   private getAreas(): void {
-    const keyword = "";
-    const isActive = true;
-    this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe((res) => {
-      this.areas = res;
-      this.areaFiltered = this.areas.slice();
-
-    }));
+    /*     this.subscription.push(this.parkManagementService.getAssociateAreaPark(this.park.idPark).subscribe((res) => {
+          this.areas = res;
+          forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
+        })); */
+    forkJoin({
+      assAreas: this.parkManagementService.getAssociateAreaPark(this.park.idPark),
+      assGates: ""
+    }).subscribe({
+      next: ({ assAreas, assGates }) => {
+        console.log(assAreas)
+        this.areas = assAreas;
+       /*  assAreas.forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
+        this.dataSource.data = this.associatedAreas;
+        this.dataSource.paginator = this.paginator;
+      */}
+    });
   }
 }
+

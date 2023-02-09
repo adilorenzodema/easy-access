@@ -51,7 +51,6 @@ export class ParkManagementComponent implements OnInit {
     } else {
       this.callGetAPI();
     }
-    console.log("Park: " + this.dataSource.data)
   }
 
   public callGetAPI(): void {
