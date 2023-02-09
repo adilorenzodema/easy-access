@@ -14,7 +14,7 @@
       </mat-slide-toggle>
       <button mat-raised-button class="actionButton" *ngIf="idArea"
         [routerLink]="'../area-management'">Indietro</button>
-      <button mat-raised-button class="actionButton" (click)="addEditPark()">Aggiungi</button>
+      <button mat-raised-button class="actionButton" (click)="addPark()">Aggiungi</button>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
@@ -39,6 +39,22 @@
           {{element.country}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="creationUser">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Creato da </th>
+        <td mat-cell *matCellDef="let element"> {{element.creationUser }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="creationDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data creazione </th>
+        <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'medium' }} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="modificationUser">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ultima modifica di </th>
+        <td mat-cell *matCellDef="let element"> {{element.modificationUser }} </td>
+      </ng-container>
+
       <ng-container matColumnDef="modificationDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Data ultima modifica </th>
         <td mat-cell *matCellDef="let element"> {{element.modificationDate | date:'medium' }} </td>
@@ -48,7 +64,8 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" style="text-align: end;">
           <button mat-icon-button [routerLink]="['edit-park']"
-            [state]="{idPark: element.idPark, namePark: element.namePark}">
+            [state]="{idPark: element.idPark, namePark: element.namePark, addressPark: element.address, localityPark: element.locality,
+              capPark: element.cap, countryPark: element.country, active: search.controls['ctrlActive'].value, areaIdList: element.areaIdList}">
             <mat-icon style="color:#479AED" matTooltip="dettagli - modifica">edit</mat-icon>
           </button>
           <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else reactive"><mat-icon style="color: red"
