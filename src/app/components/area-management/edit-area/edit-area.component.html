@@ -27,6 +27,7 @@
                 </mat-form-field>
             </div>
         </form>
+        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Utenti associati">
                 <div style="border-radius: 10px; border-style: solid; padding: 2%;">
@@ -53,7 +54,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="granted" *ngIf="!viewModeUser">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Associazione </th>
+                            <th mat-header-cell *matHeaderCellDef> Associazione </th>
                             <td mat-cell *matCellDef="let element">
                                 <mat-checkbox [(ngModel)]="element.granted" color="primary"></mat-checkbox>
                             </td>
@@ -69,7 +70,7 @@
                 </div>
             </mat-tab>
             <mat-tab label="Parcheggi associati">
-
+                <app-table-associated-park [allAssociatedParks]="assParks" [viewMode]="viewModeUser"></app-table-associated-park>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

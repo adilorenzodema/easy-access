@@ -10,6 +10,7 @@ import { LibMaterialModule } from 'dema-movyon-template';
 import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditAreaComponent } from './edit-area/edit-area.component';
+import { TableAssociatedParkComponent } from './table-associated-park/table-associated-park.component';
 
 
 
@@ -18,7 +19,8 @@ import { EditAreaComponent } from './edit-area/edit-area.component';
   declarations: [
     AreaManagementComponent,
     ModalFormAreaComponent,
-    EditAreaComponent
+    EditAreaComponent,
+    TableAssociatedParkComponent
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
 import { forkJoin } from 'rxjs';
 import { Area } from 'src/app/domain/class';
-import { UserAssociated } from 'src/app/domain/interface';
+import { ParkAssociated, UserAssociated } from 'src/app/domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 
 @Component({
@@ -17,13 +18,16 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
 })
 export class EditAreaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   public area: Area;
   public formGroup!: FormGroup;
   public dataSourceAssUsers = new MatTableDataSource<UserAssociated>;
   public displayedColumnsUsers = ['firstName', 'lastName'];
   public users: UserAssociated[] = [];
   public grantedUsers: UserAssociated[] = [];
+  public assParks: ParkAssociated[] = [];
   public viewModeUser = true;
+  public complete = true;
 
   constructor(
     private router: Router,
@@ -53,11 +57,13 @@ export class EditAreaComponent implements OnInit {
     if (this.viewModeUser) {
       this.dataSourceAssUsers.data = this.users;
       this.dataSourceAssUsers.paginator = this.paginator;
+      this.dataSourceAssUsers.sort = this.sort;
       this.displayedColumnsUsers = this.displayedColumnsUsers.concat('granted');
       this.viewModeUser = false;
     } else {
       this.dataSourceAssUsers.data = this.grantedUsers;
       this.dataSourceAssUsers.paginator = this.paginator;
+      this.dataSourceAssUsers.sort = this.sort;
       this.displayedColumnsUsers.pop();
       this.viewModeUser = true;
     }
@@ -74,17 +80,21 @@ export class EditAreaComponent implements OnInit {
   }
 
   private apiGetAssociation(): void {
+    this.complete = false;
     forkJoin({
       assUsers: this.areaManageService.getAssociateUserArea(this.area.idArea),
       assParks: this.areaManageService.getAssociateParkArea(this.area.idArea)
     }).subscribe({
       next: ({ assUsers, assParks }) => {
-        console.log(assParks)
+        this.assParks = assParks;
         this.users = assUsers;
         assUsers.forEach((user) => { if (user.granted) this.grantedUsers.push(user); });
         this.dataSourceAssUsers.data = this.grantedUsers;
         this.dataSourceAssUsers.paginator = this.paginator;
-      }
+        this.dataSourceAssUsers.sort = this.sort;
+      },
+      error: () => this.complete = true,
+      complete: () => this.complete = true
     });
   }
 

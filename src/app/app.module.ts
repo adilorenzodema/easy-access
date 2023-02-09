@@ -47,8 +47,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       useValue: environment.header
     },
     { provide: 'env', useValue: environment },
-    CookieService,
     { provide: LocationStrategy, useClass: HashLocationStrategy},
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
