@@ -18,12 +18,12 @@
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
                     fxFlex.gt-md="30">
                     <mat-label>{{'manage_areas.areaName' | translate}}</mat-label>
-                    <input matInput type="text" formControlName="ctrlAreaName" readonly required="false">
+                    <input matInput type="text" formControlName="ctrlAreaName" [readonly]="viewModeUser" [required]="!viewModeUser" [style.opacity]="viewModeUser ? '0.5' : ''">
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
                     fxFlex.gt-md="30">
                     <mat-label>{{'common.creationDate' | translate}}</mat-label>
-                    <input matInput type="text" formControlName="ctrlCreationDate" readonly>
+                    <input matInput type="text" formControlName="ctrlCreationDate" readonly [style.opacity]="'0.5'">
                 </mat-form-field>
             </div>
         </form>
@@ -70,6 +70,7 @@
                 </div>
             </mat-tab>
             <mat-tab label="Parcheggi associati">
+                <!--componente-->
                 <app-table-associated-park [allAssociatedParks]="assParks" [viewMode]="viewModeUser"></app-table-associated-park>
             </mat-tab>
         </mat-tab-group>

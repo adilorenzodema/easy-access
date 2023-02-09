@@ -26,7 +26,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "dema-movyon-template": "^0.0.16",
-    "dema-users-management": "file:../dema-users-management-0.0.13.tgz",
+    "dema-users-management": "^0.0.13",
     "mat-select-filter": "^2.4.1",
     "moment": "^2.29.4",
     "ngx-cookie-service": "^14.0.1",
