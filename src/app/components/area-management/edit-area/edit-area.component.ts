@@ -17,10 +17,10 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
   styleUrls: ['./edit-area.component.css']
 })
 export class EditAreaComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   public area: Area;
-  public formGroup!: FormGroup;
+  public formGroup: FormGroup;
   public dataSourceAssUsers = new MatTableDataSource<UserAssociated>;
   public displayedColumnsUsers = ['firstName', 'lastName'];
   public users: UserAssociated[] = [];

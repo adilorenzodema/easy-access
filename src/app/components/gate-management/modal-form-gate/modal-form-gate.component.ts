@@ -15,7 +15,7 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
 })
 export class ModalFormGateComponent implements OnInit, OnDestroy {
 
-  public inputUserForm!: FormGroup;
+  public inputUserForm: FormGroup;
   public parks: Park[] = [];
   private subscription: Subscription[] = [];
   constructor(

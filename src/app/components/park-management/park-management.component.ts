@@ -19,14 +19,14 @@ import { ModalParksAreasAssociationComponent } from './modal-parks-areas-associa
   styleUrls: ['./park-management.component.css']
 })
 export class ParkManagementComponent implements OnInit {
-  @ViewChild('paginator') paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  public search!: FormGroup;
+  public search: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
   public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'creationUser', 'creationDate', 'modificationUser' ,'modificationDate', 'action'];
   public areaName: string;
-  public idArea!: number;
+  public idArea: number;
   public complete = true;
   private subscription: Subscription[] = [];
 

@@ -15,13 +15,13 @@ import { Transit } from '../../domain/interface';
   ]
 })
 export class TransitComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate'];
   public dataSource = new MatTableDataSource<Transit>();
   public start = moment(moment.now()).subtract(2, 'day');
   public end = moment(moment.now());
-  public formGroup!: FormGroup;
+  public formGroup: FormGroup;
   public complete = true;
 
   private subscription: Subscription[] = [];

@@ -14,7 +14,7 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
 })
 export class ModalFormParkComponent implements OnInit, OnDestroy {
 
-  inputUserForm!: FormGroup;
+  inputUserForm: FormGroup;
   areas: Area[] = [];
   areaFiltered: Area[] = [];
   subscription: Subscription[] = [];

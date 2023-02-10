@@ -18,13 +18,13 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
   styleUrls: ['./area-management.component.css']
 })
 export class AreaManagementComponent implements OnInit, OnDestroy {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
-  public search!: FormGroup;
+  public search: FormGroup;
   public complete = true;
-  public areaName!: string;
+  public areaName: string;
   private subscription: Subscription[] = [];
 
   constructor(

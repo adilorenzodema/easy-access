@@ -14,7 +14,7 @@ import { ParkAssociated } from 'src/app/domain/interface';
   ]
 })
 export class TableAssociatedParkComponent implements OnInit, OnChanges {
-  @Input() allAssociatedParks!: ParkAssociated[];
+  @Input() allAssociatedParks: ParkAssociated[];
   @Input() viewMode = true;
   public associatedParks: ParkAssociated[] = [];
   public dataSourceAssParks = new MatTableDataSource<ParkAssociated>();

@@ -13,8 +13,8 @@ import { PermissionTypeManagementService } from 'src/app/service/permission-type
   ]
 })
 export class PermissionTypeComponent implements OnInit, OnDestroy {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public dataSource = new MatTableDataSource<PermissionType>();
   public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso'];

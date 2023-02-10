@@ -15,12 +15,12 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
   styleUrls: ['./edit-park.component.css']
 })
 export class EditParkComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   public viewMode = true;
   public complete = true;
-  public park!: Park;
-  public active!: boolean;
-  inputParkForm!: FormGroup;
+  public park: Park;
+  public active: boolean;
+  inputParkForm: FormGroup;
   public dataSource = new MatTableDataSource<Area>;
   areas: Area[] = [];
   public associatedAreas: Area[] = [];

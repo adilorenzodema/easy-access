@@ -1,7 +1,7 @@
 
 export class Area {
   areaName: string;
-  idArea!: number;
+  idArea: number;
   creationUser?: number;
   creationDate?: Date;
   modificationUser?: number;
@@ -19,7 +19,7 @@ export class Park {
   cap: string;
   address: string;
   areaIdList?: number[];
-  idPark!: number;
+  idPark: number;
   creationUser?: number;
   creationDate?: Date;
   modificationUser?: number;

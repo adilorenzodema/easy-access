@@ -14,8 +14,8 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
 })
 export class ModalFormAreaComponent implements OnInit, OnDestroy {
 
-  inputUserForm!: FormGroup;
-  subscription: Subscription[] = [];
+  public inputUserForm: FormGroup;
+  private subscription: Subscription[] = [];
   constructor(
     public dialogRef: MatDialogRef<ModalFormAreaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Area,
