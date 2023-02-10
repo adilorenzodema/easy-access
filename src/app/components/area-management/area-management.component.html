@@ -13,7 +13,7 @@
         {{search.controls['ctrlActive'].value ? ('manage_areas.active' | translate) : ('manage_areas.inactive' |
         translate) }}
       </mat-slide-toggle>
-      <button mat-raised-button class="actionButton" (click)="addEdit()">{{'common.add' | translate}}</button>
+      <button mat-raised-button class="actionButton" (click)="add()">{{'common.add' | translate}}</button>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort

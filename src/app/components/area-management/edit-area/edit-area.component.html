@@ -2,11 +2,10 @@
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <mat-card-title> Area {{area.areaName}}</mat-card-title>
         <div fxLayoutGap="5px">
-            <button mat-button class="actionButton" *ngIf="viewModeUser else editButton"
-                (click)="changeViewEdit();">modifica</button>
+            <button mat-button class="actionButton" *ngIf="viewModeUser else editButton" (click)="viewModeUser = !viewModeUser">modifica</button>
             <ng-template #editButton>
-                <button mat-button class="actionButton" (click)="saveAssociation()">salva</button>
-                <button mat-button class="actionButton" (click)="changeViewEdit();">annulla</button>
+                <button mat-button class="actionButton">salva</button>
+                <button mat-button class="actionButton" (click)="viewModeUser = !viewModeUser">annulla</button>
             </ng-template>
             <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
         </div>
@@ -30,48 +29,11 @@
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Utenti associati">
-                <div style="border-radius: 10px; border-style: solid; padding: 2%;">
-                    <form [formGroup]="formGroup" fxLayout="row" fxLayoutAlign="start">
-                        <mat-form-field appearance="outline" fxFlex="100">
-                            <mat-label>{{'common.searchLabel' | translate }}</mat-label>
-                            <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-                            <button matPrefix mat-icon-button (click)="filter()">
-                                <mat-icon>search</mat-icon>
-                            </button>
-                        </mat-form-field>
-                    </form>
-
-                    <table mat-table [dataSource]="dataSourceAssUsers" class="mat-elevation-z8" matSort
-                        [style.display]="dataSourceAssUsers.data.length === 0 ? 'none' : ''">
-                        <ng-container matColumnDef="firstName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="lastName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> lastName </th>
-                            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="granted" *ngIf="!viewModeUser">
-                            <th mat-header-cell *matHeaderCellDef> Associazione </th>
-                            <td mat-cell *matCellDef="let element">
-                                <mat-checkbox [(ngModel)]="element.granted" color="primary"></mat-checkbox>
-                            </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers"
-                            [style.display]="dataSourceAssUsers.data.length === 0 ? 'none' : ''"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;"></tr>
-                    </table>
-                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-                        [style.display]="dataSourceAssUsers.data.length === 0  ? 'none' : ''">
-                    </mat-paginator>
-                </div>
+                <app-table-associated-users [allAssociatedUsers]="users" [idArea]="area.idArea"></app-table-associated-users>
             </mat-tab>
             <mat-tab label="Parcheggi associati">
                 <!--componente-->
-                <app-table-associated-park [allAssociatedParks]="assParks" [viewMode]="viewModeUser"></app-table-associated-park>
+                <app-table-associated-park [allAssociatedParks]="assParks"></app-table-associated-park>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

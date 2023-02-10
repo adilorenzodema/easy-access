@@ -11,6 +11,7 @@ import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditAreaComponent } from './edit-area/edit-area.component';
 import { TableAssociatedParkComponent } from './table-associated-park/table-associated-park.component';
+import { TableAssociatedUsersComponent } from './table-associated-users/table-associated-users.component';
 
 
 
@@ -20,7 +21,8 @@ import { TableAssociatedParkComponent } from './table-associated-park/table-asso
     AreaManagementComponent,
     ModalFormAreaComponent,
     EditAreaComponent,
-    TableAssociatedParkComponent
+    TableAssociatedParkComponent,
+    TableAssociatedUsersComponent
   ],
   imports: [
     CommonModule,

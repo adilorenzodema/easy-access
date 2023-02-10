@@ -49,7 +49,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     });
   }
 
-  public addEdit(element?: Area): void {
+  public add(element?: Area): void {
     const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: element ? element : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {

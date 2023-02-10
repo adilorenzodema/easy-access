@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ParkAssociated } from 'src/app/domain/interface';
 
@@ -14,8 +16,10 @@ import { ParkAssociated } from 'src/app/domain/interface';
   ]
 })
 export class TableAssociatedParkComponent implements OnInit, OnChanges {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @Input() allAssociatedParks: ParkAssociated[];
-  @Input() viewMode = true;
+  public viewMode = true;
   public associatedParks: ParkAssociated[] = [];
   public dataSourceAssParks = new MatTableDataSource<ParkAssociated>();
   public displayedColumnsParks = ['idPark', 'namePark'];
@@ -34,14 +38,17 @@ export class TableAssociatedParkComponent implements OnInit, OnChanges {
       this.allAssociatedParks.forEach((park) => { if (park.associated) this.associatedParks.push(park); });
       this.dataSourceAssParks.data = this.associatedParks;
     }
-    if (changes['viewMode'] && !changes['viewMode'].firstChange) {
-      if (!this.viewMode) {
-        this.dataSourceAssParks.data = this.allAssociatedParks;
-        this.displayedColumnsParks = this.displayedColumnsParks.concat('associated');
-      } else {
-        this.dataSourceAssParks.data = this.associatedParks;
-        this.displayedColumnsParks.pop();
-      }
+  }
+
+  public changeViewEdit(): void {
+    if (this.viewMode) {
+      this.dataSourceAssParks.data = this.allAssociatedParks;
+      this.displayedColumnsParks = this.displayedColumnsParks.concat('associated');
+      this.viewMode = false;
+    } else {
+      this.dataSourceAssParks.data = this.associatedParks;
+      this.displayedColumnsParks.pop();
+      this.viewMode = true;
     }
   }
 
