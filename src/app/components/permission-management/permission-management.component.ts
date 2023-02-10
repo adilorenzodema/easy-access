@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { Permission } from '../../domain/interface';
@@ -27,14 +28,14 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.forEach(
-      (sub) => sub.unsubscribe()
-    );
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
   public callGetAPI(): void {
     this.complete = false;
-    this.subscription.push(this.permissionService.getPermission().subscribe({
+    const start = moment(moment.now()).format('yyyy-MM-DD');
+    const end = moment(moment.now()).format('yyyy-MM-DD');
+    this.subscription.push(this.permissionService.getPermission(start, end).subscribe({
       next: (permission) => (
         this.dataSource.data = permission,
         this.dataSource.paginator = this.paginator,

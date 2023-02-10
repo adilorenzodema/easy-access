@@ -6,8 +6,8 @@
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
             <ng-container matColumnDef="idTipoPermesso">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                <td mat-cell *matCellDef="let element"> {{element.idPermissionType}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>id tipo permesso </th>
+                <td mat-cell *matCellDef="let element"> {{element.permissionType}} </td>
             </ng-container>
 
             <ng-container matColumnDef="descrizioneTipoPermesso">
