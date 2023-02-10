@@ -1,10 +1,12 @@
 import { EventEmitter, Output } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackBar } from 'dema-movyon-template';
+import { Subscription } from 'rxjs';
 import { UserAssociated } from 'src/app/domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 @Component({
@@ -17,7 +19,7 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
   `
   ]
 })
-export class TableAssociatedUsersComponent implements OnInit, OnChanges {
+export class TableAssociatedUsersComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Input() allAssociatedUsers: UserAssociated[];
@@ -28,6 +30,8 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges {
   public dataSourceAssUsers = new MatTableDataSource<UserAssociated>();
   public displayedColumnsUsers = ['firstName', 'lastName'];
   public formGroup: FormGroup;
+
+  private subscription: Subscription[] = [];
 
   constructor(
     private snackBar: SnackBar,
@@ -50,11 +54,15 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscription.forEach(subscription => subscription.unsubscribe());
+  }
+
   public saveAssociation(): void {
-    this.areaManageService.editAssociateUserArea(this.idArea, this.dataSourceAssUsers.data).subscribe({
+    this.subscription.push(this.areaManageService.editAssociateUserArea(this.idArea, this.dataSourceAssUsers.data).subscribe({
       error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
       complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
-    });
+    }));
   }
 
   public changeViewEdit(): void {

@@ -6,7 +6,8 @@
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutGap="20px">
             <mat-card-subtitle>Dettagli</mat-card-subtitle>
-            <button mat-button class="actionButton" (click)="!viewModeUser ? saveDetails() : null; viewModeUser = !viewModeUser">
+            <button mat-button class="actionButton"
+                (click)="!viewModeUser ? saveDetails() : null; viewModeUser = !viewModeUser">
                 {{viewModeUser ? 'modifica dettagli' : 'salva'}}
             </button>
             <button mat-button class="actionButton" *ngIf="!viewModeUser"
@@ -30,12 +31,14 @@
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Utenti associati">
+                <!--componente-->
                 <app-table-associated-users [allAssociatedUsers]="users" [idArea]="area.idArea"
                     (updateAssociatedUsers)="apiGetAssociation()"></app-table-associated-users>
             </mat-tab>
             <mat-tab label="Parcheggi associati">
                 <!--componente-->
-                <app-table-associated-park [allAssociatedParks]="assParks"></app-table-associated-park>
+                <app-table-associated-park [allAssociatedParks]="assParks" [idArea]="area.idArea"
+                    (updateAssociatedUsers)="apiGetAssociation()"></app-table-associated-park>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

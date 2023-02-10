@@ -1,13 +1,9 @@
-import { OnDestroy } from '@angular/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import { Area } from 'src/app/domain/class';
 import { ParkAssociated, UserAssociated } from 'src/app/domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
