@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ParkAssociated } from 'src/app/domain/interface';
 
@@ -12,14 +13,21 @@ import { ParkAssociated } from 'src/app/domain/interface';
   `
   ]
 })
-export class TableAssociatedParkComponent implements OnChanges {
+export class TableAssociatedParkComponent implements OnInit, OnChanges {
   @Input() allAssociatedParks!: ParkAssociated[];
   @Input() viewMode = true;
   public associatedParks: ParkAssociated[] = [];
   public dataSourceAssParks = new MatTableDataSource<ParkAssociated>();
   public displayedColumnsParks = ['idPark', 'namePark'];
+  public formGroup: FormGroup;
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.formGroup = new FormGroup({
+      ctrlSearch: new FormControl('')
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['allAssociatedParks']) {
@@ -37,4 +45,8 @@ export class TableAssociatedParkComponent implements OnChanges {
     }
   }
 
+  public filter(): void {
+    const filterValue = this.formGroup.get('ctrlSearch')?.value;
+    this.dataSourceAssParks.filter = filterValue.trim().toLowerCase();
+  }
 }

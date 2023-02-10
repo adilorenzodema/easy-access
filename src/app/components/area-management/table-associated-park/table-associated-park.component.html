@@ -1,4 +1,13 @@
 <div style="border-radius: 10px; border-style: solid; padding: 2%;">
+    <form [formGroup]="formGroup" fxLayout="row" fxLayoutAlign="start">
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>{{'common.searchLabel' | translate }}</mat-label>
+            <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+            <button matPrefix mat-icon-button (click)="filter()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
     <table mat-table [dataSource]="dataSourceAssParks" class="mat-elevation-z8" matSort
         [style.display]="dataSourceAssParks.data.length === 0 ? 'none' : ''">
 
