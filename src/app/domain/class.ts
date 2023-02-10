@@ -15,7 +15,7 @@ export class Area {
 export class Park {
   namePark: string;
   country: string;
-  locality: string;
+  location: string;
   cap: string;
   address: string;
   areaIdList?: number[];
@@ -25,10 +25,10 @@ export class Park {
   modificationUser?: number;
   modificationDate?: Date;
   constructor(
-    namePark: string, country: string, locality: string, cap: string, address: string) {
+    namePark: string, country: string, location: string, cap: string, address: string) {
     this.namePark = namePark;
     this.country = country;
-    this.locality = locality;
+    this.location = location;
     this.cap = cap;
     this.address = address;
   }

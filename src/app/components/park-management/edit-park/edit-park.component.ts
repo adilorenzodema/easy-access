@@ -41,7 +41,7 @@ export class EditParkComponent implements OnInit {
     this.inputParkForm = this.formBuilder.group({
       ctrlParkName: [this.park.namePark, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlParkAddress: [this.park.address, [Validators.required, Validators.pattern('[a-zA-Z0-9\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkLocation: [this.park.locality, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
+      ctrlParkLocation: [this.park.location, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlParkCAP: [this.park.cap, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlParkCountry: [this.park.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlSearch: ['']

@@ -51,10 +51,13 @@ export interface Transit {
 export interface Permission {
   idPermission: number;
   permissionType: PermissionType;
+  category: 'P' | 'T';
   obu: Obu;
   validationStartDate: Date;
   issueValidationDate: Date;
-  flagCanceled: boolean;
+  flagActive: boolean;
+  validationDateStart: Date;
+  validationDateEnd: Date;
   cancelationUser: number;
   cancelationDate: Date;
   creationUser: number;

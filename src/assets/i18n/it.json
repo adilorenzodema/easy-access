@@ -68,6 +68,9 @@
     "postalCodeError": "TODO",
     "countryError": "Uno stato può contenere solamente lettere, spazi o apostrofi."
   },
+  "manage-permission": {
+    "add": "Aggiungi permesso"
+  },
   "text": "testo",
   "error": {
     "login": "Username o password sbagliate",
