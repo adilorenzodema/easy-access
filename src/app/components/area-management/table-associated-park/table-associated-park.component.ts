@@ -37,17 +37,23 @@ export class TableAssociatedParkComponent implements OnInit, OnChanges {
     if (changes['allAssociatedParks']) {
       this.allAssociatedParks.forEach((park) => { if (park.associated) this.associatedParks.push(park); });
       this.dataSourceAssParks.data = this.associatedParks;
+      this.dataSourceAssParks.sort = this.sort;
+      this.dataSourceAssParks.paginator = this.paginator;
     }
   }
 
   public changeViewEdit(): void {
     if (this.viewMode) {
-      this.dataSourceAssParks.data = this.allAssociatedParks;
       this.displayedColumnsParks = this.displayedColumnsParks.concat('associated');
+      this.dataSourceAssParks.data = this.allAssociatedParks;
+      this.dataSourceAssParks.sort = this.sort;
+      this.dataSourceAssParks.paginator = this.paginator;
       this.viewMode = false;
     } else {
-      this.dataSourceAssParks.data = this.associatedParks;
       this.displayedColumnsParks.pop();
+      this.dataSourceAssParks.data = this.associatedParks;
+      this.dataSourceAssParks.sort = this.sort;
+      this.dataSourceAssParks.paginator = this.paginator;
       this.viewMode = true;
     }
   }

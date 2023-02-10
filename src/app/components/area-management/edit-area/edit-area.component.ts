@@ -42,7 +42,7 @@ export class EditAreaComponent implements OnInit {
     this.apiGetAssociation();
   }
 
-  private apiGetAssociation(): void {
+  public apiGetAssociation(): void {
     this.complete = false;
     forkJoin({
       assUsers: this.areaManageService.getAssociateUserArea(this.area.idArea),

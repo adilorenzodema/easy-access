@@ -1,3 +1,4 @@
+import { EventEmitter, Output } from '@angular/core';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,8 +22,9 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges {
   @ViewChild(MatSort) sort: MatSort;
   @Input() allAssociatedUsers: UserAssociated[];
   @Input() idArea: number;
+  @Output() updateAssociatedUsers = new EventEmitter<void>();
   public viewMode = true;
-  public associatedUsers: UserAssociated[] = [];
+  public associatedUsers: UserAssociated[];
   public dataSourceAssUsers = new MatTableDataSource<UserAssociated>();
   public displayedColumnsUsers = ['firstName', 'lastName'];
   public formGroup: FormGroup;
@@ -40,26 +42,33 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes['allAssociatedParks']?.firstChange) {
+      this.associatedUsers = [];
       this.allAssociatedUsers.forEach((user) => { if (user.granted) this.associatedUsers.push(user); });
       this.dataSourceAssUsers.data = this.associatedUsers;
+      this.dataSourceAssUsers.sort = this.sort;
+      this.dataSourceAssUsers.paginator = this.paginator;
     }
   }
 
   public saveAssociation(): void {
     this.areaManageService.editAssociateUserArea(this.idArea, this.dataSourceAssUsers.data).subscribe({
       error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
-      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"))
+      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
     });
   }
 
   public changeViewEdit(): void {
     if (this.viewMode) {
-      this.dataSourceAssUsers.data = this.allAssociatedUsers;
       this.displayedColumnsUsers = this.displayedColumnsUsers.concat('granted');
+      this.dataSourceAssUsers.data = this.allAssociatedUsers;
+      this.dataSourceAssUsers.sort = this.sort;
+      this.dataSourceAssUsers.paginator = this.paginator;
       this.viewMode = false;
     } else {
-      this.dataSourceAssUsers.data = this.associatedUsers;
       this.displayedColumnsUsers.pop();
+      this.dataSourceAssUsers.data = this.associatedUsers;
+      this.dataSourceAssUsers.sort = this.sort;
+      this.dataSourceAssUsers.paginator = this.paginator;
       this.viewMode = true;
     }
   }
