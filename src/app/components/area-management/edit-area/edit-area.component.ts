@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -5,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { Area } from 'src/app/domain/class';
 import { ParkAssociated, UserAssociated } from 'src/app/domain/interface';
@@ -15,13 +17,15 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
   templateUrl: './edit-area.component.html',
   styleUrls: ['./edit-area.component.css']
 })
-export class EditAreaComponent implements OnInit {
+export class EditAreaComponent implements OnInit, OnDestroy {
   public area: Area;
   public formGroup: FormGroup;
   public users: UserAssociated[] = [];
   public assParks: ParkAssociated[] = [];
   public viewModeUser = true;
   public complete = true;
+
+  private subscription: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -42,9 +46,13 @@ export class EditAreaComponent implements OnInit {
     this.apiGetAssociation();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.forEach((subscription) => subscription.unsubscribe());
+  }
+
   public apiGetAssociation(): void {
     this.complete = false;
-    forkJoin({
+    this.subscription.push(forkJoin({
       assUsers: this.areaManageService.getAssociateUserArea(this.area.idArea),
       assParks: this.areaManageService.getAssociateParkArea(this.area.idArea)
     }).subscribe({
@@ -54,7 +62,21 @@ export class EditAreaComponent implements OnInit {
       },
       error: () => this.complete = true,
       complete: () => this.complete = true
-    });
+    }));
   }
 
+  public saveDetails(): void {
+    const areaName = this.formGroup.get('ctrlAreaName').value;
+    const editArea = new Area(areaName, this.area.idArea);
+    this.subscription.push(this.areaManageService.editArea(editArea).subscribe({
+      next: () => this.snackBar.showMessage('Dettagli modificati correttamente', 'INFO'),
+      complete: () => this.getAreaById()
+    }));
+  }
+
+  private getAreaById(): void {
+    this.subscription.push(this.areaManageService.getAreaByIdArea(this.area.idArea).subscribe(
+      (respArea) => this.area = respArea
+    ));
+  }
 }

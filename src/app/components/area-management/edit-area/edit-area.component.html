@@ -6,7 +6,7 @@
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutGap="20px">
             <mat-card-subtitle>Dettagli</mat-card-subtitle>
-            <button mat-button class="actionButton" (click)="viewModeUser = !viewModeUser">
+            <button mat-button class="actionButton" (click)="!viewModeUser ? saveDetails() : null; viewModeUser = !viewModeUser">
                 {{viewModeUser ? 'modifica dettagli' : 'salva'}}
             </button>
             <button mat-button class="actionButton" *ngIf="!viewModeUser"
