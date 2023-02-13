@@ -1,68 +1,3 @@
-<!-- <mat-card fxLayout="column" fxLayoutGap="20px">
-  <mat-card-title>{{"Gestione " + park.namePark}}</mat-card-title>
-  <mat-card-content fxLayout="column" fxLayoutGap="10px">
-    <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
-    <form [formGroup]="inputParkForm">
-      <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
-        <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-          <mat-label>{{'manage_parks.parkName' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkName" />
-          <mat-error>{{'manage_parks.nameError' | translate}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-          <mat-label>{{'manage_parks.parkAddress' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkAddress" />
-          <mat-error>{{'manage_parks.addressError' | translate}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-          <mat-label>{{'manage_parks.parkLocation' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkLocation" />
-          <mat-error>{{'manage_parks.locationError' | translate}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-          <mat-label>{{'manage_parks.parkPostalCode' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkCAP" />
-          <mat-error>{{'manage_parks.postalCodeError' | translate}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-          <mat-label>{{'manage_parks.parkCountry' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkCountry" />
-          <mat-error>{{'manage_parks.countryError' | translate}}</mat-error>
-        </mat-form-field>
-      </div>
-      <span fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
-        <button mat-raised-button color="primary">{{active ? ('manage_parks.active' | translate) :
-          ('manage_parks.inactive' | translate) }}</button>
-      </span>
-      <mat-tab-group>
-        <mat-tab label="{{'common.associateAreas' | translate}}">
-          <mat-form-field appearance="fill" fxFlex="90" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-            <mat-label> Associazione Aree</mat-label>
-            <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
-              <mat-select-filter [displayMember]="'areaName'" [array]="areas" (filteredReturn)="areaFiltered = $event"
-                required></mat-select-filter>
-              <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
-                {{item.areaName}}
-              </mat-option>
-            </mat-select>
-            <mat-error>Associare almeno un'area</mat-error>
-          </mat-form-field>
-        </mat-tab>
-        <mat-tab label="{{'common.associateGates' | translate}}">
-          TMP2
-        </mat-tab>
-      </mat-tab-group>
-    </form>
-    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
-      <button mat-raised-button class="actionButton" routerLink="/parking-management">Cancella</button>
-      <button mat-raised-button color="primary" [disabled]="inputParkForm.invalid" (click)="(true)">{{ ('common.edit' |
-        translate)}}</button>
-    </div>
-
-  </mat-card-content>
-</mat-card>
- -->
-
 <mat-card fxLayout="column" fxLayoutGap="20px">
   <div fxLayout="row wrap" fxLayoutAlign="space-between">
       <mat-card-title> {{"Gestione " + park.namePark}}</mat-card-title>
@@ -70,7 +5,8 @@
           <button mat-button class="actionButton" *ngIf="viewMode else editButton"
               (click)="viewMode = false; filter()">modifica</button>
           <ng-template #editButton>
-              <button mat-button class="actionButton" (click)="viewMode = true; filter()">annulla</button>
+              <button mat-button class="actionButton" (click)="!viewMode ? saveDetails() : null; viewMode = !viewMode">
+                {{viewMode ? 'modifica dettagli' : 'salva'}}</button>
               <button mat-button class="actionButton" (click)="saveAssociation()">salva </button>
           </ng-template>
           <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
@@ -113,42 +49,13 @@
           </div>
       </form>
       <mat-tab-group mat-align-tabs="center">
-          <mat-tab label="Aree associati">
-              <div style="border-radius: 10px; border-style: solid; padding: 2%;">
-                  <form [formGroup]="inputParkForm" fxLayout="row" fxLayoutAlign="start">
-                      <mat-form-field appearance="outline" fxFlex="100">
-                          <mat-label>{{'common.searchLabel' | translate }}</mat-label>
-                          <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-                          <button matPrefix mat-icon-button (click)="filter()">
-                              <mat-icon>search</mat-icon>
-                          </button>
-                      </mat-form-field>
-                  </form>
-
-                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-                      [style.display]="dataSource.data.length === 0 || viewMode ? 'none' : ''">
-                      <ng-container matColumnDef="areaName">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                          <td mat-cell *matCellDef="let element"> {{element.areaName}} </td>
-                      </ng-container>
-
-                      <ng-container matColumnDef="associated" *ngIf="!viewMode">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Associazione </th>
-                          <td mat-cell *matCellDef="let element">
-                              <mat-checkbox [(ngModel)]="element.idArea" color="primary"></mat-checkbox>
-                          </td>
-                      </ng-container>
-
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"
-                          [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-                      [style.display]="dataSource.data.length === 0 || viewMode  ? 'none' : ''">
-                  </mat-paginator>
-              </div>
-          </mat-tab>
-          <mat-tab label="Varchi associati"> </mat-tab>
-      </mat-tab-group>
+        <mat-tab label="Aree associate">
+            <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"></app-table-associated-areas>
+        </mat-tab>
+        <mat-tab label="Varchi associati">
+            <!--componente-->
+            <app-table-associated-gates></app-table-associated-gates>
+        </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
 </mat-card>

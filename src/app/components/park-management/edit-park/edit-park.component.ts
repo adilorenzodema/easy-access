@@ -8,6 +8,7 @@ import { Area, Park } from 'src/app/domain/class';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+import { AreaAssociated } from 'src/app/domain/interface';
 
 @Component({
   selector: 'app-edit-park',
@@ -22,8 +23,8 @@ export class EditParkComponent implements OnInit {
   public active: boolean;
   inputParkForm: FormGroup;
   public dataSource = new MatTableDataSource<Area>;
-  areas: Area[] = [];
-  public associatedAreas: Area[] = [];
+  areas: AreaAssociated[] = [];
+  public associatedAreas: AreaAssociated[] = [];
   subscription: Subscription[] = [];
   public displayedColumns = ['areaName'];
   constructor(
@@ -41,7 +42,7 @@ export class EditParkComponent implements OnInit {
     this.inputParkForm = this.formBuilder.group({
       ctrlParkName: [this.park.namePark, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlParkAddress: [this.park.address, [Validators.required, Validators.pattern('[a-zA-Z0-9\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkLocation: [this.park.locality, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
+      ctrlParkLocation: [this.park.location, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlParkCAP: [this.park.cap, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlParkCountry: [this.park.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlSearch: ['']
@@ -50,13 +51,22 @@ export class EditParkComponent implements OnInit {
     console.log("Aree: " + this.areas);
   }
 
-  public filter(): void {
-    const filterValue = this.inputParkForm.get('ctrlSearch')?.value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  public saveDetails(): void {
+    const parkName = this.inputParkForm.get('ctrlParkName').value;
+    const parkAddress = this.inputParkForm.get('ctrlParkAddress').value;
+    const parkLocation = this.inputParkForm.get('ctrlParkLocation').value;
+    const parkCAP = this.inputParkForm.get('ctrlParkCAP').value;
+    const parkCountry = this.inputParkForm.get('ctrlParkCountry').value;
+    const editPark = new Park(parkName,parkCountry,parkLocation, parkCAP,parkAddress, this.park.idPark);
+    this.subscription.push(this.areaManageService.editArea(editArea).subscribe({
+      next: () => this.snackBar.showMessage('Dettagli modificati correttamente', 'INFO'),
+      complete: () => this.getAreaById()
+    }));
   }
 
   public changeViewEdit(): void {
     if (this.viewMode) {
+
       this.dataSource.data = this.areas;
       this.dataSource.paginator = this.paginator;
       this.displayedColumns = ['areaName', 'associated'];
@@ -85,10 +95,10 @@ export class EditParkComponent implements OnInit {
       next: ({ assAreas, assGates }) => {
         console.log(assAreas)
         this.areas = assAreas;
-       /*  assAreas.forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
+         assAreas.forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
         this.dataSource.data = this.associatedAreas;
         this.dataSource.paginator = this.paginator;
-      */}
+      }
     });
   }
 }
