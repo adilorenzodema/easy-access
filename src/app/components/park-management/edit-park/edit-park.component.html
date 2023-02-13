@@ -2,8 +2,6 @@
   <div fxLayout="row wrap" fxLayoutAlign="space-between">
       <mat-card-title> {{"Gestione " + park.namePark}}</mat-card-title>
       <div fxLayoutGap="5px">
-          <button mat-button class="actionButton" *ngIf="viewMode else editButton"
-              (click)="viewMode = false; filter()">modifica</button>
           <ng-template #editButton>
               <button mat-button class="actionButton" (click)="!viewMode ? saveDetails() : null; viewMode = !viewMode">
                 {{viewMode ? 'modifica dettagli' : 'salva'}}</button>

@@ -25,12 +25,13 @@ export class Park {
   modificationUser?: number;
   modificationDate?: Date;
   constructor(
-    namePark: string, country: string, locality: string, cap: string, address: string) {
+    namePark: string, country: string, locality: string, cap: string, address: string, idPark?: number) {
     this.namePark = namePark;
     this.country = country;
     this.location = locality;
     this.cap = cap;
     this.address = address;
+    if (idPark) this.idPark = idPark;
   }
 }
 

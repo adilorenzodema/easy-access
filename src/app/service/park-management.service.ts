@@ -45,6 +45,15 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  getParkByIdPark(idPark: number): Observable<Park> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService)})
+    };
+    return this.http.get<Park>(this.apiURL + '/getParkByIdPark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   addParking(park: Park): Observable<Park> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

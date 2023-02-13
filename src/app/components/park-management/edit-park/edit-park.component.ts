@@ -9,6 +9,7 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { AreaAssociated } from 'src/app/domain/interface';
+import { SnackBar } from 'dema-movyon-template';
 
 @Component({
   selector: 'app-edit-park',
@@ -31,6 +32,7 @@ export class EditParkComponent implements OnInit {
     public translate: TranslateService,
     private router: Router,
     private formBuilder: FormBuilder,
+    private snackBar: SnackBar,
     private parkManagementService: ParkManagementService) {
 
     this.park = this.router.getCurrentNavigation()?.extras.state?.['park'] as Park;
@@ -58,9 +60,9 @@ export class EditParkComponent implements OnInit {
     const parkCAP = this.inputParkForm.get('ctrlParkCAP').value;
     const parkCountry = this.inputParkForm.get('ctrlParkCountry').value;
     const editPark = new Park(parkName,parkCountry,parkLocation, parkCAP,parkAddress, this.park.idPark);
-    this.subscription.push(this.areaManageService.editArea(editArea).subscribe({
+    this.subscription.push(this.parkManagementService.editParking(editPark).subscribe({
       next: () => this.snackBar.showMessage('Dettagli modificati correttamente', 'INFO'),
-      complete: () => this.getAreaById()
+      complete: () => this.getParkById()
     }));
   }
 
@@ -100,6 +102,12 @@ export class EditParkComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
+  }
+
+  private getParkById(): void {
+    this.subscription.push(this.parkManagementService.getParkByIdPark(this.park.idPark).subscribe(
+      (respPark) => this.park = respPark
+    ));
   }
 }
 
