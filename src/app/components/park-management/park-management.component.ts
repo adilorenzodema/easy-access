@@ -50,6 +50,7 @@ export class ParkManagementComponent implements OnInit {
       this.callGetAPIFiltered();
     } else {
       this.callGetAPI();
+      console.log( this.dataSource.data);
     }
   }
 

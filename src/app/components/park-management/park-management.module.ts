@@ -12,6 +12,8 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
 import { EditParkComponent } from './edit-park/edit-park.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { TableAssociatedAreasComponent } from './table-associated-areas/table-associated-areas.component';
+import { TableAssociatedGatesComponent } from './table-associated-gates/table-associated-gates.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ModalFormParkComponent,
     TitleParkComponent,
     ModalParksAreasAssociationComponent,
-    EditParkComponent
+    EditParkComponent,
+    TableAssociatedAreasComponent,
+    TableAssociatedGatesComponent
   ],
   imports: [
     CommonModule,

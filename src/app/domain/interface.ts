@@ -19,6 +19,13 @@ export interface ParkAssociated {
   associated: boolean;
 }
 
+export interface AreaAssociated {
+  idArea: number;
+  areaName: string;
+  associated: boolean;
+}
+
+
 export interface Menu {
   id: number;
   code: string;
