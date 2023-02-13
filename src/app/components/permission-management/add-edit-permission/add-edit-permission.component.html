@@ -1,1 +1,90 @@
-<p>add-edit-permission works!</p>
+<mat-card fxLayout="column" fxLayoutGap="20px">
+    <mat-card-title>Aggiungi permesso</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
+            <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
+                (change)="changeCategory()">
+                <mat-radio-button [value]="1">Temporaneo</mat-radio-button>
+                <mat-radio-button [value]="2">Permanente</mat-radio-button>
+            </mat-radio-group>
+            <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
+                    fxFlex.gt-md="20">
+                    <mat-label>Inserisci un obu id</mat-label>
+                    <input matInput type="text" formControlName="ctrlObu">
+                </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
+                    fxFlex.gt-md="30">
+                    <mat-label> Seleziona una o più Aree</mat-label>
+                    <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
+                        <mat-select-filter [displayMember]="'areaName'" [array]="areas"
+                            (filteredReturn)="areaFiltered = $event" required></mat-select-filter>
+                        <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
+                            {{item.areaName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Associare almeno un'area</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
+                    fxFlex.gt-md="20">
+                    <mat-label>Inizio validità permesso</mat-label>
+                    <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart"
+                        (dateChange)="dateValidator()">
+                    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerStart></mat-datepicker>
+                    <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
+                        Data inserita non valida
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
+                        La data di inizio non può essere maggiore della data di fine
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
+                    fxFlex.gt-md="20">
+                    <mat-label>Fine validità permesso</mat-label>
+                    <input matInput [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd"
+                        (dateChange)="dateValidator()">
+                    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerEnd></mat-datepicker>
+                    <mat-error> Data inserita non valida</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center">
+                <div *ngIf="formGroup.get('ctrlCategory').value === 1" fxLayoutGap="10px">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Orario di inizio</mat-label>
+                        <input matInput formControlName="ctrlHourStart" [ngxTimepicker]="pickerHourStart" [format]="24"
+                            required>
+                        <ngx-material-timepicker-toggle matSuffix
+                            [for]="pickerHourStart"></ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker #pickerHourStart></ngx-material-timepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label> Orario di fine</mat-label>
+                        <input matInput formControlName="ctrlHourEnd" [ngxTimepicker]="pickerHourEnd" [format]="24"
+                            required>
+                        <ngx-material-timepicker-toggle matSuffix
+                            [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
+                        <ngx-material-timepicker #pickerHourEnd></ngx-material-timepicker>
+                    </mat-form-field>
+                </div>
+                <mat-form-field *ngIf="formGroup.get('ctrlCategory').value === 2" appearance="outline" fxFlex="100"
+                    fxFlex.gt-xs="100" fxFlex.gt-lg="40" fxFlex.gt-md="40">
+                    <mat-label> Associazione tipi di permesso</mat-label>
+                    <mat-select formControlName="ctrlTypePermissionList" multiple>
+                        <mat-select-filter [displayMember]="'areaName'" [array]="permissionTypes"
+                            (filteredReturn)="permissionTypesFiltered = $event" required></mat-select-filter>
+                        <mat-option *ngFor="let item of permissionTypesFiltered" [value]="item.permissionTypeId">
+                            {{item.permissionTypeDesc}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Associare almeno un permesso</mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+            <button mat-raised-button [routerLink]="'../'">Annulla</button>
+            <button mat-button class="actionButton" [disabled]="formGroup.invalid" (click)="addPermission()">Salva</button>
+        </div>
+    </mat-card-content>
+</mat-card>

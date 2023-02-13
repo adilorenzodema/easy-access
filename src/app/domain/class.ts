@@ -34,3 +34,35 @@ export class Park {
   }
 }
 
+export class AddPermission {
+  idObu: number;
+  validationDateStart: Date;
+  validationDateEnd: Date;
+  areaIdList: Area[];
+  constructor(
+    idObu: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[]) {
+    this.idObu = idObu;
+    this.validationDateStart = validationDateStart;
+    this.validationDateEnd = validationDateEnd;
+    this.areaIdList = areaIdList;
+  }
+}
+
+export class AddTemporaryPermission extends AddPermission {
+  startTime: Date;
+  endTime: Date;
+  constructor(idObu: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], startTime: Date, endTime: Date) {
+    super(idObu, validationDateStart, validationDateEnd, areaIdList);
+    this.startTime = startTime;
+    this.endTime = endTime;
+  }
+}
+
+export class AddPermanentPermission extends AddPermission {
+  permissionTypeId: number;
+  constructor(idObu: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], permissionTypeId: number) {
+    super(idObu, validationDateStart, validationDateEnd, areaIdList);
+    this.permissionTypeId = permissionTypeId;
+  }
+}
+

@@ -64,11 +64,10 @@ export interface Permission {
   creationDate: Date;
   modificationUser: number;
   modificationDate: Date;
-
 }
 
 export interface PermissionType {
-  idPermissionType: number;
+  permissionTypeId: number;
   permissionTypeDesc: string;
   creationUser: number;
   creationDate: Date;
