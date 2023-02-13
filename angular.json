@@ -19,7 +19,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
-              "moment"
+              "moment",
+              "luxon"
             ],
             "assets": [
               "src/favicon.ico",

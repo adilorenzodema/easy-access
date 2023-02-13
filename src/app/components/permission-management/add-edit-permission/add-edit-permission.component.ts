@@ -66,20 +66,20 @@ export class AddEditPermissionComponent implements OnInit {
 
   public addPermission(): void {
     const categoryValue = this.formGroup.get('ctrlCategory').value;
-    const idObu = this.formGroup.get('ctrlObu').value;
+    const obuCode = this.formGroup.get('ctrlObu').value;
     const startDate = this.formGroup.get('ctrlDateStart').value;
     const endDate = this.formGroup.get('ctrlDateEnd').value;
     const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
     if (categoryValue === 1) { // temporaneo
       const startHour = this.formGroup.get('ctrlHourStart').value;
       const endHour = this.formGroup.get('ctrlHourEnd').value;
-      const addTemp = new AddTemporaryPermission(idObu, startDate, endDate, idAreasSelected, startHour, endHour);
+      const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
       this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe(
         () => console.log('inserito')
       ));
     } else if (categoryValue === 2) { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
-      const addPerm = new AddPermanentPermission(idObu, startDate, endDate, idAreasSelected, permissionTypeList);
+      const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
       this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe(
         () => console.log('inserito')
       ));
