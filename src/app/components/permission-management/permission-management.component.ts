@@ -21,7 +21,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public start = moment(moment.now()).subtract(2, 'day');
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
-  public displayedColumns: string[] = ['idPermission', 'category', 'descrizionePermesso', 'codiceObu'];
+  public displayedColumns: string[] = ['idPermission', 'category', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd'];
 
   private subscription: Subscription[] = [];
 
