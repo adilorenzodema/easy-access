@@ -24,7 +24,8 @@ export class ParkManagementComponent implements OnInit {
 
   public search: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
-  public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'creationUser', 'creationDate', 'modificationUser' ,'modificationDate', 'action'];
+  public displayedColumns: string[] =
+    ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public areaName: string;
   public idArea: number;
   public complete = true;
@@ -50,7 +51,7 @@ export class ParkManagementComponent implements OnInit {
       this.callGetAPIFiltered();
     } else {
       this.callGetAPI();
-      console.log( this.dataSource.data);
+      console.log(this.dataSource.data);
     }
   }
 
@@ -132,7 +133,7 @@ export class ParkManagementComponent implements OnInit {
       });
   }
 
-  public associationArea(idPark: number) : void {
+  public associationArea(idPark: number): void {
     const dialogRef = this.dialog.open(ModalParksAreasAssociationComponent,
       {
         width: '50%', height: '80%',
