@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { PermissionType } from 'src/app/domain/interface';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
@@ -18,13 +19,14 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public dataSource = new MatTableDataSource<PermissionType>();
-  public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso'];
+  public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso', 'action'];
   public search: FormGroup;
 
   private subscription: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private snackBar: SnackBar,
     private permissionTypeService: PermissionTypeManagementService
   ) { }
 
@@ -46,7 +48,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
-    this.permissionTypeService.getPermissionType(keyword, isActive).subscribe({
+    this.subscription.push(this.permissionTypeService.getPermissionType(keyword, isActive).subscribe({
       next: (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
@@ -54,7 +56,23 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
       ),
       error: () => this.complete = true,
       complete: () => this.complete = true
-    });
+    }));
+  }
+
+  public deletePermissionType(id: number): void {
+    this.complete = false;
+    this.subscription.push(this.permissionTypeService.deletePermissionType(id).subscribe({
+      error: () => this.complete = true,
+      complete: () => (this.snackBar.showMessage('permesso disattivato', 'INFO'), this.callGetAPI(), this.complete = true)
+    }));
+  }
+
+  public activePermissionType(id: number): void {
+    this.complete = false;
+    this.subscription.push(this.permissionTypeService.activePermissionType(id).subscribe({
+      error: () => this.complete = true,
+      complete: () => (this.snackBar.showMessage('permesso disattivato', 'INFO'), this.callGetAPI(), this.complete = true)
+    }));
   }
 
 }

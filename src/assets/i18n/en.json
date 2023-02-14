@@ -9,6 +9,8 @@
     "edit": "Edit",
     "disactivate": "Disactivate",
     "activate": "Activate",
+    "active": "Active",
+    "disactive": "Disactive",
     "cancel": "Cancel",
     "creationDate": "Creation date",
     "modificationUser": "Last edited by",
