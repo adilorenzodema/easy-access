@@ -23,7 +23,7 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
   @Output() updateAssociatedUsers = new EventEmitter<void>();
   public viewMode = true;
   public associatedAreas: AreaAssociated[];
-  public dataSourceAssAreas= new MatTableDataSource<AreaAssociated>();
+  public dataSourceAssAreas = new MatTableDataSource<AreaAssociated>();
   public displayedColumnsAreas = ['idArea', 'areaName'];
   public formGroup: FormGroup;
 
@@ -54,7 +54,7 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
   }
 
   public saveAssociation(): void {
-     this.subscription.push(this.parkManageService.editAssociateParkArea(this.idPark, this.dataSourceAssAreas.data).subscribe({
+    this.subscription.push(this.parkManageService.editAssociateParkArea(this.idPark, this.dataSourceAssAreas.data).subscribe({
       error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
       complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
     }));

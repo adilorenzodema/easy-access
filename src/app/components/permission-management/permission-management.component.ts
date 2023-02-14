@@ -29,8 +29,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      start: new FormControl(moment(this.start).toDate(), Validators.required),
-      end: new FormControl(moment(this.end).toDate(), Validators.required),
+      ctrlStart: new FormControl(moment(this.start).toDate(), Validators.required),
+      ctrlEnd: new FormControl(moment(this.end).toDate(), Validators.required),
+      ctrlSearch: new FormControl('', Validators.required)
     });
     this.callGetAPI();
   }
@@ -42,8 +43,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
-      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DDHH:mm:ss');
-      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DDHH:mm:ss');
+      const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DDHH:mm:ss');
+      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DDHH:mm:ss');
       this.subscription.push(this.permissionService.getPermission(start, end).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
