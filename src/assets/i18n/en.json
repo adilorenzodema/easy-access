@@ -3,7 +3,7 @@
   "template": {
     "change_password": "Change password"
   },
-  "common":{
+  "common": {
     "searchLabel": "Search",
     "add": "Add",
     "edit": "Edit",
@@ -13,17 +13,27 @@
     "creationDate": "Creation date",
     "modificationUser": "Last edited by",
     "modificationDate": "Last edit date",
-    "associateAreas":"Associate Areas",
-    "associateGates":"Associate Gates"
-
+    "associateAreas": "Associate Areas",
+    "associateGates": "Associate Gates",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "preHoliday": "Pre Holiday",
+      "holiday": "Holiday"
+    }
   },
-  "manage_areas":{
-    "title":"Manage Areas",
+  "manage_areas": {
+    "title": "Manage Areas",
     "areaName": "Name",
     "active": "Active",
     "inactive": "Inactive",
     "creationUser": "Created by",
-    "areasAssociatedParks":"Areas associated with parking lot ",
+    "areasAssociatedParks": "Areas associated with parking lot ",
     "associatedParks": "View associated parking lots",
     "associatedUsers": "View associated users",
     "noAreas": "There are no areas present",
@@ -35,7 +45,7 @@
   },
   "manage_users": {
     "searchLabel": "Search",
-    "title":"Manage Users",
+    "title": "Manage Users",
     "add": "Add",
     "active": "Active",
     "inactive": "Inactive",
