@@ -19,13 +19,13 @@ export class Park {
   cap: string;
   address: string;
   areaIdList?: number[];
-  idPark: number;
+  idPark?: number;
   creationUser?: number;
   creationDate?: Date;
   modificationUser?: number;
   modificationDate?: Date;
   constructor(
-    namePark: string, country: string, location: string, cap: string, address: string, idPark: number) {
+    namePark: string, country: string, location: string, cap: string, address: string, idPark?: number) {
     this.namePark = namePark;
     this.country = country;
     this.location = location;
