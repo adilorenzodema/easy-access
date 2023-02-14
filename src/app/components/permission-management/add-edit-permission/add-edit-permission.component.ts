@@ -96,7 +96,7 @@ export class AddEditPermissionComponent implements OnInit {
   }
 
   private getPermissionType(): void {
-    this.permissionTypeService.getPermissionType().subscribe(
+    this.permissionTypeService.getPermissionType('', true).subscribe(
       (permission) => (
         this.permissionTypes = permission,
         this.permissionTypesFiltered = this.permissionTypes.slice()

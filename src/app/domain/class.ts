@@ -67,3 +67,41 @@ export class AddPermanentPermission extends AddPermission {
   }
 }
 
+export class AddTypePermission {
+  permissionTypeName: string;
+  list: FasciaOraria[];
+  constructor(permissionTypeName: string, list: FasciaOraria[]){
+    this.permissionTypeName = permissionTypeName;
+    this.list = list;
+  }
+}
+
+export class FasciaOraria {
+  idTimeslot: number;
+  startTime: string;
+  endTime: string;
+  monday: boolean;
+  tuesday: boolean;
+  wednesday: boolean;
+  thursday: boolean;
+  friday: boolean;
+  saturday: boolean;
+  sunday: boolean;
+  preHoliday: boolean;
+  holiday: boolean;
+  constructor(startTime: string, endTime: string,
+    monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean,
+    preHoliday: boolean, holiday: boolean) {
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.monday = monday;
+    this.tuesday = tuesday;
+    this.wednesday = wednesday;
+    this.thursday = thursday;
+    this.friday = friday;
+    this.saturday = saturday;
+    this.preHoliday = preHoliday;
+    this.holiday = holiday;
+  }
+}
+
