@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,14 +19,20 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   public complete = true;
   public dataSource = new MatTableDataSource<PermissionType>();
   public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso'];
+  public search: FormGroup;
 
   private subscription: Subscription[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private permissionTypeService: PermissionTypeManagementService
   ) { }
 
   ngOnInit(): void {
+    this.search = this.formBuilder.group({
+      ctrlSearch: [''],
+      ctrlActive: [true]
+    });
     this.callGetAPI();
   }
 
@@ -37,7 +44,9 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
 
   public callGetAPI(): void {
     this.complete = false;
-    this.permissionTypeService.getPermissionType().subscribe({
+    const keyword = this.search.get('ctrlSearch')?.value;
+    const isActive = this.search.get('ctrlActive')?.value;
+    this.permissionTypeService.getPermissionType(keyword, isActive).subscribe({
       next: (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,

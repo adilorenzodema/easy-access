@@ -18,10 +18,10 @@ export class PermissionTypeManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getPermissionType(): Observable<PermissionType[]> {
+  getPermissionType(keyword: string, isActive: boolean): Observable<PermissionType[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), name: keyword, active: isActive })
     };
     return this.http.get<PermissionType[]>(this.apiURL + '/getAllPermissionTypes', options)
       .pipe(catchError(err => { throw err; }));

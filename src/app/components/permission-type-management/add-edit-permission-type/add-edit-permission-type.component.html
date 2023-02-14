@@ -1,0 +1,15 @@
+<mat-card fxLayout="column" fxLayoutGap="20px">
+    <mat-card-title>Aggiungi tipo di permesso</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
+            <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+                <mat-form-field appearance="outline" fxFlex="20">
+                    <mat-label>Inserisci un nome tipo di permesso</mat-label>
+                    <input matInput type="text" formControlName="ctrlName">
+                    <mat-error>Inserisci un nome corretto</mat-error>
+                </mat-form-field>
+            </div>
+            <button mat-icon-button matTooltip="aggiungi una fascia oraria"><mat-icon>add</mat-icon></button>
+        </form>
+    </mat-card-content>
+</mat-card>
