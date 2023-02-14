@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AddPermanentPermission, AddTemporaryPermission, Area } from 'src/app/domain/class';
 import { PermissionType } from 'src/app/domain/interface';
@@ -19,11 +20,13 @@ export class AddEditPermissionComponent implements OnInit {
   public areaFiltered: Area[] = [];
   public permissionTypes: PermissionType[] = [];
   public permissionTypesFiltered: PermissionType[] = [];
+  public complete = true;
 
   private subscription: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private snackBar: SnackBar,
     private permissionService: PermissionManagementService,
     private areaManagementService: AreaManagementService,
     private permissionTypeService: PermissionTypeManagementService
@@ -65,6 +68,7 @@ export class AddEditPermissionComponent implements OnInit {
   }
 
   public addPermission(): void {
+    this.complete = false;
     const categoryValue = this.formGroup.get('ctrlCategory').value;
     const obuCode = this.formGroup.get('ctrlObu').value;
     const startDate = this.formGroup.get('ctrlDateStart').value;
@@ -74,15 +78,17 @@ export class AddEditPermissionComponent implements OnInit {
       const startHour = this.formGroup.get('ctrlHourStart').value;
       const endHour = this.formGroup.get('ctrlHourEnd').value;
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
-      this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe(
-        () => console.log('inserito')
-      ));
+      this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
+        error: () => this.complete = true,
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
+      }));
     } else if (categoryValue === 2) { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
       const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
-      this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe(
-        () => console.log('inserito')
-      ));
+      this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
+        error: () => this.complete = true,
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
+      }));
     }
   }
 

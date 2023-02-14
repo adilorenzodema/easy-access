@@ -48,7 +48,7 @@ export class ParkManagementService {
   getParkByIdPark(idPark: number): Observable<Park> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService)})
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.get<Park>(this.apiURL + '/getParkByIdPark/' + idPark, options)
       .pipe(catchError(err => { throw err; }));
@@ -90,7 +90,7 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-   editAssociateParkArea(idPark: number, areas: AreaAssociated[]): Observable<void> {
+  editAssociateParkArea(idPark: number, areas: AreaAssociated[]): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
