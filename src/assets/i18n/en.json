@@ -15,8 +15,8 @@
     "modificationDate": "Last edit date",
     "associateAreas":"Associate Areas",
     "associateGates":"Associate Gates",
-    "back": "Go Back"
-
+    "back": "Go Back",
+    "longEdit": "Edit details/associations"
   },
   "manage_areas":{
     "title":"Manage Areas",
@@ -64,11 +64,13 @@
     "parkLocation": "City",
     "parkPostalCode": "Postal code",
     "parkCountry": "Country",
+    "creationUser": "Created by",
     "nameError": "A name can only contain letters, spaces or apostrophe.",
     "addressError": "An address can only contain letters, numbers, spaces or apostrophe.",
     "locationError": "A city can only contain letters, spaces or apostrophe.",
     "postalCodeError": "TODO",
-    "countryError": "A country can only contain letters, spaces or apostrophe."
+    "countryError": "A country can only contain letters, spaces or apostrophe.",
+    "noParks": "There are no parking lots present."
   },
   "manage-permission": {
     "add": "Add permision"
