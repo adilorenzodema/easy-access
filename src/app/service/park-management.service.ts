@@ -104,16 +104,7 @@ export class ParkManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.get<GateAssociated[]>(this.beUrl + 'gatemanagement' + '/getGatesByIdPark/' + idPark, options)
-      .pipe(catchError(err => { throw err; }));
-  }
-
-  editAssociateParkGate(idPark: number, gates: GateAssociated[]): Observable<void> {
-    const options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
-    };
-    return this.http.post<void>(this.apiURL + '/editAssociateGatePark/' + idPark, gates, options)
+    return this.http.get<GateAssociated[]>(this.apiURL + '/getAssociateGatePark/' + idPark, options)
       .pipe(catchError(err => { throw err; }));
   }
 

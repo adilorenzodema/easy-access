@@ -11,7 +11,6 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Park } from '../../domain/class';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
-import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
 
 
 @Component({
@@ -25,7 +24,8 @@ export class ParkManagementComponent implements OnInit {
 
   public search: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
-  public displayedColumns: string[] = ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'creationUser', 'creationDate', 'modificationUser' ,'modificationDate', 'action'];
+  public displayedColumns: string[] =
+    ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public areaName: string;
   public idArea: number;
   public complete = true;
@@ -48,12 +48,7 @@ export class ParkManagementComponent implements OnInit {
       ctrlSearch: [''],
       ctrlActive: [true]
     });
-    if (this.idArea) {
-      this.callGetAPIFiltered();
-    } else {
-      this.callGetAPI();
-      console.log( this.dataSource.data);
-    }
+    this.callGetAPI();
   }
 
   public callGetAPI(): void {
@@ -71,25 +66,12 @@ export class ParkManagementComponent implements OnInit {
     });
   }
 
-  public callGetAPIFiltered(): void {
-    this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
-    this.parkingService.getParkingById(keyword, this.idArea).subscribe({
-      next: (park) => (
-        this.dataSource.data = park,
-        this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
-      ),
-      error: () => this.complete = true,
-      complete: () => this.complete = true
-    });
-  }
 
   public addPark(park?: Park): void {
-    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '65%', data: park ? park : '' });
+    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '80%', data: park ? park : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
-        if (result) { this.idArea ? this.callGetAPIFiltered() : this.callGetAPI(); };
+        if (result) { this.callGetAPI(); };
       }
     );
   }
@@ -132,15 +114,5 @@ export class ParkManagementComponent implements OnInit {
           ));
         }
       });
-  }
-
-  public associationArea(idPark: number) : void {
-    const dialogRef = this.dialog.open(ModalParksAreasAssociationComponent,
-      {
-        width: '50%', height: '80%',
-        data: idPark,
-        autoFocus: false
-      }
-    );
   }
 }
