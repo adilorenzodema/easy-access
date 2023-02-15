@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { Park } from 'src/app/domain/class';
+import { AddGate, Park } from 'src/app/domain/class';
 import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ParkManagementService } from 'src/app/service/park-management.service';
@@ -26,20 +26,26 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     private snackBar: SnackBar,
     @Inject(MAT_DIALOG_DATA) public data: Gate
   ) { }
-
+  //'idGate', 'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna'
   ngOnInit(): void {
     this.subscription.push(this.parkService.getParking('', true).subscribe(
       (respParks) => this.parks = respParks
     ));
     if (this.data) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]],
+        ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.- ]*$')]],
+        ctrlGateDirection: [this.data.gateDescription, [Validators.required]],
+        ctrlIpAntenna: [this.data.ipAntenna, [Validators.required, Validators.pattern('^[0-9.]*$')]],
+        ctrlPortAntenna: [this.data.ipAntenna, [Validators.required, Validators.pattern('^[0-9]*$')]],
         ctrlParkId: [this.data.park?.idPark, Validators.required]
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]],
-        ctrlParkId: [null, Validators.required]
+        ctrlParkId: [null, Validators.required],
+        ctrlGateDirection: [null, [Validators.required]], //ENTRATA, USCITA, DOPPIO SENSO
+        ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]], //ip
+        ctrlPortAntenna: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
       });
     }
   }
@@ -54,7 +60,13 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     if (isAdd) {
       const gateName = this.inputUserForm.get('ctrlGateName')?.value;
       const parkId = this.inputUserForm.get('ctrlParkId')?.value;
-      this.subscription.push(this.gateService.addGate(gateName, parkId).subscribe({
+      const gateDirection = this.inputUserForm.get('ctrlGateDirection')?.value;
+      const ipAntenna = this.inputUserForm.get('ctrlIpAntenna')?.value;
+      const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
+      const formGateAdd = new AddGate(parkId,gateName,gateDirection, ipAntenna, portAntenna);
+      console.log("add");
+      console.log(formGateAdd);
+      this.subscription.push(this.gateService.addGate(formGateAdd).subscribe({
         next: () => {
           this.snackBar.showMessage("Varco inserito!", 'INFO');
         },
@@ -64,7 +76,14 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const idGate = this.data.idGate;
       const gateName = this.inputUserForm.get('ctrlGateName')?.value;
       const parkId = this.inputUserForm.get('ctrlParkId')?.value;
-      this.subscription.push(this.gateService.editGate(gateName, idGate, parkId).subscribe({
+      const gateDirection = this.inputUserForm.get('ctrlGateDirection')?.value;
+      const ipAntenna = this.inputUserForm.get('ctrlIpAntenna')?.value;
+      const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
+      const formGateAdd = new AddGate(parkId,gateName,gateDirection, ipAntenna, portAntenna);
+      formGateAdd.idGate = idGate;
+      console.log("edit");
+      console.log(formGateAdd);
+      this.subscription.push(this.gateService.editGate(formGateAdd).subscribe({
         next: () => {
           this.snackBar.showMessage("Varco modificato!", 'INFO');
         },

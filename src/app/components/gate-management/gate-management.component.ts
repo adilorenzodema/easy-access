@@ -22,7 +22,7 @@ import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.compon
 export class GateManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate', 'action'];
+  public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna', 'action'];
   public dataSource = new MatTableDataSource<Gate>();
   public complete = true;
   public search: FormGroup;

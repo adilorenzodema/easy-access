@@ -1,9 +1,32 @@
 <form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+
   <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
     <mat-label>Name</mat-label>
     <input matInput type="text" required formControlName="ctrlGateName" autocomplete="off"/>
     <mat-error>Inserire un nome corretto</mat-error>
   </mat-form-field>
+
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>IP Antenna</mat-label>
+    <input matInput type="text" required formControlName="ctrlIpAntenna" autocomplete="off"/>
+    <mat-error>Inserire un IP corretto</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>Porta Antenna</mat-label>
+    <input matInput type="text" required formControlName="ctrlPortAntenna" autocomplete="off"/>
+    <mat-error>Inserire una porta corretta</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+    <mat-label>Selezionare il tipo di varco</mat-label>
+    <mat-select formControlName="ctrlGateDirection" placeholder="Direzione">
+      <mat-option value="ENTRATA">Entrata</mat-option>
+      <mat-option value="USCITA">Uscita</mat-option>
+      <mat-option value="DOPPIO SENSO">Doppio senso</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
     <mat-label>Associa parcheggio al varco</mat-label>
     <mat-select formControlName="ctrlParkId" required>
@@ -12,6 +35,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
 </form>
 <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
   <button mat-raised-button (click)="dialogRef.close(false)">Annulla</button>
