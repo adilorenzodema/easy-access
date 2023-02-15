@@ -15,27 +15,32 @@
       <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
           <mat-label>{{'manage_parks.parkName' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkName" />
+          <input matInput type="text" required formControlName="ctrlParkName" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
           <mat-error>{{'manage_parks.nameError' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
           <mat-label>{{'manage_parks.parkAddress' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkAddress" />
+          <input matInput type="text" required formControlName="ctrlParkAddress" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
           <mat-error>{{'manage_parks.addressError' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
           <mat-label>{{'manage_parks.parkLocation' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkLocation" />
+          <input matInput type="text" required formControlName="ctrlParkLocation" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
           <mat-error>{{'manage_parks.locationError' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
           <mat-label>{{'manage_parks.parkPostalCode' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkCAP" />
+          <input matInput type="text" required formControlName="ctrlParkCAP" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
           <mat-error>{{'manage_parks.postalCodeError' | translate}}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
           <mat-label>{{'manage_parks.parkCountry' | translate}}</mat-label>
-          <input matInput type="text" required formControlName="ctrlParkCountry" />
+          <input matInput type="text" required formControlName="ctrlParkCountry" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
           <mat-error>{{'manage_parks.countryError' | translate}}</mat-error>
         </mat-form-field>
       </div>
