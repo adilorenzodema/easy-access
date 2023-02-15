@@ -7,8 +7,6 @@
               <mat-icon>search</mat-icon>
           </button>
       </mat-form-field>
-      <div><button mat-button class="actionButton" (click)="changeViewEdit()">{{viewMode ? 'Modifica' : 'Annulla'}}</button></div>
-      <div><button mat-button class="actionButton" (click)="saveAssociation()">Salva</button></div>
   </form>
   <table mat-table [dataSource]="dataSourceAssGates" class="mat-elevation-z8" matSort
       [style.display]="dataSourceAssGates.data.length === 0 ? 'none' : ''">

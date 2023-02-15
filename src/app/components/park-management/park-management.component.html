@@ -2,10 +2,10 @@
   <app-title-park [areaName]="areaName" [idArea]="idArea"> </app-title-park>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field appearance="outline" fxFlex="{{idArea ? 78 : 84}}">
+      <mat-form-field appearance="outline" fxFlex="84">
         <mat-label>{{"common.searchLabel" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-        <button matPrefix mat-icon-button (click)="idArea ? callGetAPIFiltered() : callGetAPI()">
+        <button matPrefix mat-icon-button (click)="callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>

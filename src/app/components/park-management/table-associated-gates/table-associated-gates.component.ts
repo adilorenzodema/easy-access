@@ -1,14 +1,11 @@
 
-import { OnDestroy } from '@angular/core';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { AreaAssociated, GateAssociated, ParkAssociated } from 'src/app/domain/interface';
-import { ParkManagementService } from 'src/app/service/park-management.service';
+import { GateAssociated } from 'src/app/domain/interface';
 
 
 @Component({
@@ -30,9 +27,7 @@ export class TableAssociatedGatesComponent implements OnInit, OnChanges, OnDestr
 
   private subscription: Subscription[] = [];
 
-  constructor(
-    private parkManageService: ParkManagementService,
-    private snackBar: SnackBar) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -54,29 +49,6 @@ export class TableAssociatedGatesComponent implements OnInit, OnChanges, OnDestr
     this.subscription.forEach((subscription) => subscription.unsubscribe());
   }
 
-  public saveAssociation(): void {
-    this.subscription.push(this.parkManageService.editAssociateParkGate(this.idPark, this.dataSourceAssGates.data).subscribe({
-      error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
-      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedGates.emit())
-    }));
-  }
-
-  public changeViewEdit(): void {
-    if (this.viewMode) {
-      this.displayedColumnsGates = this.displayedColumnsGates.concat('associated');
-      this.dataSourceAssGates.data = this.allAssociatedGates;
-      this.dataSourceAssGates.sort = this.sort;
-      this.dataSourceAssGates.paginator = this.paginator;
-      this.viewMode = false;
-    } else {
-      this.displayedColumnsGates.pop();
-      this.dataSourceAssGates.data = this.associatedGates;
-      this.dataSourceAssGates.sort = this.sort;
-      this.dataSourceAssGates.paginator = this.paginator;
-      this.viewMode = true;
-    }
-    console.log( this.associatedGates);
-  }
 
   public filter(): void {
     const filterValue = this.formGroup.get('ctrlSearch')?.value;
