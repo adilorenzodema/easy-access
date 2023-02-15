@@ -14,7 +14,8 @@
     "modificationUser": "Last edited by",
     "modificationDate": "Last edit date",
     "associateAreas":"Associate Areas",
-    "associateGates":"Associate Gates"
+    "associateGates":"Associate Gates",
+    "back": "Go Back"
 
   },
   "manage_areas":{

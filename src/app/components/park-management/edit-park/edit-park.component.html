@@ -48,11 +48,12 @@
       </form>
       <mat-tab-group mat-align-tabs="center">
         <mat-tab label="Aree associate">
-            <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"></app-table-associated-areas>
+            <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"
+            (updateAssociatedAreas)="apiGetAssociation()"></app-table-associated-areas>
         </mat-tab>
         <mat-tab label="Varchi associati">
-            <!--componente-->
-            <app-table-associated-gates></app-table-associated-gates>
+            <app-table-associated-gates [allAssociatedGates]="gates" [idPark]="park.idPark"
+            (updateAssociatedGates)="apiGetAssociation()"></app-table-associated-gates>
         </mat-tab>
     </mat-tab-group>
   </mat-card-content>

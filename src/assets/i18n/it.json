@@ -14,7 +14,8 @@
     "modificationUser": "Ultima modifica di",
     "modificationDate": "Data ultima modifica",
     "associateAreas":"Associa Aree",
-    "associateGates":"Associa Varchi"
+    "associateGates":"Associa Varchi",
+    "back": "Indietro"
   },
   "manage_areas":{
     "title":"Gestione Aree",

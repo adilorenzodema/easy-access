@@ -8,7 +8,7 @@ import { Area, Park } from 'src/app/domain/class';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ParkManagementService } from 'src/app/service/park-management.service';
-import { AreaAssociated } from 'src/app/domain/interface';
+import { AreaAssociated, GateAssociated } from 'src/app/domain/interface';
 import { SnackBar } from 'dema-movyon-template';
 
 @Component({
@@ -25,7 +25,9 @@ export class EditParkComponent implements OnInit {
   inputParkForm: FormGroup;
   public dataSource = new MatTableDataSource<Area>;
   areas: AreaAssociated[] = [];
+  gates: GateAssociated[] = [];
   public associatedAreas: AreaAssociated[] = [];
+  public associatedGates: GateAssociated[] = [];
   subscription: Subscription[] = [];
   public displayedColumns = ['areaName'];
   constructor(
@@ -49,7 +51,7 @@ export class EditParkComponent implements OnInit {
       ctrlParkCountry: [this.park.country, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
       ctrlSearch: ['']
     });
-    this.getAreas();
+    this.apiGetAssociation();
     console.log("Aree: " + this.areas);
   }
 
@@ -66,41 +68,32 @@ export class EditParkComponent implements OnInit {
     }));
   }
 
-  public changeViewEdit(): void {
-    if (this.viewMode) {
-
-      this.dataSource.data = this.areas;
-      this.dataSource.paginator = this.paginator;
-      this.displayedColumns = ['areaName', 'associated'];
-      this.viewMode = false;
-    } else {
-      this.dataSource.data = this.associatedAreas;
-      this.dataSource.paginator = this.paginator;
-      this.displayedColumns = ['areaName'];
-      this.viewMode = true;
-    }
-  }
-
   public saveAssociation(): void {
     console.log(this.inputParkForm);
   }
 
-  private getAreas(): void {
-    /*     this.subscription.push(this.parkManagementService.getAssociateAreaPark(this.park.idPark).subscribe((res) => {
-          this.areas = res;
-          forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
-        })); */
+  public apiGetAssociation(): void {
+    this.complete = false;
     forkJoin({
       assAreas: this.parkManagementService.getAssociateAreaPark(this.park.idPark),
-      assGates: this.parkManagementService.getAssociateAreaPark(this.park.idPark)
+      assGates: this.parkManagementService.getAssociateGatePark(this.park.idPark)
     }).subscribe({
       next: ({ assAreas, assGates }) => {
-        console.log(assAreas)
         this.areas = assAreas;
-         assAreas.forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
+        this.gates = assGates;
+        console.log("Gates: " + this.gates);
+      /*   console.log(assAreas);
+        this.areas = assAreas;
+        assAreas.forEach((area) => { if (area.associated) this.associatedAreas.push(area); });
+        console.log(assGates);
+        this.gates = assGates;
+        assGates.forEach((gate) => { if (gate.associated) this.associatedGates.push(gate); });
         this.dataSource.data = this.associatedAreas;
-        this.dataSource.paginator = this.paginator;
-      }
+        this.dataSource.paginator = this.paginator; */
+        //DA rivedere
+      },
+      error: () => this.complete = true,
+      complete: () => this.complete = true
     });
   }
 

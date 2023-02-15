@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
@@ -35,7 +36,8 @@ export class ParkManagementComponent implements OnInit {
     private parkingService: ParkManagementService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.idArea = this.router.getCurrentNavigation()?.extras.state?.['idArea'] as number;
     this.areaName = this.router.getCurrentNavigation()?.extras.state?.['areaName'] as string;

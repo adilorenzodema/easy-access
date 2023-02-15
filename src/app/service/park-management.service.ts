@@ -4,7 +4,7 @@ import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
 import { Area, Park } from '../domain/class';
-import { AreaAssociated } from '../domain/interface';
+import { AreaAssociated, GateAssociated } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -48,7 +48,7 @@ export class ParkManagementService {
   getParkByIdPark(idPark: number): Observable<Park> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService)})
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.get<Park>(this.apiURL + '/getParkByIdPark/' + idPark, options)
       .pipe(catchError(err => { throw err; }));
@@ -90,12 +90,30 @@ export class ParkManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-   editAssociateParkArea(idPark: number, areas: AreaAssociated[]): Observable<void> {
+  editAssociateParkArea(idPark: number, areas: AreaAssociated[]): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<void>(this.apiURL + '/editAssociateAreaPark/' + idPark, areas, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  getAssociateGatePark(idPark: number): Observable<GateAssociated[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<GateAssociated[]>(this.beUrl + 'gatemanagement' + '/getGatesByIdPark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  editAssociateParkGate(idPark: number, gates: GateAssociated[]): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/editAssociateGatePark/' + idPark, gates, options)
       .pipe(catchError(err => { throw err; }));
   }
 

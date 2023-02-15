@@ -3,18 +3,18 @@
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
       <mat-form-field appearance="outline" fxFlex="{{idArea ? 78 : 84}}">
-        <mat-label>cerca</mat-label>
+        <mat-label>{{"common.searchLabel" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="idArea ? callGetAPIFiltered() : callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
       <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
-        {{search.controls['ctrlActive'].value ? 'attivi' : 'non attivi'}}
+        {{search.controls['ctrlActive'].value ? ('manage_parks.active' | translate) : ('manage_parks.inactive' | translate)}}
       </mat-slide-toggle>
       <button mat-raised-button class="actionButton" *ngIf="idArea"
-        [routerLink]="'../area-management'">Indietro</button>
-      <button mat-raised-button class="actionButton" (click)="addPark()">Aggiungi</button>
+        [routerLink]="'../area-management'">{{"common.back" | translate}}</button>
+      <button mat-raised-button class="actionButton" (click)="addPark()">{{"common.add" | translate}}</button>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
