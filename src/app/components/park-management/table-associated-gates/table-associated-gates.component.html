@@ -1,1 +1,38 @@
-<p>table-associated-gates works!</p>
+<div style="border-radius: 10px; border-style: solid; padding: 2%;">
+  <form [formGroup]="formGroup" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
+      <mat-form-field appearance="outline" fxFlex="80">
+          <mat-label>{{'common.searchLabel' | translate }}</mat-label>
+          <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+          <button matPrefix mat-icon-button (click)="filter()">
+              <mat-icon>search</mat-icon>
+          </button>
+      </mat-form-field>
+  </form>
+  <table mat-table [dataSource]="dataSourceAssGates" class="mat-elevation-z8" matSort
+      [style.display]="dataSourceAssGates.data.length === 0 ? 'none' : ''">
+
+      <ng-container matColumnDef="idGate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.idGate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gateDescription">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.gateDescription}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="associated" *ngIf="!viewMode">
+          <th mat-header-cell *matHeaderCellDef> Associazione </th>
+          <td mat-cell *matCellDef="let element">
+              <mat-checkbox [(ngModel)]="element.associated" color="primary"></mat-checkbox>
+          </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsGates"
+          [style.display]="dataSourceAssGates.data.length === 0 ? 'none' : ''"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsGates;"></tr>
+  </table>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+      [style.display]="dataSourceAssGates.data.length === 0  ? 'none' : ''">
+  </mat-paginator>
+</div>

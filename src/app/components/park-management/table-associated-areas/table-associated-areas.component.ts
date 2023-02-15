@@ -4,10 +4,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AreaAssociated, ParkAssociated } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+
 
 @Component({
   selector: 'app-table-associated-areas',
@@ -20,7 +22,7 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
   @ViewChild(MatSort) sort: MatSort;
   @Input() allAssociatedAreas: AreaAssociated[]; //parkassociated
   @Input() idPark: number; //idArea
-  @Output() updateAssociatedUsers = new EventEmitter<void>();
+  @Output() updateAssociatedAreas = new EventEmitter<void>();
   public viewMode = true;
   public associatedAreas: AreaAssociated[];
   public dataSourceAssAreas = new MatTableDataSource<AreaAssociated>();
@@ -31,7 +33,8 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
 
   constructor(
     private parkManageService: ParkManagementService,
-    private snackBar: SnackBar) { }
+    private snackBar: SnackBar,
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -56,7 +59,7 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
   public saveAssociation(): void {
     this.subscription.push(this.parkManageService.editAssociateParkArea(this.idPark, this.dataSourceAssAreas.data).subscribe({
       error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
-      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
+      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedAreas.emit())
     }));
   }
 
@@ -74,6 +77,7 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
       this.dataSourceAssAreas.paginator = this.paginator;
       this.viewMode = true;
     }
+    console.log( this.associatedAreas);
   }
 
   public filter(): void {

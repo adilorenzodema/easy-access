@@ -111,3 +111,9 @@ export interface Gate {
   modificationUser: number;
   modificationDate: Date;
 }
+
+export interface GateAssociated {
+  idGate: number;
+  gateDescription: string;
+  associated: boolean;
+}

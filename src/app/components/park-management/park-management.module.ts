@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
 import { TitleParkComponent } from './title-park/title-park.component';
 import { MatSelectFilterModule } from 'mat-select-filter';
-import { ModalParksAreasAssociationComponent } from './modal-parks-areas-association/modal-parks-areas-association.component';
 import { EditParkComponent } from './edit-park/edit-park.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableAssociatedAreasComponent } from './table-associated-areas/table-associated-areas.component';
@@ -21,7 +20,6 @@ import { TableAssociatedGatesComponent } from './table-associated-gates/table-as
     ParkManagementComponent,
     ModalFormParkComponent,
     TitleParkComponent,
-    ModalParksAreasAssociationComponent,
     EditParkComponent,
     TableAssociatedAreasComponent,
     TableAssociatedGatesComponent
