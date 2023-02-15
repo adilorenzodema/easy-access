@@ -1,60 +1,60 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
   <div fxLayout="row wrap" fxLayoutAlign="space-between">
-      <mat-card-title> {{"Gestione " + park.namePark}}</mat-card-title>
-      <div fxLayoutGap="5px">
-          <ng-template #editButton>
-              <button mat-button class="actionButton" (click)="!viewMode ? saveDetails() : null; viewMode = !viewMode">
-                {{viewMode ? 'modifica dettagli' : 'salva'}}</button>
-              <button mat-button class="actionButton" (click)="saveAssociation()">salva </button>
-          </ng-template>
-          <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
-      </div>
+    <mat-card-title> {{"Gestione " + park.namePark}}</mat-card-title>
+    <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
   </div>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
+    <div fxLayout="row" fxLayoutGap="20px">
       <mat-card-subtitle>Dettagli</mat-card-subtitle>
-      <form [formGroup]="inputParkForm">
-          <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
-            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
-                  fxFlex.gt-md="30">
-              <mat-label>{{'manage_parks.parkName' | translate}}</mat-label>
-              <input matInput type="text" required formControlName="ctrlParkName" />
-              <mat-error>{{'manage_parks.nameError' | translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
-            fxFlex.gt-md="30">
-              <mat-label>{{'manage_parks.parkAddress' | translate}}</mat-label>
-              <input matInput type="text" required formControlName="ctrlParkAddress" />
-              <mat-error>{{'manage_parks.addressError' | translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
-            fxFlex.gt-md="30">
-              <mat-label>{{'manage_parks.parkLocation' | translate}}</mat-label>
-              <input matInput type="text" required formControlName="ctrlParkLocation" />
-              <mat-error>{{'manage_parks.locationError' | translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
-            fxFlex.gt-md="30">
-              <mat-label>{{'manage_parks.parkPostalCode' | translate}}</mat-label>
-              <input matInput type="text" required formControlName="ctrlParkCAP" />
-              <mat-error>{{'manage_parks.postalCodeError' | translate}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
-                  fxFlex.gt-md="30">
-              <mat-label>{{'manage_parks.parkCountry' | translate}}</mat-label>
-              <input matInput type="text" required formControlName="ctrlParkCountry" />
-              <mat-error>{{'manage_parks.countryError' | translate}}</mat-error>
-            </mat-form-field>
-          </div>
-      </form>
-      <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Aree associate">
-            <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"
-            (updateAssociatedAreas)="apiGetAssociation()"></app-table-associated-areas>
-        </mat-tab>
-        <mat-tab label="Varchi associati">
-            <app-table-associated-gates [allAssociatedGates]="gates" [idPark]="park.idPark"
-            (updateAssociatedGates)="apiGetAssociation()"></app-table-associated-gates>
-        </mat-tab>
+      <button mat-button class="actionButton" (click)="!viewMode ? saveDetails() : null; viewMode = !viewMode">
+        {{viewMode ? 'modifica dettagli' : 'salva'}}
+      </button>
+      <button mat-button class="actionButton" *ngIf="!viewMode" (click)="viewMode = !viewMode">annulla</button>
+    </div>
+    <form [formGroup]="inputParkForm">
+      <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
+          <mat-label>{{'manage_parks.parkName' | translate}}</mat-label>
+          <input matInput type="text" required formControlName="ctrlParkName" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
+          <mat-error>{{'manage_parks.nameError' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
+          <mat-label>{{'manage_parks.parkAddress' | translate}}</mat-label>
+          <input matInput type="text" required formControlName="ctrlParkAddress" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
+          <mat-error>{{'manage_parks.addressError' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
+          <mat-label>{{'manage_parks.parkLocation' | translate}}</mat-label>
+          <input matInput type="text" required formControlName="ctrlParkLocation" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
+          <mat-error>{{'manage_parks.locationError' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
+          <mat-label>{{'manage_parks.parkPostalCode' | translate}}</mat-label>
+          <input matInput type="text" required formControlName="ctrlParkCAP" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
+          <mat-error>{{'manage_parks.postalCodeError' | translate}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
+          <mat-label>{{'manage_parks.parkCountry' | translate}}</mat-label>
+          <input matInput type="text" required formControlName="ctrlParkCountry" [readonly]="viewMode"
+            [required]="!viewMode" [style.opacity]="viewMode ? '0.5' : ''" />
+          <mat-error>{{'manage_parks.countryError' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+    <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Aree associate">
+        <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"
+          (updateAssociatedAreas)="apiGetAssociation()"></app-table-associated-areas>
+      </mat-tab>
+      <mat-tab label="Varchi associati">
+        <app-table-associated-gates [allAssociatedGates]="gates" [idPark]="park.idPark"
+          (updateAssociatedGates)="apiGetAssociation()"></app-table-associated-gates>
+      </mat-tab>
     </mat-tab-group>
   </mat-card-content>
 </mat-card>

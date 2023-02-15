@@ -19,10 +19,12 @@ export class PermissionManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getPermission(startDate: string, endDate: string, obuKeyword?: string, permissionTypeKeyword?: string): Observable<Permission[]> {
+  getPermission(startDate: string, endDate: string, isActive: boolean, obuKeyword: string, permissionTypeKeyword: string): Observable<Permission[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), startDate, endDate, obuKeyword, permissionTypeKeyword })
+      params: HttpUtils.createHttpParams(
+        { token: Cookie.getToken(this.cookieService), startDate, endDate, active: isActive, obuKeyword, permissionTypeKeyword }
+      )
     };
     return this.http.get<Permission[]>(this.apiURL + '/getAllPermissions', options)
       .pipe(catchError(err => { throw err; }));
@@ -46,4 +48,21 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  deletePermission(idPermission: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + `/deletePermission/${idPermission}`, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  activePermission(idPermission: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + `/activatePermission/${idPermission}`, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
 }

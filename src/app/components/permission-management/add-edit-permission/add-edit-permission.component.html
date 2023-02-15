@@ -1,6 +1,7 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <mat-card-title>Aggiungi permesso</mat-card-title>
     <mat-card-content>
+        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
             <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
                 (change)="changeCategory()">
@@ -71,8 +72,8 @@
                 <mat-form-field *ngIf="formGroup.get('ctrlCategory').value === 2" appearance="outline" fxFlex="100"
                     fxFlex.gt-xs="100" fxFlex.gt-lg="40" fxFlex.gt-md="40">
                     <mat-label> Associazione tipi di permesso</mat-label>
-                    <mat-select formControlName="ctrlTypePermissionList" multiple>
-                        <mat-select-filter [displayMember]="'areaName'" [array]="permissionTypes"
+                    <mat-select formControlName="ctrlTypePermissionList">
+                        <mat-select-filter [displayMember]="'permissionTypeDesc'" [array]="permissionTypes"
                             (filteredReturn)="permissionTypesFiltered = $event" required></mat-select-filter>
                         <mat-option *ngFor="let item of permissionTypesFiltered" [value]="item.permissionTypeId">
                             {{item.permissionTypeDesc}}

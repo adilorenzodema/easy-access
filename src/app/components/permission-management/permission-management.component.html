@@ -1,20 +1,38 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <mat-card-title>Gestione Permessi</mat-card-title>
-        <button mat-raised-button class="actionButton" [routerLink]="'add-permission'">{{'manage-permission.add' | translate}}</button>
+        <button mat-raised-button class="actionButton" [routerLink]="'add-permission'">{{'manage-permission.add' |
+            translate}}</button>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
-        <form [formGroup]="formGroup" fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
-            <mat-form-field appearance="outline">
+        <form [formGroup]="formGroup" fxLayout="row" fxLayoutGap="20px">
+            <mat-form-field appearance="outline" fxFlex="30">
                 <mat-label>scegli un range di ricerca</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate formControlName="start">
-                    <input matEndDate formControlName="end" (dateChange)="callGetAPI()">
+                    <input matStartDate formControlName="ctrlStart">
+                    <input matEndDate formControlName="ctrlEnd" (dateChange)="callGetAPI()">
                 </mat-date-range-input>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
                 <mat-error>errore nel range inserito </mat-error>
             </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="30">
+                <mat-label>ricerca per obu</mat-label>
+                <input matInput type="search" formControlName="ctrlObuSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="30">
+                <mat-label>ricerca per tipo permesso</mat-label>
+                <input matInput type="search" formControlName="ctrlPermTypeSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
+                {{formGroup.controls['ctrlActive'].value ? 'attivi' : 'non attivi'}}
+              </mat-slide-toggle>
         </form>
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
@@ -30,15 +48,41 @@
                 <td mat-cell *matCellDef="let element"> {{element.category === 'P' ? 'Permanente' : 'Temporaneo'}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="descrizionePermesso">
-                <th mat-header-cell *matHeaderCellDef> Descrizione permesso </th>
-                <td mat-cell *matCellDef="let element"> {{element.permissionType?.permissionTypeDesc}} </td>
+            <ng-container matColumnDef="creationDate">
+                <th mat-header-cell *matHeaderCellDef> Data creazione </th>
+                <td mat-cell *matCellDef="let element"> {{element.creationDate | date: 'dd/MM/yyyy hh:MM'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="codiceObu">
                 <th mat-header-cell *matHeaderCellDef> Codice Obu </th>
                 <td mat-cell *matCellDef="let element"> {{element.obu.obuCode}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="validationDateStart">
+                <th mat-header-cell *matHeaderCellDef> Inizio validità </th>
+                <td mat-cell *matCellDef="let element"> {{element.validationDateStart | date: 'dd/MM/yyyy hh:MM'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="validationDateEnd">
+                <th mat-header-cell *matHeaderCellDef> Fine validità </th>
+                <td mat-cell *matCellDef="let element"> {{element.validationDateEnd | date: 'dd/MM/yyyy hh:MM'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" style="text-align: end;">
+                  <button mat-icon-button>
+                    <mat-icon style="color:#479AED" matTooltip="dettagli - modifica">edit</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="formGroup.controls['ctrlActive'].value else reactive"><mat-icon style="color: red"
+                      matTooltip="disattiva" (click)="deletePermission(element.idPermission)">delete</mat-icon></button>
+                  <ng-template #reactive>
+                    <button mat-icon-button><mat-icon style="color: #479AED" matTooltip="attiva"
+                        (click)="activePermission(element.idPermission)">refresh</mat-icon></button>
+                  </ng-template>
+                </td>
+              </ng-container>
+
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"
                 [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>

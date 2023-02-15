@@ -3,28 +3,41 @@
   "template": {
     "change_password": "Cambia password"
   },
-  "common":{
+  "common": {
     "searchLabel": "cerca",
     "add": "Aggiungi",
     "edit": "Modifica",
     "disactivate": "Disattiva",
     "activate": "Attiva",
+    "active": "Attivi",
+    "disactive": "Inattivi",
     "cancel": "Cancella",
     "creationDate": "Data creazione",
     "modificationUser": "Ultima modifica di",
     "modificationDate": "Data ultima modifica",
-    "associateAreas":"Associa Aree",
-    "associateGates":"Associa Varchi",
+    "associateAreas": "Associa Aree",
+    "associateGates": "Associa Varchi",
+    "days": {
+      "monday": "Lunedì",
+      "tuesday": "Martedì",
+      "wednesday": "Mercoledì",
+      "thursday": "Giovedì",
+      "friday": "Venerdì",
+      "saturday": "Sabato",
+      "sunday": "Domenica",
+      "preHoliday": "Pre festivo",
+      "holiday": "Festivo"
+    },
     "back": "Indietro",
     "longEdit": "Modifica dettagli/associazioni"
   },
-  "manage_areas":{
-    "title":"Gestione Aree",
+  "manage_areas": {
+    "title": "Gestione Aree",
     "areaName": "Nome",
     "active": "Attive",
     "inactive": "Disattive",
     "creationUser": "Creata da",
-    "areasAssociatedParks":"Aree associate con il parcheggio ",
+    "areasAssociatedParks": "Aree associate con il parcheggio ",
     "associatedParks": "Visualizza parcheggi associati",
     "associatedUsers": "Visualizza utenti associati",
     "noAreas": "Nessuna area presente",
@@ -36,7 +49,7 @@
   },
   "manage_users": {
     "searchLabel": "Cerca",
-    "title":"Gestione Utenti",
+    "title": "Gestione Utenti",
     "add": "Aggiungi",
     "active": "Attivi",
     "inactive": "Inattivi",
