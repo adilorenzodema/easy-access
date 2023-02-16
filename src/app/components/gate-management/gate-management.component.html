@@ -59,9 +59,14 @@
           <button mat-icon-button>
             <mat-icon style="color:#479AED" matTooltip="modifica" (click)="addEditGate(element)">edit</mat-icon>
           </button>
-          <button mat-icon-button>
-            <mat-icon style="color: red" matTooltip="cancella" (click)="deleteGate(element.idGate)">delete</mat-icon>
+          <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else reactive" (click)="deleteGate(element.idGate)">
+            <mat-icon style="color: red" matTooltip="cancella">delete</mat-icon>
           </button>
+          <ng-template #reactive>
+            <button mat-icon-button (click)="activateGate(element.idGate)">
+              <mat-icon style="color: #479AED"
+                matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
+          </ng-template>
         </td>
       </ng-container>
 

@@ -117,4 +117,24 @@ export class GateManagementComponent implements OnInit, OnDestroy {
         }
       });
   }
+  public activateGate(gateId: number): void{
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '30%', height: '30%',
+        data: { title: "Attivazione varco", content: "Desideri Attivare il varco selezionato?" },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.gateService.activateGate(gateId).subscribe({
+            next: () => this.callGetAPI(),
+            error: () => this.snackBar.showMessage('Errore nella attivazione', "ERROR"),
+            complete: () => this.snackBar.showMessage('Varco attivato', "INFO")
+          }));
+        }
+      });
+
+  }
 }

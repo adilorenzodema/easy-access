@@ -62,4 +62,13 @@ export class GateService {
     return this.http.post<void>(this.apiURL + '/deleteGate/' + idGate, null, options)
       .pipe(catchError(err => { throw err; }));
   }
+
+  activateGate(idGate: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/activateGate/' + idGate, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
 }

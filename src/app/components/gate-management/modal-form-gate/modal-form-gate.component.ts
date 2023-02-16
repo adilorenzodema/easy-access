@@ -7,6 +7,8 @@ import { AddGate, Park } from 'src/app/domain/class';
 import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+import { DIRECTION } from 'src/app/shared/costants/constants';
+
 
 @Component({
   selector: 'app-modal-form-gate',
@@ -17,6 +19,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
 
   public inputUserForm: FormGroup;
   public parks: Park[] = [];
+  public direction = DIRECTION;
   private subscription: Subscription[] = [];
   constructor(
     public dialogRef: MatDialogRef<ModalFormGateComponent>,
@@ -26,22 +29,22 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     private snackBar: SnackBar,
     @Inject(MAT_DIALOG_DATA) public data: Gate
   ) { }
-  //'idGate', 'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna'
+
   ngOnInit(): void {
     this.subscription.push(this.parkService.getParking('', true).subscribe(
       (respParks) => this.parks = respParks
     ));
     if (this.data) {
       this.inputUserForm = this.formBuilder.group({
-        ctrlGateName: [this.data.gateDescription, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.- ]*$')]],
-        ctrlGateDirection: [this.data.gateDescription, [Validators.required]],
+        ctrlGateName: [this.data.gateDescription, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$')] */]],
+        ctrlGateDirection: [this.data.gateDirection, [Validators.required]],
         ctrlIpAntenna: [this.data.ipAntenna, [Validators.required, Validators.pattern('^[0-9.]*$')]],
         ctrlPortAntenna: [this.data.ipAntenna, [Validators.required, Validators.pattern('^[0-9]*$')]],
         ctrlParkId: [this.data.park?.idPark, Validators.required]
       });
     } else {
       this.inputUserForm = this.formBuilder.group({
-        ctrlGateName: [null, [Validators.required, Validators.pattern('^[a-zA-Z0-9_.-]*$')]],
+        ctrlGateName: [null, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$') */]],
         ctrlParkId: [null, Validators.required],
         ctrlGateDirection: [null, [Validators.required]], //ENTRATA, USCITA, DOPPIO SENSO
         ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]], //ip

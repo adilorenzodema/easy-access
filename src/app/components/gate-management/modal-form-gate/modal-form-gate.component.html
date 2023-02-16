@@ -19,11 +19,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-    <mat-label>Selezionare il tipo di varco</mat-label>
+    <mat-label>Tipo varco</mat-label>
     <mat-select formControlName="ctrlGateDirection" placeholder="Direzione">
-      <mat-option value="ENTRATA">Entrata</mat-option>
-      <mat-option value="USCITA">Uscita</mat-option>
-      <mat-option value="DOPPIO SENSO">Doppio senso</mat-option>
+      <mat-option [value]="direction.entry">Entrata</mat-option>
+      <mat-option [value]="direction.exit">Uscita</mat-option>
+      <mat-option [value]="direction.twoWay">Doppio senso</mat-option>
     </mat-select>
   </mat-form-field>
 
