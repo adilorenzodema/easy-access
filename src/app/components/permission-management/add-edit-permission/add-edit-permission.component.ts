@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { AddPermanentPermission, AddTemporaryPermission, Area } from 'src/app/domain/class';
 import { Category, Permission, PermissionType } from 'src/app/domain/interface';
@@ -38,6 +39,7 @@ export class AddEditPermissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.permission && this.router.url === '/permission-management/edit-permission') { this.router.navigate(['/permission-management']); }
     this.getAreas();
     if (this.permission) {
       this.formGroup = this.formBuilder.group({
@@ -48,8 +50,8 @@ export class AddEditPermissionComponent implements OnInit {
         ctrlDateEnd: [this.permission.validationDateEnd, Validators.required],
       });
       if (this.permission.category === 'T') { // temporaneo
-        this.formGroup.addControl('ctrlHourStart', this.formBuilder.control('', Validators.required));
-        this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control('', Validators.required));
+        this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('LT'), Validators.required));
+        this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment(this.permission.endTime, 'hh:mm:ss').format('LT'), Validators.required));
       } else if (this.permission.category === 'P') { // permanente
         this.getPermissionType();
         this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control(this.permission.permissionType.permissionTypeId, Validators.required));

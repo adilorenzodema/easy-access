@@ -63,6 +63,8 @@ export interface Permission {
   validationStartDate: Date;
   issueValidationDate: Date;
   flagActive: boolean;
+  startTime: string;
+  endTime: string;
   validationDateStart: Date;
   validationDateEnd: Date;
   cancelationUser: number;
