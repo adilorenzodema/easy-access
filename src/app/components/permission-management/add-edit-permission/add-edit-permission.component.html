@@ -1,12 +1,12 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>Aggiungi permesso</mat-card-title>
+    <mat-card-title>{{permission ? 'Modifica permesso' : 'Aggiungi permesso' }}</mat-card-title>
     <mat-card-content>
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
             <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
                 (change)="changeCategory()">
-                <mat-radio-button [value]="1">Temporaneo</mat-radio-button>
-                <mat-radio-button [value]="2">Permanente</mat-radio-button>
+                <mat-radio-button [value]="'T'">Temporaneo</mat-radio-button>
+                <mat-radio-button [value]="'P'">Permanente</mat-radio-button>
             </mat-radio-group>
             <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
@@ -51,7 +51,7 @@
                 </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="center">
-                <div *ngIf="formGroup.get('ctrlCategory').value === 1" fxLayoutGap="10px">
+                <div *ngIf="formGroup.get('ctrlCategory').value === 'T'" fxLayoutGap="10px">
                     <mat-form-field appearance="outline">
                         <mat-label> Orario di inizio</mat-label>
                         <input matInput formControlName="ctrlHourStart" [ngxTimepicker]="pickerHourStart" [format]="24"
@@ -69,7 +69,7 @@
                         <ngx-material-timepicker #pickerHourEnd></ngx-material-timepicker>
                     </mat-form-field>
                 </div>
-                <mat-form-field *ngIf="formGroup.get('ctrlCategory').value === 2" appearance="outline" fxFlex="100"
+                <mat-form-field *ngIf="formGroup.get('ctrlCategory').value === 'P'" appearance="outline" fxFlex="100"
                     fxFlex.gt-xs="100" fxFlex.gt-lg="40" fxFlex.gt-md="40">
                     <mat-label> Associazione tipi di permesso</mat-label>
                     <mat-select formControlName="ctrlTypePermissionList">
@@ -85,7 +85,8 @@
         </form>
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
             <button mat-raised-button [routerLink]="'../'">Annulla</button>
-            <button mat-button class="actionButton" [disabled]="formGroup.invalid" (click)="addPermission()">Salva</button>
+            <button mat-button class="actionButton" [disabled]="formGroup.invalid"
+                (click)="addPermission()">Salva</button>
         </div>
     </mat-card-content>
 </mat-card>

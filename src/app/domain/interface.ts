@@ -58,7 +58,7 @@ export interface Transit {
 export interface Permission {
   idPermission: number;
   permissionType: PermissionType;
-  category: 'P' | 'T';
+  category: Category;
   obu: Obu;
   validationStartDate: Date;
   issueValidationDate: Date;
@@ -72,6 +72,8 @@ export interface Permission {
   modificationUser: number;
   modificationDate: Date;
 }
+
+export type Category = 'P' | 'T';
 
 export interface PermissionType {
   permissionTypeId: number;

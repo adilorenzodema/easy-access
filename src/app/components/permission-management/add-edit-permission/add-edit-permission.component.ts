@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AddPermanentPermission, AddTemporaryPermission, Area } from 'src/app/domain/class';
-import { PermissionType } from 'src/app/domain/interface';
+import { Category, Permission, PermissionType } from 'src/app/domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
@@ -20,36 +21,57 @@ export class AddEditPermissionComponent implements OnInit {
   public areaFiltered: Area[] = [];
   public permissionTypes: PermissionType[] = [];
   public permissionTypesFiltered: PermissionType[] = [];
+  public permission: Permission;
   public complete = true;
 
   private subscription: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
     private snackBar: SnackBar,
     private permissionService: PermissionManagementService,
     private areaManagementService: AreaManagementService,
     private permissionTypeService: PermissionTypeManagementService
-  ) { }
+  ) {
+    this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as Permission;
+  }
 
   ngOnInit(): void {
     this.getAreas();
-    this.formGroup = this.formBuilder.group({
-      ctrlCategory: ['', Validators.required],
-      ctrlObu: ['', Validators.required],
-      ctrlAreaIdList: ['', Validators.required],
-      ctrlDateStart: ['', Validators.required],
-      ctrlDateEnd: ['', Validators.required],
-    });
+    if (this.permission) {
+      this.formGroup = this.formBuilder.group({
+        ctrlCategory: [this.permission.category, Validators.required],
+        ctrlObu: [this.permission.obu.obuCode, Validators.required],
+        ctrlAreaIdList: ['', Validators.required],
+        ctrlDateStart: [this.permission.validationDateStart, Validators.required],
+        ctrlDateEnd: [this.permission.validationDateEnd, Validators.required],
+      });
+      if (this.permission.category === 'T') { // temporaneo
+        this.formGroup.addControl('ctrlHourStart', this.formBuilder.control('', Validators.required));
+        this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control('', Validators.required));
+      } else if (this.permission.category === 'P') { // permanente
+        this.getPermissionType();
+        this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control(this.permission.permissionType.permissionTypeId, Validators.required));
+      }
+    } else {
+      this.formGroup = this.formBuilder.group({
+        ctrlCategory: ['', Validators.required],
+        ctrlObu: ['', Validators.required],
+        ctrlAreaIdList: ['', Validators.required],
+        ctrlDateStart: ['', Validators.required],
+        ctrlDateEnd: ['', Validators.required],
+      });
+    }
   }
 
   public changeCategory(): void {
-    const categoryValue = this.formGroup.get('ctrlCategory').value;
-    if (categoryValue === 1) { // permanente
+    const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
+    if (categoryValue === 'T') { // temporaneo
       this.formGroup.addControl('ctrlHourStart', this.formBuilder.control('', Validators.required));
       this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
-    } else if (categoryValue === 2) { // temporaneo
+    } else if (categoryValue === 'P') { // permanente
       if (this.permissionTypes.length === 0) { this.getPermissionType(); }
       this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlHourStart');
@@ -69,12 +91,12 @@ export class AddEditPermissionComponent implements OnInit {
 
   public addPermission(): void {
     this.complete = false;
-    const categoryValue = this.formGroup.get('ctrlCategory').value;
+    const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
     const obuCode = this.formGroup.get('ctrlObu').value;
     const startDate = this.formGroup.get('ctrlDateStart').value;
     const endDate = this.formGroup.get('ctrlDateEnd').value;
     const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
-    if (categoryValue === 1) { // temporaneo
+    if (categoryValue === 'T') { // temporaneo
       const startHour = this.formGroup.get('ctrlHourStart').value;
       const endHour = this.formGroup.get('ctrlHourEnd').value;
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
@@ -82,7 +104,7 @@ export class AddEditPermissionComponent implements OnInit {
         error: () => this.complete = true,
         complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
       }));
-    } else if (categoryValue === 2) { // permanente
+    } else if (categoryValue === 'P') { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
       const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
       this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
