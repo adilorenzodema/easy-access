@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { AddTypePermission } from 'src/app/domain/class';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
@@ -27,7 +28,8 @@ export class AddEditPermissionTypeComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
-    private permissionTypeService: PermissionTypeManagementService
+    private permissionTypeService: PermissionTypeManagementService,
+    private router: Router
   ) { }
 
   get timesSlot(): FormArray {
@@ -48,7 +50,8 @@ export class AddEditPermissionTypeComponent implements OnInit {
     const newPermissionType = new AddTypePermission(name, list);
     this.permissionTypeService.addPermissionType(newPermissionType).subscribe({
       error: () => this.complete = true,
-      complete: () => (this.snackBar.showMessage('tipo permesso inserito correttamente', 'INFO') , this.complete = true)
+      complete: () => (this.snackBar.showMessage('tipo permesso inserito correttamente', 'INFO'),
+      this.router.navigate(['/permission-type-management']) , this.complete = true)
     });
   }
 

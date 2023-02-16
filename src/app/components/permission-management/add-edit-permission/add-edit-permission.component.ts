@@ -104,14 +104,14 @@ export class AddEditPermissionComponent implements OnInit {
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
       this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
         error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'),this.router.navigate(['/permission-management']), this.complete = true)
       }));
     } else if (categoryValue === 'P') { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
       const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
       this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
         error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'),  this.router.navigate(['/permission-management']), this.complete = true)
       }));
     }
   }
