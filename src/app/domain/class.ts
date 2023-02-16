@@ -35,6 +35,22 @@ export class Park {
   }
 }
 
+export class AddGate{
+  idGate?: number;
+  parkId: number;
+  gateName: string;
+  gateDirection: string;
+  ipAntenna: string;
+  portAntenna: number;
+  constructor(idPark: number, gateDescription: string, gateDirection: string, ipAntenna: string, portAntenna: number){
+    this.parkId = idPark;
+    this.gateName = gateDescription;
+    this.gateDirection = gateDirection;
+    this.ipAntenna = ipAntenna;
+    this.portAntenna = portAntenna;
+  }
+}
+
 export class AddPermission {
   obuCode: number;
   validationDateStart: Date;

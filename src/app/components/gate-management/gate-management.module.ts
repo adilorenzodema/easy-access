@@ -8,6 +8,7 @@ import { GateManagementComponent } from './gate-management.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.component';
 import { TitleGateComponent } from './title-gate/title-gate.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TitleGateComponent } from './title-gate/title-gate.component';
     ReactiveFormsModule,
     LibMaterialModule,
     FlexLayoutModule,
-    GateManagementRoutingModule
+    GateManagementRoutingModule,
+    TranslateModule
   ]
 })
 export class GateManagementModule { }

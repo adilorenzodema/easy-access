@@ -1,64 +1,82 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <app-title-gate [namePark]="namePark" [idPark]="idPark"> </app-title-gate>
-    <mat-card-content fxLayout="column" fxLayoutGap="10px">
-        <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <mat-form-field appearance="outline" fxFlex="{{idPark ? 78 : 84}}">
-                <mat-label>cerca</mat-label>
-                <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-                <button matPrefix mat-icon-button (click)="idPark ? callGetAPIFiltered() : callGetAPI()">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </mat-form-field>
-            <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
-                {{search.controls['ctrlActive'].value ? 'attivi' : 'non attivi'}}
-            </mat-slide-toggle>
-            <button mat-raised-button class="actionButton" *ngIf="idPark"
-                [routerLink]="'../parking-management'">Indietro</button>
-            <button mat-raised-button class="actionButton" (click)="addEditGate()">Aggiungi</button>
-        </form>
-        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="idGate"
-            matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
-            <ng-container matColumnDef="idGate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> ID </th>
-                <td mat-cell *matCellDef="let element"> {{element.idGate}} </td>
-            </ng-container>
+  <app-title-gate [namePark]="namePark" [idPark]="idPark"> </app-title-gate>
+  <mat-card-content fxLayout="column" fxLayoutGap="10px">
+    <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+      <mat-form-field appearance="outline" fxFlex="{{idPark ? 78 : 84}}">
+        <mat-label>cerca</mat-label>
+        <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+        <button matPrefix mat-icon-button (click)="idPark ? callGetAPIFiltered() : callGetAPI()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
+        {{search.controls['ctrlActive'].value ? 'attivi' : 'non attivi'}}
+      </mat-slide-toggle>
+      <button mat-raised-button class="actionButton" *ngIf="idPark"
+        [routerLink]="'../parking-management'">Indietro</button>
+      <button mat-raised-button class="actionButton" (click)="addEditGate()">Aggiungi</button>
+    </form>
+    <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="idGate"
+      matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+      <ng-container matColumnDef="idGate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.idGate}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="gateDescription">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Descrizione </th>
-                <td mat-cell *matCellDef="let element"> {{element.gateDescription}} </td>
-            </ng-container>
+      <ng-container matColumnDef="gateDescription">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Descrizione </th>
+        <td mat-cell *matCellDef="let element"> {{element.gateDescription}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="parkAssociate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Parcheggio associato </th>
-                <td mat-cell *matCellDef="let element">
-                    {{element.park.namePark}}
-                    <mat-icon *ngIf="!element.park.enable" style="color: red;"
-                        matTooltip="parcheggio disattivo">warning</mat-icon>
-                </td>
-            </ng-container>
+      <ng-container matColumnDef="gateDirection">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Direzione </th>
+        <td mat-cell *matCellDef="let element"> {{element.gateDirection}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element" style="text-align: end;">
-                    <button mat-icon-button>
-                        <mat-icon style="color:#479AED" matTooltip="modifica"
-                            (click)="addEditGate(element)">edit</mat-icon>
-                    </button>
-                    <button mat-icon-button>
-                        <mat-icon style="color: red" matTooltip="cancella"
-                            (click)="deleteGate(element.idGate)">delete</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
+      <ng-container matColumnDef="ipAntenna">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> IP Antenna </th>
+        <td mat-cell *matCellDef="let element"> {{element.ipAntenna}} </td>
+      </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"
-                [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-            [style.display]="dataSource.data.length === 0 ? 'none' : ''">
-        </mat-paginator>
-        <div *ngIf="dataSource.data.length === 0"> nessun varco presente</div>
-    </mat-card-content>
+      <ng-container matColumnDef="portAntenna">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Porta Antenna </th>
+        <td mat-cell *matCellDef="let element"> {{element.portAntenna}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="parkAssociate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Parcheggio associato </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.park.namePark}}
+          <mat-icon *ngIf="!element.park.enable" style="color: red;"
+            matTooltip="parcheggio disattivo">warning</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element" style="text-align: end;">
+          <button mat-icon-button>
+            <mat-icon style="color:#479AED" matTooltip="modifica" (click)="addEditGate(element)">edit</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else reactive" (click)="deleteGate(element.idGate)">
+            <mat-icon style="color: red" matTooltip="cancella">delete</mat-icon>
+          </button>
+          <ng-template #reactive>
+            <button mat-icon-button (click)="activateGate(element.idGate)">
+              <mat-icon style="color: #479AED"
+                matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"
+        [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+      [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+    </mat-paginator>
+    <div *ngIf="dataSource.data.length === 0"> nessun varco presente</div>
+  </mat-card-content>
 </mat-card>
