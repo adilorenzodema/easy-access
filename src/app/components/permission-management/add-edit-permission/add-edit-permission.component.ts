@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AddPermanentPermission, AddTemporaryPermission, Area } from 'src/app/domain/class';
@@ -29,7 +30,8 @@ export class AddEditPermissionComponent implements OnInit {
     private snackBar: SnackBar,
     private permissionService: PermissionManagementService,
     private areaManagementService: AreaManagementService,
-    private permissionTypeService: PermissionTypeManagementService
+    private permissionTypeService: PermissionTypeManagementService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -80,14 +82,14 @@ export class AddEditPermissionComponent implements OnInit {
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
       this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
         error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'),this.router.navigate(['/permission-management']), this.complete = true)
       }));
     } else if (categoryValue === 2) { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
       const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
       this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
         error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.complete = true)
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'),  this.router.navigate(['/permission-management']), this.complete = true)
       }));
     }
   }
