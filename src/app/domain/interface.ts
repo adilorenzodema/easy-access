@@ -1,4 +1,4 @@
-import { Park } from "./class";
+import { Area, Park } from "./class";
 
 export interface User {
   id: number;
@@ -73,6 +73,7 @@ export interface Permission {
   creationDate: Date;
   modificationUser: number;
   modificationDate: Date;
+  areaList: Area[];
 }
 
 export type Category = 'P' | 'T';

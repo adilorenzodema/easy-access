@@ -48,6 +48,24 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  editTemporaryPermission(tempPermission: AddTemporaryPermission, idPermission: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/editTemporaryPermission/' + idPermission, tempPermission, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  editPermanentPermission(tempPermission: AddPermanentPermission, idPermission: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/editPermanentPermission/' + idPermission, tempPermission, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   deletePermission(idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

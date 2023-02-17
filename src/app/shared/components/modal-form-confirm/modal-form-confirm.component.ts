@@ -14,7 +14,7 @@ export class ModalFormConfirmComponent {
     public translate: TranslateService,
     public dialogRef: MatDialogRef<ModalFormConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { title: string; content: string }
-  ) { console.log(data); }
+  ) { }
 
 }
 

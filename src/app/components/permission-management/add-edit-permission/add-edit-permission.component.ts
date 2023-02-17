@@ -42,16 +42,19 @@ export class AddEditPermissionComponent implements OnInit {
     if (!this.permission && this.router.url === '/permission-management/edit-permission') { this.router.navigate(['/permission-management']); }
     this.getAreas();
     if (this.permission) {
+      const areasIdSelected: number[] = [];
+      // crea un array con gli idArea selezionati
+      this.permission.areaList.map((area) => areasIdSelected.push(area.idArea));
       this.formGroup = this.formBuilder.group({
         ctrlCategory: [this.permission.category, Validators.required],
         ctrlObu: [this.permission.obu.obuCode, Validators.required],
-        ctrlAreaIdList: ['', Validators.required],
+        ctrlAreaIdList: [areasIdSelected, Validators.required],
         ctrlDateStart: [this.permission.validationDateStart, Validators.required],
         ctrlDateEnd: [this.permission.validationDateEnd, Validators.required],
       });
       if (this.permission.category === 'T') { // temporaneo
-        this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('LT'), Validators.required));
-        this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment(this.permission.endTime, 'hh:mm:ss').format('LT'), Validators.required));
+        this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('HH:mm'), Validators.required));
+        this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment(this.permission.endTime, 'hh:mm:ss').format('HH:mm'), Validators.required));
       } else if (this.permission.category === 'P') { // permanente
         this.getPermissionType();
         this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control(this.permission.permissionType.permissionTypeId, Validators.required));
@@ -104,14 +107,39 @@ export class AddEditPermissionComponent implements OnInit {
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
       this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
         error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'),this.router.navigate(['/permission-management']), this.complete = true)
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
       }));
     } else if (categoryValue === 'P') { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
       const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
       this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
         error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'),  this.router.navigate(['/permission-management']), this.complete = true)
+        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+      }));
+    }
+  }
+
+  public editPermission(): void {
+    this.complete = false;
+    const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
+    const obuCode = this.formGroup.get('ctrlObu').value;
+    const startDate = this.formGroup.get('ctrlDateStart').value;
+    const endDate = this.formGroup.get('ctrlDateEnd').value;
+    const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
+    if (categoryValue === 'T') { // temporaneo
+      const startHour = this.formGroup.get('ctrlHourStart').value;
+      const endHour = this.formGroup.get('ctrlHourEnd').value;
+      const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
+      this.subscription.push(this.permissionService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
+        error: () => this.complete = true,
+        complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+      }));
+    } else if (categoryValue === 'P') { // permanente
+      const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
+      const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
+      this.subscription.push(this.permissionService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
+        error: () => this.complete = true,
+        complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
       }));
     }
   }

@@ -66,9 +66,9 @@ export class AddPermission {
 }
 
 export class AddTemporaryPermission extends AddPermission {
-  startTime: Date;
-  endTime: Date;
-  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], startTime: Date, endTime: Date) {
+  startTime: string;
+  endTime: string;
+  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], startTime: string, endTime: string) {
     super(obuCode, validationDateStart, validationDateEnd, areaIdList);
     this.startTime = startTime;
     this.endTime = endTime;

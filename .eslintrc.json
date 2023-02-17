@@ -55,7 +55,7 @@
         "prefer-const": "warn",
         "max-len": [
           "warn",
-          160
+          165
         ],
         "no-trailing-spaces": "warn"
       }
