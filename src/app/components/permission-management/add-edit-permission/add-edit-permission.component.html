@@ -86,7 +86,7 @@
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
             <button mat-raised-button [routerLink]="'../'">Annulla</button>
             <button mat-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
-                (click)="permission ? editPermission() : addPermission()">Salva</button>
+                (click)="addEditPermission()">Salva</button>
         </div>
     </mat-card-content>
 </mat-card>

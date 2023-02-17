@@ -94,7 +94,7 @@ export class AddEditPermissionComponent implements OnInit {
     }
   }
 
-  public addPermission(): void {
+  public addEditPermission(): void {
     this.complete = false;
     const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
     const obuCode = this.formGroup.get('ctrlObu').value;
@@ -105,42 +105,31 @@ export class AddEditPermissionComponent implements OnInit {
       const startHour = this.formGroup.get('ctrlHourStart').value;
       const endHour = this.formGroup.get('ctrlHourEnd').value;
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
-      this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
-        error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-      }));
+      if (this.permission) { // edit
+        this.subscription.push(this.permissionService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+        }));
+      } else { // add
+        this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+        }));
+      }
     } else if (categoryValue === 'P') { // permanente
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
       const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
-      this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
-        error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-      }));
-    }
-  }
-
-  public editPermission(): void {
-    this.complete = false;
-    const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
-    const obuCode = this.formGroup.get('ctrlObu').value;
-    const startDate = this.formGroup.get('ctrlDateStart').value;
-    const endDate = this.formGroup.get('ctrlDateEnd').value;
-    const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
-    if (categoryValue === 'T') { // temporaneo
-      const startHour = this.formGroup.get('ctrlHourStart').value;
-      const endHour = this.formGroup.get('ctrlHourEnd').value;
-      const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
-      this.subscription.push(this.permissionService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
-        error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-      }));
-    } else if (categoryValue === 'P') { // permanente
-      const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
-      const addPerm = new AddPermanentPermission(obuCode, startDate, endDate, idAreasSelected, permissionTypeList);
-      this.subscription.push(this.permissionService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
-        error: () => this.complete = true,
-        complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-      }));
+      if (this.permission) { // edit
+        this.subscription.push(this.permissionService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+        }));
+      } else { // add
+        this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+        }));
+      }
     }
   }
 
