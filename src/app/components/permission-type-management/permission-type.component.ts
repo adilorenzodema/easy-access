@@ -52,7 +52,9 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
       next: (park) => (
         this.dataSource.data = park,
         this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
+        this.dataSource.sort = this.sort,
+        console.log("PermissionType: "),
+        console.log(this.dataSource.data)
       ),
       error: () => this.complete = true,
       complete: () => this.complete = true

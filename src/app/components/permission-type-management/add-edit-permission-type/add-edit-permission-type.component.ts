@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
 import { AddTypePermission } from 'src/app/domain/class';
+import { PermissionType } from 'src/app/domain/interface';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
 
 @Component({
@@ -23,14 +24,16 @@ export class AddEditPermissionTypeComponent implements OnInit {
   public formGroup: FormGroup;
   public days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
   public holidays = ['holiday', 'preHoliday'];
+  public viewMode = true;
   public complete = true;
+  public permissionType: AddTypePermission;
 
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
     private permissionTypeService: PermissionTypeManagementService,
     private router: Router
-  ) { }
+  ) { this.permissionType = this.router.getCurrentNavigation()?.extras.state?.['permissionType'] as AddTypePermission;}
 
   get timesSlot(): FormArray {
     return this.formGroup.get('ctrlTimesSlot') as FormArray;
@@ -41,6 +44,7 @@ export class AddEditPermissionTypeComponent implements OnInit {
       ctrlName: ['', Validators.required],
       ctrlTimesSlot: this.formBuilder.array([this.buildTimeSlotArray()]),
     });
+    console.log(this.permissionType);
   }
 
   public addPermissionType(): void {

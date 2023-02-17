@@ -1,4 +1,4 @@
-import { Area, Park } from "./class";
+import { Area, Park, FasciaOraria } from "./class";
 
 export interface User {
   id: number;
@@ -85,6 +85,7 @@ export interface PermissionType {
   creationDate: Date;
   modificationUser: number;
   modificationDate: Date;
+  timeslotList: FasciaOraria[];
 }
 
 export interface Obu {
