@@ -12,6 +12,10 @@
     "active": "Active",
     "disactive": "Disactive",
     "cancel": "Cancel",
+    "annul": "Cancel",
+    "save": "Save",
+    "details": "details",
+    "back": "Go Back",
     "creationDate": "Creation date",
     "modificationUser": "Last edited by",
     "modificationDate": "Last edit date",
@@ -28,7 +32,6 @@
       "preHoliday": "Pre Holiday",
       "holiday": "Holiday"
     },
-    "back": "Go Back",
     "longEdit": "Edit details/associations"
   },
   "manage_areas": {
@@ -45,7 +48,9 @@
     "activateTitle": "Activate Area",
     "disactivateTitle": "Disactivate Area",
     "activateConfirm": "Are you sure you want to re-activate the selected area?",
-    "disactivateConfirm": "Are you sure you want to disactivate the selected area?"
+    "disactivateConfirm": "Are you sure you want to disactivate the selected area?",
+    "edit_details": "edit details",
+    "edit_association": "edit association"
   },
   "manage_users": {
     "searchLabel": "Search",

@@ -3,7 +3,7 @@
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
       <mat-form-field appearance="outline" fxFlex="{{idPark ? 78 : 84}}">
-        <mat-label>cerca</mat-label>
+        <mat-label>{{'common.searchLabel' | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="idPark ? callGetAPIFiltered() : callGetAPI()">
           <mat-icon>search</mat-icon>

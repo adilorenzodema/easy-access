@@ -12,6 +12,10 @@
     "active": "Attivi",
     "disactive": "Inattivi",
     "cancel": "Cancella",
+    "annul": "Annulla",
+    "save": "Salva",
+    "details": "dettagli",
+    "back": "Indietro",
     "creationDate": "Data creazione",
     "modificationUser": "Ultima modifica di",
     "modificationDate": "Data ultima modifica",
@@ -28,7 +32,6 @@
       "preHoliday": "Pre festivo",
       "holiday": "Festivo"
     },
-    "back": "Indietro",
     "longEdit": "Modifica dettagli/associazioni"
   },
   "manage_areas": {
@@ -41,11 +44,13 @@
     "associatedParks": "Visualizza parcheggi associati",
     "associatedUsers": "Visualizza utenti associati",
     "noAreas": "Nessuna area presente",
-    "nameError": "Il nome di un'area può contenere solamente lettere, spazi o apostrofi",
+    "nameError": "Inserisci un nome area corretto",
     "activateTitle": "Attivazione Area",
     "disactivateTitle": "Disattivazione Area",
     "activateConfirm": "Sei sicur* di voler riattivare l'area selezionata?",
-    "disactivateConfirm": "Sei sicur* di voler disattivare l'area selezionata?"
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'area selezionata?",
+    "edit_details": "modifica dettagli",
+    "edit_association": "modifica associazioni"
   },
   "manage_users": {
     "searchLabel": "Cerca",

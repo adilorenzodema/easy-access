@@ -7,8 +7,13 @@
                 <mat-icon>search</mat-icon>
             </button>
         </mat-form-field>
-        <div><button mat-button class="actionButton" (click)="changeViewEdit()">{{viewMode ? 'Modifica associazioni' : 'Annulla'}}</button></div>
-        <div><button mat-button class="actionButton" (click)="saveAssociation()" *ngIf="!viewMode" >Salva</button></div>
+        <div>
+            <button mat-button class="actionButton" (click)="changeViewEdit()">
+                {{(viewMode ? 'manage_areas.edit_association' : 'common.annul') | translate}}
+            </button>
+        </div>
+        <div><button mat-button class="actionButton" (click)="saveAssociation()" *ngIf="!viewMode">
+            {{'common.save' | translate}}</button></div>
     </form>
     <table mat-table [dataSource]="dataSourceAssParks" class="mat-elevation-z8" matSort
         [style.display]="dataSourceAssParks.data.length === 0 ? 'none' : ''">
