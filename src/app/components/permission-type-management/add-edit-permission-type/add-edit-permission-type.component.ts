@@ -41,6 +41,7 @@ export class AddEditPermissionTypeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.permissionType && this.router.url === '/permission-type-management/edit-permission-type') { this.router.navigate(['/permission-type-management']); }
     if (this.permissionType) {
       this.formGroup = this.formBuilder.group({
         ctrlName: [this.permissionType.permissionTypeDesc, Validators.required],
@@ -106,10 +107,8 @@ export class AddEditPermissionTypeComponent implements OnInit {
   }
 
   public buildExistingTimeSlotArray(): FormGroup[] {
-    let formGroupArray: FormGroup[] = [];
+    const formGroupArray: FormGroup[] = [];
     this.permissionType.timeslotList.forEach(timeSlot => {
-      console.log("timeslot:");
-      console.log(timeSlot);
       formGroupArray.push(this.formBuilder.group(
         {
           startTime: [moment(timeSlot.startTime, 'hh:mm:ss').format('HH:mm'), Validators.required],
@@ -123,8 +122,12 @@ export class AddEditPermissionTypeComponent implements OnInit {
           sunday: [timeSlot.sunday],
           holiday: [timeSlot.holiday],
           preHoliday: [timeSlot.preHoliday]
-        }))
-    })
+        }));
+    });
     return formGroupArray;
+  }
+
+  public test(i: number): void {
+    console.log((this.formGroup.get('ctrlTimesSlot')as FormArray).controls[i].value.monday)
   }
 }

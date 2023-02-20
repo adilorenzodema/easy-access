@@ -5,7 +5,8 @@ import { PermissionTypeComponent } from './permission-type.component';
 
 const routes: Routes = [
   {path: '', component: PermissionTypeComponent},
-  {path: 'add-permission-type', component: AddEditPermissionTypeComponent}
+  {path: 'add-permission-type', component: AddEditPermissionTypeComponent},
+  {path: 'edit-permission-type', component: AddEditPermissionTypeComponent}
 ];
 
 @NgModule({
