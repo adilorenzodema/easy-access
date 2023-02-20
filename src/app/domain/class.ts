@@ -83,12 +83,14 @@ export class AddPermanentPermission extends AddPermission {
   }
 }
 
-export class AddTypePermission {
+export class AddEditTypePermission {
+  idPermissionType?: number;
   permissionTypeName: string;
   list: FasciaOraria[];
-  constructor(permissionTypeName: string, list: FasciaOraria[]){
+  constructor(permissionTypeName: string, list: FasciaOraria[], idPermissionType?: number){
     this.permissionTypeName = permissionTypeName;
     this.list = list;
+    if (idPermissionType) this.idPermissionType = idPermissionType;
   }
 }
 

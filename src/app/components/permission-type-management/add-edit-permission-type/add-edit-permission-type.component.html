@@ -1,6 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
-        <mat-card-title> Aggiungi tipo di permesso</mat-card-title>
+        <mat-card-title> {{permissionType ? 'Modifica tipo di permesso' : 'Aggiungi tipo di permesso'}}</mat-card-title>
         <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="20px">
@@ -55,7 +55,9 @@
             </ng-container>
         </form>
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid" (click)="addPermissionType()">add</button>
+            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid" (click)="addEditPermissionType()">
+              {{permissionType ? 'Modifica Dettagli' : 'Salva'}}
+            </button>
         </div>
     </mat-card-content>
 </mat-card>

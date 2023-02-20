@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackBar } from 'dema-movyon-template';
-import { AddTypePermission } from 'src/app/domain/class';
+import * as moment from 'moment';
+import { AddEditTypePermission } from 'src/app/domain/class';
 import { PermissionType } from 'src/app/domain/interface';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
 
@@ -26,37 +27,60 @@ export class AddEditPermissionTypeComponent implements OnInit {
   public holidays = ['holiday', 'preHoliday'];
   public viewMode = true;
   public complete = true;
-  public permissionType: AddTypePermission;
+  public permissionType: PermissionType;
 
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
     private permissionTypeService: PermissionTypeManagementService,
     private router: Router
-  ) { this.permissionType = this.router.getCurrentNavigation()?.extras.state?.['permissionType'] as AddTypePermission;}
+  ) { this.permissionType = this.router.getCurrentNavigation()?.extras.state?.['permissionType'] as PermissionType; }
 
   get timesSlot(): FormArray {
     return this.formGroup.get('ctrlTimesSlot') as FormArray;
   }
 
   ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      ctrlName: ['', Validators.required],
-      ctrlTimesSlot: this.formBuilder.array([this.buildTimeSlotArray()]),
-    });
-    console.log(this.permissionType);
+    if (this.permissionType) {
+      this.formGroup = this.formBuilder.group({
+        ctrlName: [this.permissionType.permissionTypeDesc, Validators.required],
+        ctrlTimesSlot: this.formBuilder.array(this.buildExistingTimeSlotArray()),
+      });
+    }
+    else {
+      this.formGroup = this.formBuilder.group({
+        ctrlName: ['', Validators.required],
+        ctrlTimesSlot: this.formBuilder.array([this.buildTimeSlotArray()]),
+      });
+    }
+    console.log("TimeSLot:");
+    console.log(this.permissionType.timeslotList.length);
   }
 
-  public addPermissionType(): void {
+  public addEditPermissionType(): void {
     this.complete = false;
-    const name = this.formGroup.get('ctrlName').value;
-    const list = this.formGroup.get('ctrlTimesSlot').value;
-    const newPermissionType = new AddTypePermission(name, list);
-    this.permissionTypeService.addPermissionType(newPermissionType).subscribe({
-      error: () => this.complete = true,
-      complete: () => (this.snackBar.showMessage('tipo permesso inserito correttamente', 'INFO'),
-      this.router.navigate(['/permission-type-management']) , this.complete = true)
-    });
+    if (this.permissionType) {
+      const name = this.formGroup.get('ctrlName').value;
+      const list = this.formGroup.get('ctrlTimesSlot').value;
+      const editPermissionType = new AddEditTypePermission(name, list, this.permissionType.permissionTypeId);
+      this.permissionTypeService.editPermissionType(editPermissionType).subscribe({
+        error: () => this.complete = true,
+        complete: () => (
+          this.snackBar.showMessage('tipo permesso modificato correttamente', 'INFO'),
+          this.router.navigate(['/permission-type-management']), this.complete = true)
+      });
+    }
+    else {
+      const name = this.formGroup.get('ctrlName').value;
+      const list = this.formGroup.get('ctrlTimesSlot').value;
+      const addPermissionType = new AddEditTypePermission(name, list);
+      this.permissionTypeService.addPermissionType(addPermissionType).subscribe({
+        error: () => this.complete = true,
+        complete: () => (
+          this.snackBar.showMessage('tipo permesso inserito correttamente', 'INFO'),
+          this.router.navigate(['/permission-type-management']), this.complete = true)
+      });
+    }
   }
 
   public addTimeSlot(): void {
@@ -83,4 +107,26 @@ export class AddEditPermissionTypeComponent implements OnInit {
     });
   }
 
+  public buildExistingTimeSlotArray(): FormGroup[] {
+    let formGroupArray: FormGroup[] = [];
+    this.permissionType.timeslotList.forEach(timeSlot => {
+      console.log("timeslot:");
+      console.log(timeSlot);
+      formGroupArray.push(this.formBuilder.group(
+        {
+          startTime: [moment(timeSlot.startTime, 'hh:mm:ss').format('HH:mm'), Validators.required],
+          endTime: [moment(timeSlot.endTime, 'hh:mm:ss').format('HH:mm'), Validators.required],
+          monday: [timeSlot.monday],
+          tuesday: [timeSlot.tuesday],
+          wednesday: [timeSlot.wednesday],
+          thursday: [timeSlot.thursday],
+          friday: [timeSlot.friday],
+          saturday: [timeSlot.saturday],
+          sunday: [timeSlot.sunday],
+          holiday: [timeSlot.holiday],
+          preHoliday: [timeSlot.preHoliday]
+        }))
+    })
+    return formGroupArray;
+  }
 }
