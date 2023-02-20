@@ -53,8 +53,6 @@ export class AddEditPermissionTypeComponent implements OnInit {
         ctrlTimesSlot: this.formBuilder.array([this.buildTimeSlotArray()]),
       });
     }
-    console.log("TimeSLot:");
-    console.log(this.permissionType.timeslotList.length);
   }
 
   public addEditPermissionType(): void {
