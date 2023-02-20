@@ -58,25 +58,27 @@
                             <div fxLayout="column" fxLayoutGap="10px">
                                 <ng-container *ngFor="let day of days">
                                     <!--view mode div i giorni  altrimenti #-->
-                                    <div *ngIf="viewMode && permissionType else insertModeDay">
-                                        {{'common.days.' + day | translate}}
+                                    <div *ngIf="viewMode && permissionType else insertModeDay" fxLayout="row">
                                         <mat-icon matPrefix style="color: green;"
                                             *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">done</mat-icon>
+                                        <mat-icon matPrefix style="color: red;"
+                                            *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">close</mat-icon>
+                                        <div>{{'common.days.' + day | translate}}</div>
                                     </div>
                                     <ng-template #insertModeDay>
-                                        <div fxLayout="column" fxLayoutGap="10px">
-                                            <mat-checkbox [formControlName]="day" color="primary">
-                                                {{'common.days.' + day | translate}}</mat-checkbox>
-                                        </div>
+                                        <mat-checkbox [formControlName]="day" color="primary">
+                                            {{'common.days.' + day | translate}}</mat-checkbox>
                                     </ng-template>
                                 </ng-container>
                             </div>
                             <div fxLayout="column" fxLayoutGap="10px">
                                 <ng-container *ngFor="let dayH of holidays">
-                                    <div *ngIf="viewMode && permissionType else insertMode">
-                                        {{'common.days.' + dayH | translate}}
+                                    <div *ngIf="viewMode && permissionType else insertMode" fxLayout="row">
                                         <mat-icon matPrefix style="color: green;"
                                             *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">done</mat-icon>
+                                        <mat-icon matPrefix style="color: red;"
+                                            *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">close</mat-icon>
+                                        <div>{{'common.days.' + dayH | translate}}</div>
                                     </div>
                                     <ng-template #insertMode>
                                         <mat-checkbox [formControlName]="dayH" color="primary">
