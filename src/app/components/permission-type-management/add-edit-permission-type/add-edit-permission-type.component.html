@@ -1,7 +1,11 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
-        <mat-card-title> Aggiungi tipo di permesso</mat-card-title>
-        <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
+        <mat-card-title> {{permissionType ? 'Modifica tipo di permesso' : 'Aggiungi tipo di permesso'}}</mat-card-title>
+        <div fxLayoutGap="10px">
+            <button mat-button class="actionButton" *ngIf="permissionType" (click)="viewMode = !viewMode">
+                {{(viewMode) ? "Modifica" :"Visualizza"}} </button>
+            <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
+        </div>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="20px">
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
@@ -9,53 +13,98 @@
             <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="20">
                     <mat-label>Inserisci un nome tipo di permesso</mat-label>
-                    <input matInput type="text" formControlName="ctrlName">
+                    <input matInput type="text" formControlName="ctrlName" [readonly]="viewMode" [required]="!viewMode"
+                        [style.opacity]="viewMode ? '0.5' : ''">
                     <mat-error>Inserisci un nome corretto</mat-error>
                 </mat-form-field>
             </div>
             <button mat-icon-button matTooltip="aggiungi una fascia oraria"
+                *ngIf="(permissionType && !viewMode) || !permissionType"
                 (click)="addTimeSlot()"><mat-icon>add</mat-icon></button>
             <ng-container formArrayName="ctrlTimesSlot">
                 <ng-container *ngFor="let timeSlot of timesSlot.controls; let i = index">
                     <div [formGroupName]="i" fxLayout="row">
                         <div fxLayout="row wrap" fxLayoutGap="30px" class="timeSlot">
-                            <mat-form-field appearance="outline">
-                                <mat-label> Orario di inizio</mat-label>
-                                <input matInput formControlName="startTime" [ngxTimepicker]="pickerHourStart"
-                                    [format]="24" required>
-                                <mat-error>Inserisci un orario corretto</mat-error>
-                                <ngx-material-timepicker-toggle matSuffix
-                                    [for]="pickerHourStart"></ngx-material-timepicker-toggle>
-                                <ngx-material-timepicker #pickerHourStart></ngx-material-timepicker>
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label> Orario di fine</mat-label>
-                                <input matInput formControlName="endTime" [ngxTimepicker]="pickerHourEnd" [format]="24"
-                                    required>
-                                <mat-error>Inserisci un orario corretto</mat-error>
-                                <ngx-material-timepicker-toggle matSuffix
-                                    [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
-                                <ngx-material-timepicker #pickerHourEnd></ngx-material-timepicker>
-                            </mat-form-field>
+                            <ng-container *ngIf="permissionType && viewMode else insertMode">
+                                <mat-form-field appearance="outline">
+                                    <mat-label> Orario di inizio</mat-label>
+                                    <input matInput formControlName="startTime" readonly [required]="false">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label> Orario di fine</mat-label>
+                                    <input matInput formControlName="endTime" readonly [required]="false">
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-template #insertMode>
+                                <mat-form-field appearance="outline">
+                                    <mat-label> Orario di inizio</mat-label>
+                                    <input matInput formControlName="startTime" [ngxTimepicker]="pickerHourStart"
+                                        [format]="24" required>
+                                    <mat-error>Inserisci un orario corretto</mat-error>
+                                    <ngx-material-timepicker-toggle matSuffix
+                                        [for]="pickerHourStart"></ngx-material-timepicker-toggle>
+                                    <ngx-material-timepicker #pickerHourStart></ngx-material-timepicker>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label> Orario di fine</mat-label>
+                                    <input matInput formControlName="endTime" [ngxTimepicker]="pickerHourEnd"
+                                        [format]="24" required>
+                                    <mat-error>Inserisci un orario corretto</mat-error>
+                                    <ngx-material-timepicker-toggle matSuffix
+                                        [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
+                                    <ngx-material-timepicker #pickerHourEnd></ngx-material-timepicker>
+                                </mat-form-field>
+                            </ng-template>
                             <div fxLayout="column" fxLayoutGap="10px">
                                 <ng-container *ngFor="let day of days">
-                                    <mat-checkbox [formControlName]="day" color="primary">{{'common.days.' + day | translate}}</mat-checkbox>
+                                    <!--view mode div i giorni  altrimenti #-->
+                                    <div *ngIf="viewMode && permissionType else insertModeDay" fxLayout="row">
+                                        <mat-icon matPrefix style="color: green;"
+                                            *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">done</mat-icon>
+                                        <mat-icon matPrefix style="color: red;"
+                                            *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">close</mat-icon>
+                                        <div>{{'common.days.' + day | translate}}</div>
+                                    </div>
+                                    <ng-template #insertModeDay>
+                                        <mat-checkbox [formControlName]="day" color="primary">
+                                            {{'common.days.' + day | translate}}</mat-checkbox>
+                                    </ng-template>
                                 </ng-container>
                             </div>
                             <div fxLayout="column" fxLayoutGap="10px">
                                 <ng-container *ngFor="let dayH of holidays">
-                                    <mat-checkbox [formControlName]="dayH" color="primary">{{'common.days.' + dayH | translate}}</mat-checkbox>
+                                    <div *ngIf="viewMode && permissionType else insertMode" fxLayout="row">
+                                        <mat-icon matPrefix style="color: green;"
+                                            *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">done</mat-icon>
+                                        <mat-icon matPrefix style="color: red;"
+                                            *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">close</mat-icon>
+                                        <div>{{'common.days.' + dayH | translate}}</div>
+                                    </div>
+                                    <ng-template #insertMode>
+                                        <mat-checkbox [formControlName]="dayH" color="primary">
+                                            {{'common.days.' + dayH | translate}}</mat-checkbox>
+                                    </ng-template>
                                 </ng-container>
                             </div>
                         </div>
                         <button mat-icon-button matTooltip="rimuovi questa fascia oraria"
+                            *ngIf="((permissionType && !viewMode) || !permissionType && $any(formGroup.get('ctrlTimesSlot')).controls.length > 1)"
                             (click)="removeTimeSlot(i)"><mat-icon>remove</mat-icon></button>
                     </div>
                 </ng-container>
             </ng-container>
         </form>
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid" (click)="addPermissionType()">add</button>
+            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid"
+                *ngIf="permissionType else Add" (click)="addEditPermissionType()">
+                {{viewMode ? "" : 'Modifica Dettagli'}}
+            </button>
+            <ng-template #Add>
+                <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid"
+                    (click)="addEditPermissionType()">
+                    {{'Salva'}}
+                </button>
+            </ng-template>
         </div>
     </mat-card-content>
 </mat-card>

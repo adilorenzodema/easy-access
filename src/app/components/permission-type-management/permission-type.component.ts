@@ -39,9 +39,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.forEach(
-      (sub) => sub.unsubscribe()
-    );
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
   public callGetAPI(): void {

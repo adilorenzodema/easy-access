@@ -82,12 +82,14 @@
     "parkLocation": "Città",
     "parkPostalCode": "CAP",
     "parkCountry": "Stato",
+    "associateAreas": "Associa Aree",
     "creationUser": "Creato da",
     "nameError": "Un nome può contenere solamente lettere, spazi o apostrofi.",
     "addressError": "Un indirizzo può contenere solamente lettere,numeri, spazi o apostrofi.",
     "locationError": "Una città può contenere solamente lettere, spazi o apostrofi.",
-    "postalCodeError": "TODO",
+    "postalCodeError": "Un CAP può contenere solo numeri",
     "countryError": "Uno stato può contenere solamente lettere, spazi o apostrofi.",
+    "associationError": "Perfavore associare almeno un'area",
     "noParks": "Nessun parcheggio presente"
   },
   "manage-permission": {

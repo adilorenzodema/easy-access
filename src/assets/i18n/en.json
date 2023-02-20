@@ -82,12 +82,14 @@
     "parkLocation": "City",
     "parkPostalCode": "Postal code",
     "parkCountry": "Country",
+    "associateAreas": "Associate Areas",
     "creationUser": "Created by",
     "nameError": "A name can only contain letters, spaces or apostrophe.",
     "addressError": "An address can only contain letters, numbers, spaces or apostrophe.",
     "locationError": "A city can only contain letters, spaces or apostrophe.",
-    "postalCodeError": "TODO",
+    "postalCodeError": "A Postal Code can only contain numbers",
     "countryError": "A country can only contain letters, spaces or apostrophe.",
+    "associationError": "Please associate at least an area",
     "noParks": "There are no parking lots present."
   },
   "manage-permission": {
