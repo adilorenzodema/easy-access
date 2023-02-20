@@ -19,6 +19,7 @@
                 </mat-form-field>
             </div>
             <button mat-icon-button matTooltip="aggiungi una fascia oraria"
+                *ngIf="(permissionType && !viewMode) || !permissionType"
                 (click)="addTimeSlot()"><mat-icon>add</mat-icon></button>
             <ng-container formArrayName="ctrlTimesSlot">
                 <ng-container *ngFor="let timeSlot of timesSlot.controls; let i = index">
@@ -57,23 +58,25 @@
                             <div fxLayout="column" fxLayoutGap="10px">
                                 <ng-container *ngFor="let day of days">
                                     <!--view mode div i giorni  altrimenti #-->
-                                    <div *ngIf="viewMode && permissionType else insertMode">
-                                        <span *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">
-                                            {{'common.days.' + day | translate}}
-                                        </span>
+                                    <div *ngIf="viewMode && permissionType else insertModeDay">
+                                        {{'common.days.' + day | translate}}
+                                        <mat-icon matPrefix style="color: green;"
+                                            *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">done</mat-icon>
                                     </div>
-                                    <ng-template #insertMode>
-                                        <mat-checkbox [formControlName]="day" color="primary">
-                                            {{'common.days.' + day | translate}}</mat-checkbox>
+                                    <ng-template #insertModeDay>
+                                        <div fxLayout="column" fxLayoutGap="10px">
+                                            <mat-checkbox [formControlName]="day" color="primary">
+                                                {{'common.days.' + day | translate}}</mat-checkbox>
+                                        </div>
                                     </ng-template>
                                 </ng-container>
                             </div>
                             <div fxLayout="column" fxLayoutGap="10px">
                                 <ng-container *ngFor="let dayH of holidays">
                                     <div *ngIf="viewMode && permissionType else insertMode">
-                                        <span *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">
-                                            {{'common.days.' + dayH | translate}}
-                                        </span>
+                                        {{'common.days.' + dayH | translate}}
+                                        <mat-icon matPrefix style="color: green;"
+                                            *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">done</mat-icon>
                                     </div>
                                     <ng-template #insertMode>
                                         <mat-checkbox [formControlName]="dayH" color="primary">
@@ -83,6 +86,7 @@
                             </div>
                         </div>
                         <button mat-icon-button matTooltip="rimuovi questa fascia oraria"
+                            *ngIf="((permissionType && !viewMode) || !permissionType && $any(formGroup.get('ctrlTimesSlot')).controls.length > 1)"
                             (click)="removeTimeSlot(i)"><mat-icon>remove</mat-icon></button>
                     </div>
                 </ng-container>

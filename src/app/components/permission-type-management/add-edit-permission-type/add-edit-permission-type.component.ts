@@ -127,7 +127,4 @@ export class AddEditPermissionTypeComponent implements OnInit {
     return formGroupArray;
   }
 
-  public test(i: number): void {
-    console.log((this.formGroup.get('ctrlTimesSlot')as FormArray).controls[i].value.monday)
-  }
 }
