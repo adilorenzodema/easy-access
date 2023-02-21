@@ -1,4 +1,23 @@
-<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+<!-- <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
     <img src="assets/images/movyon.png" alt="welcome">
     <h2>Easy access</h2>
+</div> -->
+<div fxLayout="column" fxLayoutGap="10px">
+    <div fxLayoutAlign="end">
+        <button mat-button class="actionButton">Inserisci permesso</button>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="20px">
+        <mat-card *ngFor="let status of parkStatus" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30"
+            class="margin-bottom">
+            <mat-card-content fxLayout="column" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutAlign="space-between">
+                    <div>{{status.parkName}}</div>
+                    <mat-icon [style.color]="status.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
+                </div>
+                <mat-card-subtitle *ngIf="status.incidentList[0]">
+                    Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}
+                </mat-card-subtitle>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
