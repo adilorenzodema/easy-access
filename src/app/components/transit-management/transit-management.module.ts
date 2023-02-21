@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { LibMaterialModule } from 'dema-movyon-template';
 import { TransitManagementRoutingModule } from './transit-management-routing.module';
 import { TransitComponent } from './transit.component';
@@ -21,7 +22,8 @@ import { TransitComponent } from './transit.component';
     LibMaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    TransitManagementRoutingModule
+    TransitManagementRoutingModule,
+    TranslateModule
   ]
 })
 export class TransitManagementModule { }

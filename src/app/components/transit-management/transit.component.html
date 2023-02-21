@@ -12,6 +12,15 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
                 <mat-error>errore nel range inserito </mat-error>
             </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" fxFlex="84">
+                    <mat-label>{{'common.searchLabel' | translate }}</mat-label>
+                    <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+                    <button matPrefix mat-icon-button (click)="callGetAPI()">
+                      <mat-icon>search</mat-icon>
+                    </button>
+                  </mat-form-field>
+            </mat-form-field>
         </form>
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
