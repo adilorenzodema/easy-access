@@ -4,18 +4,21 @@
 </div> -->
 <div fxLayout="column" fxLayoutGap="10px">
     <div fxLayoutAlign="end">
-        <button mat-button class="actionButton">Inserisci permesso</button>
+        <button mat-button class="actionButton" [routerLink]="'../permission-management/add-permission'">Inserisci permesso</button>
     </div>
+    <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutGap="20px">
         <mat-card *ngFor="let status of parkStatus" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30"
             class="margin-bottom">
-            <mat-card-content fxLayout="column" fxLayoutGap="20px">
+            <mat-card-content fxLayout="column" fxLayoutGap="15px">
                 <div fxLayout="row" fxLayoutAlign="space-between">
                     <div>{{status.parkName}}</div>
                     <mat-icon [style.color]="status.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
                 </div>
                 <mat-card-subtitle *ngIf="status.incidentList[0]">
-                    Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}
+                    Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}<br>
+                    Data: {{status.incidentList[0].startDate | date: 'dd/MM/YYYY HH:mm'}}<br>
+                    Device: {{status.incidentList[0].device}}
                 </mat-card-subtitle>
             </mat-card-content>
         </mat-card>

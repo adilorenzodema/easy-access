@@ -11,6 +11,7 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   public parkStatus: ParkStatus[] = [];
+  public complete = true;
   private subscription: Subscription[] = [];
   constructor(
     private permissionService: PagePermissionService,
@@ -28,9 +29,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private getParkStatusAPI(): void {
-    this.subscription.push(this.parkService.getParkStatus().subscribe(
-      (status) => this.parkStatus = status
-    ));
+    this.complete = false;
+    this.subscription.push(this.parkService.getParkStatus().subscribe({
+      next: (status) => this.parkStatus = status,
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    }));
   }
 
   private getPermissionAPI(): void {
