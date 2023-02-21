@@ -34,6 +34,8 @@ export class TransitComponent implements OnInit {
     this.formGroup = new FormGroup({
       start: new FormControl(moment(this.start).toDate(), Validators.required),
       end: new FormControl(moment(this.end).toDate(), Validators.required),
+      ctrlValidationType: new FormControl(Validators.required),
+      ctrlStatus: new FormControl(Validators.required)
     });
     this.callGetAPI();
   }
