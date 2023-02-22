@@ -18,9 +18,9 @@ import { Transit } from '../../domain/interface';
 export class TransitComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate'];
+  public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate', 'endDate', 'gate', 'park', 'validationType', 'flagPassed'];
   public dataSource = new MatTableDataSource<Transit>();
-  public start = moment(moment.now()).subtract(2, 'day');
+  public start = moment(moment.now()).subtract(22, 'day');
   public end = moment(moment.now());
   public formGroup: FormGroup;
   public complete = true;
@@ -34,16 +34,30 @@ export class TransitComponent implements OnInit {
     this.formGroup = new FormGroup({
       start: new FormControl(moment(this.start).toDate(), Validators.required),
       end: new FormControl(moment(this.end).toDate(), Validators.required),
+      ctrlOBUSearch: new FormControl(''),
+      ctrlParkSearch: new FormControl(''),
+      ctrlGateSearch: new FormControl(''),
+      ctrlValidationType: new FormControl(''),
+      ctrlStatus: new FormControl('')
     });
     this.callGetAPI();
   }
 
+  // obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string, flagTransited: boolean
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
       const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD');
       const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD');
-      this.subscription.push(this.transitService.getTransitList(start, end).subscribe({
+      const obuSearch = this.formGroup.get('ctrlOBUSearch')?.value;
+      const parkSearch = this.formGroup.get('ctrlParkSearch')?.value;
+      const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;
+      const validationType = this.formGroup.get('ctrlValidationType')?.value;
+      var flagTransited: boolean | null;
+      flagTransited = this.formGroup.get('ctrlStatus')?.value;
+      console.log("Search:");
+      console.log(obuSearch, parkSearch, gateSearch, validationType, status)
+      this.subscription.push(this.transitService.getTransitList(start, end, obuSearch, gateSearch, parkSearch, validationType, flagTransited ).subscribe({
         next: transit => {
           this.dataSource.data = transit;
           this.dataSource.paginator = this.paginator;

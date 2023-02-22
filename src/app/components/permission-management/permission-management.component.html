@@ -48,6 +48,20 @@
                 <td mat-cell *matCellDef="let element"> {{element.category === 'P' ? 'Permanente' : 'Temporaneo'}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="permissionType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome permesso </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.permissionType; else Null">
+                        {{element.permissionType.permissionTypeDesc}} 
+                    </div>
+                    <ng-template #Null>
+                        <div style="margin-left: 22%">
+                            {{"--"}}
+                        </div>
+                    </ng-template>
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="creationDate">
                 <th mat-header-cell *matHeaderCellDef> Data creazione </th>
                 <td mat-cell *matCellDef="let element"> {{element.creationDate | date: 'dd/MM/yyyy hh:MM'}} </td>
