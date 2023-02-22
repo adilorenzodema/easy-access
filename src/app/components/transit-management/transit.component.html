@@ -40,14 +40,14 @@
                     <mat-select formControlName="ctrlValidationType" placeholder="Tipo validazione" (selectionChange)="callGetAPI()">
                         <mat-option value="CDC">CDC</mat-option>
                         <mat-option value="Antenna">Antenna</mat-option>
-                        <mat-option value="Tutti">Tutti</mat-option>
+                        <mat-option value="">Tutti</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-select formControlName="ctrlStatus" placeholder="Stato" (selectionChange)="callGetAPI()">
                         <mat-option value="true">Completato</mat-option>
                         <mat-option value="false">Non completato</mat-option>
-                        <mat-option value="null">Tutti</mat-option>
+                        <mat-option value="">Tutti</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

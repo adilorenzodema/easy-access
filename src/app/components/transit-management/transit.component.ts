@@ -20,7 +20,7 @@ export class TransitComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate', 'endDate', 'gate', 'park', 'validationType', 'flagPassed'];
   public dataSource = new MatTableDataSource<Transit>();
-  public start = moment(moment.now()).subtract(2, 'day');
+  public start = moment(moment.now()).subtract(22, 'day');
   public end = moment(moment.now());
   public formGroup: FormGroup;
   public complete = true;
@@ -53,10 +53,11 @@ export class TransitComponent implements OnInit {
       const parkSearch = this.formGroup.get('ctrlParkSearch')?.value;
       const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;
       const validationType = this.formGroup.get('ctrlValidationType')?.value;
-      const status = this.formGroup.get('ctrlStatus')?.value;
+      var flagTransited: boolean | null;
+      flagTransited = this.formGroup.get('ctrlStatus')?.value;
       console.log("Search:");
       console.log(obuSearch, parkSearch, gateSearch, validationType, status)
-      this.subscription.push(this.transitService.getTransitList(start, end, obuSearch, parkSearch, gateSearch, validationType, status ).subscribe({
+      this.subscription.push(this.transitService.getTransitList(start, end, obuSearch, gateSearch, parkSearch, validationType, flagTransited ).subscribe({
         next: transit => {
           this.dataSource.data = transit;
           this.dataSource.paginator = this.paginator;
