@@ -123,3 +123,13 @@ export interface GateAssociated {
   gateDescription: string;
   associated: boolean;
 }
+
+export interface Incident {
+  startDate: Date;
+  endDate: Date;
+  gateName: String;
+  parkName: String;
+  device: String;
+  errorCode: String;
+
+}

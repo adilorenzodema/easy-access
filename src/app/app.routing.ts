@@ -46,6 +46,12 @@ const routes: Routes = [
           () => import("src/app/components/permission-type-management/permission-type-management.module").then(m => m.PermissionTypeManagementModule),
         canActivate: [AuthGuard]
       },
+      {
+        path: 'incidents-management',
+        loadChildren:
+          () => import("src/app/components/incidents-management/incidents-management.module").then(m => m.IncidentsManagementModule),
+        canActivate: [AuthGuard]
+      },
     ]
   }
 ];
