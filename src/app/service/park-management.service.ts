@@ -4,7 +4,7 @@ import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
 import { Area, Park } from '../domain/class';
-import { AreaAssociated, GateAssociated } from '../domain/interface';
+import { AreaAssociated, GateAssociated, ParkStatus } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -105,6 +105,15 @@ export class ParkManagementService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.get<GateAssociated[]>(this.apiURL + '/getAssociateGatePark/' + idPark, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  getParkStatus(): Observable<ParkStatus[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<ParkStatus[]>(this.apiURL + '/getParkStatus', options)
       .pipe(catchError(err => { throw err; }));
   }
 

@@ -25,7 +25,6 @@ export interface AreaAssociated {
   associated: boolean;
 }
 
-
 export interface Menu {
   id: number;
   code: string;
@@ -124,12 +123,28 @@ export interface GateAssociated {
   associated: boolean;
 }
 
+export interface ParkStatus {
+  idPark: number;
+  parkName: string;
+  status: Status;
+  incidentList: Incident[];
+}
+
 export interface Incident {
-  startDate: Date;
-  endDate: Date;
+  idIncident: number;
+  errorCode: string;
+  errorMessage: string;
+  idGate: number;
   gate: Gate;
   park: Park;
-  device: String;
-  errorCode: String;
-
+  startDate: Date;
+  endDate: Date;
+  device: string;
 }
+
+export interface TableIncident {
+  parkName: string;
+  incident: Incident;
+}
+
+export type Status = 'OK' | 'KO';
