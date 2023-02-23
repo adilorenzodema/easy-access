@@ -48,11 +48,7 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
     if (isAdd) {
       this.areaManagementService.addArea(formAreaAdd).subscribe({
         next: (data: Area) => {
-          console.log(data);
           this.snackBar.showMessage("Area inserita!", 'INFO');
-        },
-        error: () => {
-          this.snackBar.showMessage("Errore!", 'ERROR');
         },
         complete: () => this.dialogRef.close(true)
       });
@@ -61,11 +57,7 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
       const formAreaEdit = new Area(name, idArea);
       this.areaManagementService.editArea(formAreaEdit).subscribe({
         next: (data: Area) => {
-          console.log(data);
           this.snackBar.showMessage("Area modificata!", 'INFO');
-        },
-        error: () => {
-          this.snackBar.showMessage("Errore!", 'ERROR');
         },
         complete: () => this.dialogRef.close(true)
       });

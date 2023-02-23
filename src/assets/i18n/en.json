@@ -32,7 +32,10 @@
       "preHoliday": "Pre Holiday",
       "holiday": "Holiday"
     },
-    "longEdit": "Edit details/associations"
+    "longEdit": "Edit details/associations",
+    "all": "All",
+    "dateStart": "Start Date",
+    "dateEnd": "End Date"
   },
   "manage_areas": {
     "title": "Manage Areas",
@@ -95,45 +98,114 @@
   "manage-permission": {
     "add": "Add permision"
   },
+  "manage_incidents": {
+    "incidentTitle": "Incidents List",
+    "searchRange": "Search range",
+    "parkSearch": "Search by parking lot",
+    "gateSearch": "Search by gate",
+    "componentFilter": "Filter by component",
+    "antenna": "Antenna",
+    "bar": "Bar",
+    "photocell": "Photocell",
+    "errorCodeFilter": "Filter by error code",
+    "error1":"Error 1",
+    "error2": "Error 2",
+    "status": "Status",
+    "resolved": "Resolved",
+    "ongoing": "Ongoing",
+    "component": "Component",
+    "errorCode": "Error code",
+    "gate": "Gate",
+    "park": "Parking lot",
+    "noIncidents": "There are no incidents present."
+  },
+
   "text": "text",
   "error": {
     "login": "Username or password wrong",
     "unknown": "Error unknown",
     "generic": "Error on server",
     "validation": "Error on validation",
-    "notAllowed": "User not allowed",
+    "notAllowed": "Operation not allowed for this user",
+    "notFound": "Operation not found",
     "token": {
       "notFound": "Token not found",
       "wrongFormat": "Wrong token format",
-      "expired": "Token expired"
+      "expired": "Token expired",
+      "mandatory": "Token is mandatory"
     },
     "refreshToken": {
-      "expired": "Refresh token expired"
+      "expired": "Refresh token expired",
+      "newPolicy": "Refresh Token must be reissued. Please perform a new Login request"
     },
     "session": {
       "expired": "Session expired"
     },
     "user": {
       "configurationError": "Error on user configuration",
-      "noMenuFound": "Menu not found",
+      "noMenuFound": "User is not granted to any menu item",
       "notFound": "User not found",
       "notActive": "User inactive",
       "alreadyActivated": "User already active",
-      "alreadyDeactivated": "User already disactive"
+      "alreadyDeactivated": "User already disactive",
+      "notAllowed": "Access to this function is not enabled for this user"
     },
+    "permission": {
+      "notFound": "Permission not found",
+      "alreadyActivated": "Permission is already active",
+      "alreadyDeactivated": "Permission is already inactive"
+    },
+    "permissionType": {
+      "alreadyExist": "Permission type already exists",
+      "notFound": "Permission type not found",
+      "alreadyActivated": "Permission type is already active",
+      "alreadyDeactivated": "Permission type is already inactive"
+    },
+    "area": {
+      "alreadyExist": "Area already exists",
+      "notFound": "Area not found",
+      "alreadyActivated": "Area is already active",
+      "alreadyDeactivated": "Area is already inactive"
+    },
+    "park": {
+      "alreadyExist": "Parking lot already exists",
+      "notFound": "Parking lot not found",
+      "alreadyActivated": "Parking lot is already active",
+      "alreadyDeactivated": "Parking lot already inactive"
+    },
+    "gate":{
+      "alreadyExist": "Gate already exists",
+      "notFound": "Gate not found",
+      "alreadyActivated": "Gate is already active",
+      "alreadyDeactivated": "Gate already inactive",
+      "ipAlreadyExists": "Ip is already associated to another antenna",
+      "codeAntennaAlreadyExists": "Code antenna already exists"
+    },
+    "incident": {
+      "notFound": "Incident not found"
+    },
+    "transit": {
+      "notFound": "Transit not found "
+    },
+    "obu":{
+      "notFound": "OBU code not found",
+      "alreadyActivated": "OBU code is already active"
+    },
+
     "profile": {
       "notFound": "Profile not found"
     },
     "email": {
-      "notFound": "Email not found"
+      "notFound": "Email not found",
+      "alreadyExsist": "Email already exists on our system"
     },
     "menuItem": {
       "notFound": "Menu Item not found"
     },
     "resetPassword": {
-      "matching": "The inserted passwords not are the same",
+      "matching": "New password can not match with the old one",
       "oldPassword": {
-        "notValid": "Invalid password"
+        "notValid": "Old password is wrong"
       },
       "sendLink": {
         "emailError": "Error on email sending"

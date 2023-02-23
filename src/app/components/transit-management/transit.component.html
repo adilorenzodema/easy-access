@@ -37,6 +37,7 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
+                    <mat-label>Tipo Validazione</mat-label>
                     <mat-select formControlName="ctrlValidationType" placeholder="Tipo validazione" (selectionChange)="callGetAPI()">
                         <mat-option value="CDC">CDC</mat-option>
                         <mat-option value="Antenna">Antenna</mat-option>
@@ -44,6 +45,7 @@
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
+                    <mat-label>Status</mat-label>
                     <mat-select formControlName="ctrlStatus" placeholder="Stato" (selectionChange)="callGetAPI()">
                         <mat-option value="true">Completato</mat-option>
                         <mat-option value="false">Non completato</mat-option>
