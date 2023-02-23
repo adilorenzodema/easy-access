@@ -141,4 +141,9 @@ export interface Incident {
   device: string;
 }
 
+export interface TableIncident {
+  parkName: string;
+  incident: Incident;
+}
+
 export type Status = 'OK' | 'KO';
