@@ -127,8 +127,8 @@ export interface GateAssociated {
 export interface Incident {
   startDate: Date;
   endDate: Date;
-  gateName: String;
-  parkName: String;
+  gate: Gate;
+  park: Park;
   device: String;
   errorCode: String;
 

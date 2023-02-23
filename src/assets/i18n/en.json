@@ -122,6 +122,9 @@
 
   "text": "text",
   "error": {
+    "area":{
+      "alreadyExists": "Area name already Exists"
+    },
     "login": "Username or password wrong",
     "unknown": "Error unknown",
     "generic": "Error on server",

@@ -18,7 +18,7 @@ export class IncidentsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode'];
+  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
   public start = moment(moment.now()).subtract(22, 'day');
   public end = moment(moment.now());
@@ -52,10 +52,12 @@ export class IncidentsComponent implements OnInit {
       const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;
       const errorCode = this.formGroup.get('ctrlErrorCode')?.value;
       const component = this.formGroup.get('ctrlComponent')?.value;
-      const status = this.formGroup.get('ctrlStatus')?.value;
-      console.log("ParK:");
-      console.log(parkSearch);
-      this.subscription.push(this.incidentsManagementService.getIncidentsList(start, end, gateSearch, parkSearch, component, errorCode).subscribe({
+      var status = this.formGroup.get('ctrlStatus')?.value;
+      if(status === "Risolto") status = true;
+      else if (status === "In corso") status = false;
+      console.log("Search values:")
+      console.log( status)
+      this.subscription.push(this.incidentsManagementService.getIncidentsList(start, end, gateSearch, parkSearch, component, errorCode, status).subscribe({
         next: incident => {
           this.dataSource.data = incident;
           this.dataSource.paginator = this.paginator;
