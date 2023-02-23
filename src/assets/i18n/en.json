@@ -147,7 +147,7 @@
       "alreadyDeactivated": "User already disactive"
     },
     "area": {
-      "areadyExist": "Area already exist"
+      "alreadyExist": "Area already exist"
     },
     "profile": {
       "notFound": "Profile not found"
