@@ -146,6 +146,9 @@
       "alreadyActivated": "Utente già attivato",
       "alreadyDeactivated": "Utente già disattivato"
     },
+    "area": {
+      "areadyexitst": "Area già esistente"
+    },
     "profile": {
       "notFound": "Profilo non trovato"
     },
