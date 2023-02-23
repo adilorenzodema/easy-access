@@ -127,39 +127,82 @@
     "generic": "Errore lato server",
     "validation": "Errore nella validazione",
     "notAllowed": "Utente non abilitato",
+    "notFound": "Operazione non trovata",
     "token": {
       "notFound": "Token non trovato",
       "wrongFormat": "Formato token errato",
-      "expired": "Token scaduto"
+      "expired": "Token scaduto",
+      "mandatory": "Il token è obbligatorio"
     },
     "refreshToken": {
-      "expired": "Refresh token scaduto"
+      "expired": "Refresh token scaduto",
+      "newPolicy": "Il Refresh Token deve essere ricreato. Si prega di eseguire una nuova richiesta di accesso"
     },
     "session": {
       "expired": "Sessione scaduta"
     },
     "user": {
       "configurationError": "Errore nella configurazione utente",
-      "noMenuFound": "Menu non trovato",
+      "noMenuFound": "L'utente non ha accesso al menù",
       "notFound": "Utente non trovato",
       "notActive": "Utente non attivo",
       "alreadyActivated": "Utente già attivato",
-      "alreadyDeactivated": "Utente già disattivato"
+      "alreadyDeactivated": "Utente già disattivato",
+      "notAllowed": "Funzione non abilitata per questo utente"
+    },
+    "permission": {
+      "notFound": "Permesso non trovato",
+      "alreadyActivated": "Permesso già attivato",
+      "alreadyDeactivated": "Permesso già disattivato"
+    },
+    "permissionType": {
+      "alreadyExist": "Tipo permesso già esistente",
+      "notFound": "Tipo permesso non trovato",
+      "alreadyActivated": "Tipo permesso già attivato",
+      "alreadyDeactivated": "Tipo permesso già disattivato"
     },
     "area": {
-      "alreadyExist": "Area già esistente"
+      "alreadyExist": "Area già esistente",
+      "notFound": "Area non trovata",
+      "alreadyActivated": "Area già attivata",
+      "alreadyDeactivated": "Area già disattivata"
+    },
+    "park": {
+      "alreadyExist": "Parcheggio già esistente",
+      "notFound": "Parcheggio non trovato",
+      "alreadyActivated": "Parcheggio già attivato",
+      "alreadyDeactivated": "Parcheggio già disattivato"
+    },
+    "gate":{
+      "alreadyExist": "Varco già esistente",
+      "notFound": "Varco non trovato",
+      "alreadyActivated": "Varco già attivato",
+      "alreadyDeactivated": "Varco già disattivato",
+      "ipAlreadyExists": "Ip già associato ad un'altra antenna",
+      "codeAntennaAlreadyExists": "Codice antenna già esistente"
+    },
+    "incident": {
+      "notFound": "Incidente non trovato"
+    },
+    "transit": {
+      "notFound": "Transito non trovato "
+    },
+    "obu":{
+      "notFound": "Codice OBU non trovato",
+      "alreadyActivated": "Codice OBU già attivato"
     },
     "profile": {
       "notFound": "Profilo non trovato"
     },
     "email": {
-      "notFound": "Email non trovata"
+      "notFound": "Email non trovata",
+      "alreadyExsist": "Email già esistente nel nostro sistema"
     },
     "menuItem": {
       "notFound": "Funzione non trovata"
     },
     "resetPassword": {
-      "matching": "Le password inserite non sono uguali",
+      "matching": "La nuova paswword non può essere uguale a quella vecchia",
       "oldPassword": {
         "notValid": "Password non valida"
       },
