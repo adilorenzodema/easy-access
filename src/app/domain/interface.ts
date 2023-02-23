@@ -127,7 +127,7 @@ export interface ParkStatus {
   idPark: number;
   parkName: string;
   status: Status;
-  incidentList: Incident;
+  incidentList: Incident[];
 }
 
 export interface Incident {

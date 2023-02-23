@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PagePermissionService } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { ParkStatus } from 'src/app/domain/interface';
+import { Incident, ParkStatus } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private getParkStatusAPI(): void {
     this.complete = false;
     this.subscription.push(this.parkService.getParkStatus().subscribe({
-      next: (status) => this.parkStatus = status,
+      next: (status) => (this.parkStatus = status),
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));
