@@ -32,7 +32,10 @@
       "preHoliday": "Pre festivo",
       "holiday": "Festivo"
     },
-    "longEdit": "Modifica dettagli/associazioni"
+    "longEdit": "Modifica dettagli/associazioni",
+    "all": "Tutti",
+    "dateStart": "Data Inizio",
+    "dateEnd": "Data Fine"
   },
   "manage_areas": {
     "title": "Gestione Aree",
@@ -95,6 +98,28 @@
   "manage-permission": {
     "add": "Aggiungi permesso"
   },
+  "manage_incidents": {
+    "incidentTitle": "Lista Incidenti",
+    "searchRange": "Range di ricerca",
+    "parkSearch": "Ricerca per parcheggio",
+    "gateSearch": "Ricerca per varco",
+    "componentFilter": "Filtra per componente",
+    "antenna": "Antenna",
+    "bar": "Sbarra",
+    "photocell": "Fotocellula",
+    "errorCodeFilter": "Filtra per codice errore",
+    "error1":"Errore 1",
+    "error2": "Errore 2",
+    "status": "Status",
+    "resolved": "Risolto",
+    "ongoing": "In corso",
+    "component": "Componente",
+    "errorCode": "Codice errore",
+    "gate": "Varco",
+    "park": "Parcheggio",
+    "noIncidents": "Nessun incidente presente"
+  },
+
   "text": "testo",
   "error": {
     "login": "Username o password sbagliate",

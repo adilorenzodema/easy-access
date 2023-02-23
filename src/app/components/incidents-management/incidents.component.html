@@ -1,10 +1,10 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>Incidenti</mat-card-title>
+    <mat-card-title>{{"manage_incidents.incidentTitle" | translate}}</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="formGroup">
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
                 <mat-form-field appearance="outline">
-                    <mat-label>scegli un range di ricerca</mat-label>
+                    <mat-label>{{"manage_incidents.searchRange" | translate}}</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate formControlName="start">
                         <input matEndDate formControlName="end" (dateChange)="callGetAPI()">
@@ -14,14 +14,14 @@
                     <mat-error>errore nel range inserito </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>Ricerca per parcheggio</mat-label>
+                    <mat-label>{{"manage_incidents.parkSearch" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
                     <button matPrefix mat-icon-button (click)="callGetAPI()">
                         <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>Ricerca ricerca per varco</mat-label>
+                    <mat-label>{{"manage_incidents.gateSearch" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
                     <button matPrefix mat-icon-button (click)="callGetAPI()">
                         <mat-icon>search</mat-icon>
@@ -30,25 +30,28 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-select formControlName="ctrlComponent" placeholder="Componente" (selectionChange)="callGetAPI()">
-                        <mat-option value="Fotocellula">Fotocellula</mat-option>
-                        <mat-option value="Antenna">Antenna</mat-option>
-                        <mat-option value="Sbarra">Sbarra</mat-option>
-                        <mat-option value="">Tutti</mat-option>
+                    <mat-label>{{"manage_incidents.component" | translate}}</mat-label>
+                    <mat-select formControlName="ctrlComponent" placeholder="{{'manage_incidents.component' | translate}}" (selectionChange)="callGetAPI()">
+                        <mat-option value="Fotocellula">{{"manage_incidents.photocell" | translate}}</mat-option>
+                        <mat-option value="Antenna">{{"manage_incidents.antenna" | translate}}</mat-option>
+                        <mat-option value="Sbarra">{{"manage_incidents.bar" | translate}}</mat-option>
+                        <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-select formControlName="ctrlErrorCode" placeholder="Codice Errore" (selectionChange)="callGetAPI()">
-                        <mat-option value="Errore 1">Errore 1</mat-option>
-                        <mat-option value="Errore 2">Errore 2</mat-option>
-                        <mat-option value="">Tutti</mat-option>
+                    <mat-label>{{"manage_incidents.errorCode" | translate}}</mat-label>
+                    <mat-select formControlName="ctrlErrorCode" placeholder="{{'manage_incidents.errorCode' | translate}}" (selectionChange)="callGetAPI()">
+                        <mat-option value="Errore 1">{{"manage_incidents.error1" | translate}}</mat-option>
+                        <mat-option value="Errore 2">{{"manage_incidents.error2" | translate}}</mat-option>
+                        <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-select formControlName="ctrlStatus" placeholder="Status" (selectionChange)="callGetAPI()">
-                        <mat-option value="Risolto"> Risolto</mat-option>
-                        <mat-option value="In corso">In corso</mat-option>
-                        <mat-option value="">Tutti</mat-option>
+                    <mat-label>{{"manage_incidents.status" | translate}}</mat-label>
+                    <mat-select formControlName="ctrlStatus" placeholder="{{'manage_incidents.status' | translate}}" (selectionChange)="callGetAPI()">
+                        <mat-option value="Risolto"> {{"manage_incidents.resolved" | translate}}</mat-option>
+                        <mat-option value="In corso">{{"manage_incidents.ongoing" | translate}}</mat-option>
+                        <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -58,32 +61,32 @@
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
             <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef> Data inizio </th>
+                <th mat-header-cell *matHeaderCellDef> {{"common.dateStart" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef> Data fine </th>
+                <th mat-header-cell *matHeaderCellDef> {{"common.dateEnd" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="gateName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Varco </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.gate" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.gateName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="parkName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Parcheggio </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.park" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.parkName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="device">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Componente </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.component" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.device}} </td>
             </ng-container>
 
             <ng-container matColumnDef="errorCode">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Codice errore </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorCode" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{ element.errorCode }}</td>
             </ng-container>
 
@@ -94,6 +97,6 @@
         <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
         </mat-paginator>
-        <div *ngIf="dataSource.data.length === 0"> nessun incidente presente</div>
+        <div *ngIf="dataSource.data.length === 0"> {{"manage_incidents.noIncidents" | translate}}</div>
     </mat-card-content>
 </mat-card>

@@ -32,7 +32,10 @@
       "preHoliday": "Pre Holiday",
       "holiday": "Holiday"
     },
-    "longEdit": "Edit details/associations"
+    "longEdit": "Edit details/associations",
+    "all": "All",
+    "dateStart": "Start Date",
+    "dateEnd": "End Date"
   },
   "manage_areas": {
     "title": "Manage Areas",
@@ -95,6 +98,28 @@
   "manage-permission": {
     "add": "Add permision"
   },
+  "manage_incidents": {
+    "incidentTitle": "Incidents List",
+    "searchRange": "Search range",
+    "parkSearch": "Search by parking lot",
+    "gateSearch": "Search by gate",
+    "componentFilter": "Filter by component",
+    "antenna": "Antenna",
+    "bar": "Bar",
+    "photocell": "Photocell",
+    "errorCodeFilter": "Filter by error code",
+    "error1":"Error 1",
+    "error2": "Error 2",
+    "status": "Status",
+    "resolved": "Resolved",
+    "ongoing": "Ongoing",
+    "component": "Component",
+    "errorCode": "Error code",
+    "gate": "Gate",
+    "park": "Parking lot",
+    "noIncidents": "There are no incidents present."
+  },
+
   "text": "text",
   "error": {
     "login": "Username or password wrong",
