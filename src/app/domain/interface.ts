@@ -137,8 +137,8 @@ export interface Incident {
   idGate: number;
   gate: Gate;
   park: Park;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   device: string;
 }
 
