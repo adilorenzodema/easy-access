@@ -86,14 +86,14 @@
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element" style="text-align: end;">
                     <button mat-icon-button>
-                        <mat-icon style="color:#479AED" matTooltip="dettagli - modifica"
+                        <mat-icon style="color:#51b1a1;" matTooltip="dettagli - modifica"
                             [routerLink]="'edit-permission'" [state]="{permission: element}">edit</mat-icon>
                     </button>
                     <button mat-icon-button *ngIf="formGroup.controls['ctrlActive'].value else reactive"><mat-icon
                             style="color: red" matTooltip="disattiva"
                             (click)="deletePermission(element.idPermission)">delete</mat-icon></button>
                     <ng-template #reactive>
-                        <button mat-icon-button><mat-icon style="color: #479AED" matTooltip="attiva"
+                        <button mat-icon-button><mat-icon style="color: #51b1a1;" matTooltip="attiva"
                                 (click)="activePermission(element.idPermission)">refresh</mat-icon></button>
                     </ng-template>
                 </td>

@@ -57,14 +57,14 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element" style="text-align: end;">
           <button mat-icon-button>
-            <mat-icon style="color:#479AED" matTooltip="modifica" (click)="addEditGate(element)">edit</mat-icon>
+            <mat-icon style="color:#51b1a1;" matTooltip="modifica" (click)="addEditGate(element)">edit</mat-icon>
           </button>
           <button mat-icon-button *ngIf="search.controls['ctrlActive'].value else reactive" (click)="deleteGate(element.idGate)">
             <mat-icon style="color: red" matTooltip="cancella">delete</mat-icon>
           </button>
           <ng-template #reactive>
             <button mat-icon-button (click)="activateGate(element.idGate)">
-              <mat-icon style="color: #479AED"
+              <mat-icon style="color: #51b1a1;"
                 matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
           </ng-template>
         </td>

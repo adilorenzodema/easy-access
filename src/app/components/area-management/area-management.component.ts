@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
 import { PagePermissionService } from 'dema-movyon-template';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
@@ -25,6 +26,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   public search: FormGroup;
   public complete = true;
   public areaName: string;
+  public operations: Operation[] = [];
   private subscription: Subscription[] = [];
 
   constructor(
@@ -117,7 +119,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
-      resp => null
+      permission => this.operations = permission.operations
     ));
   }
 
