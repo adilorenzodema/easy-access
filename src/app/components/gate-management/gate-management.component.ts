@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Park } from '../../domain/class';
 import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.component';
 
 @Component({
@@ -29,7 +28,6 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   public idPark: number;
   public namePark: string;
 
-  private parks: Park[] = [];
   private subscription: Subscription[] = [];
 
   constructor(
@@ -90,7 +88,7 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   }
 
   public addEditGate(gate?: Gate): void {
-    const dialogRef = this.dialog.open(ModalFormGateComponent, { width: '40%', height: '65%', data: gate ? gate : '' });
+    const dialogRef = this.dialog.open(ModalFormGateComponent, { width: '40%', height: '40%', data: gate ? gate : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };
