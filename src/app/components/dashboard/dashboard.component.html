@@ -12,7 +12,7 @@
                     <div>{{status.parkName}}</div>
                     <mat-icon [style.color]="status.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
                 </div>
-                <div *ngIf="status.incidentList.length > 0">
+                <ng-container *ngIf="status.incidentList.length > 0 else noIncidents">
                     <mat-card-subtitle>
                         Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}<br>
                     </mat-card-subtitle>
@@ -28,11 +28,14 @@
                         </mat-card-subtitle>
                         <button mat-icon-button *ngIf="operations | getPermissionPipe: 'view-park-incident-dashboard'"
                             [routerLink]="['../incidents-management']" [state]="{parkName: status.parkName}">
-                            <mat-icon style="color:#51b1a1;"
+                            <mat-icon style="color: red"
                                 matTooltip="{{'common.edit' | translate}}">warning</mat-icon>
                         </button>
                     </div>
-                </div>
+                </ng-container>
+                <ng-template #noIncidents>
+                    <mat-card-subtitle>Nessun incident rilevato</mat-card-subtitle>
+                </ng-template>
             </mat-card-content>
         </mat-card>
     </div>
