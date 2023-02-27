@@ -35,19 +35,21 @@ export class Park {
   }
 }
 
-export class AddGate{
+export class AddEditGate{
   idGate?: number;
   parkId: number;
   gateName: string;
   gateDirection: string;
   ipAntenna: string;
   portAntenna: number;
-  constructor(idPark: number, gateDescription: string, gateDirection: string, ipAntenna: string, portAntenna: number){
+  codeAntenna: string;
+  constructor(idPark: number, gateDescription: string, gateDirection: string, ipAntenna: string, portAntenna: number, codeAntenna: string){
     this.parkId = idPark;
     this.gateName = gateDescription;
     this.gateDirection = gateDirection;
     this.ipAntenna = ipAntenna;
     this.portAntenna = portAntenna;
+    this.codeAntenna = codeAntenna;
   }
 }
 

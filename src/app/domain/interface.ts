@@ -107,6 +107,7 @@ export interface Gate {
   gateType: string;
   ipAntenna: string;
   portAntenna: number;
+  codeAntenna: string;
   userAntenna: string;
   passwordAntenna: string;
   idUserDeactivation: number;

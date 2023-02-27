@@ -52,7 +52,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   }
 
   public add(element?: Area): void {
-    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '40%', height: '50%', data: element ? element : '' });
+    const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '25%', height: '27%', data: element ? element : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };

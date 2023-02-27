@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { AddGate, Park } from 'src/app/domain/class';
+import { AddEditGate, Park } from 'src/app/domain/class';
 import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
 import { ParkManagementService } from 'src/app/service/park-management.service';
@@ -40,6 +40,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
         ctrlGateDirection: [this.data.gateDirection, [Validators.required]],
         ctrlIpAntenna: [this.data.ipAntenna, [Validators.required, Validators.pattern('^[0-9.]*$')]],
         ctrlPortAntenna: [this.data.portAntenna, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        ctrlCodeAntenna: [this.data.codeAntenna, [Validators.required]],
         ctrlParkId: [this.data.park?.idPark, Validators.required]
       });
     } else {
@@ -49,6 +50,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
         ctrlGateDirection: [null, [Validators.required]], //ENTRATA, USCITA, DOPPIO SENSO
         ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]], //ip
         ctrlPortAntenna: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        ctrlCodeAntenna: [null, Validators.required]
       });
     }
   }
@@ -66,7 +68,8 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const gateDirection = this.inputUserForm.get('ctrlGateDirection')?.value;
       const ipAntenna = this.inputUserForm.get('ctrlIpAntenna')?.value;
       const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
-      const formGateAdd = new AddGate(parkId,gateName,gateDirection, ipAntenna, portAntenna);
+      const codeAntenna = this.inputUserForm.get('ctrlCodeAntenna')?.value;
+      const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
       console.log("add");
       console.log(formGateAdd);
       this.subscription.push(this.gateService.addGate(formGateAdd).subscribe({
@@ -82,7 +85,8 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const gateDirection = this.inputUserForm.get('ctrlGateDirection')?.value;
       const ipAntenna = this.inputUserForm.get('ctrlIpAntenna')?.value;
       const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
-      const formGateAdd = new AddGate(parkId,gateName,gateDirection, ipAntenna, portAntenna);
+      const codeAntenna = this.inputUserForm.get('ctrlCodeAntenna')?.value;
+      const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
       formGateAdd.idGate = idGate;
       console.log("edit");
       console.log(formGateAdd);
