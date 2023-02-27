@@ -21,12 +21,13 @@ import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.compon
 export class GateManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna', 'action'];
+  public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna','codeAntenna', 'action'];
   public dataSource = new MatTableDataSource<Gate>();
   public complete = true;
   public search: FormGroup;
   public idPark: number;
   public namePark: string;
+  
 
   private subscription: Subscription[] = [];
 
@@ -43,13 +44,11 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
+      ctrlGateSearch: [''],
+      ctrlParkSearch: [''],
       ctrlActive: [true]
-    });
-    if (this.idPark) {
-      this.callGetAPIFiltered();
-    } else {
+    });  
       this.callGetAPI();
-    }
   }
 
   ngOnDestroy(): void {
@@ -60,9 +59,10 @@ export class GateManagementComponent implements OnInit, OnDestroy {
 
   public callGetAPI(): void {
     this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
+    const parkKeyword = this.search.get('ctrlParkSearch')?.value;
+    const gateKeyword = this.search.get('ctrlGateSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
-    this.subscription.push(this.gateService.getAllGates(keyword, isActive).subscribe({
+    this.subscription.push(this.gateService.getAllGates(parkKeyword,gateKeyword, isActive).subscribe({
       next: (gates) => (
         this.dataSource.data = gates,
         this.dataSource.sort = this.sort,
@@ -73,22 +73,8 @@ export class GateManagementComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public callGetAPIFiltered(): void {
-    this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
-    this.gateService.getGateByPark(this.idPark).subscribe({
-      next: (gate) => (
-        this.dataSource.data = gate,
-        this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
-      ),
-      error: () => this.complete = true,
-      complete: () => this.complete = true
-    });
-  }
-
   public addEditGate(gate?: Gate): void {
-    const dialogRef = this.dialog.open(ModalFormGateComponent, { width: '40%', height: '40%', data: gate ? gate : '' });
+    const dialogRef = this.dialog.open(ModalFormGateComponent, { width: '50%', height: '40%', data: gate ? gate : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };

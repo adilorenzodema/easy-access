@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PagePermissionService } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { ParkStatus } from 'src/app/domain/interface';
+import { ParkStatus, TableIncident } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,8 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   public parkStatus: ParkStatus[] = [];
   public complete = true;
+  public operations: Operation[] = [];
+  public allIncidentList: TableIncident[] = [];
 
   private subscription: Subscription[] = [];
   constructor(
@@ -38,11 +41,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }));
   }
 
+  private saveAllIncident(): void {
+    this.parkStatus.forEach(
+      (park) => park.incidentList.forEach(
+        (list) => this.allIncidentList.push({ parkName: park.parkName, incident: list })
+      )
+    );
+  }
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
-      resp => null
+      permission => { this.operations = permission.operations; }
     ));
   }
+
 
 }

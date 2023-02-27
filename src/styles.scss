@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-
+html,body{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 // template 
 .example-sidenav {
     background: #49beaa !important;
@@ -32,6 +34,15 @@ a {
 .actionButton {
     background-color: #51b1a1;
     color: white;
+}
+
+// manage-users
+.editIcon {
+    color: #51b1a1 !important;
+}
+
+.refreshIcon {
+    color: #51b1a1 !important;
 }
 
 /* snackbar */

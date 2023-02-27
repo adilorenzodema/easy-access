@@ -68,7 +68,7 @@ export class ParkManagementComponent implements OnInit {
 
 
   public addPark(park?: Park): void {
-    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '80%', data: park ? park : '' });
+    const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '50%', data: park ? park : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };

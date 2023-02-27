@@ -107,6 +107,7 @@ export interface Gate {
   gateType: string;
   ipAntenna: string;
   portAntenna: number;
+  codeAntenna: string;
   userAntenna: string;
   passwordAntenna: string;
   idUserDeactivation: number;
@@ -135,8 +136,7 @@ export interface Incident {
   errorCode: string;
   errorMessage: string;
   idGate: number;
-  gate: Gate;
-  park: Park;
+  gateName: string;
   startDate: string;
   endDate: string;
   device: string;

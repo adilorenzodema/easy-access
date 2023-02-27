@@ -1,12 +1,14 @@
-<form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+<form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
+  <mat-card-title> {{"manage_areas.modalTitle" | translate}} </mat-card-title>
+  <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="45" fxFlex.gt-lg="35">
     <mat-label>{{'manage_areas.areaName' | translate}}</mat-label>
     <input matInput type="text" required formControlName="ctrlAreaName" />
     <mat-error>{{'manage_areas.nameError' | translate}}</mat-error>
   </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+    <button mat-raised-button (click)="dialogRef.close(false)">{{'common.cancel' | translate}}</button>
+    <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid"
+      (click)="onSubmit(data ? false : true)">{{data ? ('common.edit' | translate): ('common.add' |
+      translate)}}</button>
+  </div>
 </form>
-<div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
-  <button mat-raised-button (click)="dialogRef.close(false)">{{'common.cancel' | translate}}</button>
-  <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid"
-    (click)="onSubmit(data ? false : true)">{{data ? ('common.edit' | translate): ('common.add' | translate)}}</button>
-</div>

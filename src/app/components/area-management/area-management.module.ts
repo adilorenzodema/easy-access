@@ -6,15 +6,12 @@ import { AreaManagementRoutingModule } from './area-management.routing';
 import { AreaManagementComponent } from './area-management.component';
 import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.component';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
-import { LibMaterialModule } from 'dema-movyon-template';
+import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
 import { PipesModuleModule } from 'src/app/shared/pipes/pipes.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditAreaComponent } from './edit-area/edit-area.component';
 import { TableAssociatedParkComponent } from './table-associated-park/table-associated-park.component';
 import { TableAssociatedUsersComponent } from './table-associated-users/table-associated-users.component';
-
-
-
 
 
 @NgModule({
@@ -31,6 +28,7 @@ import { TableAssociatedUsersComponent } from './table-associated-users/table-as
     FormsModule,
     ReactiveFormsModule,
     LibMaterialModule,
+    LibPipesModule,
     AreaManagementRoutingModule,
     SharedComponentsModule,
     PipesModuleModule,

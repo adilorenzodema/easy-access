@@ -39,6 +39,7 @@
   },
   "manage_areas": {
     "title": "Manage Areas",
+    "modalTitle": "Add a new Area",
     "areaName": "Name",
     "active": "Active",
     "inactive": "Inactive",
@@ -78,6 +79,7 @@
     "disactivateConfirm": "Are you sure you want to disactivate the selected user?"
   },
   "manage_parks": {
+    "modalTitle": "Add a new Park",
     "active": "Active",
     "inactive": "Inactive",
     "parkName": "Name",
@@ -94,6 +96,11 @@
     "countryError": "A country can only contain letters, spaces or apostrophe.",
     "associationError": "Please associate at least an area",
     "noParks": "There are no parking lots present."
+  },
+  "manage_gates": {
+    "modalTitle": "Add a new Gate",
+    "directionError": "Please choose a direction",
+    "associationError": "Please associate at least a parking lot"
   },
   "manage-permission": {
     "add": "Add permision"
@@ -117,7 +124,8 @@
     "errorCode": "Error code",
     "gate": "Gate",
     "park": "Parking lot",
-    "noIncidents": "There are no incidents present."
+    "noIncidents": "There are no incidents present.",
+    "viewHistory": ""
   },
 
   "text": "text",

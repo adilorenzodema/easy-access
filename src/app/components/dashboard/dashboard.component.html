@@ -12,11 +12,30 @@
                     <div>{{status.parkName}}</div>
                     <mat-icon [style.color]="status.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
                 </div>
-                <mat-card-subtitle *ngIf="status.incidentList[0]">
-                    Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}<br>
-                    Data: {{status.incidentList[0].startDate | date: 'dd/MM/YYYY HH:mm'}}<br>
-                    Device: {{status.incidentList[0].device}}
-                </mat-card-subtitle>
+                <ng-container *ngIf="status.incidentList.length > 0 else noIncidents">
+                    <mat-card-subtitle>
+                        Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}<br>
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                        Data: {{status.incidentList[0].startDate | date: 'dd/MM/YYYY HH:mm'}}<br>
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                        Device: {{status.incidentList[0].device}}
+                    </mat-card-subtitle>
+                    <div fxLayout="row" fxLayoutAlign="space-between">
+                        <mat-card-subtitle>
+                            Gate: {{status.incidentList[0].gateName}}
+                        </mat-card-subtitle>
+                        <button mat-icon-button *ngIf="operations | getPermissionPipe: 'view-park-incident-dashboard'"
+                            [routerLink]="['../incidents-management']" [state]="{parkName: status.parkName}">
+                            <mat-icon style="color: red"
+                                matTooltip="{{'common.edit' | translate}}">warning</mat-icon>
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-template #noIncidents>
+                    <mat-card-subtitle>Nessun incident rilevato</mat-card-subtitle>
+                </ng-template>
             </mat-card-content>
         </mat-card>
     </div>

@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LibMaterialModule, LibTemplateModule } from 'dema-movyon-template';
+import { LibMaterialModule, LibPipesModule, LibTemplateModule } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
@@ -34,6 +34,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     LibMaterialModule,
     LibTemplateModule,
+    LibPipesModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

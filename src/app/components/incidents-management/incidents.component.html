@@ -61,12 +61,12 @@
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
             <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef> {{"common.dateStart" | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateStart" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef> {{"common.dateEnd" | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateEnd" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy'}} </td>
             </ng-container>
 

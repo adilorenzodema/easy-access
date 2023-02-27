@@ -39,6 +39,7 @@
   },
   "manage_areas": {
     "title": "Gestione Aree",
+    "modalTitle": "Aggiungi una nuova Area",
     "areaName": "Nome",
     "active": "Attive",
     "inactive": "Disattive",
@@ -78,6 +79,7 @@
     "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?"
   },
   "manage_parks": {
+    "modalTitle": "Aggiungi un nuovo Parcheggio",
     "active": "Attivo",
     "inactive": "Inattivo",
     "parkName": "Nome",
@@ -94,6 +96,11 @@
     "countryError": "Uno stato può contenere solamente lettere, spazi o apostrofi.",
     "associationError": "Perfavore associare almeno un'area",
     "noParks": "Nessun parcheggio presente"
+  },
+  "manage_gates": {
+    "modalTitle": "Aggiungi un nuovo Varco",
+    "directionError": "Perfavore scegliere almeno una direzione",
+    "associationError": "Perfavore associare almeno un parcheggio"
   },
   "manage-permission": {
     "add": "Aggiungi permesso"
