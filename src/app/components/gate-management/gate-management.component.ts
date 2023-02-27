@@ -43,13 +43,11 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
+      ctrlGateSearch: [''],
+      ctrlParkSearch: [''],
       ctrlActive: [true]
-    });
-    if (this.idPark) {
-      this.callGetAPIFiltered();
-    } else {
+    });  
       this.callGetAPI();
-    }
   }
 
   ngOnDestroy(): void {
@@ -60,9 +58,10 @@ export class GateManagementComponent implements OnInit, OnDestroy {
 
   public callGetAPI(): void {
     this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
+    const parkKeyword = this.search.get('ctrlParkSearch')?.value;
+    const gateKeyword = this.search.get('ctrlGateSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
-    this.subscription.push(this.gateService.getAllGates(keyword, isActive).subscribe({
+    this.subscription.push(this.gateService.getAllGates(parkKeyword,gateKeyword, isActive).subscribe({
       next: (gates) => (
         this.dataSource.data = gates,
         this.dataSource.sort = this.sort,
@@ -71,20 +70,6 @@ export class GateManagementComponent implements OnInit, OnDestroy {
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));
-  }
-
-  public callGetAPIFiltered(): void {
-    this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
-    this.gateService.getGateByPark(this.idPark).subscribe({
-      next: (gate) => (
-        this.dataSource.data = gate,
-        this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
-      ),
-      error: () => this.complete = true,
-      complete: () => this.complete = true
-    });
   }
 
   public addEditGate(gate?: Gate): void {
