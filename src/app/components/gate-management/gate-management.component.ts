@@ -27,6 +27,7 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   public search: FormGroup;
   public idPark: number;
   public namePark: string;
+  
 
   private subscription: Subscription[] = [];
 

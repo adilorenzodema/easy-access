@@ -124,7 +124,8 @@
     "errorCode": "Error code",
     "gate": "Gate",
     "park": "Parking lot",
-    "noIncidents": "There are no incidents present."
+    "noIncidents": "There are no incidents present.",
+    "viewHistory": ""
   },
 
   "text": "text",

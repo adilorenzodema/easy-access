@@ -6,6 +6,7 @@ import { PagePermissionService } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { Incident, ParkStatus, TableIncident } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public allIncidentList: TableIncident[] = [];
   public complete = true;
   public dataSource = new MatTableDataSource<TableIncident>();
+  public operations: Operation[] = [];
   public displayedColumns = ['idIncident', 'errorMessage', 'parkName', 'device', 'startDate'];
 
   private subscription: Subscription[] = [];
@@ -52,13 +54,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }));
   }
 
-  private getPermissionAPI(): void {
-    const currentUrl = (window.location.hash).replace('#/', '');
-    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
-      resp => null
-    ));
-  }
-
   private saveAllIncident(): void {
     this.parkStatus.forEach(
       (park) => park.incidentList.forEach(
@@ -66,5 +61,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       )
     );
   }
+  
+  private getPermissionAPI(): void {
+    const currentUrl = (window.location.hash).replace('#/', '');
+    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
+      permission => {this.operations = permission.operations}
+    ));
+  }
+
 
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -24,11 +25,14 @@ export class IncidentsComponent implements OnInit {
   public end = moment(moment.now());
   public formGroup: FormGroup;
   public complete = true;
-
+  public parkByIncidents;
   private subscription: Subscription[] = [];
 
   constructor(private incidentsManagementService: IncidentsManagementService,
-    private translate: TranslateService) { }
+    private router: Router,
+    private translate: TranslateService) {
+    this.parkByIncidents = this.router.getCurrentNavigation()?.extras.state?.['parkName'] as string;
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -40,6 +44,9 @@ export class IncidentsComponent implements OnInit {
       ctrlErrorCode: new FormControl(''),
       ctrlStatus: new FormControl('')
     });
+    if(this.parkByIncidents) this.formGroup.patchValue({ctrlParkSearch: this.parkByIncidents});
+    console.log(this.parkByIncidents);
+    console.log(this.formGroup.value );
     this.callGetAPI();
   }
 
@@ -53,10 +60,10 @@ export class IncidentsComponent implements OnInit {
       const errorCode = this.formGroup.get('ctrlErrorCode')?.value;
       const component = this.formGroup.get('ctrlComponent')?.value;
       var status = this.formGroup.get('ctrlStatus')?.value;
-      if(status === "Risolto") status = true;
+      if (status === "Risolto") status = true;
       else if (status === "In corso") status = false;
       console.log("Search values:")
-      console.log( status)
+      console.log(status)
       this.subscription.push(this.incidentsManagementService.getIncidentsList(start, end, gateSearch, parkSearch, component, errorCode, status).subscribe({
         next: incident => {
           this.dataSource.data = incident;
