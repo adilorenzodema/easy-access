@@ -10,6 +10,11 @@ export const environment = {
     imgSidebar: 'assets/images/movyon.png',
     title: 'Easy access'
   },
+  footer: {
+    year: '2022',
+    title: 'Powered by Dema Engineering',
+    link: 'https://dema-engineering.it/',
+  }
 };
 /*
  * For easier debugging in development mode, you can import the following file

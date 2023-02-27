@@ -1,7 +1,21 @@
 {
   "yes": "Si",
   "template": {
-    "change_password": "Cambia password"
+    "change_password": "Cambia password",
+    "it": "Italiano",
+    "en": "Inglese"
+  },
+  "Menu": {
+    "Dashboard": "Dashboard",
+    "Users": "Utenti",
+    "Areas": "Aree",
+    "Parkings": "Parcheggi",
+    "Gates": "Varchi",
+    "Permissions": "Permessi",
+    "Permission Profiles": "Tipi permesso",
+    "Transits": "Transiti",
+    "Incidents": "Anomalie",
+    "Batch Management": "Batch"
   },
   "common": {
     "searchLabel": "cerca",

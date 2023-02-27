@@ -45,12 +45,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     })
   ],
   providers: [
-    {
-      provide: 'header',
-      useValue: environment.header
-    },
+    { provide: 'header', useValue: environment.header },
+    { provide: 'footer', useValue: environment.footer },
     { provide: 'env', useValue: environment },
-    { provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     CookieService
   ],
   bootstrap: [AppComponent]

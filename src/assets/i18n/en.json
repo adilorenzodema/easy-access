@@ -1,7 +1,21 @@
 {
   "yes": "Yes",
   "template": {
-    "change_password": "Change password"
+    "change_password": "Change password",
+    "it": "Italian",
+    "en": "English"
+  },
+  "Menu": {
+    "Dashboard": "Dashboard",
+    "Users": "Users",
+    "Areas": "Areas",
+    "Parkings": "Parkings",
+    "Gates": "Gates",
+    "Permissions": "Permissions",
+    "Permission Profiles": "Permission profiles",
+    "Transits": "Transits",
+    "Incidents": "Incidents",
+    "Batch Management": "Batch"
   },
   "common": {
     "searchLabel": "Search",
