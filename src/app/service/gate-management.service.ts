@@ -18,10 +18,10 @@ export class GateService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getAllGates(keyword: string, isActive: boolean): Observable<Gate[]> {
+  getAllGates(parkKeyword: string, gateKeyword: boolean, isActive: boolean): Observable<Gate[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword, active: isActive })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), parkKeyword: parkKeyword, gateKeyword: gateKeyword, active: isActive })
     };
     return this.http.get<Gate[]>(this.apiURL + '/getAllGates', options)
       .pipe(catchError(err => { throw err; }));
