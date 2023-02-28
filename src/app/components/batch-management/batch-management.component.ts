@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,16 +15,16 @@ import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-
   templateUrl: './batch-management.component.html',
   styleUrls: ['./batch-management.component.css']
 })
-export class BatchManagementComponent implements OnInit {
+export class BatchManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['jobName', 'jobDescription', 'chronExpression', 'chronDescription', 'nextRunDate', 'scheduled', 'action'];
   public complete = true;
-  private subscription: Subscription[] = [];
-  private interval: Subscription;
   public search: FormGroup;
   public dataSource = new MatTableDataSource<Job>();
   public active: FormGroup;
+  private subscription: Subscription[] = [];
+  private interval: Subscription;
 
   constructor(
     public translate: TranslateService,
@@ -35,7 +35,7 @@ export class BatchManagementComponent implements OnInit {
   ngOnInit(): void {
     this.interval = interval(60000).subscribe(
       () => this.callGetAPI()
-      );
+    );
     this.callGetAPI();
   }
 
@@ -52,7 +52,7 @@ export class BatchManagementComponent implements OnInit {
       next: jobs => {
         this.dataSource.data = jobs;
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort
+        this.dataSource.sort = this.sort;
       },
       error: () => this.complete = true,
       complete: () => this.complete = true
