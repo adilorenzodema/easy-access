@@ -1,7 +1,6 @@
 <div fxLayout="column" fxLayoutGap="10px">
     <div fxLayoutAlign="end">
-        <button mat-button class="actionButton" [routerLink]="'../permission-management/add-permission'">Inserisci
-            permesso</button>
+        <button mat-button class="actionButton" [routerLink]="'../permission-management/add-permission'">{{"manage-permission.add" | translate }}</button>
     </div>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutGap="20px">
@@ -14,7 +13,7 @@
                 </div>
                 <div *ngIf="status.incidentList.length > 0">
                     <mat-card-subtitle>
-                        Ultimo incident rilevato: {{status.incidentList[0].errorMessage}}<br>
+                        {{("dashboard.lastIncident" | translate) + status.incidentList[0].errorMessage}}<br>
                     </mat-card-subtitle>
                     <mat-card-subtitle>
                         Data: {{status.incidentList[0].startDate | date: 'dd/MM/YYYY HH:mm'}}<br>

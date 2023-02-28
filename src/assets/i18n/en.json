@@ -143,6 +143,9 @@
     "executeJobConfirm": "Are you sure you want to execute now the selected batch?",
     "execute": "Execute Batch"
   },
+  "dashboard": {
+    "lastIncident": "Last incident detected:"
+  },
 
   "text": "text",
   "error": {

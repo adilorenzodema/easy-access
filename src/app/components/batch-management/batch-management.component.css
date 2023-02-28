@@ -1,6 +1,9 @@
-/* th.mat-header-cell {
-    text-align: center  !important;;
-    justify-content:center;
+/*    th.mat-sort-header.mat-header-cell, td.mat-cell {
+    text-align: center  !important;
+    justify-content:center !important ;
 }
-Non funziona.
- */
+   */
+
+   mat-header-cell, mat-cell {
+    justify-content: center;
+  }

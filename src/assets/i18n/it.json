@@ -144,6 +144,10 @@
     "execute": "Esegui Batch"
   },
 
+  "dashboard": {
+    "lastIncident": "Ultimo incident rilevato:"
+  },
+
   "text": "testo",
   "error": {
     "login": "Username o password sbagliate",
