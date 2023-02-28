@@ -141,6 +141,27 @@
     "noIncidents": "Nessun incidente presente"
   },
 
+  "manage_batches": {
+    "title": "Gestione Batch",
+    "jobName": "Nome batch",
+    "batchDescription": "Descrizione batch",
+    "chronExpression": "Espressione Cron",
+    "chronDescription" : "Descrizione Cron",
+    "nextRunDate": "Data prossima esecuzione",
+    "scheduled": "Programmato",
+    "activateTitle": "Programma Batch",
+    "disactivateTitle": "Annulla Programmazione Batch",
+    "activateConfirm": "Sei sicur* di voler programmare il batch selezionato?",
+    "disactivateConfirm": "Sei sicur* di voler annullare la programmazione del batch selezionato?",
+    "executeJobTitle": "Esegui Batch",
+    "executeJobConfirm": "Sei sicur* di voler eseguire adesso il batch selezionato?",
+    "execute": "Esegui Batch"
+  },
+
+  "dashboard": {
+    "lastIncident": "Ultimo incident rilevato:"
+  },
+
   "text": "testo",
   "error": {
     "login": "Username o password sbagliate",

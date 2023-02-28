@@ -141,6 +141,25 @@
     "noIncidents": "There are no incidents present.",
     "viewHistory": ""
   },
+  "manage_batches": {
+    "title": "Batch Management",
+    "jobName": "Batch name",
+    "batchDescription": "Batch description",
+    "chronExpression": "Cron expression",
+    "chronDescription" : "Cron description",
+    "nextRunDate": "Next run date",
+    "scheduled": "Scheduled",
+    "activateTitle": "Schedule Batch",
+    "disactivateTitle": "Unschedule Batch",
+    "activateConfirm": "Are you sure you want to schedule the selected Batch?",
+    "disactivateConfirm": "Are you sure you want to unschedule the selected Batch?",
+    "executeJobTitle": "Execute Batch",
+    "executeJobConfirm": "Are you sure you want to execute now the selected batch?",
+    "execute": "Execute Batch"
+  },
+  "dashboard": {
+    "lastIncident": "Last incident detected:"
+  },
 
   "text": "text",
   "error": {

@@ -52,6 +52,12 @@ const routes: Routes = [
           () => import("src/app/components/incidents-management/incidents-management.module").then(m => m.IncidentsManagementModule),
         canActivate: [AuthGuard]
       },
+      {
+        path: 'batch-management',
+        loadChildren:
+          () => import("src/app/components/batch-management/batch-management.module").then(m => m.BatchManagementModule),
+        canActivate: [AuthGuard]
+      }
     ]
   }
 ];

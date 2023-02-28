@@ -98,7 +98,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
           ));
         }
       });
-
   }
 
   public callGetAPI(): void {
