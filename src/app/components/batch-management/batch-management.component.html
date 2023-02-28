@@ -1,0 +1,68 @@
+<mat-card fxLayout="column" fxLayoutGap="20px">
+    <mat-card-title>Gestione Batch</mat-card-title>
+    <mat-card-content fxLayout="column" fxLayoutGap="10px">
+        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+            [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+
+            <ng-container matColumnDef="jobName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Job name </th>
+                <td mat-cell *matCellDef="let element"> {{element.jobName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="jobDescription">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Job description </th>
+                <td mat-cell *matCellDef="let element"> {{element.jobDescription}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="chronExpression">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Chron expression </th>
+                <td mat-cell *matCellDef="let element"> {{element.chronExpression}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="chronDescription">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Chron description </th>
+                <td mat-cell *matCellDef="let element"> {{element.chronDescription}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nextRunDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Next run date</th>
+                <td mat-cell *matCellDef="let element"> {{element.nextRunDate | date: 'dd/MM/yyyy hh:mm:ss'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="scheduled">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Schedule </th>
+                <td mat-cell *matCellDef="let element"> {{ element.scheduled }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" style="text-align: end;">
+        
+                  <button mat-icon-button
+                    *ngIf="element.scheduled" (click)="disableJob(element.jobName)">
+                    <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">update_disabled</mat-icon>
+                  </button>
+        
+                  <button mat-icon-button
+                    *ngIf="!element.scheduled" (click)="enableJob(element.jobName)">
+                    <mat-icon style="color: #51b1a1;" matTooltip="{{'common.activate' | translate}}">schedule</mat-icon>
+                  </button>
+
+                  <button mat-icon-button (click)="runJob(element.jobName)">
+                  <mat-icon matTooltip="{{'manage_batches.execute' | translate}}" > send </mat-icon>
+                </button>
+
+                </td>
+              </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+        </mat-paginator>
+        <div *ngIf="dataSource.data.length === 0"> {{"manage_incidents.noIncidents" | translate}}</div>
+    </mat-card-content>
+</mat-card>

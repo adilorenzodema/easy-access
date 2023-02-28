@@ -147,4 +147,14 @@ export interface TableIncident {
   incident: Incident;
 }
 
+export interface Job {
+  chronDescription: string;
+  chronExpression: string;
+  jobDescription: string;
+  jobName: string;
+  nextRunDate: Date;
+  scheduled: boolean;
+} 
+
 export type Status = 'OK' | 'KO';
+

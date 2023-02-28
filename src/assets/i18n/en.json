@@ -127,6 +127,15 @@
     "noIncidents": "There are no incidents present.",
     "viewHistory": ""
   },
+  "manage_batches": {
+    "activateTitle": "Schedule Batch",
+    "disactivateTitle": "Unschedule Batch",
+    "activateConfirm": "Are you sure you want to schedule the selected Batch?",
+    "disactivateConfirm": "Are you sure you want to unschedule the selected Batch?",
+    "executeJobTitle": "Execute Batch",
+    "executeJobConfirm": "Are you sure you want to execute now the selected batch?",
+    "execute": "Execute Batch"
+  },
 
   "text": "text",
   "error": {
