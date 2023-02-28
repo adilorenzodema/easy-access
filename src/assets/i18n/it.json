@@ -128,6 +128,13 @@
   },
 
   "manage_batches": {
+    "title": "Gestione Batch",
+    "jobName": "Nome batch",
+    "batchDescription": "Descrizione batch",
+    "chronExpression": "Espressione Cron",
+    "chronDescription" : "Descrizione Cron",
+    "nextRunDate": "Data prossima esecuzione",
+    "scheduled": "Programmato",
     "activateTitle": "Programma Batch",
     "disactivateTitle": "Annulla Programmazione Batch",
     "activateConfirm": "Sei sicur* di voler programmare il batch selezionato?",
