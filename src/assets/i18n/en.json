@@ -145,6 +145,7 @@
   },
   "manage-permission": {
     "title": "Manage Permissions",
+    "add": "Aggiungi permesso",
     "searchRange": "Search Range",
     "rangeError": "Error in the given range",
     "searchByOBU": "Search by OBU",

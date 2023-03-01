@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { IncidentsManagementService } from 'src/app/service/incidents-management.service';
@@ -28,9 +27,9 @@ export class IncidentsComponent implements OnInit {
   public parkByIncidents;
   private subscription: Subscription[] = [];
 
-  constructor(private incidentsManagementService: IncidentsManagementService,
-    private router: Router,
-    private translate: TranslateService) {
+  constructor(
+    private incidentsManagementService: IncidentsManagementService,
+    private router: Router,) {
     this.parkByIncidents = this.router.getCurrentNavigation()?.extras.state?.['parkName'] as string;
   }
 
@@ -45,8 +44,6 @@ export class IncidentsComponent implements OnInit {
       ctrlStatus: new FormControl('')
     });
     if(this.parkByIncidents) this.formGroup.patchValue({ctrlParkSearch: this.parkByIncidents});
-    console.log(this.parkByIncidents);
-    console.log(this.formGroup.value );
     this.callGetAPI();
   }
 
@@ -62,8 +59,6 @@ export class IncidentsComponent implements OnInit {
       var status = this.formGroup.get('ctrlStatus')?.value;
       if (status === "Risolto") status = true;
       else if (status === "In corso") status = false;
-      console.log("Search values:")
-      console.log(status)
       this.subscription.push(this.incidentsManagementService.getIncidentsList(start, end, gateSearch, parkSearch, component, errorCode, status).subscribe({
         next: incident => {
           this.dataSource.data = incident;

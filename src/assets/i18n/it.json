@@ -58,7 +58,7 @@
     "modalTitle": "Aggiungi una nuova Area",
     "areaName": "Nome",
     "active": "Attive",
-    "inactive": "Disattive",
+    "inactive": "Inattive",
     "creationUser": "Creata da",
     "areasAssociatedParks": "Aree associate con il parcheggio ",
     "associatedParks": "Visualizza parcheggi associati",
@@ -145,6 +145,7 @@
   },
   "manage-permission": {
     "title": "Gestione Permessi",
+    "add": "Aggiungi permesso",
     "searchRange": "Range di ricerca",
     "rangeError": "Errore nel range inserito",
     "searchByOBU": "Ricerca per OBU",

@@ -31,7 +31,7 @@
                 </button>
             </mat-form-field>
             <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
-                {{formGroup.controls['ctrlActive'].value ? ('common.active' | translate) : ('common.inactive' | translate)}}
+                {{formGroup.controls['ctrlActive'].value ? ('common.active' | translate) : ('common.disactive' | translate)}}
             </mat-slide-toggle>
         </form>
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>

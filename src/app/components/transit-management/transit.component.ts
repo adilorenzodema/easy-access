@@ -55,8 +55,6 @@ export class TransitComponent implements OnInit {
       const validationType = this.formGroup.get('ctrlValidationType')?.value;
       var flagTransited: boolean | null;
       flagTransited = this.formGroup.get('ctrlStatus')?.value;
-      console.log("Search:");
-      console.log(obuSearch, parkSearch, gateSearch, validationType, status)
       this.subscription.push(this.transitService.getTransitList(start, end, obuSearch, gateSearch, parkSearch, validationType, flagTransited ).subscribe({
         next: transit => {
           this.dataSource.data = transit;
