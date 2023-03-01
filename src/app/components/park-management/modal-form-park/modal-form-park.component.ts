@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { Area, Park } from 'src/app/domain/class';
@@ -23,7 +24,8 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private parkManagementService: ParkManagementService,
     private areaManagementService: AreaManagementService,
-    private snackBar: SnackBar
+    private snackBar: SnackBar,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -54,8 +56,8 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     const formParkAdd = new Park(name, country, city, CAP, address);
     formParkAdd.areaIdList = areaIdList;
     this.parkManagementService.addParking(formParkAdd).subscribe({
-      next: () => this.snackBar.showMessage("Parcheggio inserito!", 'INFO'),
-      error: () => this.snackBar.showMessage("Errore!", 'ERROR'),
+      next: () => this.snackBar.showMessage(this.translate.instant('manage_parks.insertParkSuccess'), 'INFO'),
+      error: () => this.snackBar.showMessage(this.translate.instant('manage_parks.insertParkError'), 'ERROR'),
       complete: () => this.dialogRef.close(true)
     });
   }

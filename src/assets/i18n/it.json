@@ -70,7 +70,12 @@
     "activateConfirm": "Sei sicur* di voler riattivare l'area selezionata?",
     "disactivateConfirm": "Sei sicur* di voler disattivare l'area selezionata?",
     "edit_details": "Modifica dettagli",
-    "edit_association": "Modifica associazioni"
+    "edit_association": "Modifica associazioni",
+    "editSnackBar": "Area modificata con successo!",
+    "areaInsert": "Area creata con successo!",
+    "areaEdit": "Area modificata con successo!",
+    "associationError": "C'è stato un errore nell'associazione!",
+    "associationComplete": "L'associazione è stata eseguita con successo!"
   },
   "manage_users": {
     "searchLabel": "Cerca",
@@ -117,7 +122,12 @@
     "noParks": "Nessun parcheggio presente",
     "associatedAreas": "Visualizza aree associate",
     "associatedGates": "Visualizza varchi associati",
-    "edit_association": "Modifica associazioni"
+    "edit_association": "Modifica associazioni",
+    "editDetailsSuccess": "Dettagli modificati con successo!",
+    "insertParkSuccess": "Parcheggio creato con successo!",
+    "insertParkError": "C'è stato un errore nella creazione!",
+    "associationErrorSnackbar": "C'è stato un errore nell'associazione!",
+    "associationComplete": "L'associazione è stata eseguita con successo!"
   },
   "manage_gates": {
     "title": "Gestione Varchi",
@@ -141,7 +151,13 @@
     "codeError": "Un codice antenna può contenere solamente lettere, numeri, spazi o apostrofi.",
     "associationError": "Perfavore associare almeno un parcheggio",
     "associateGateToPark": "Associa parcheggio",
-    "noGates":"Nessun varco presente."
+    "noGates":"Nessun varco presente.",
+    "deactivationError": "C'è stato un errore nella disattivazione!",
+    "deactivationSuccess": "Varco disattivato con successo!",
+    "activationError": "C'è stato un errore nell'attivazione!",
+    "activationSuccess": "Varco attivato con successo!",
+    "insertGate": "Varco creato con successo!",
+    "editGate": "Varco modificato con successo!"
   },
   "manage-permission": {
     "title": "Gestione Permessi",
@@ -168,7 +184,11 @@
     "startTime": "Orario di inizio",
     "endTime": "Orario di fine",
     "permissionTypeSelection": "Associa un Tipo di Permesso",
-    "permissionTypeAssociationError": "Perfavore associare un Tipo di Permesso"
+    "permissionTypeAssociationError": "Perfavore associare un Tipo di Permesso",
+    "permissionDisactivated": "Permesso disattivato con successo!",
+    "permissionActivated": "Permesso attivato con successo!",
+    "permissionAdded": "Permesso cretao con successo",
+    "permissionEdited": "Permesso modificato con successo"
   },
   "manage_permission_type": {
     "title": "Gestione Tipo Permessi",
@@ -184,7 +204,11 @@
     "endTime": "Orario di fine",
     "timeError": "Perfavore, inserire un'ora valida",
     "removeTimeSlot": "Rimuovi una fascia oraria",
-    "editDetails": "Modifica Dettagli"
+    "editDetails": "Modifica Dettagli",
+    "permissionDisactivated": "Permesso disattivato con successo!",
+    "permissionActivated": "Permesso attivato con successo!",
+    "permissionAdded": "Tipo Permesso cretao con successo",
+    "permissionEdited": "Tipo Permesso modificato con successo"
   },
   "manage_incidents": {
     "incidentTitle": "Lista Incidenti",

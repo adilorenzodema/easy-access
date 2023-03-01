@@ -58,8 +58,9 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
 
   public saveAssociation(): void {
     this.subscription.push(this.parkManageService.editAssociateParkArea(this.idPark, this.dataSourceAssAreas.data).subscribe({
-      error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
-      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedAreas.emit())
+      error: () => (this.snackBar.showMessage(this.translate.instant('manage_parks.associationErrorSnackbar'), "ERROR")),
+      complete: () => (this.snackBar.showMessage(this.translate.instant('manage_parks.associationComplete'),
+        "INFO"), this.changeViewEdit(), this.updateAssociatedAreas.emit())
     }));
   }
 
@@ -77,7 +78,6 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
       this.dataSourceAssAreas.paginator = this.paginator;
       this.viewMode = true;
     }
-    console.log( this.associatedAreas);
   }
 
   public filter(): void {

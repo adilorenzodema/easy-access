@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
 import { forkJoin, Subscription } from 'rxjs';
@@ -27,7 +28,8 @@ export class EditAreaComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
-    private areaManageService: AreaManagementService
+    private areaManageService: AreaManagementService,
+    private translate: TranslateService
   ) {
     this.area = this.router.getCurrentNavigation()?.extras.state?.['area'] as Area;
     if (!this.area) { this.router.navigate(['/area-management']); }
@@ -65,7 +67,7 @@ export class EditAreaComponent implements OnInit, OnDestroy {
     const areaName = this.formGroup.get('ctrlAreaName').value;
     const editArea = new Area(areaName, this.area.idArea);
     this.subscription.push(this.areaManageService.editArea(editArea).subscribe({
-      next: () => this.snackBar.showMessage('Dettagli modificati correttamente', 'INFO'),
+      next: () => this.snackBar.showMessage(this.translate.instant('manage_areas.editSnackBar'), 'INFO'),
       complete: () => this.getAreaById()
     }));
   }

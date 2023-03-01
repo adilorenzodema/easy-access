@@ -2,6 +2,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { Area } from 'src/app/domain/class';
@@ -21,7 +22,8 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: Area,
     private formBuilder: FormBuilder,
     private areaManagementService: AreaManagementService,
-    private snackBar: SnackBar
+    private snackBar: SnackBar,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
     if (isAdd) {
       this.areaManagementService.addArea(formAreaAdd).subscribe({
         next: (data: Area) => {
-          this.snackBar.showMessage("Area inserita!", 'INFO');
+          this.snackBar.showMessage(this.translate.instant('manage_areas.areaInsert'), 'INFO');
         },
         complete: () => this.dialogRef.close(true)
       });
@@ -57,7 +59,7 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
       const formAreaEdit = new Area(name, idArea);
       this.areaManagementService.editArea(formAreaEdit).subscribe({
         next: (data: Area) => {
-          this.snackBar.showMessage("Area modificata!", 'INFO');
+          this.snackBar.showMessage(this.translate.instant('manage_areas.areaEdit'), 'INFO');
         },
         complete: () => this.dialogRef.close(true)
       });

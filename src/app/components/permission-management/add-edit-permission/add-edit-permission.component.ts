@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -33,7 +34,8 @@ export class AddEditPermissionComponent implements OnInit {
     private snackBar: SnackBar,
     private permissionService: PermissionManagementService,
     private areaManagementService: AreaManagementService,
-    private permissionTypeService: PermissionTypeManagementService
+    private permissionTypeService: PermissionTypeManagementService,
+    private translate: TranslateService
   ) {
     this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as Permission;
   }
@@ -108,12 +110,14 @@ export class AddEditPermissionComponent implements OnInit {
       if (this.permission) { // edit
         this.subscription.push(this.permissionService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
           error: () => this.complete = true,
-          complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
+            'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
         }));
       } else { // add
         this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
           error: () => this.complete = true,
-          complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
+            , 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
         }));
       }
     } else if (categoryValue === 'P') { // permanente
@@ -122,12 +126,14 @@ export class AddEditPermissionComponent implements OnInit {
       if (this.permission) { // edit
         this.subscription.push(this.permissionService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
           error: () => this.complete = true,
-          complete: () => (this.snackBar.showMessage('permesso modificato', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
+            'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
         }));
       } else { // add
         this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
           error: () => this.complete = true,
-          complete: () => (this.snackBar.showMessage('permesso inserito', 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
+            , 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
         }));
       }
     }

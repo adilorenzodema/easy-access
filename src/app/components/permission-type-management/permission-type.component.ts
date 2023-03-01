@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { PermissionType } from 'src/app/domain/interface';
@@ -27,7 +28,8 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
-    private permissionTypeService: PermissionTypeManagementService
+    private permissionTypeService: PermissionTypeManagementService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +63,8 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     this.complete = false;
     this.subscription.push(this.permissionTypeService.deletePermissionType(id).subscribe({
       error: () => this.complete = true,
-      complete: () => (this.snackBar.showMessage('permesso disattivato', 'INFO'), this.callGetAPI(), this.complete = true)
+      complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission_type.permissionDisactivated'),
+        'INFO'), this.callGetAPI(), this.complete = true)
     }));
   }
 
@@ -69,7 +72,8 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     this.complete = false;
     this.subscription.push(this.permissionTypeService.activePermissionType(id).subscribe({
       error: () => this.complete = true,
-      complete: () => (this.snackBar.showMessage('permesso disattivato', 'INFO'), this.callGetAPI(), this.complete = true)
+      complete: () => (this.snackBar.showMessage(this.translate.instant('manage_permission_type.permissionActivated'),
+        'INFO'), this.callGetAPI(), this.complete = true)
     }));
   }
 

@@ -45,8 +45,6 @@ export class IncidentsComponent implements OnInit {
       ctrlStatus: new FormControl('')
     });
     if(this.parkByIncidents) this.formGroup.patchValue({ctrlParkSearch: this.parkByIncidents});
-    console.log(this.parkByIncidents);
-    console.log(this.formGroup.value );
     this.callGetAPI();
   }
 
@@ -62,8 +60,6 @@ export class IncidentsComponent implements OnInit {
       var status = this.formGroup.get('ctrlStatus')?.value;
       if (status === "Risolto") status = true;
       else if (status === "In corso") status = false;
-      console.log("Search values:")
-      console.log(status)
       this.subscription.push(this.incidentsManagementService.getIncidentsList(start, end, gateSearch, parkSearch, component, errorCode, status).subscribe({
         next: incident => {
           this.dataSource.data = incident;

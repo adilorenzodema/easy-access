@@ -65,7 +65,7 @@ export class EditParkComponent implements OnInit, OnDestroy {
     const parkCountry = this.inputParkForm.get('ctrlParkCountry').value;
     const editPark = new Park(parkName, parkCountry, parkLocation, parkCAP, parkAddress, this.park.idPark);
     this.subscription.push(this.parkManagementService.editParking(editPark).subscribe({
-      next: () => this.snackBar.showMessage('Dettagli modificati correttamente', 'INFO'),
+      next: () => this.snackBar.showMessage(this.translate.instant('manage_parks.editDetailsSuccess'), 'INFO'),
       complete: () => this.getParkById()
     }));
   }

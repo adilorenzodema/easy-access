@@ -70,7 +70,12 @@
     "activateConfirm": "Are you sure you want to re-activate the selected area?",
     "disactivateConfirm": "Are you sure you want to disactivate the selected area?",
     "edit_details": "Edit details",
-    "edit_association": "Edit association"
+    "edit_association": "Edit association",
+    "editSnackBar": "Area successfully edited!",
+    "areaInsert": "Area sucessfully added!",
+    "areaEdit": "Area successfully edited!",
+    "associationError": "There was an error in the association!",
+    "associationComplete": "The association was successful!"
   },
   "manage_users": {
     "searchLabel": "Search",
@@ -117,7 +122,12 @@
     "noParks": "There are no parking lots present.",
     "associatedAreas": "View associated areas",
     "associatedGates": "View associated gates",
-    "edit_association": "Edit association"
+    "edit_association": "Edit association",
+    "editDetailsSuccess": "Details successfully edited!",
+    "insertParkSuccess": "Parking lot successfully added!",
+    "insertParkError": "There was an error in the creation!",
+    "associationErrorSnackbar": "There was an error in the association!",
+    "associationComplete": "The association was successful!"
   },
   "manage_gates": {
     "title": "Manage Gates",
@@ -141,7 +151,13 @@
     "codeError": "An antenna code can only contain letters, numbers, spaces or apostrophe.",
     "associationError": "Please associate at least a parking lot",
     "associateGateToPark": "Associate a parking lot",
-    "noGates": "There are no gates present."
+    "noGates": "There are no gates present.",
+    "deactivationError": "There was an error in the deactivation!",
+    "deactivationSuccess": "Gate successfully deactivated!",
+    "activationError": "There was an error in the activation!",
+    "activationSuccess": "Gate successfully activated!",
+    "insertGate": "Gate successfully added!",
+    "editGate": "Gate successfully edited!"
   },
   "manage-permission": {
     "title": "Manage Permissions",
@@ -168,7 +184,11 @@
     "startTime": "Start Time",
     "endTime": "End Time",
     "permissionTypeSelection": "Associate a Permission Type",
-    "permissionTypeAssociationError": "Please associate one Permission Type"
+    "permissionTypeAssociationError": "Please associate one Permission Type",
+    "permissionDisactivated": "Permission successfully deactivated!",
+    "permissionActivated": "Permission successfully activated!",
+    "permissionAdded": "Permission successfully created!",
+    "permissionEdited": "Permission successfully edited!"
   },
   "manage_permission_type": {
     "title": "Manage Permission Types",
@@ -184,7 +204,11 @@
     "endTime": "End Time",
     "timeError": "Please, enter a valid time",
     "removeTimeSlot": "Remove a time slot",
-    "editDetails": "Edit details"
+    "editDetails": "Edit details",
+    "permissionDisactivated": "Permission successfully deactivated!",
+    "permissionActivated": "Permission successfully activated!",
+    "permissionAdded": "Permission Type successfully created!",
+    "permissionEdited": "Permission Type successfully edited!"
   },
   "manage_incidents": {
     "incidentTitle": "Incidents List",

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
 import { AddEditTypePermission } from 'src/app/domain/class';
@@ -33,7 +34,8 @@ export class AddEditPermissionTypeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
     private permissionTypeService: PermissionTypeManagementService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) { this.permissionType = this.router.getCurrentNavigation()?.extras.state?.['permissionType'] as PermissionType; }
 
   get timesSlot(): FormArray {
@@ -65,7 +67,7 @@ export class AddEditPermissionTypeComponent implements OnInit {
       this.permissionTypeService.editPermissionType(editPermissionType).subscribe({
         error: () => this.complete = true,
         complete: () => (
-          this.snackBar.showMessage('tipo permesso modificato correttamente', 'INFO'),
+          this.snackBar.showMessage(this.translate.instant('manage_permission_type.permissionEdited'), 'INFO'),
           this.router.navigate(['/permission-type-management']), this.complete = true)
       });
     }
@@ -76,7 +78,7 @@ export class AddEditPermissionTypeComponent implements OnInit {
       this.permissionTypeService.addPermissionType(addPermissionType).subscribe({
         error: () => this.complete = true,
         complete: () => (
-          this.snackBar.showMessage('tipo permesso inserito correttamente', 'INFO'),
+          this.snackBar.showMessage(this.translate.instant('manage_permission_type.permissionAdded'), 'INFO'),
           this.router.navigate(['/permission-type-management']), this.complete = true)
       });
     }
