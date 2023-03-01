@@ -35,6 +35,7 @@
     "modificationDate": "Last edit date",
     "associateAreas": "Associate Areas",
     "associateGates": "Associate Gates",
+    "associations": "Associations",
     "days": {
       "monday": "Monday",
       "tuesday": "Tuesday",
@@ -49,7 +50,8 @@
     "longEdit": "Edit details/associations",
     "all": "All",
     "dateStart": "Start Date",
-    "dateEnd": "End Date"
+    "dateEnd": "End Date",
+    "view": "View"
   },
   "manage_areas": {
     "title": "Manage Areas",
@@ -67,8 +69,8 @@
     "disactivateTitle": "Disactivate Area",
     "activateConfirm": "Are you sure you want to re-activate the selected area?",
     "disactivateConfirm": "Are you sure you want to disactivate the selected area?",
-    "edit_details": "edit details",
-    "edit_association": "edit association"
+    "edit_details": "Edit details",
+    "edit_association": "Edit association"
   },
   "manage_users": {
     "searchLabel": "Search",
@@ -93,6 +95,9 @@
     "disactivateConfirm": "Are you sure you want to disactivate the selected user?"
   },
   "manage_parks": {
+    "parkTitle": "Manage Parking Lots",
+    "associatedParksTitle": "Parking lots assocciated with area: ",
+    "park": "Parking lot: ",
     "modalTitle": "Add a new Park",
     "active": "Active",
     "inactive": "Inactive",
@@ -109,15 +114,77 @@
     "postalCodeError": "A Postal Code can only contain numbers",
     "countryError": "A country can only contain letters, spaces or apostrophe.",
     "associationError": "Please associate at least an area",
-    "noParks": "There are no parking lots present."
+    "noParks": "There are no parking lots present.",
+    "associatedAreas": "View associated areas",
+    "associatedGates": "View associated gates",
+    "edit_association": "Edit association"
   },
   "manage_gates": {
+    "title": "Manage Gates",
+    "associatedTitle": "Gates associated with parking lot:",
+    "searchByPark": "Search by parking lot",
+    "searchByGate": "Search by gate",
+    "gateName": "Name",
+    "gateDirection": "Gate Type",
+    "antennaPort": "Antenna Port",
+    "antennaCode": "Antenna Code",
+    "associatedPark": "Associated Parking Lot",
+    "parkDisactivated": "The associated parking lot is not active",
     "modalTitle": "Add a new Gate",
     "directionError": "Please choose a direction",
-    "associationError": "Please associate at least a parking lot"
+    "entry": "Entry",
+    "exit": "Exit",
+    "twoWay": "Two way",
+    "nameError": "A name can only contain letters, spaces or apostrophe.",
+    "ipError": "An IP can only contain numbers and dots, i.e. 192.0.2.1",
+    "portError": "A port can oly contain numbers",
+    "codeError": "An antenna code can only contain letters, numbers, spaces or apostrophe.",
+    "associationError": "Please associate at least a parking lot",
+    "associateGateToPark": "Associate a parking lot",
+    "noGates": "There are no gates present."
   },
   "manage-permission": {
-    "add": "Add permision"
+    "title": "Manage Permissions",
+    "searchRange": "Search Range",
+    "rangeError": "Error in the given range",
+    "searchByOBU": "Search by OBU",
+    "searchByPermissionType": "Search by permission type",
+    "permissionCategory": "Permission Category",
+    "permissionName": "Permission Name",
+    "obuCode": "OBU Code",
+    "validationDateStart": "Validity Start Date",
+    "validationDateEnd": "Validity End Date ",
+    "noPermission": "There are no permissions present.",
+    "details_edit": "Details - Edit",
+    "permanent": "Permanent",
+    "temporary": "Temporary",
+    "editPermissionTitle": "Edit Permission",
+    "addPermissionTitle": "Add Permission",
+    "obuInsert": "Insert an OBU code",
+    "areaSelection": "Associate one or more Areas",
+    "areaAssociationError": "Please, associate at least one Area",
+    "invalidDate": "Please enter a valid date",
+    "dateError": "The start date cannot be later than the end date",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "permissionTypeSelection": "Associate a Permission Type",
+    "permissionTypeAssociationError": "Please associate one Permission Type"
+  },
+  "manage_permission_type": {
+    "title": "Manage Permission Types",
+    "name": "Name",
+    "details_edit": "Details - Edit",
+    "noPermissionType": "There are no permission types present.",
+    "editTitle": "Edit Permission Type",
+    "addTitle": "Add a new Permission Type",
+    "nameInsert": "Insert a description",
+    "nameError": "A description can only contain letters, spaces or apostrophe.",
+    "addTimeSlot": "Add a time slot",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "timeError": "Please, enter a valid time",
+    "removeTimeSlot": "Remove a time slot",
+    "editDetails": "Edit details"
   },
   "manage_incidents": {
     "incidentTitle": "Incidents List",
@@ -136,10 +203,30 @@
     "ongoing": "Ongoing",
     "component": "Component",
     "errorCode": "Error code",
+    "rangeError": "Error in the given range",
     "gate": "Gate",
     "park": "Parking lot",
     "noIncidents": "There are no incidents present.",
     "viewHistory": ""
+  },
+  "manage_transits": {
+    "title": "View Transits",
+    "searchRange": "Search Range",
+    "rangeError": "Error in the given range",
+    "searchByOBU": "Search by OBU",
+    "searchByPark": "Search by Park",
+    "searchByGate": "Search by Gate",
+    "validationType": "Validation Type",
+    "status": "Status",
+    "complete":"Complete",
+    "incomplete": "Incomplete",
+    "obuCode": "OBU Code",
+    "dateStart": "Start Date",
+    "dateEnd": "End Date",
+    "gate": "Gate",
+    "park": "Parking lot",
+    "transitStatus": "Transit Status",
+    "noTransits": "There are no transits present."
   },
   "manage_batches": {
     "title": "Batch Management",
@@ -158,7 +245,15 @@
     "execute": "Execute Batch"
   },
   "dashboard": {
-    "lastIncident": "Last incident detected:"
+    "lastIncident": "Last incident detected:",
+    "date": "Date: ",
+    "device": "Device: ",
+    "gate": "Gate:",
+    "history": "View incident history",
+    "noIncidents": "There are no incidents present",
+    "incidentList": "Detected incidents",
+    "incidentDesc": "Incident description",
+    "park": "Parking lot"
   },
 
   "text": "text",

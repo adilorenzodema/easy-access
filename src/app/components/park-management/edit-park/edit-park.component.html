@@ -1,15 +1,15 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
   <div fxLayout="row wrap" fxLayoutAlign="space-between">
-    <mat-card-title> {{"Gestione " + park.namePark}}</mat-card-title>
-    <button mat-raised-button class="actionButton" [routerLink]="'../'">Indietro</button>
+    <mat-card-title> {{('manage_parks.park' | translate) + park.namePark}}</mat-card-title>
+    <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.back' | translate}}</button>
   </div>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <div fxLayout="row" fxLayoutGap="20px">
-      <mat-card-subtitle>Dettagli</mat-card-subtitle>
+      <mat-card-subtitle>{{'common.details' | translate}}</mat-card-subtitle>
       <button mat-button class="actionButton" (click)="!viewMode ? saveDetails() : null; viewMode = !viewMode">
         {{viewMode ? 'modifica dettagli' : 'salva'}}
       </button>
-      <button mat-button class="actionButton" *ngIf="!viewMode" (click)="viewMode = !viewMode">annulla</button>
+      <button mat-button class="actionButton" *ngIf="!viewMode" (click)="viewMode = !viewMode">{{'common.cancel' | translate}}</button>
     </div>
     <form [formGroup]="inputParkForm">
       <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
@@ -47,11 +47,11 @@
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Aree associate">
+      <mat-tab label="{{'manage_parks.associatedAreas' | translate}}">
         <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"
           (updateAssociatedAreas)="apiGetAssociation()"></app-table-associated-areas>
       </mat-tab>
-      <mat-tab label="Varchi associati">
+      <mat-tab label="{{'manage_parks.associatedGates' | translate}}">
         <app-table-associated-gates [allAssociatedGates]="gates" [idPark]="park.idPark"
           (updateAssociatedGates)="apiGetAssociation()"></app-table-associated-gates>
       </mat-tab>

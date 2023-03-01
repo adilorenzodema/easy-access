@@ -60,8 +60,8 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
   }
 
   public disableJob(jobName: string): void {
-    const title = this.translate.instant('manage_batches.activateTitle');
-    const content = this.translate.instant('manage_batches.activateConfirm');
+    const title = this.translate.instant('manage_batches.disactivateTitle');
+    const content = this.translate.instant('manage_batches.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -80,8 +80,8 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
   }
 
   public enableJob(jobName: string): void {
-    const title = this.translate.instant('manage_batches.disactivateTitle');
-    const content = this.translate.instant('manage_batches.disactivateConfirm');
+    const title = this.translate.instant('manage_batches.activateTitle');
+    const content = this.translate.instant('manage_batches.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',

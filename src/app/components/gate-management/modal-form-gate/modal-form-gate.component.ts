@@ -70,8 +70,6 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
       const codeAntenna = this.inputUserForm.get('ctrlCodeAntenna')?.value;
       const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
-      console.log("add");
-      console.log(formGateAdd);
       this.subscription.push(this.gateService.addGate(formGateAdd).subscribe({
         next: () => {
           this.snackBar.showMessage("Varco inserito!", 'INFO');
@@ -88,8 +86,6 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const codeAntenna = this.inputUserForm.get('ctrlCodeAntenna')?.value;
       const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
       formGateAdd.idGate = idGate;
-      console.log("edit");
-      console.log(formGateAdd);
       this.subscription.push(this.gateService.editGate(formGateAdd).subscribe({
         next: () => {
           this.snackBar.showMessage("Varco modificato!", 'INFO');

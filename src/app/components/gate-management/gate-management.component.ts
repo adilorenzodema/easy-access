@@ -74,7 +74,7 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   }
 
   public addEditGate(gate?: Gate): void {
-    const dialogRef = this.dialog.open(ModalFormGateComponent, { width: '50%', height: '40%', data: gate ? gate : '' });
+    const dialogRef = this.dialog.open(ModalFormGateComponent, { width: '50%', height: '45%', data: gate ? gate : '' });
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) { this.callGetAPI(); };

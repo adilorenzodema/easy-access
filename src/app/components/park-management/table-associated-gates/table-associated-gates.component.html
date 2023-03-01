@@ -17,12 +17,12 @@
       </ng-container>
 
       <ng-container matColumnDef="gateDescription">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef> {{'manage_gates.gateName' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.gateDescription}} </td>
       </ng-container>
 
       <ng-container matColumnDef="associated" *ngIf="!viewMode">
-          <th mat-header-cell *matHeaderCellDef> Associazione </th>
+          <th mat-header-cell *matHeaderCellDef> {{'common.associations' | translate}} </th>
           <td mat-cell *matCellDef="let element">
               <mat-checkbox [(ngModel)]="element.associated" color="primary"></mat-checkbox>
           </td>

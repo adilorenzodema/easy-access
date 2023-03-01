@@ -16,24 +16,24 @@
                         {{("dashboard.lastIncident" | translate) + status.incidentList[0].errorMessage}}<br>
                     </mat-card-subtitle>
                     <mat-card-subtitle>
-                        Data: {{status.incidentList[0].startDate | date: 'dd/MM/YYYY HH:mm'}}<br>
+                        {{ ("dashboard.date" | translate) + (status.incidentList[0].startDate | date: 'dd/MM/YYYY HH:mm')}}<br>
                     </mat-card-subtitle>
                     <mat-card-subtitle>
-                        Device: {{status.incidentList[0].device}}
+                         {{ ("dashboard.device" | translate) + status.incidentList[0].device}}
                     </mat-card-subtitle>
                     <div fxLayout="row" fxLayoutAlign="space-between">
                         <mat-card-subtitle>
-                            Gate: {{status.incidentList[0].gateName}}
+                             {{ ("dashboard.gate" | translate) + status.incidentList[0].gateName}}
                         </mat-card-subtitle>
                         <button mat-icon-button *ngIf="operations | getPermissionPipe: 'view-park-incident-dashboard'"
                             [routerLink]="['../incidents-management']" [state]="{parkName: status.parkName}">
                             <mat-icon style="color: red"
-                                matTooltip="{{'common.edit' | translate}}">warning</mat-icon>
+                                matTooltip="{{'dashboard.history' | translate}}">warning</mat-icon>
                         </button>
                     </div>
                 </ng-container>
                 <ng-template #noIncidents>
-                    <mat-card-subtitle>Nessun incident rilevato</mat-card-subtitle>
+                    <mat-card-subtitle>{{"dashboard.noIncidents" | translate}}</mat-card-subtitle>
                 </ng-template>
             </mat-card-content>
         </mat-card>

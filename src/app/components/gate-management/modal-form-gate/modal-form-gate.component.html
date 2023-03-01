@@ -1,44 +1,44 @@
-<form [formGroup]="inputUserForm" fxLayout="column" fxLayoutGap="20px">
+<form [formGroup]="inputUserForm" fxLayout="column" fxLayoutGap="25px">
   <mat-card-title fxLayoutAlign="center"> {{"manage_gates.modalTitle" | translate}} </mat-card-title>
   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="30" fxFlex.gt-lg="29">
-      <mat-label>Name</mat-label>
+      <mat-label>{{"manage_gates.gateName" | translate}}</mat-label>
       <input matInput type="text" required formControlName="ctrlGateName" autocomplete="off" />
-      <mat-error>Inserire un nome corretto</mat-error>
+      <mat-error>{{"manage_gates.nameError" | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="30" fxFlex.gt-lg="18">
       <mat-label>IP Antenna</mat-label>
       <input matInput type="text" required formControlName="ctrlIpAntenna" autocomplete="off" />
-      <mat-error>Inserire un IP corretto</mat-error>
+      <mat-error>{{"manage_gates.ipError" | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="30" fxFlex.gt-lg="18">
-      <mat-label>Porta Antenna</mat-label>
+      <mat-label> {{"manage_gates.antennaPort" | translate}}</mat-label>
       <input matInput type="text" required formControlName="ctrlPortAntenna" autocomplete="off" />
-      <mat-error>Inserire una porta corretta</mat-error>
+      <mat-error>{{"manage_gates.portError" | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="30" fxFlex.gt-lg="29">
-      <mat-label>Codice Antenna</mat-label>
+      <mat-label> {{"manage_gates.antennaCode" | translate}}</mat-label>
       <input matInput type="text" required formControlName="ctrlCodeAntenna" autocomplete="off" />
-      <mat-error>Inserire un codice corretto</mat-error>
+      <mat-error>{{"manage_gates.codeError" | translate}}</mat-error>
     </mat-form-field>
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="15px">
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="45" fxFlex.gt-lg="48">
-      <mat-label>Tipo varco</mat-label>
+      <mat-label>{{"manage_gates.gateDirection" | translate}}</mat-label>
       <mat-select formControlName="ctrlGateDirection" placeholder="Direzione">
-        <mat-option [value]="direction.entry">Entrata</mat-option>
-        <mat-option [value]="direction.exit">Uscita</mat-option>
-        <mat-option [value]="direction.twoWay">Doppio senso</mat-option>
+        <mat-option [value]="direction.entry">{{"manage_gates.entry" | translate}}</mat-option>
+        <mat-option [value]="direction.exit">{{"manage_gates.exit" | translate}}</mat-option>
+        <mat-option [value]="direction.twoWay">{{"manage_gates.twoWay" | translate}}</mat-option>
       </mat-select>
       <mat-error>{{"manage_gates.directionError" | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="45" fxFlex.gt-lg="48">
-      <mat-label>Associa parcheggio al varco</mat-label>
+      <mat-label>{{"manage_gates.associateGateToPark" | translate}}</mat-label>
       <mat-select formControlName="ctrlParkId" required>
         <mat-option *ngFor="let park of parks" [value]="park.idPark">
           {{park.namePark}}
@@ -48,8 +48,8 @@
     </mat-form-field>
   </div>
   <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
-    <button mat-raised-button (click)="dialogRef.close(false)">Annulla</button>
+    <button mat-raised-button (click)="dialogRef.close(false)"> {{"common.cancel" | translate}}</button>
     <button mat-raised-button class="actionButton" [disabled]="inputUserForm.invalid || !inputUserForm.dirty"
-      (click)="onSubmit(data ? false : true)">{{data ? 'Modifica': 'Inserisci'}}</button>
+      (click)="onSubmit(data ? false : true)">{{data ? ("common.edit" | translate): ("common.add" | translate)}}</button>
   </div>
 </form>

@@ -18,7 +18,7 @@
     "Batch Management": "Batch"
   },
   "common": {
-    "searchLabel": "cerca",
+    "searchLabel": "Cerca",
     "add": "Aggiungi",
     "edit": "Modifica",
     "disactivate": "Disattiva",
@@ -35,6 +35,7 @@
     "modificationDate": "Data ultima modifica",
     "associateAreas": "Associa Aree",
     "associateGates": "Associa Varchi",
+    "associations": "Associazioni",
     "days": {
       "monday": "Lunedì",
       "tuesday": "Martedì",
@@ -49,7 +50,8 @@
     "longEdit": "Modifica dettagli/associazioni",
     "all": "Tutti",
     "dateStart": "Data Inizio",
-    "dateEnd": "Data Fine"
+    "dateEnd": "Data Fine",
+    "view": "Visualizza"
   },
   "manage_areas": {
     "title": "Gestione Aree",
@@ -67,8 +69,8 @@
     "disactivateTitle": "Disattivazione Area",
     "activateConfirm": "Sei sicur* di voler riattivare l'area selezionata?",
     "disactivateConfirm": "Sei sicur* di voler disattivare l'area selezionata?",
-    "edit_details": "modifica dettagli",
-    "edit_association": "modifica associazioni"
+    "edit_details": "Modifica dettagli",
+    "edit_association": "Modifica associazioni"
   },
   "manage_users": {
     "searchLabel": "Cerca",
@@ -93,7 +95,10 @@
     "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?"
   },
   "manage_parks": {
+    "parkTitle": "Gestione Parcheggi",
+    "associatedParksTitle": "Parcheggi associati all'area",
     "modalTitle": "Aggiungi un nuovo Parcheggio",
+    "park": "Parcheggio: ",
     "active": "Attivo",
     "inactive": "Inattivo",
     "parkName": "Nome",
@@ -109,15 +114,77 @@
     "postalCodeError": "Un CAP può contenere solo numeri",
     "countryError": "Uno stato può contenere solamente lettere, spazi o apostrofi.",
     "associationError": "Perfavore associare almeno un'area",
-    "noParks": "Nessun parcheggio presente"
+    "noParks": "Nessun parcheggio presente",
+    "associatedAreas": "Visualizza aree associate",
+    "associatedGates": "Visualizza varchi associati",
+    "edit_association": "Modifica associazioni"
   },
   "manage_gates": {
+    "title": "Gestione Varchi",
+    "associatedTitle": "Varchi associati al parcheggio:",
+    "searchByPark": "Ricerca per parcheggio",
+    "searchByGate": "Ricerca per varco",
+    "gateName": "Nome",
+    "gateDirection": "Tipo Varco",
+    "antennaPort": "Porta Antenna",
+    "antennaCode": "Codice Antenna",
+    "associatedPark": "Parcheggio Associato",
+    "parkDisactivated": "Il parcheggio associato non è attivo",
     "modalTitle": "Aggiungi un nuovo Varco",
     "directionError": "Perfavore scegliere almeno una direzione",
-    "associationError": "Perfavore associare almeno un parcheggio"
+    "entry": "Entrata",
+    "exit": "Uscita",
+    "twoWay": "Doppio senso",
+    "nameError": "Un nome può contenere solamente lettere, spazi o apostrofi.",
+    "ipError": "Un IP può contenere solamente numeri e punti es. 192.0.2.1",
+    "portError": "Una porta può contenere solo numeri",
+    "codeError": "Un codice antenna può contenere solamente lettere, numeri, spazi o apostrofi.",
+    "associationError": "Perfavore associare almeno un parcheggio",
+    "associateGateToPark": "Associa parcheggio",
+    "noGates":"Nessun varco presente."
   },
   "manage-permission": {
-    "add": "Aggiungi permesso"
+    "title": "Gestione Permessi",
+    "searchRange": "Range di ricerca",
+    "rangeError": "Errore nel range inserito",
+    "searchByOBU": "Ricerca per OBU",
+    "searchByPermissionType": "Ricerca per tipo di permesso",
+    "permissionCategory": "Categoria Permesso",
+    "permissionName": "Nome permesso",
+    "obuCode": "Codice OBU",
+    "validationDateStart": "Inizio Data di Validità",
+    "validationDateEnd": "Fine Data di Validità",
+    "noPermission": "Nessun permesso presente.",
+    "details_edit": "Dettagli - Modifica",
+    "permanent": "Permanente",
+    "temporary": "Temporaneo",
+    "editPermissionTitle": "Modifica Permesso",
+    "addPermissionTitle": "Aggiungi Permesso",
+    "obuInsert": "Inserire un codice OBU",
+    "areaSelection": "Associa una o più Aree",
+    "areaAssociationError": "Perfavore, associare almeno un'Area",
+    "invalidDate": "Perfavore, inserire una data valida",
+    "dateError": "La data di inizio non può essere dopo della data di fine",
+    "startTime": "Orario di inizio",
+    "endTime": "Orario di fine",
+    "permissionTypeSelection": "Associa un Tipo di Permesso",
+    "permissionTypeAssociationError": "Perfavore associare un Tipo di Permesso"
+  },
+  "manage_permission_type": {
+    "title": "Gestione Tipo Permessi",
+    "name": "Nome",
+    "details_edit": "Dettagli - Modifica",
+    "noPermissionType": "Nessun tipo di permesso presente.",
+    "editTitle": "Modifica un Tipo di Permesso",
+    "addTitle": "Aggiungi un nuovo Tipo di Permesso",
+    "nameInsert": "Inserire una descrizione",
+    "nameError": "Una descrizione può contenere solamente lettere, spazi o apostrofi.",
+    "addTimeSlot": "Aggiungi una fascia oraria",
+    "startTime": "Orario di inizio",
+    "endTime": "Orario di fine",
+    "timeError": "Perfavore, inserire un'ora valida",
+    "removeTimeSlot": "Rimuovi una fascia oraria",
+    "editDetails": "Modifica Dettagli"
   },
   "manage_incidents": {
     "incidentTitle": "Lista Incidenti",
@@ -136,11 +203,30 @@
     "ongoing": "In corso",
     "component": "Componente",
     "errorCode": "Codice errore",
+    "rangeError": "Errore nel range inserito",
     "gate": "Varco",
     "park": "Parcheggio",
-    "noIncidents": "Nessun incidente presente"
+    "noIncidents": "Nessun incidente presente."
   },
-
+  "manage_transits": {
+    "title": "Visualizzazione Transiti",
+    "searchRange": "Range di ricerca",
+    "rangeError": "Errore nel range inserito",
+    "searchByOBU": "Ricerca per OBU",
+    "searchByPark": "Ricerca per parcheggio",
+    "searchByGate": "Ricerca per varco",
+    "validationType": "Tipo Validazione",
+    "status": "Status",
+    "complete":"Completo",
+    "incomplete": "Incompleto",
+    "obuCode": "Codice OBU",
+    "dateStart": "Data Inizio",
+    "dateEnd": "Data Fine",
+    "gate": "Varco",
+    "park": "Parcheggio",
+    "transitStatus": "Status Transito",
+    "noTransits": "Nessun transito presente."
+    },
   "manage_batches": {
     "title": "Gestione Batch",
     "jobName": "Nome batch",
@@ -159,7 +245,15 @@
   },
 
   "dashboard": {
-    "lastIncident": "Ultimo incident rilevato:"
+    "lastIncident": "Ultimo incident rilevato:",
+    "date": "Data: ",
+    "device": "Componente: ",
+    "gate": "Varco: ",
+    "history": "Visualizza storico incidenti",
+    "noIncidents": "Nessun incidente presente",
+    "incidentList": "Incidenti rilevati",
+    "incidentDesc": "Descrizione incidente",
+    "park": "Parcheggio"
   },
 
   "text": "testo",

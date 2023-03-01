@@ -1,22 +1,22 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>{{permission ? 'Modifica permesso' : 'Aggiungi permesso' }}</mat-card-title>
+    <mat-card-title>{{permission ? ('manage-permission.editPermissionTitle' | translate) : ('manage-permission.addPermissionTitle' | translate) }}</mat-card-title>
     <mat-card-content>
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
             <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
                 (change)="changeCategory()">
-                <mat-radio-button [value]="'T'">Temporaneo</mat-radio-button>
-                <mat-radio-button [value]="'P'">Permanente</mat-radio-button>
+                <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
+                <mat-radio-button [value]="'P'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
             </mat-radio-group>
             <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                     fxFlex.gt-md="20">
-                    <mat-label>Inserisci un obu id</mat-label>
+                    <mat-label>{{'manage-permission.obuInsert' | translate}}</mat-label>
                     <input matInput type="text" formControlName="ctrlObu">
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
                     fxFlex.gt-md="30">
-                    <mat-label> Seleziona una o più Aree</mat-label>
+                    <mat-label> {{'manage-permission.areaSelection' | translate}}</mat-label>
                     <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
                         <mat-select-filter [displayMember]="'areaName'" [array]="areas"
                             (filteredReturn)="areaFiltered = $event" required></mat-select-filter>
@@ -24,36 +24,36 @@
                             {{item.areaName}}
                         </mat-option>
                     </mat-select>
-                    <mat-error>Associare almeno un'area</mat-error>
+                    <mat-error>{{'manage-permission.areaAssociationError' | translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                     fxFlex.gt-md="20">
-                    <mat-label>Inizio validità permesso</mat-label>
+                    <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
                     <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart"
                         (dateChange)="dateValidator()">
                     <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerStart></mat-datepicker>
                     <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
-                        Data inserita non valida
+                        {{'manage-permission.invalidDate' | translate}}
                     </mat-error>
                     <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
-                        La data di inizio non può essere maggiore della data di fine
+                        {{'manage-permission.dateError' | translate}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                     fxFlex.gt-md="20">
-                    <mat-label>Fine validità permesso</mat-label>
+                    <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
                     <input matInput [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd"
                         (dateChange)="dateValidator()">
                     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                     <mat-datepicker #pickerEnd></mat-datepicker>
-                    <mat-error> Data inserita non valida</mat-error>
+                    <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
                 </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="center">
                 <div *ngIf="formGroup.get('ctrlCategory').value === 'T'" fxLayoutGap="10px">
                     <mat-form-field appearance="outline">
-                        <mat-label> Orario di inizio</mat-label>
+                        <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
                         <input matInput formControlName="ctrlHourStart" [ngxTimepicker]="pickerHourStart" [format]="24"
                             required>
                         <ngx-material-timepicker-toggle matSuffix
@@ -61,7 +61,7 @@
                         <ngx-material-timepicker #pickerHourStart></ngx-material-timepicker>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
-                        <mat-label> Orario di fine</mat-label>
+                        <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
                         <input matInput formControlName="ctrlHourEnd" [ngxTimepicker]="pickerHourEnd" [format]="24"
                             required>
                         <ngx-material-timepicker-toggle matSuffix
@@ -71,7 +71,7 @@
                 </div>
                 <mat-form-field *ngIf="formGroup.get('ctrlCategory').value === 'P'" appearance="outline" fxFlex="100"
                     fxFlex.gt-xs="100" fxFlex.gt-lg="40" fxFlex.gt-md="40">
-                    <mat-label> Associazione tipi di permesso</mat-label>
+                    <mat-label> {{'manage-permission.permissionTypeSelection' | translate}}</mat-label>
                     <mat-select formControlName="ctrlTypePermissionList">
                         <mat-select-filter [displayMember]="'permissionTypeDesc'" [array]="permissionTypes"
                             (filteredReturn)="permissionTypesFiltered = $event" required></mat-select-filter>
@@ -79,14 +79,14 @@
                             {{item.permissionTypeDesc}}
                         </mat-option>
                     </mat-select>
-                    <mat-error>Associare almeno un permesso</mat-error>
+                    <mat-error>{{'manage-permission.permissionTypeAssociationError' | translate}}</mat-error>
                 </mat-form-field>
             </div>
         </form>
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-            <button mat-raised-button [routerLink]="'../'">Annulla</button>
+            <button mat-raised-button [routerLink]="'../'">{{'common.cancel' | translate}}</button>
             <button mat-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
-                (click)="addEditPermission()">Salva</button>
+                (click)="addEditPermission()">{{'common.save' | translate}}</button>
         </div>
     </mat-card-content>
 </mat-card>

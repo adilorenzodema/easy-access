@@ -1,34 +1,34 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>Gestione Transiti</mat-card-title>
+    <mat-card-title>{{"manage_transits.title" | translate}}</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="formGroup">
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
                 <mat-form-field appearance="outline">
-                    <mat-label>scegli un range di ricerca</mat-label>
+                    <mat-label>{{"manage_transits.searchRange" | translate}}</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate formControlName="start">
                         <input matEndDate formControlName="end" (dateChange)="callGetAPI()">
                     </mat-date-range-input>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
-                    <mat-error>errore nel range inserito </mat-error>
+                    <mat-error>{{"manage_transits.rangeError" | translate}} </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>Ricerca con codice OBU</mat-label>
+                    <mat-label>{{"manage_transits.searchByOBU" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlOBUSearch" autocomplete="off">
                     <button matPrefix mat-icon-button (click)="callGetAPI()">
                         <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>Ricerca per parcheggio</mat-label>
+                    <mat-label>{{"manage_transits.searchByPark" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
                     <button matPrefix mat-icon-button (click)="callGetAPI()">
                         <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>Ricerca ricerca per varco</mat-label>
+                    <mat-label>{{"manage_transits.searchByGate" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
                     <button matPrefix mat-icon-button (click)="callGetAPI()">
                         <mat-icon>search</mat-icon>
@@ -37,19 +37,19 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-label>Tipo Validazione</mat-label>
-                    <mat-select formControlName="ctrlValidationType" placeholder="Tipo validazione" (selectionChange)="callGetAPI()">
+                    <mat-label>{{"manage_transits.validationType" | translate}}</mat-label>
+                    <mat-select formControlName="ctrlValidationType" placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
                         <mat-option value="CDC">CDC</mat-option>
                         <mat-option value="Antenna">Antenna</mat-option>
-                        <mat-option value="">Tutti</mat-option>
+                        <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-label>Status</mat-label>
-                    <mat-select formControlName="ctrlStatus" placeholder="Stato" (selectionChange)="callGetAPI()">
-                        <mat-option value="true">Completato</mat-option>
-                        <mat-option value="false">Non completato</mat-option>
-                        <mat-option value="">Tutti</mat-option>
+                    <mat-label>{{"manage_transits.status" | translate}}</mat-label>
+                    <mat-select formControlName="ctrlStatus" placeholder="{{'manage_transits.status' | translate}}" (selectionChange)="callGetAPI()">
+                        <mat-option value="true">{{"manage_transits.complete" | translate}}</mat-option>
+                        <mat-option value="false">{{"manage_transits.incomplete" | translate}}</mat-option>
+                        <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -58,46 +58,44 @@
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
-            <!-- data impegno, data disimpegno, obu, varco, parcheggio, tipo validazione, completato -->
-
             <ng-container matColumnDef="idTransit">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                 <td mat-cell *matCellDef="let element"> {{element.idTransit}} </td>
             </ng-container>
 
             <ng-container matColumnDef="codeObu">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Codice obu </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuCode" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.obu.obuCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Data inizio </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.dateStart" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef> Data fine </th>
+                <th mat-header-cell *matHeaderCellDef> {{"manage_transits.dateEnd" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="gate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Varco </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.gate" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.gate.gateDescription}} </td>
             </ng-container>
 
             <ng-container matColumnDef="park">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Parcheggio </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.park" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.gate.park.namePark}} </td>
             </ng-container>
 
             <ng-container matColumnDef="validationType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo validazione </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.validationType" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.validationType}} </td>
             </ng-container>
 
             <ng-container matColumnDef="flagPassed">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status transito </th>
-                <td mat-cell *matCellDef="let element"> {{ element.flagPassed ? 'Completato' : 'Non completato' }}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.transitStatus" | translate}} </th>
+                <td mat-cell *matCellDef="let element"> {{ element.flagPassed ? ("manage_transits.complete" | translate) : ("manage_transits.incomplete" | translate) }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"
@@ -107,6 +105,6 @@
         <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
         </mat-paginator>
-        <div *ngIf="dataSource.data.length === 0"> nessun transito presente</div>
+        <div *ngIf="dataSource.data.length === 0"> {{"manage_transits.noTransits" | translate}}</div>
     </mat-card-content>
 </mat-card>
