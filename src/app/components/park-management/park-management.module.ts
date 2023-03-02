@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ParkManagementRoutingModule } from './park-management.routing';
 import { ParkManagementComponent } from './park-management.component';
-import { LibMaterialModule } from 'dema-movyon-template';
+import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
@@ -27,6 +27,7 @@ import { TableAssociatedGatesComponent } from './table-associated-gates/table-as
   imports: [
     CommonModule,
     LibMaterialModule,
+    LibPipesModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,

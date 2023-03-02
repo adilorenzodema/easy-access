@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { GateManagementRoutingModule } from './gate-management.routing';
-import { LibMaterialModule } from 'dema-movyon-template';
+import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GateManagementComponent } from './gate-management.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     ReactiveFormsModule,
     LibMaterialModule,
+    LibPipesModule,
     FlexLayoutModule,
     GateManagementRoutingModule,
     TranslateModule

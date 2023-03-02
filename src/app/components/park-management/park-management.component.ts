@@ -31,8 +31,8 @@ export class ParkManagementComponent implements OnInit {
   public areaName: string;
   public idArea: number;
   public complete = true;
+  public operations: Operation[];
   private subscription: Subscription[] = [];
-  private operations: Operation[];
 
 
   constructor(
