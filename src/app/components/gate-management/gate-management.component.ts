@@ -6,7 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { SnackBar } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
@@ -27,12 +28,13 @@ export class GateManagementComponent implements OnInit, OnDestroy {
   public search: FormGroup;
   public idPark: number;
   public namePark: string;
-  
 
   private subscription: Subscription[] = [];
+  private operations: Operation[];
 
   constructor(
     private gateService: GateService,
+    private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
     private dialog: MatDialog,
@@ -47,8 +49,9 @@ export class GateManagementComponent implements OnInit, OnDestroy {
       ctrlGateSearch: [''],
       ctrlParkSearch: [''],
       ctrlActive: [true]
-    });  
-      this.callGetAPI();
+    });
+    this.callGetAPI();
+    this.getPermissionAPI();
   }
 
   ngOnDestroy(): void {
@@ -120,5 +123,12 @@ export class GateManagementComponent implements OnInit, OnDestroy {
         }
       });
 
+  }
+
+  private getPermissionAPI(): void {
+    const currentUrl = (window.location.hash).replace('#/', '');
+    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
+      permission => this.operations = permission.operations
+    ));
   }
 }

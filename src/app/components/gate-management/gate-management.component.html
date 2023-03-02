@@ -20,7 +20,7 @@
         {{search.controls['ctrlActive'].value ? ('common.active' | translate) : ('common.disactive' | translate)}}
       </mat-slide-toggle>
       <button mat-raised-button class="actionButton" *ngIf="idPark"
-        [routerLink]="'../parking-management'">{{"common.back" | translate}}</button>
+        [routerLink]="'../park-management'">{{"common.back" | translate}}</button>
       <button mat-raised-button class="actionButton" (click)="addEditGate()">{{"common.add" | translate}}</button>
     </form>
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
