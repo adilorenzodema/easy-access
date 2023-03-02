@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { UserAssociated } from 'src/app/domain/interface';
@@ -35,7 +36,8 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges, OnDestr
 
   constructor(
     private snackBar: SnackBar,
-    private areaManageService: AreaManagementService
+    private areaManageService: AreaManagementService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -60,8 +62,9 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges, OnDestr
 
   public saveAssociation(): void {
     this.subscription.push(this.areaManageService.editAssociateUserArea(this.idArea, this.dataSourceAssUsers.data).subscribe({
-      error: () => (this.snackBar.showMessage('errore nell`associazione', "ERROR")),
-      complete: () => (this.snackBar.showMessage('associazione eseguita con successo', "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
+      error: () => (this.snackBar.showMessage(this.translate.instant('manage_areas.associationError'), "ERROR")),
+      complete: () => (this.snackBar.showMessage(this.translate.instant('manage_areas.associationError'),
+        "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
     }));
   }
 

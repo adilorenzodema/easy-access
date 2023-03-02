@@ -1,6 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
 import { AddEditGate, Park } from 'src/app/domain/class';
@@ -27,6 +28,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     private gateService: GateService,
     private parkService: ParkManagementService,
     private snackBar: SnackBar,
+    private translate : TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: Gate
   ) { }
 
@@ -72,7 +74,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
       this.subscription.push(this.gateService.addGate(formGateAdd).subscribe({
         next: () => {
-          this.snackBar.showMessage("Varco inserito!", 'INFO');
+          this.snackBar.showMessage(this.translate.instant('manage_gates.insertGate'), 'INFO');
         },
         complete: () => this.dialogRef.close(true)
       }));
@@ -88,7 +90,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       formGateAdd.idGate = idGate;
       this.subscription.push(this.gateService.editGate(formGateAdd).subscribe({
         next: () => {
-          this.snackBar.showMessage("Varco modificato!", 'INFO');
+          this.snackBar.showMessage(this.translate.instant('manage_gates.editGate'), 'INFO');
         },
         complete: () => this.dialogRef.close(true)
       }));

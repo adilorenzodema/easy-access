@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Gate } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
@@ -38,7 +39,8 @@ export class GateManagementComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
     private dialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private translate: TranslateService) {
     this.idPark = this.router.getCurrentNavigation()?.extras.state?.['idPark'] as number;
     this.namePark = this.router.getCurrentNavigation()?.extras.state?.['namePark'] as string;
   }
@@ -98,8 +100,8 @@ export class GateManagementComponent implements OnInit, OnDestroy {
         if (result) {
           this.subscription.push(this.gateService.deleteGate(gateId).subscribe({
             next: () => this.callGetAPI(),
-            error: () => this.snackBar.showMessage('Errore nella rimozione', "ERROR"),
-            complete: () => this.snackBar.showMessage('Varco rimosso', "INFO")
+            error: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deactivationError'), "ERROR"),
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deactivationSuccess'), "INFO")
           }));
         }
       });
@@ -117,8 +119,8 @@ export class GateManagementComponent implements OnInit, OnDestroy {
         if (result) {
           this.subscription.push(this.gateService.activateGate(gateId).subscribe({
             next: () => this.callGetAPI(),
-            error: () => this.snackBar.showMessage('Errore nella attivazione', "ERROR"),
-            complete: () => this.snackBar.showMessage('Varco attivato', "INFO")
+            error: () => this.snackBar.showMessage(this.translate.instant('manage_gates.activationError'), "ERROR"),
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_gates.activationSuccess'), "INFO")
           }));
         }
       });

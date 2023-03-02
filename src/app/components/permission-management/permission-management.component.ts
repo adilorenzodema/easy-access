@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -24,14 +25,16 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public start = moment(moment.now()).subtract(2, 'day');
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
-  public displayedColumns: string[] = ['idPermission', 'category','permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+  public displayedColumns: string[] =
+    ['idPermission', 'category', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
 
   private subscription: Subscription[] = [];
 
   constructor(
     private permissionService: PermissionManagementService,
     private dialog: MatDialog,
-    private snackBar: SnackBar
+    private snackBar: SnackBar,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -85,7 +88,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
           this.complete = false;
           this.subscription.push(this.permissionService.deletePermission(id).subscribe({
             error: () => this.complete = true,
-            complete: () => (this.complete = true, this.snackBar.showMessage('permesso disattivato', 'INFO'), this.callGetAPI())
+            complete: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.permissionDisactivated'),
+              'INFO'), this.callGetAPI())
           }));
         }
       });
@@ -107,7 +111,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
           this.complete = false;
           this.subscription.push(this.permissionService.activePermission(id).subscribe({
             error: () => this.complete = true,
-            complete: () => (this.complete = true, this.snackBar.showMessage('permesso riattivato', 'INFO'), this.callGetAPI())
+            complete: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.permissionActivated'),
+              'INFO'), this.callGetAPI())
           }));
         }
       });
