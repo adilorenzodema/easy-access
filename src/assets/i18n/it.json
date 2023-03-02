@@ -162,7 +162,6 @@
   "manage-permission": {
     "add": "Aggiungi Permesso",
     "title": "Gestione Permessi",
-    "add": "Aggiungi permesso",
     "searchRange": "Range di ricerca",
     "rangeError": "Errore nel range inserito",
     "searchByOBU": "Ricerca per OBU",
@@ -176,6 +175,7 @@
     "details_edit": "Dettagli - Modifica",
     "permanent": "Permanente",
     "temporary": "Temporaneo",
+    "daily": "Giornaliero",
     "editPermissionTitle": "Modifica Permesso",
     "addPermissionTitle": "Aggiungi Permesso",
     "obuInsert": "Inserire un codice OBU",

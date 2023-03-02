@@ -1,7 +1,7 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <mat-card-title> {{'manage-permission.title' | translate}}</mat-card-title>
-        <button mat-raised-button class="actionButton" [routerLink]="'add-permission'">
+        <button mat-raised-button class="actionButton" [routerLink]="'add-permission'"  [state]="{daily: false}">
             {{'manage-permission.add' | translate}}</button>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">

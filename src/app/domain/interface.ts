@@ -75,7 +75,7 @@ export interface Permission {
   areaList: Area[];
 }
 
-export type Category = 'P' | 'T';
+export type Category = 'P' | 'T' | 'D';
 
 export interface PermissionType {
   permissionTypeId: number;
