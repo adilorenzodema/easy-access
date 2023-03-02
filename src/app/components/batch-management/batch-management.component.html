@@ -1,7 +1,9 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <mat-card-title>{{'manage_batches.title' | translate}}</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
-        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        <div style=" height: 5px;">
+            <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
@@ -35,10 +37,10 @@
             </ng-container>
 
             <ng-container matColumnDef="scheduled">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header > {{'manage_batches.scheduled' | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'manage_batches.scheduled' | translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     <ng-container *ngIf="element.scheduled">
-                        <mat-icon style="color: #51b1a1;" >done</mat-icon>
+                        <mat-icon style="color: #51b1a1;">done</mat-icon>
                     </ng-container>
                 </td>
             </ng-container>

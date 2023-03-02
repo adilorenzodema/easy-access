@@ -8,7 +8,9 @@
         </div>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="20px">
+        <div  style="height: 5px;">
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
         <form [formGroup]="formGroup">
             <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="20">

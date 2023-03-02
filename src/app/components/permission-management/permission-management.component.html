@@ -2,7 +2,7 @@
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <mat-card-title> {{'manage-permission.title' | translate}}</mat-card-title>
         <button mat-raised-button class="actionButton" [routerLink]="'add-permission'">
-            {{'common.add' | translate}}</button>
+            {{'manage-permission.add' | translate}}</button>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="formGroup" fxLayout="row" fxLayoutGap="20px">
@@ -34,7 +34,9 @@
                 {{formGroup.controls['ctrlActive'].value ? ('common.active' | translate) : ('common.inactive' | translate)}}
             </mat-slide-toggle>
         </form>
+        <div  style="height: 5px;">
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="idPermission"
             matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 

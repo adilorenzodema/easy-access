@@ -45,7 +45,9 @@
         </mat-form-field>
       </div>
     </form>
+    <div  style="height: 5px;">
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    </div>
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="{{'manage_parks.associatedAreas' | translate}}">
         <app-table-associated-areas [allAssociatedAreas]="areas" [idPark]="park.idPark"

@@ -14,7 +14,9 @@
             </mat-slide-toggle>
             <button mat-raised-button class="actionButton" type="button" [routerLink]="'add-permission-type'">{{'common.add' | translate}}</button>
         </form>
+        <div  style="height: 5px;">
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
