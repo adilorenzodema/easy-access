@@ -160,6 +160,7 @@
     "editGate": "Gate successfully edited!"
   },
   "manage-permission": {
+    "add": "Add Permission",
     "title": "Manage Permissions",
     "add": "Aggiungi permesso",
     "searchRange": "Search Range",

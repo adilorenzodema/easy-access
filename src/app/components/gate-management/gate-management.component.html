@@ -23,7 +23,9 @@
         [routerLink]="'../park-management'">{{"common.back" | translate}}</button>
       <button mat-raised-button class="actionButton" (click)="addEditGate()">{{"common.add" | translate}}</button>
     </form>
+    <div  style="height: 5px;">
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    </div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="idGate"
       matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
       <ng-container matColumnDef="idGate">

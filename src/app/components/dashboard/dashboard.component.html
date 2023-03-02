@@ -2,7 +2,9 @@
     <div fxLayoutAlign="end">
         <button mat-button class="actionButton" [routerLink]="'../permission-management/add-permission'">{{"manage-permission.add" | translate }}</button>
     </div>
+    <div  style="height: 5px;">
     <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    </div>
     <div fxLayout="row wrap" fxLayoutGap="20px">
         <mat-card *ngFor="let status of parkStatus" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30"
             class="margin-bottom">

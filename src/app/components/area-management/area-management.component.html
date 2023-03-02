@@ -17,7 +17,9 @@
         *ngIf="operations | getPermissionPipe: 'insert-area'">
         {{'common.add' | translate}}</button>
     </form>
-    <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    <div  style="height: 5px;">
+      <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    </div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
       [style.display]="dataSource.data.length === 0 ? 'none' : ''">
       <ng-container matColumnDef="idArea">

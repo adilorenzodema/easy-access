@@ -160,6 +160,7 @@
     "editGate": "Varco modificato con successo!"
   },
   "manage-permission": {
+    "add": "Aggiungi Permesso",
     "title": "Gestione Permessi",
     "add": "Aggiungi permesso",
     "searchRange": "Range di ricerca",

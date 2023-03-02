@@ -38,7 +38,8 @@
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-label>{{"manage_transits.validationType" | translate}}</mat-label>
-                    <mat-select formControlName="ctrlValidationType" placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
+                    <mat-select formControlName="ctrlValidationType"
+                        placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
                         <mat-option value="CDC">CDC</mat-option>
                         <mat-option value="Antenna">Antenna</mat-option>
                         <mat-option value="">{{"common.all" | translate}}</mat-option>
@@ -46,7 +47,8 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-label>{{"manage_transits.status" | translate}}</mat-label>
-                    <mat-select formControlName="ctrlStatus" placeholder="{{'manage_transits.status' | translate}}" (selectionChange)="callGetAPI()">
+                    <mat-select formControlName="ctrlStatus" placeholder="{{'manage_transits.status' | translate}}"
+                        (selectionChange)="callGetAPI()">
                         <mat-option value="true">{{"manage_transits.complete" | translate}}</mat-option>
                         <mat-option value="false">{{"manage_transits.incomplete" | translate}}</mat-option>
                         <mat-option value="">{{"common.all" | translate}}</mat-option>
@@ -54,7 +56,9 @@
                 </mat-form-field>
             </div>
         </form>
-        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        <div style="height: 5px;">
+            <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
@@ -89,13 +93,16 @@
             </ng-container>
 
             <ng-container matColumnDef="validationType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.validationType" | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.validationType" | translate}}
+                </th>
                 <td mat-cell *matCellDef="let element"> {{element.validationType}} </td>
             </ng-container>
 
             <ng-container matColumnDef="flagPassed">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.transitStatus" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{ element.flagPassed ? ("manage_transits.complete" | translate) : ("manage_transits.incomplete" | translate) }}</td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.transitStatus" | translate}}
+                </th>
+                <td mat-cell *matCellDef="let element"> {{ element.flagPassed ? ("manage_transits.complete" | translate)
+                    : ("manage_transits.incomplete" | translate) }}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"

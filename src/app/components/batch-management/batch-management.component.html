@@ -1,7 +1,9 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <mat-card-title>{{'manage_batches.title' | translate}}</mat-card-title>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
-        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        <div style=" height: 5px;">
+            <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
