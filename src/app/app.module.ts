@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableIncidentsComponent } from './components/dashboard/table-incidents/table-incidents.component';
+import { HolidaysComponentComponent } from './components/holidays-component/holidays-component.component';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -23,7 +24,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     DashboardComponent,
-    TableIncidentsComponent
+    TableIncidentsComponent,
+    HolidaysComponentComponent
   ],
   imports: [
     BrowserModule,

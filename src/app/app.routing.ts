@@ -57,6 +57,12 @@ const routes: Routes = [
         loadChildren:
           () => import("src/app/components/batch-management/batch-management.module").then(m => m.BatchManagementModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'select-holidays',
+        loadChildren:
+          () => import("src/app/components/holidays-component/holidays-component.module").then(m => m.HolidaysComponentModule),
+        canActivate: [AuthGuard]
       }
     ]
   }
