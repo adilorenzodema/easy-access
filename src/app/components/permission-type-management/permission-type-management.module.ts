@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PermissionTypeManagementRoutingModule } from './permission-type-management-routing.module';
 import { PermissionTypeComponent } from './permission-type.component';
-import { LibMaterialModule } from 'dema-movyon-template';
+import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,6 +18,7 @@ import { AddEditPermissionTypeComponent } from './add-edit-permission-type/add-e
   imports: [
     CommonModule,
     LibMaterialModule,
+    LibPipesModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     TranslateModule,

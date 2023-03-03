@@ -49,17 +49,20 @@
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element" style="text-align: end;">
 
-                    <button mat-icon-button *ngIf="element.scheduled" (click)="disableJob(element.jobName)">
-                        <mat-icon style="color: red"
-                            matTooltip="{{'common.disactivate' | translate}}">update_disabled</mat-icon>
+                    <button mat-icon-button
+                        *ngIf="element.scheduled && operations | getPermissionPipe: 'unschedule-batch'"
+                        (click)="disableJob(element.jobName)">
+                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">update_disabled
+                        </mat-icon>
                     </button>
-
-                    <button mat-icon-button *ngIf="!element.scheduled" (click)="enableJob(element.jobName)">
+                    <button mat-icon-button
+                        *ngIf="!element.scheduled && operations | getPermissionPipe: 'schedule-batch'"
+                        (click)="enableJob(element.jobName)">
                         <mat-icon style="color: #51b1a1;"
                             matTooltip="{{'common.activate' | translate}}">schedule</mat-icon>
                     </button>
-
-                    <button mat-icon-button (click)="runJob(element.jobName)">
+                    <button mat-icon-button *ngIf="operations | getPermissionPipe: 'run-batch'"
+                        (click)="runJob(element.jobName)">
                         <mat-icon style="color: #51b1a1;" matTooltip="{{'manage_batches.execute' | translate}}"> send
                         </mat-icon>
                     </button>

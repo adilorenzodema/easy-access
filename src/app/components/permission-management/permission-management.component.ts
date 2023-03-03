@@ -5,7 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { SnackBar } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
@@ -27,11 +28,13 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =
     ['idPermission', 'category', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+  public operations: Operation[] = [];
 
   private subscription: Subscription[] = [];
 
   constructor(
     private permissionService: PermissionManagementService,
+    private pagePermissionService: PagePermissionService,
     private dialog: MatDialog,
     private snackBar: SnackBar,
     private translate: TranslateService
@@ -46,6 +49,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       ctrlActive: new FormControl(true)
     });
     this.callGetAPI();
+    this.getPermissionAPI();
   }
 
   ngOnDestroy(): void {
@@ -118,4 +122,10 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  private getPermissionAPI(): void {
+    const currentUrl = (window.location.hash).replace('#/', '');
+    this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
+      permission => this.operations = permission.operations
+    ));
+  }
 }

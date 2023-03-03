@@ -5,7 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { interval, Subscription, switchMap, timer } from 'rxjs';
+import { PagePermissionService } from 'dema-movyon-template';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
+import { interval, Subscription } from 'rxjs';
 import { Job } from 'src/app/domain/interface';
 import { BatchManagementService } from 'src/app/service/batch-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
@@ -23,12 +25,15 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
   public search: FormGroup;
   public dataSource = new MatTableDataSource<Job>();
   public active: FormGroup;
+  public operations: Operation[] = [];
+
   private subscription: Subscription[] = [];
   private interval: Subscription;
 
   constructor(
     public translate: TranslateService,
     private batchManagementService: BatchManagementService,
+    private pagePermissionService: PagePermissionService,
     private dialog: MatDialog,
   ) { }
 
@@ -37,6 +42,7 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
       () => this.callGetAPI()
     );
     this.callGetAPI();
+    this.getPermissionAPI();
   }
 
   ngOnDestroy(): void {
@@ -119,6 +125,11 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
       });
   }
 
-
+  private getPermissionAPI(): void {
+    const currentUrl = (window.location.hash).replace('#/', '');
+    this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
+      permission => this.operations = permission.operations
+    ));
+  }
 
 }

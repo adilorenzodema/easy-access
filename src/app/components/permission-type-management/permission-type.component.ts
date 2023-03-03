@@ -4,7 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { SnackBar } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { PermissionType } from 'src/app/domain/interface';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
@@ -22,12 +23,14 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   public dataSource = new MatTableDataSource<PermissionType>();
   public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso', 'action'];
   public search: FormGroup;
+  public operations: Operation[] = [];
 
   private subscription: Subscription[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
+    private pagePermissionService: PagePermissionService,
     private permissionTypeService: PermissionTypeManagementService,
     private translate: TranslateService
   ) { }
@@ -38,6 +41,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
       ctrlActive: [true]
     });
     this.callGetAPI();
+    this.getPermissionAPI();
   }
 
   ngOnDestroy(): void {
@@ -75,6 +79,13 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
       complete: () => (this.snackBar.showMessage(this.translate.instant('manage_permission_type.permissionActivated'),
         'INFO'), this.callGetAPI(), this.complete = true)
     }));
+  }
+
+  private getPermissionAPI(): void {
+    const currentUrl = (window.location.hash).replace('#/', '');
+    this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
+      permission => this.operations = permission.operations
+    ));
   }
 
 }
