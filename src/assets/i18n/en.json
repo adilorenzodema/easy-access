@@ -15,7 +15,8 @@
     "Permission Profiles": "Permission profiles",
     "Transits": "Transits",
     "Incidents": "Incidents",
-    "Batch Management": "Batch"
+    "Batch Management": "Batch",
+    "Holidays Selection": "Holidays"
   },
   "common": {
     "searchLabel": "Search",
@@ -162,11 +163,15 @@
   "manage-permission": {
     "add": "Add Permission",
     "title": "Manage Permissions",
-    "add": "Aggiungi permesso",
     "searchRange": "Search Range",
     "rangeError": "Error in the given range",
     "searchByOBU": "Search by OBU",
     "searchByPermissionType": "Search by permission type",
+    "All": "All",
+    "Valid": "Valid",
+    "Expiring": "Expiring",
+    "Expired": "Expired",
+    "permissionStatus": "Permission status",
     "permissionCategory": "Permission Category",
     "permissionName": "Permission Name",
     "obuCode": "OBU Code",
