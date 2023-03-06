@@ -4,7 +4,7 @@ import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
 import { AddEditGate } from '../domain/class';
-import { Gate } from '../domain/interface';
+import { Gate, Incident } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -69,6 +69,15 @@ export class GateService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<void>(this.apiURL + '/activateGate/' + idGate, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  getGateIncident(idGate: number): Observable<Incident[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<Incident[]>(this.apiURL + '/getGateIncidents/' + idGate, options)
       .pipe(catchError(err => { throw err; }));
   }
 }

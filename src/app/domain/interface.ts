@@ -119,6 +119,7 @@ export interface Gate {
   creationDate: Date;
   modificationUser: number;
   modificationDate: Date;
+  status: Status;
 }
 
 export interface GateAssociated {

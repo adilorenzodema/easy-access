@@ -158,7 +158,8 @@
     "activationError": "C'è stato un errore nell'attivazione!",
     "activationSuccess": "Varco attivato con successo!",
     "insertGate": "Varco creato con successo!",
-    "editGate": "Varco modificato con successo!"
+    "editGate": "Varco modificato con successo!",
+    "state": "Stato del varco"
   },
   "manage-permission": {
     "add": "Aggiungi Permesso",
@@ -234,6 +235,7 @@
     "ongoing": "In corso",
     "component": "Componente",
     "errorCode": "Codice errore",
+    "errorMessage": "Messaggio d'errore",
     "rangeError": "Errore nel range inserito",
     "gate": "Varco",
     "park": "Parcheggio",

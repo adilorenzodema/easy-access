@@ -158,7 +158,8 @@
     "activationError": "There was an error in the activation!",
     "activationSuccess": "Gate successfully activated!",
     "insertGate": "Gate successfully added!",
-    "editGate": "Gate successfully edited!"
+    "editGate": "Gate successfully edited!",
+    "state": "Gate state"
   },
   "manage-permission": {
     "add": "Add Permission",
@@ -234,6 +235,7 @@
     "ongoing": "Ongoing",
     "component": "Component",
     "errorCode": "Error code",
+    "errorMessage": "Error message",
     "rangeError": "Error in the given range",
     "gate": "Gate",
     "park": "Parking lot",
