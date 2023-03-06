@@ -11,7 +11,7 @@ import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Permission } from '../../domain/interface';
+import { Permission, PermissionSearchStatus } from '../../domain/interface';
 
 @Component({
   selector: 'app-permission-management',
@@ -27,8 +27,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =
-    ['idPermission', 'category', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+    ['idPermission', 'category', 'status', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
+  public permissionStatus: PermissionSearchStatus = 'VALID';
 
   private subscription: Subscription[] = [];
 
@@ -50,10 +51,21 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     });
     this.callGetAPI();
     this.getPermissionAPI();
+    this.dataSource.filterPredicate = (data: Permission, filter: string) => {
+      return data.permissionStatus === filter;
+    };
   }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
+  }
+
+  public applyFilter(filterValue: PermissionSearchStatus): void {
+    if (filterValue === 'ALL') {
+      this.dataSource.filter = '';
+    } else {
+      this.dataSource.filter = filterValue;
+    }
   }
 
   public callGetAPI(): void {
@@ -71,7 +83,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
           this.dataSource.sort = this.sort
         ),
         error: () => this.complete = true,
-        complete: () => this.complete = true
+        complete: () => (this.applyFilter(this.permissionStatus), this.complete = true)
       }));
     }
   }

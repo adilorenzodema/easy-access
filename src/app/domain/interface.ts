@@ -72,8 +72,11 @@ export interface Permission {
   creationDate: Date;
   modificationUser: number;
   modificationDate: Date;
+  permissionStatus: PermissionSearchStatus;
   areaList: Area[];
 }
+
+export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';
 
 export type Category = 'P' | 'T';
 
@@ -154,7 +157,7 @@ export interface Job {
   jobName: string;
   nextRunDate: Date;
   scheduled: boolean;
-} 
+}
 
 export type Status = 'OK' | 'KO';
 
