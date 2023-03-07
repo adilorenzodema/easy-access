@@ -119,6 +119,7 @@ export interface Gate {
   creationDate: Date;
   modificationUser: number;
   modificationDate: Date;
+  status: Status;
 }
 
 export interface GateAssociated {
@@ -157,6 +158,17 @@ export interface Job {
   jobName: string;
   nextRunDate: Date;
   scheduled: boolean;
+}
+
+export interface GateStatus {
+  antenna_id: string;
+  status: DeviceStatus[];
+}
+
+export interface DeviceStatus {
+  device_id: string;
+  status: Status;
+  error_code: string;
 }
 
 export type Status = 'OK' | 'KO';

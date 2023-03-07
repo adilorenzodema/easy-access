@@ -158,7 +158,15 @@
     "activationError": "There was an error in the activation!",
     "activationSuccess": "Gate successfully activated!",
     "insertGate": "Gate successfully added!",
-    "editGate": "Gate successfully edited!"
+    "editGate": "Gate successfully edited!",
+    "state": "Gate state",
+    "testOk": "Connection test ok",
+    "rebootOk": "Reboot executed",
+    "disactiveOk": "Disactivation executed",
+    "activeOk": "Activation executed",
+    "openOk": "Device open",
+    "closeOk": "Device close",
+    "autoOk": "Device in automatic mode"
   },
   "manage-permission": {
     "add": "Add Permission",
@@ -234,6 +242,7 @@
     "ongoing": "Ongoing",
     "component": "Component",
     "errorCode": "Error code",
+    "errorMessage": "Error message",
     "rangeError": "Error in the given range",
     "gate": "Gate",
     "park": "Parking lot",

@@ -3,81 +3,80 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { AddEditGate } from '../domain/class';
-import { Gate, Incident } from '../domain/interface';
+import { GateStatus } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GateService {
+export class GatePilotingService {
 
-  private apiURL = this.beUrl + 'gatemanagement';
+  private apiURL = this.beUrl + 'gatecontroller';
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getAllGates(parkKeyword: string, gateKeyword: boolean, isActive: boolean): Observable<Gate[]> {
-    const options = {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), parkKeyword: parkKeyword, gateKeyword: gateKeyword, active: isActive })
-    };
-    return this.http.get<Gate[]>(this.apiURL + '/getAllGates', options)
-      .pipe(catchError(err => { throw err; }));
-  }
-
-  getGateByPark(idPark: number): Observable<Gate[]> {
+  getGateInfo(gateId: number): Observable<GateStatus[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.get<Gate[]>(this.apiURL + '/getGatesByIdPark/' + idPark, options)
+    return this.http.get<GateStatus[]>(this.apiURL + '/getGateInfo/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 
-  addGate(addGate: AddEditGate): Observable<AddEditGate> {
+  rebootGate(gateId: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<AddEditGate>(this.apiURL + '/addGate', addGate, options)
+    return this.http.get<void>(this.apiURL + '/rebootGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 
-  editGate(editGate: AddEditGate): Observable<AddEditGate> {
+  activateGate(gateId: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<AddEditGate>(this.apiURL + '/editGate', editGate, options)
+    return this.http.get<void>(this.apiURL + '/activateGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 
-  deleteGate(idGate: number): Observable<void> {
+  deactivateGate(gateId: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<void>(this.apiURL + '/deleteGate/' + idGate, null, options)
+    return this.http.get<void>(this.apiURL + '/deactivateGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 
-  activateGate(idGate: number): Observable<void> {
+  openGate(gateId: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<void>(this.apiURL + '/activateGate/' + idGate, null, options)
+    return this.http.get<void>(this.apiURL + '/deactivateGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 
-  getGateIncident(idGate: number): Observable<Incident[]> {
+  closeGate(gateId: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.get<Incident[]>(this.apiURL + '/getGateIncidents/' + idGate, options)
+    return this.http.get<void>(this.apiURL + '/closeGate/' + gateId, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  autoGate(gateId: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<void>(this.apiURL + '/autoGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 }
