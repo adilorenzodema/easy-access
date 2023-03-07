@@ -281,6 +281,9 @@
     "incidentDesc": "Descrizione incidente",
     "park": "Parcheggio"
   },
+  "select_holidays": {
+    "title": "Select Holidays"
+  },
 
   "text": "testo",
   "error": {
@@ -351,7 +354,8 @@
     },
     "obu":{
       "notFound": "Codice OBU non trovato",
-      "alreadyActivated": "Codice OBU già attivato"
+      "alreadyActivated": "Codice OBU già attivato",
+      "notValid":"Codice OBU non valido"
     },
     "profile": {
       "notFound": "Profilo non trovato"

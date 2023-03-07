@@ -1,1 +1,30 @@
-<p>holidays-component works!</p>
+<mat-card fxLayout="column" fxLayoutGap="30px">
+    <mat-card-title>{{"select_holidays.title" | translate}}</mat-card-title>
+    <mat-select class="year" appearance="outline" required [(ngModel)]="years" placeholder="Choose a year"
+       >
+        <mat-option *ngFor="let year of years" [value]="year">
+            {{ year }}
+        </mat-option>
+    </mat-select>
+    <mat-card-content fxLayout="column" fxLayoutGap="10px">
+        <div style="height: 5px;">
+            <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="left start" fxLayoutGap="20px">
+              <mat-calendar class="calendar" matPrefix  #pickerClasses  ></mat-calendar>  
+          <!--   <mat-form-field class="list">
+                <ngx-multiple-dates [matDatepicker]="picker" placeholder="Holidays" name="holidays"
+                    [(ngModel)]="holidays2">
+                </ngx-multiple-dates>
+            </mat-form-field> -->
+            <mat-form-field class="full-width">
+                <ngx-multiple-dates [matDatepicker]="pickerClasses" placeholder="Classes"
+                                    [classes]="classes" name="modelClasses" [(ngModel)]="modelClasses">
+                </ngx-multiple-dates>
+              <!--   <mat-datepicker-toggle matPrefix [for]="pickerClasses"></mat-datepicker-toggle>
+                <mat-datepicker #pickerClasses></mat-datepicker> -->
+              </mat-form-field>
+              <button  mat-raised-button color="primary" (click)="addCalendar()"> Invia lista</button>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -281,7 +281,9 @@
     "incidentDesc": "Incident description",
     "park": "Parking lot"
   },
-
+  "select_holidays": {
+    "title": "Select Holidays"
+  },
   "text": "text",
   "error": {
     "login": "Username or password wrong",
@@ -351,7 +353,8 @@
     },
     "obu":{
       "notFound": "OBU code not found",
-      "alreadyActivated": "OBU code is already active"
+      "alreadyActivated": "OBU code is already active",
+      "notValid":"Obu code is not valid"
     },
 
     "profile": {

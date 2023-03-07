@@ -154,7 +154,7 @@ export interface Job {
   jobName: string;
   nextRunDate: Date;
   scheduled: boolean;
-} 
+}
 
 export type Status = 'OK' | 'KO';
 
