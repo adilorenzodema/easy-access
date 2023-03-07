@@ -160,5 +160,16 @@ export interface Job {
   scheduled: boolean;
 }
 
+export interface GateStatus {
+  antenna_id: string;
+  status: DeviceStatus[];
+}
+
+export interface DeviceStatus {
+  device_id: string;
+  status: Status;
+  error_code: string;
+}
+
 export type Status = 'OK' | 'KO';
 

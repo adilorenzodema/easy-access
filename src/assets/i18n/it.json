@@ -159,7 +159,14 @@
     "activationSuccess": "Varco attivato con successo!",
     "insertGate": "Varco creato con successo!",
     "editGate": "Varco modificato con successo!",
-    "state": "Stato del varco"
+    "state": "Stato del varco",
+    "testOk": "Test connessione ok",
+    "rebootOk": "Riavvio eseguito",
+    "disactiveOk": "Disattivazione eseguita",
+    "activeOk": "Attivazione eseguita",
+    "openOk": "Sbarra aperta",
+    "closeOk": "Sbarra chiusa",
+    "autoOk": "Sbarra in modalità automatica"
   },
   "manage-permission": {
     "add": "Aggiungi Permesso",

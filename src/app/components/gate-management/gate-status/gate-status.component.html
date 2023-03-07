@@ -16,22 +16,25 @@
             <div class="border-grey" fxFlex="50">
                 <mat-card-subtitle> Azioni su antenna</mat-card-subtitle>
                 <div fxLayoutGap="10px">
-                    <button mat-button class="actionButton">Test connessione</button>
-                    <button mat-button class="actionButton">Riavvio</button>
-                    <button mat-button class="actionButton">Disattiva</button>
-                    <button mat-button class="actionButton">Attiva</button>
+                    <button mat-button class="actionButton" (click)="testGateInfo()">Test connessione</button>
+                    <button mat-button class="actionButton" (click)="reboot()">Riavvio</button>
+                    <button mat-button class="actionButton" (click)="disactive()">Disattiva</button>
+                    <button mat-button class="actionButton" (click)="active()">Attiva</button>
                 </div>
             </div>
             <div class="border-grey" fxFlex="50">
                 <mat-card-subtitle> Azioni sulla sbarra</mat-card-subtitle>
-                <mat-radio-group fxLayoutGap="10px">
-                    <mat-radio-button value="1">Chiusa</mat-radio-button>
-                    <mat-radio-button value="2">Aperta</mat-radio-button>
-                    <mat-radio-button value="2">Automatica</mat-radio-button>
-                </mat-radio-group>
+                <div fxLayoutGap="10px">
+                    <button mat-button class="actionButton" (click)="openGate()">Apri sbarra</button>
+                    <button mat-button class="actionButton" (click)="closeGate()">Chiudi sbarra</button>
+                    <button mat-button class="actionButton" (click)="autoGate()">Modalità automatica</button>
+                </div>
             </div>
         </div>
-        <mat-card-subtitle>Incident rilevati</mat-card-subtitle>
+        <mat-progress-bar *ngIf="!complete else title" mode="indeterminate"></mat-progress-bar>
+        <ng-template #title>
+            <mat-card-subtitle>{{dataSource.data.length === 0 ? 'Nessun incident rilevato' : 'Incident rilevati'}}</mat-card-subtitle>
+        </ng-template>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 

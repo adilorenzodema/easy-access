@@ -159,7 +159,14 @@
     "activationSuccess": "Gate successfully activated!",
     "insertGate": "Gate successfully added!",
     "editGate": "Gate successfully edited!",
-    "state": "Gate state"
+    "state": "Gate state",
+    "testOk": "Connection test ok",
+    "rebootOk": "Reboot executed",
+    "disactiveOk": "Disactivation executed",
+    "activeOk": "Activation executed",
+    "openOk": "Device open",
+    "closeOk": "Device close",
+    "autoOk": "Device in automatic mode"
   },
   "manage-permission": {
     "add": "Add Permission",
