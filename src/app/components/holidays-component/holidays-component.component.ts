@@ -19,7 +19,8 @@ export class HolidaysComponentComponent implements OnInit {
   public picker: Date | null;
   public holidays: Calendar[] = [];
   public holidays2: Date[] = [];
-  public years: number[] = [];
+  public defaultYear = moment().year();
+  public years: number[] = [2023, 2024];
   public complete = true;
 
   public selected: Date | null;
