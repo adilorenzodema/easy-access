@@ -1,6 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="30px">
     <mat-card-title>{{"select_holidays.title" | translate}}</mat-card-title>
-    <mat-select class="year" appearance="outline" required [(ngModel)]="defaultYear" placeholder="Choose a year">
+    <mat-select class="year" appearance="outline" required [(ngModel)]="defaultYear" placeholder="Choose a year" (selectionChange)="callGetAPI()">
         <mat-option *ngFor="let year of years" [value]="year">
             {{ year }}
         </mat-option>

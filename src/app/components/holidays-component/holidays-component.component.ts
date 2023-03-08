@@ -20,7 +20,7 @@ export class HolidaysComponentComponent implements OnInit {
   public holidays: Calendar[] = [];
   public holidays2: Date[] = [];
   public defaultYear = moment().year();
-  public years: number[] = [2023, 2024];
+  public years: number[] = [2023];
   public complete = true;
 
   public selected: Date | null;
@@ -42,20 +42,20 @@ export class HolidaysComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    for (let year = 2023; year <= 2030; year++) {
+    for (let year = 2024; year <= 2030; year++) {
       this.years.push(year);
     };
-    this.callGetAPI(2023);
+    this.callGetAPI();
   }
 
-  public callGetAPI(year: number): void {
+  public callGetAPI(): void {
+    this.modelClasses = [];
     this.complete = false;
-    const startDate = moment(moment().year() + '/01/01').format('yyyy-MM-DD');
-    const endDate = moment(moment().year() + '/12/31').format('yyyy-MM-DD');
+    const startDate = moment(this.defaultYear + '/01/01').format('yyyy-MM-DD');
+    const endDate = moment(this.defaultYear + '/12/31').format('yyyy-MM-DD');
     console.log(startDate);
     this.subscription.push(this.holidaysService.getCalendar(startDate, endDate).subscribe({
       next: date => {
-        console.log("model classes:" + this.modelClasses);
         date.map((singledate) => {
           // new Date(singledate.date)
           // new Date("7/3/2023") Mon Jul 03 2023;
@@ -64,7 +64,7 @@ export class HolidaysComponentComponent implements OnInit {
           if (singledate.flagHoliday) this.modelClasses.push(new Date(singledate.date));
         });
         console.log(typeof this.modelClasses);
-        console.log(this.modelClasses);
+        console.log(this.modelClasses); 
       },
       error: () => this.complete = true,
       complete: () => this.complete = true
