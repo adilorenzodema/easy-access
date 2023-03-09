@@ -38,7 +38,7 @@
                         <input matInput readonly [matDatepicker]="pickerStart" formControlName="ctrlDateStart"
                             (dateChange)="dateValidator()">
                         <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerStart></mat-datepicker>
+                        <mat-datepicker disabled="true" #pickerStart></mat-datepicker>
                         <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
                             {{'manage-permission.invalidDate' | translate}}
                         </mat-error>
@@ -52,7 +52,7 @@
                         <input matInput readonly [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd"
                             (dateChange)="dateValidator()">
                         <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerEnd></mat-datepicker>
+                        <mat-datepicker disabled="true" #pickerEnd></mat-datepicker>
                         <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
                     </mat-form-field>
                     <div *ngIf="formGroup.get('ctrlCategory').value === 'T' || formGroup.get('ctrlCategory').value === 'D'"
