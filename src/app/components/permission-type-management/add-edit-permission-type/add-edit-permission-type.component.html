@@ -45,7 +45,7 @@
                                     <mat-error> {{'manage_permission_type.timeError' | translate}} </mat-error>
                                     <ngx-material-timepicker-toggle matSuffix
                                         [for]="pickerHourStart"></ngx-material-timepicker-toggle>
-                                    <ngx-material-timepicker #pickerHourStart></ngx-material-timepicker>
+                                    <ngx-material-timepicker #pickerHourStart [minutesGap]="30"></ngx-material-timepicker>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
@@ -54,7 +54,7 @@
                                     <mat-error>{{'manage_permission_type.timeError' | translate}}</mat-error>
                                     <ngx-material-timepicker-toggle matSuffix
                                         [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
-                                    <ngx-material-timepicker #pickerHourEnd></ngx-material-timepicker>
+                                    <ngx-material-timepicker #pickerHourEnd [minutesGap]="30"></ngx-material-timepicker>
                                 </mat-form-field>
                             </ng-template>
                             <div fxLayout="column" fxLayoutGap="10px">

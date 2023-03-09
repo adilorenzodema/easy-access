@@ -92,7 +92,7 @@ export class HolidaysComponentComponent implements OnInit {
       if (index === -1) {
         this.model.push(date);
       } else {
-        this.model.splice(index, 1)
+        this.model.splice(index, 1);
       }
       this.resetModel = new Date(0);
       if (!this.closeOnSelected) {
