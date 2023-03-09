@@ -25,12 +25,12 @@ export class HolidaysService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  addCalendar(calendar: Calendar[], year: number): Observable<Calendar[]> {
+  addCalendar(calendar: Date[], year: number): Observable<Date[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), year })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<Calendar[]>(this.apiURL + '/addCalendar', calendar, options)
+    return this.http.post<Date[]>(this.apiURL + '/addCalendar/' + year, calendar, options)
       .pipe(catchError(err => { throw err; }));
   }
 }

@@ -100,7 +100,7 @@
                                 [format]="24" required>
                             <ngx-material-timepicker-toggle matSuffix
                                 [for]="pickerHourStart"></ngx-material-timepicker-toggle>
-                            <ngx-material-timepicker #pickerHourStart [minutesGap]="30"></ngx-material-timepicker>
+                            <ngx-material-timepicker #pickerHourStart [minutesGap]="formGroup.get('ctrlCategory').value === 'D' ? null : 30 "></ngx-material-timepicker>
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
@@ -108,7 +108,7 @@
                                 required>
                             <ngx-material-timepicker-toggle matSuffix
                                 [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
-                            <ngx-material-timepicker #pickerHourEnd [minutesGap]="30" ></ngx-material-timepicker>
+                            <ngx-material-timepicker #pickerHourEnd [minutesGap]="formGroup.get('ctrlCategory').value === 'D' ? null : 30 " ></ngx-material-timepicker>
                         </mat-form-field>
                     </div>
                 </ng-template>

@@ -1,10 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
-import { DateClass } from 'ngx-multiple-dates';
 import { Subscription } from 'rxjs';
 import { Calendar } from 'src/app/domain/interface';
 import { HolidaysService } from 'src/app/service/holidays.service';
@@ -19,10 +18,10 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepi
 })
 export class HolidaysComponentComponent implements OnInit {
   @ViewChild('picker', { static: true }) _picker: MatDatepicker<Date>;
-  public formGroup: FormGroup;
+  /* public formGroup: FormGroup;
   public picker: Date | null;
   public holidays: Calendar[] = [];
-  public holidays2: Date[] = [];
+  public holidays2: Date[] = []; */
   public defaultYear = moment().year();
   public years: number[] = [];
   public complete = true;
@@ -33,29 +32,32 @@ export class HolidaysComponentComponent implements OnInit {
   public init = new Date();
   public resetModel = new Date(0);
   public model: Date[] = [];
+  public minDate: Date;
+  public maxDate: Date;
   private subscription: Subscription[] = [];
   constructor(
     private holidaysService: HolidaysService,
     private snackBar: SnackBar,
-    private translate: TranslateService,
-    private datepipe: DatePipe
+    private translate: TranslateService
   ) {
   }
-  public dateClass = (date: Date) => {
+  public dateClass = (date: Date): string[] => {
     if (this._findDate(date) !== -1) {
       return ['selected'];
     }
     return [];
-  }
+  };
 
   ngOnInit(): void {
-    for (let year = 2023; year <= 2030; year++) {
+    for (let year = this.defaultYear; year <= 2030; year++) {
       this.years.push(year);
     };
     this.callGetAPI();
   }
 
   public callGetAPI(): void {
+    this.minDate = new Date(this.defaultYear + "/01/01");
+    this.maxDate = new Date(this.defaultYear + "/12/31");
     this.model = [];
     this.complete = false;
     const startDate = moment(this.defaultYear + '/01/01').format('yyyy-MM-DD');
@@ -63,26 +65,22 @@ export class HolidaysComponentComponent implements OnInit {
     this.subscription.push(this.holidaysService.getCalendar(startDate, endDate).subscribe({
       next: date => {
         date.map((singledate) => {
-          // new Date(singledate.date)
-          // new Date("7/3/2023") Mon Jul 03 2023;
-          //moment(singledate.date).toDate()
-          //new Date(singledate.date.getFullYear(), singledate.date.getMonth(), singledate.date.getUTCDate())
-          //(singledate.flagHoliday) ? this.model.push(new Calendar(singledate.date, true)) : this.model.push(new Calendar(singledate.date, false));;
-          if (singledate.flagHoliday) this.model.push(singledate.date);
+          this.model.push(singledate.date);
         });
       },
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));
-    console.log(this.model);
   }
 
   public addCalendar(defaultYear: number): void {
     const holidays = this.model;
-    //mandare giorno come path param
-    console.log(defaultYear);
-    console.log(holidays);
-    console.log( holidays[0] instanceof Date);
+    this.holidaysService.addCalendar(holidays, defaultYear).subscribe({
+      next: () => {
+        this.snackBar.showMessage(this.translate.instant('select_holidays.updateSnackbar'), 'INFO');
+      },
+      complete: () => (this.complete = true, this.callGetAPI())
+    });
   }
 
   public dateChanged(event: MatDatepickerInputEvent<Date>): void {
@@ -105,7 +103,7 @@ export class HolidaysComponentComponent implements OnInit {
       }
     }
   }
-  //modifica utente, salvare array e controllarre se uguali. Uguale: no modal diversi : si modal
+
   public remove(date: Date): void {
     const index = this._findDate(date);
     this.model.splice(index, 1);

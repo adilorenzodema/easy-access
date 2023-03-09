@@ -284,7 +284,10 @@
   },
   "select_holidays": {
     "title": "Select Holidays",
-    "update": "Update holidays for "
+    "update": "Update holidays for ",
+    "updateSnackbar": "Holiday list successfully updated!",
+    "yearSelect": "Choose a year",
+    "dateSelect": "Add or remove holidays"
   },
   "text": "text",
   "error": {

@@ -16,7 +16,7 @@
     "Transits": "Transiti",
     "Incidents": "Anomalie",
     "Batch Management": "Batch",
-    "Holidays Selection": "Festività"
+    "Holidays Selection": "Selezione Festività"
   },
   "common": {
     "searchLabel": "Cerca",
@@ -283,8 +283,11 @@
     "park": "Parcheggio"
   },
   "select_holidays": {
-    "title": "Select Holidays",
-    "update": "Aggiorna festività "
+    "title": "Selezione Festività",
+    "update": "Aggiorna festività ",
+    "updateSnackbar": "Festività aggiornate con successo!",
+    "yearSelect": "Scegliere un anno",
+    "dateSelect": "Aggiungi o rimuovi festività"
   },
 
   "text": "testo",
