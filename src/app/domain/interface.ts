@@ -156,5 +156,9 @@ export interface Job {
   scheduled: boolean;
 }
 
+export interface Calendar{
+  date: Date;
+  flagHoliday: Boolean; }
+
 export type Status = 'OK' | 'KO';
 

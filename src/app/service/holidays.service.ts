@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { Calendar } from '../domain/class';
+import { Calendar } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -25,10 +25,10 @@ export class HolidaysService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  addCalendar(calendar: Calendar[]): Observable<Calendar[]> {
+  addCalendar(calendar: Calendar[], year: number): Observable<Calendar[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), year })
     };
     return this.http.post<Calendar[]>(this.apiURL + '/addCalendar', calendar, options)
       .pipe(catchError(err => { throw err; }));

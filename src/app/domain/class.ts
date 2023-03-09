@@ -126,12 +126,5 @@ export class FasciaOraria {
 
 }
 
-export class Calendar{
-  date: string;
-  flagHoliday: Boolean;
-  constructor (date: string, flagHoliday: Boolean){
-    this.date = date;
-    this.flagHoliday = flagHoliday;
-  }
-}
+
 
