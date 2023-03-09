@@ -16,7 +16,7 @@
     "Transits": "Transits",
     "Incidents": "Incidents",
     "Batch Management": "Batch",
-    "Holidays Selection": "Holidays"
+    "Holidays Selection": "Holidays Selection"
   },
   "common": {
     "searchLabel": "Search",
@@ -189,6 +189,7 @@
     "details_edit": "Details - Edit",
     "permanent": "Permanent",
     "temporary": "Temporary",
+    "daily": "Daily",
     "editPermissionTitle": "Edit Permission",
     "addPermissionTitle": "Add Permission",
     "obuInsert": "Insert an OBU code",
@@ -295,7 +296,13 @@
     "incidentDesc": "Incident description",
     "park": "Parking lot"
   },
-
+  "select_holidays": {
+    "title": "Select Holidays",
+    "update": "Update holidays for ",
+    "updateSnackbar": "Holiday list successfully updated!",
+    "yearSelect": "Choose a year",
+    "dateSelect": "Add or remove holidays"
+  },
   "text": "text",
   "error": {
     "login": "Username or password wrong",
@@ -365,7 +372,8 @@
     },
     "obu":{
       "notFound": "OBU code not found",
-      "alreadyActivated": "OBU code is already active"
+      "alreadyActivated": "OBU code is already active",
+      "notValid":"Obu code is not valid"
     },
 
     "profile": {

@@ -1,0 +1,34 @@
+<mat-card fxLayout="column" fxLayoutGap="30px">
+    <mat-card-title>{{"select_holidays.title" | translate}}</mat-card-title>
+    <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
+        <mat-form-field appearance="outline" fxFlex="20">
+            <mat-label>{{("select_holidays.yearSelect" | translate)}} </mat-label>
+            <mat-select class="year" appearance="outline" fxFlex="20" required [(ngModel)]="defaultYear"
+                placeholder="Choose a year" (selectionChange)="callGetAPI()">
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{ year }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-card-content fxLayout="column" fxLayoutGap="10px">
+        <mat-form-field>
+            <mat-label>{{("select_holidays.dateSelect" | translate)}} </mat-label>
+            <mat-chip-list #chipList (click)="picker.open()">
+                <mat-chip *ngFor="let value of model" [selectable]="false" [removable]="true" (removed)="remove(value)">
+                    {{ value | date }}
+                    <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                </mat-chip>
+                <input [value]="resetModel" matInput [matDatepicker]="picker" placeholder="Choose a date"
+                    (dateChange)="dateChanged($event)" [matChipInputFor]="chipList" [max]="maxDate" [min]="minDate"
+                    hidden />
+            </mat-chip-list>
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass"></mat-datepicker>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="20px">
+            <button mat-raised-button color="primary" (click)="addCalendar(defaultYear)"> {{ ("select_holidays.update" |
+                translate) + defaultYear}}</button>
+        </div>
+    </mat-card-content>
+</mat-card>

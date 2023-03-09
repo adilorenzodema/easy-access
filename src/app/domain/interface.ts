@@ -78,7 +78,7 @@ export interface Permission {
 
 export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';
 
-export type Category = 'P' | 'T';
+export type Category = 'P' | 'T' | 'D';
 
 export interface PermissionType {
   permissionTypeId: number;
@@ -170,6 +170,9 @@ export interface DeviceStatus {
   status: Status;
   error_code: string;
 }
+export interface Calendar{
+  date: Date;
+  flagHoliday: Boolean; }
 
 export type Status = 'OK' | 'KO';
 

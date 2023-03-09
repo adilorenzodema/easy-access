@@ -123,5 +123,8 @@ export class FasciaOraria {
     this.preHoliday = preHoliday;
     this.holiday = holiday;
   }
+
 }
+
+
 

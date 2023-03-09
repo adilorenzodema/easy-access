@@ -74,8 +74,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       const isActive = this.formGroup.get('ctrlActive')?.value;
       const obuSearch = this.formGroup.get('ctrlObuSearch')?.value;
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
-      const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DDHH:mm:ss');
-      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DDHH:mm:ss');
+      const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
+      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD HH:mm:ss');
       this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,

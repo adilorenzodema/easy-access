@@ -16,7 +16,7 @@
     "Transits": "Transiti",
     "Incidents": "Anomalie",
     "Batch Management": "Batch",
-    "Holidays Selection": "Festività"
+    "Holidays Selection": "Selezione Festività"
   },
   "common": {
     "searchLabel": "Cerca",
@@ -189,6 +189,7 @@
     "details_edit": "Dettagli - Modifica",
     "permanent": "Permanente",
     "temporary": "Temporaneo",
+    "daily": "Giornaliero",
     "editPermissionTitle": "Modifica Permesso",
     "addPermissionTitle": "Aggiungi Permesso",
     "obuInsert": "Inserire un codice OBU",
@@ -295,6 +296,13 @@
     "incidentDesc": "Descrizione incidente",
     "park": "Parcheggio"
   },
+  "select_holidays": {
+    "title": "Selezione Festività",
+    "update": "Aggiorna festività ",
+    "updateSnackbar": "Festività aggiornate con successo!",
+    "yearSelect": "Scegliere un anno",
+    "dateSelect": "Aggiungi o rimuovi festività"
+  },
 
   "text": "testo",
   "error": {
@@ -365,7 +373,8 @@
     },
     "obu":{
       "notFound": "Codice OBU non trovato",
-      "alreadyActivated": "Codice OBU già attivato"
+      "alreadyActivated": "Codice OBU già attivato",
+      "notValid":"Codice OBU non valido"
     },
     "profile": {
       "notFound": "Profilo non trovato"

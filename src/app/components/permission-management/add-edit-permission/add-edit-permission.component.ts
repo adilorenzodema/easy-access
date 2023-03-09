@@ -25,6 +25,8 @@ export class AddEditPermissionComponent implements OnInit {
   public permissionTypesFiltered: PermissionType[] = [];
   public permission: Permission;
   public complete = true;
+  public daily: Boolean;
+  public today = moment(moment.now());
 
   private subscription: Subscription[] = [];
 
@@ -38,6 +40,7 @@ export class AddEditPermissionComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as Permission;
+    this.daily = this.router.getCurrentNavigation()?.extras.state?.['daily'] as Boolean;
   }
 
   ngOnInit(): void {
@@ -66,8 +69,8 @@ export class AddEditPermissionComponent implements OnInit {
         ctrlCategory: ['', Validators.required],
         ctrlObu: ['', Validators.required],
         ctrlAreaIdList: ['', Validators.required],
-        ctrlDateStart: ['', Validators.required],
-        ctrlDateEnd: ['', Validators.required],
+        ctrlDateStart: [moment(this.today).toDate(), Validators.required],
+        ctrlDateEnd: [ moment(this.today).toDate(),Validators.required],
       });
     }
   }
@@ -75,10 +78,22 @@ export class AddEditPermissionComponent implements OnInit {
   public changeCategory(): void {
     const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
     if (categoryValue === 'T') { // temporaneo
+      console.log("Temporaneo");
+      this.formGroup.removeControl('ctrlHourStart');
+      this.formGroup.removeControl('ctrlHourEnd');
       this.formGroup.addControl('ctrlHourStart', this.formBuilder.control('', Validators.required));
       this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
-    } else if (categoryValue === 'P') { // permanente
+    } else if (categoryValue === 'D' ) { //giornaliero
+      const currentDate = new Date;
+      this.formGroup.patchValue({ctrlDateStart: moment(this.today).toDate()});
+      this.formGroup.patchValue({ctrlDateEnd: moment(this.today).toDate()});
+      this.formGroup.removeControl('ctrlHourStart');
+      this.formGroup.removeControl('ctrlHourEnd');
+      this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(currentDate, 'hh:mm:ss').format('HH:mm'), Validators.required));
+      this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control( moment( "23:59:00", "hh:mm:ss").format("HH:mm"), Validators.required));
+      this.formGroup.removeControl('ctrlTypePermissionList');
+    } else if (categoryValue === 'P' ) { // permanente
       if (this.permissionTypes.length === 0) { this.getPermissionType(); }
       this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlHourStart');
@@ -103,7 +118,7 @@ export class AddEditPermissionComponent implements OnInit {
     const startDate = this.formGroup.get('ctrlDateStart').value;
     const endDate = this.formGroup.get('ctrlDateEnd').value;
     const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
-    if (categoryValue === 'T') { // temporaneo
+    if (categoryValue === 'T' || categoryValue === 'D' ) { // temporaneo
       const startHour = this.formGroup.get('ctrlHourStart').value;
       const endHour = this.formGroup.get('ctrlHourEnd').value;
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
