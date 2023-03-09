@@ -30,13 +30,17 @@
 
 <mat-card fxLayout="column" fxLayoutGap="30px">
     <mat-card-title>{{"select_holidays.title" | translate}}</mat-card-title>
-    <mat-label>Tooltip position</mat-label>
-    <mat-select class="year" appearance="outline" required [(ngModel)]="defaultYear" placeholder="Choose a year"
-        (selectionChange)="callGetAPI()">
-        <mat-option *ngFor="let year of years" [value]="year">
-            {{ year }}
-        </mat-option>
-    </mat-select>
+    <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
+    <mat-form-field appearance="outline" fxFlex="20" >
+        <mat-label>Tooltip position</mat-label>
+        <mat-select class="year" appearance="outline" fxFlex="20" required [(ngModel)]="defaultYear" placeholder="Choose a year"
+            (selectionChange)="callGetAPI()">
+            <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <mat-form-field>
             <mat-chip-list #chipList aria-label="Choose a date" (click)="picker.open()">
@@ -51,7 +55,8 @@
             <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass"></mat-datepicker>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="20px">
-        <button mat-raised-button color="primary" (click)="addCalendar(defaultYear)"> {{'Invia lista ' + defaultYear}}</button>
+            <button mat-raised-button color="primary" (click)="addCalendar(defaultYear)"> {{ ("select_holidays.update" |
+                translate) + defaultYear}}</button>
         </div>
     </mat-card-content>
 </mat-card>

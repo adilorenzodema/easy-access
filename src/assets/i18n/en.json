@@ -15,7 +15,8 @@
     "Permission Profiles": "Permission profiles",
     "Transits": "Transits",
     "Incidents": "Incidents",
-    "Batch Management": "Batch"
+    "Batch Management": "Batch",
+    "Holidays Selection": "Holidays Selection"
   },
   "common": {
     "searchLabel": "Search",
@@ -282,7 +283,8 @@
     "park": "Parking lot"
   },
   "select_holidays": {
-    "title": "Select Holidays"
+    "title": "Select Holidays",
+    "update": "Update holidays for "
   },
   "text": "text",
   "error": {

@@ -15,7 +15,8 @@
     "Permission Profiles": "Tipi permesso",
     "Transits": "Transiti",
     "Incidents": "Anomalie",
-    "Batch Management": "Batch"
+    "Batch Management": "Batch",
+    "Holidays Selection": "Festività"
   },
   "common": {
     "searchLabel": "Cerca",
@@ -282,7 +283,8 @@
     "park": "Parcheggio"
   },
   "select_holidays": {
-    "title": "Select Holidays"
+    "title": "Select Holidays",
+    "update": "Aggiorna festività "
   },
 
   "text": "testo",
