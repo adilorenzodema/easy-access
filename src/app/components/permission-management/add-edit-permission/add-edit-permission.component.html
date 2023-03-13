@@ -7,12 +7,30 @@
         </div>
         
         <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
+            <ng-container *ngIf="!this.permission else edit">
             <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
                 (change)="changeCategory()">
                 <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
                 <mat-radio-button [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
                 <mat-radio-button [value]="'P'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
             </mat-radio-group>
+        </ng-container>
+        <ng-template #edit>
+            <!-- <mat-form-field formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center">
+                <mat-label>{{'manage-permission.temporary' | translate}}</mat-label>
+                <input matInput type="text" value="T"> 
+                 <mat-label>{{'manage-permission.daily' | translate}}</mat-label>
+                <input matInput type="text" value="D"> 
+                <mat-label>{{'manage-permission.permanent' | translate}}</mat-label>
+                <input matInput type="text" value="P">  
+            </mat-form-field> -->
+            <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
+            (change)="changeCategory()" [disabled]="true">
+            <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
+            <mat-radio-button [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
+            <mat-radio-button [value]="'P'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
+        </mat-radio-group>
+        </ng-template>
             <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                     fxFlex.gt-md="20">

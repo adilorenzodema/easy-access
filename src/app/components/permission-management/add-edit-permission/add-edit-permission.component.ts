@@ -48,7 +48,7 @@ export class AddEditPermissionComponent implements OnInit {
     this.getAreas();
     if (this.permission) {
       const areasIdSelected: number[] = [];
-      // crea un array con gli idArea selezionati
+      console.log(this.permission);
       this.permission.areaList.map((area) => areasIdSelected.push(area.idArea));
       this.formGroup = this.formBuilder.group({
         ctrlCategory: [this.permission.category, Validators.required],
@@ -57,7 +57,7 @@ export class AddEditPermissionComponent implements OnInit {
         ctrlDateStart: [this.permission.validationDateStart, Validators.required],
         ctrlDateEnd: [this.permission.validationDateEnd, Validators.required],
       });
-      if (this.permission.category === 'T') { // temporaneo
+      if (this.permission.category === 'T' || this.permission.category === 'D') { // temporaneo
         this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('HH:mm'), Validators.required));
         this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment(this.permission.endTime, 'hh:mm:ss').format('HH:mm'), Validators.required));
       } else if (this.permission.category === 'P') { // permanente
