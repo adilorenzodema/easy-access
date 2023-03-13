@@ -61,8 +61,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   }
 
   public onDelete(areaId: number): void {
-    const title = this.translate.instant('manage_areas.disactivateTitle');
-    const content = this.translate.instant('manage_areas.disactivateConfirm');
+    const title = this.translate.instant('manage_efc.disactivateTitle');
+    const content = this.translate.instant('manage_efc.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -81,8 +81,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   }
 
   public activateArea(areaId: number): void {
-    const title = this.translate.instant('manage_areas.activateTitle');
-    const content = this.translate.instant('manage_areas.activateConfirm');
+    const title = this.translate.instant('manage_efc.activateTitle');
+    const content = this.translate.instant('manage_efc.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',

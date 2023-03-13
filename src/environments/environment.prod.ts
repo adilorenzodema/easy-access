@@ -9,5 +9,9 @@ export const environment = {
     year: '2022',
     title: 'Powered by Dema Engineering',
     link: 'https://dema-engineering.it/',
+  },
+  login: {
+    image: 'assets/images/logo.png',
+    title: "Login Easy Access"
   }
 };

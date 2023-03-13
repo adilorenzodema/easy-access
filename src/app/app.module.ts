@@ -23,7 +23,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     DashboardComponent,
-    TableIncidentsComponent,
+    TableIncidentsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +48,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     { provide: 'header', useValue: environment.header },
     { provide: 'footer', useValue: environment.footer },
     { provide: 'env', useValue: environment },
+    {provide: 'login', useValue: environment.login},
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     CookieService
   ],
