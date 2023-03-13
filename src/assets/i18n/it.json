@@ -303,7 +303,12 @@
     "yearSelect": "Scegliere un anno",
     "dateSelect": "Aggiungi o rimuovi festività"
   },
-
+  "manage_efc":{
+    "title": "Gestione EFC",
+    "efcCode": "Codice EFC",
+    "serviceProvider": "Service Provider",
+    "flagActive": "Attivo"
+  },
   "text": "testo",
   "error": {
     "login": "Username o password sbagliate",

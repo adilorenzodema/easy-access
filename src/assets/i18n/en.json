@@ -303,6 +303,12 @@
     "yearSelect": "Choose a year",
     "dateSelect": "Add or remove holidays"
   },
+  "manage_efc":{
+    "title": "Manage EFCs",
+    "efcCode": "EFC Code",
+    "serviceProvider": "Service Provider",
+    "flagActive": "Active"
+  },
   "text": "text",
   "error": {
     "login": "Username or password wrong",

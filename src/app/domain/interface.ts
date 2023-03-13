@@ -174,5 +174,11 @@ export interface Calendar{
   date: Date;
   flagHoliday: Boolean; }
 
+  export interface EFC {
+    efcCode: string;
+    serviceProvider: string;
+    flagActive: boolean;
+  }
+
 export type Status = 'OK' | 'KO';
 

@@ -51,7 +51,7 @@ export class AddEditPermissionComponent implements OnInit {
       console.log(this.permission);
       this.permission.areaList.map((area) => areasIdSelected.push(area.idArea));
       this.formGroup = this.formBuilder.group({
-        ctrlCategory: [this.permission.category, Validators.required],
+        ctrlCategory: [{ value: this.permission.category, disabled : true },Validators.required],
         ctrlObu: [this.permission.obu.obuCode, Validators.required],
         ctrlAreaIdList: [areasIdSelected, Validators.required],
         ctrlDateStart: [this.permission.validationDateStart, Validators.required],
