@@ -5,6 +5,7 @@
         <div style="height: 5px;">
             <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         </div>
+        
         <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
             <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
                 (change)="changeCategory()">

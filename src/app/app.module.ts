@@ -23,7 +23,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     DashboardComponent,
-    TableIncidentsComponent,
+    TableIncidentsComponent
   ],
   imports: [
     BrowserModule,

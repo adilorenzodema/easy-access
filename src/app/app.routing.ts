@@ -63,6 +63,12 @@ const routes: Routes = [
         loadChildren:
           () => import("src/app/components/holidays-component/holidays-component.module").then(m => m.HolidaysComponentModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'efc-list-management',
+        loadChildren:
+          () => import("src/app/components/efc-list-management/efc-list-management.module").then(m => m.EfcListManagementModule),
+        canActivate: [AuthGuard]
       }
     ]
   }

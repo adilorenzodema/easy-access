@@ -78,7 +78,6 @@ export class AddEditPermissionComponent implements OnInit {
   public changeCategory(): void {
     const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
     if (categoryValue === 'T') { // temporaneo
-      console.log("Temporaneo");
       this.formGroup.removeControl('ctrlHourStart');
       this.formGroup.removeControl('ctrlHourEnd');
       this.formGroup.addControl('ctrlHourStart', this.formBuilder.control('', Validators.required));
@@ -173,3 +172,6 @@ export class AddEditPermissionComponent implements OnInit {
   }
 
 }
+
+
+//eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOSIsImlhdCI6MTY3ODQ0MTA3NywiZXhwIjoxNjc4NDQxNjc3fQ.XU8I-MkyVkq3EMomQUapwWWzObiWaPZN7m2Th6WQIDE
