@@ -308,7 +308,11 @@
     "title": "Gestione EFC",
     "efcCode": "Codice EFC",
     "serviceProvider": "Service Provider",
-    "flagActive": "Attivo"
+    "flagActive": "Attivo",
+    "activateTitle": "Attivazione EFC",
+    "disactivateTitle": "Disattivazione EFC",
+    "activateConfirm": "Sei sicur* di voler riattivare l'EFC selezionato?",
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'EFC selezionato?"
   },
   "text": "testo",
   "error": {
