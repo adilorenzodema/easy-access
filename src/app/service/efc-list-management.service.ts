@@ -26,7 +26,7 @@ export class EfcListManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  deleteArea(efcCode: String): Observable<void> {
+  deactivateEfc(efcCode: String): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
@@ -35,7 +35,7 @@ export class EfcListManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  activateArea(efcCode: String): Observable<void> {
+  activateEfc(efcCode: String): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })

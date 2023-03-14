@@ -19,7 +19,7 @@ export class HolidaysService {
   getCalendar(startDate: string, endDate: string): Observable<Calendar[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), startDate, endDate })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), startDate , endDate })
     };
     return this.http.get<Calendar[]>(this.apiURL + '/getHolidays' ,options)
       .pipe(catchError(err => { throw err; }));

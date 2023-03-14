@@ -16,7 +16,8 @@
     "Transits": "Transiti",
     "Incidents": "Anomalie",
     "Batch Management": "Batch",
-    "Holidays Selection": "Selezione Festività"
+    "Holidays Selection": "Selezione Festività",
+    "EFC List": "Lista EFC"
   },
   "common": {
     "searchLabel": "Cerca",
