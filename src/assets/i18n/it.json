@@ -2,6 +2,11 @@
   "yes": "Si",
   "template": {
     "change_password": "Cambia password",
+    "old_password": "Vecchia password",
+    "error_password": "Password non inserita correttamente",
+    "new_password": "Nuova password",
+    "repeat_password": "Ripeti password",
+    "back_login": "Ritorna al login",
     "it": "Italiano",
     "en": "Inglese"
   },

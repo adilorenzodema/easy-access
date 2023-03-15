@@ -24,7 +24,7 @@
     "@angular/router": "^14.2.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
-    "dema-movyon-template": "^0.0.20",
+    "dema-movyon-template": "^0.0.21",
     "dema-users-management": "^0.0.14",
     "mat-select-filter": "^2.4.1",
     "moment": "^2.29.4",

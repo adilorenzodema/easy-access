@@ -20,7 +20,8 @@
             "tsConfig": "tsconfig.app.json",
             "allowedCommonJsDependencies": [
               "moment",
-              "luxon"
+              "luxon",
+              "bezier-easing"
             ],
             "assets": [
               "src/favicon.ico",
