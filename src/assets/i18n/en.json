@@ -21,7 +21,8 @@
     "Transits": "Transits",
     "Incidents": "Incidents",
     "Batch Management": "Batch",
-    "Holidays Selection": "Holidays Selection"
+    "Holidays Selection": "Holidays Selection",
+    "EFC List": "EFC List"
   },
   "common": {
     "searchLabel": "Search",
@@ -312,7 +313,11 @@
     "title": "Manage EFCs",
     "efcCode": "EFC Code",
     "serviceProvider": "Service Provider",
-    "flagActive": "Active"
+    "flagActive": "Active",
+    "activateTitle": "Activate EFC",
+    "disactivateTitle": "Disactivate EFC",
+    "activateConfirm": "Are you sure you want to re-activate the selected EFC?",
+    "disactivateConfirm": "Are you sure you want to disactivate the selected EFC?"
   },
   "text": "text",
   "error": {

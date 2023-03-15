@@ -45,7 +45,7 @@
                         <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">delete</mat-icon>
                     </button>
 
-                    <button mat-icon-button *ngIf="!element.flagActive && operations | getPermissionPipe: 'active-efc'"
+                    <button mat-icon-button *ngIf="!element.flagActive && operations | getPermissionPipe: 'activate-efc'"
                         (click)="activate(element.efcCode)">
                         <mat-icon style="color: #51b1a1;"
                             matTooltip="{{'common.activate' | translate}}">refresh</mat-icon>

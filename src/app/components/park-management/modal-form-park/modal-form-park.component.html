@@ -35,6 +35,17 @@
       <mat-error>{{"manage_parks.addressError" | translate}}</mat-error>
     </mat-form-field>
 
+   <!--  <mat-form-field>
+      <mat-select [formControl]="bankMultiCtrl" placeholder="Banks" [multiple]="true" #multiSelect>
+        <mat-option>
+          <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+          {{bank.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
       <mat-label> {{"manage_parks.associateAreas" | translate}}</mat-label>
       <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>

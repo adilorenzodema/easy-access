@@ -39,6 +39,7 @@ export class EfcListManagementComponent implements OnInit {
       ctrlSearch: ['']
     });
     this.callGetAPI();
+    this.getPermissionAPI();
   }
 
   public callGetAPI(): void {
@@ -57,8 +58,8 @@ export class EfcListManagementComponent implements OnInit {
   }
 
   public activate(efcCode: String): void {
-    const title = this.translate.instant('manage_areas.disactivateTitle');
-    const content = this.translate.instant('manage_areas.disactivateConfirm');
+    const title = this.translate.instant('manage_efc.activateTitle');
+    const content = this.translate.instant('manage_efc.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -69,7 +70,7 @@ export class EfcListManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.efcListService.deleteArea(efcCode).subscribe(
+          this.subscription.push(this.efcListService.activateEfc(efcCode).subscribe(
             () => this.callGetAPI()
           ));
         }
@@ -77,8 +78,8 @@ export class EfcListManagementComponent implements OnInit {
   }
 
   public deactivate(efcCode: String): void {
-    const title = this.translate.instant('manage_areas.activateTitle');
-    const content = this.translate.instant('manage_areas.activateConfirm');
+    const title = this.translate.instant('manage_efc.disactivateTitle');
+    const content = this.translate.instant('manage_efc.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -89,7 +90,7 @@ export class EfcListManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.efcListService.activateArea(efcCode).subscribe(
+          this.subscription.push(this.efcListService.deactivateEfc(efcCode).subscribe(
             () => this.callGetAPI()
           ));
         }
