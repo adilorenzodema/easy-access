@@ -14,20 +14,21 @@ body {
 h3 {
     color: white !important;
 }
-
-a {
-    color: white !important;
-
-    mat-icon {
+.example-sidenav{
+    a {
         color: white !important;
-    }
-
-    &:hover {
-        color: #d4d8e3 !important;
-
+    
         mat-icon {
-            color: #d4d8e3 !important;
+            color: white !important;
         }
+    
+        &:hover {
+            color: #d4d8e3 !important;
+    
+            mat-icon {
+                color: #d4d8e3 !important;
+            }
+        } 
     }
 
 }
