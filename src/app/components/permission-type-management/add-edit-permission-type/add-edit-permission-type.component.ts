@@ -14,7 +14,7 @@ import { PermissionTypeManagementService } from 'src/app/service/permission-type
   styles: [`
   .timeSlot {
     width: 60%;
-    border: 2px solid #49beaa;
+    border: 2px solid  #283c74;
     border-radius: 10px;
     padding: 2%;
     margin: 1%;

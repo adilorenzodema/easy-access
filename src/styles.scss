@@ -1,32 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 html,
 body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
 // template
 .example-sidenav {
-    background: #49beaa !important;
+    background: #283c74 !important;
+}
+
+h3 {
+    color: white !important;
 }
 
 a {
-    color: #0d2a47 !important;
+    color: white !important;
+
     mat-icon {
-        color: #0d2a47 !important;
+        color: white !important;
     }
+
     &:hover {
-        color: blue !important;
+        color: #d4d8e3 !important;
+
+        mat-icon {
+            color: #d4d8e3 !important;
+        }
     }
+
 }
 
 .selected {
-    background-color: #51b1a1 !important;
+    background-color: #3e5082 !important;
 }
 
 .selected:hover {
     a {
         &:hover {
-            color: #0d2a47 !important;
+            //vuoto
         }
     }
 }
@@ -40,17 +53,21 @@ a {
 
 // button
 .actionButton {
-    background-color: #51b1a1;
+    background-color: #283c74;
     color: white;
+}
+
+.edit-icon {
+    color: #283c74 ;
 }
 
 // manage-users
 .editIcon {
-    color: #51b1a1 !important;
+    color: #283c74 !important;
 }
 
 .refreshIcon {
-    color: #51b1a1 !important;
+    color: #283c74 !important;
 }
 
 /* snackbar */

@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   configFile: 'assets/config/config-app.json',
   header: {
-    imgSidebar: 'assets/images/movyon.png',
+    imgSidebar: 'assets/images/movyon.svg',
     title: 'Easy access'
   },
   footer: {

@@ -79,4 +79,13 @@ export class GatePilotingService {
     return this.http.get<void>(this.apiURL + '/autoGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
+
+  testGateConnection(gateId: number): Observable<GateStatus[]> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.get<GateStatus[]>(this.apiURL + '/testConnection/' + gateId, options)
+      .pipe(catchError(err => { throw err; }));
+  }
 }
