@@ -7,7 +7,7 @@ export const environment = {
   //beUrl: 'http://192.168.1.2:8085/',
   configFile: 'assets/config/config-test-app.json',
   header: {
-    imgSidebar: 'assets/images/movyon.png',
+    imgSidebar: 'assets/images/movyon.svg',
     title: 'Easy access'
   },
   footer: {

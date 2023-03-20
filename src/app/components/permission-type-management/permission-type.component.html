@@ -42,7 +42,7 @@
                 <td mat-cell *matCellDef="let element" style="text-align: end;">
                     <button mat-icon-button *ngIf="operations | getPermissionPipe: 'edit-permissiontype'"
                         [routerLink]="'edit-permission-type'" [state]="{ permissionType: element}">
-                        <mat-icon style="color:#51b1a1;"
+                        <mat-icon class="edit-icon" 
                             matTooltip="{{'manage_permission_type.details_edit' | translate}}">edit</mat-icon>
                     </button>
                     <button mat-icon-button
@@ -53,7 +53,7 @@
 
                     <button mat-icon-button
                         *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-permissiontype'"><mat-icon
-                            style="color: #51b1a1;" matTooltip="{{'common.activate' | translate}}"
+                        class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
                             (click)="activePermissionType(element.permissionTypeId)">refresh</mat-icon>
                     </button>
                 </td>

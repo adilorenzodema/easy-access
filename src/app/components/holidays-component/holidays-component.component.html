@@ -27,7 +27,7 @@
             <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass"></mat-datepicker>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="20px">
-            <button mat-raised-button color="primary" (click)="addCalendar(defaultYear)"> {{ ("select_holidays.update" |
+            <button mat-raised-button  class="actionButton" (click)="addCalendar(defaultYear)"> {{ ("select_holidays.update" |
                 translate) + defaultYear}}</button>
         </div>
     </mat-card-content>

@@ -55,6 +55,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     const areaIdList = this.inputUserForm.get('ctrlAreaIdList')?.value;
     const formParkAdd = new Park(name, country, city, CAP, address);
     formParkAdd.areaIdList = areaIdList;
+    console.log(formParkAdd);
     this.parkManagementService.addParking(formParkAdd).subscribe({
       next: () => this.snackBar.showMessage(this.translate.instant('manage_parks.insertParkSuccess'), 'INFO'),
       error: () => this.snackBar.showMessage(this.translate.instant('manage_parks.insertParkError'), 'ERROR'),

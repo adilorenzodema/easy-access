@@ -142,8 +142,8 @@
             </div>
         </form>
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-            <button mat-raised-button [routerLink]="'../'">{{'common.cancel' | translate}}</button>
-            <button mat-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
+            <button mat-raised-button  class="actionButton" [routerLink]="'../'">{{'common.cancel' | translate}}</button>
+            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
                 (click)="addEditPermission()">{{'common.save' | translate}}</button>
         </div>
     </mat-card-content>

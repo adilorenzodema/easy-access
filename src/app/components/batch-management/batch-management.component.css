@@ -1,3 +1,7 @@
 mat-header-cell, mat-cell {
   justify-content: center;
 }
+
+.table-button{
+  color: #283c74;
+}

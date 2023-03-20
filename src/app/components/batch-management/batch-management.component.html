@@ -58,12 +58,12 @@
                     <button mat-icon-button
                         *ngIf="!element.scheduled && operations | getPermissionPipe: 'schedule-batch'"
                         (click)="enableJob(element.jobName)">
-                        <mat-icon style="color: #51b1a1;"
+                        <mat-icon class="table-button"
                             matTooltip="{{'common.activate' | translate}}">schedule</mat-icon>
                     </button>
                     <button mat-icon-button *ngIf="operations | getPermissionPipe: 'run-batch'"
                         (click)="runJob(element.jobName)">
-                        <mat-icon style="color: #51b1a1;" matTooltip="{{'manage_batches.execute' | translate}}"> send
+                        <mat-icon class="table-button" matTooltip="{{'manage_batches.execute' | translate}}"> send
                         </mat-icon>
                     </button>
 

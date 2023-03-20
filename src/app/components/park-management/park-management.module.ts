@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ParkManagementRoutingModule } from './park-management.routing';
 import { ParkManagementComponent } from './park-management.component';
 import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
