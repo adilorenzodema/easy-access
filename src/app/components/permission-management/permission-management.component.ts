@@ -23,7 +23,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public formGroup: FormGroup;
-  public start = moment(moment.now()).subtract(2, 'day');
+  public start = moment(moment.now()).subtract(20, 'day');
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =

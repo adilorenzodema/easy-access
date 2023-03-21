@@ -51,15 +51,24 @@ export class AddEditPermissionComponent implements OnInit {
       console.log(this.permission);
       this.permission.areaList.map((area) => areasIdSelected.push(area.idArea));
       this.formGroup = this.formBuilder.group({
-        ctrlCategory: [{ value: this.permission.category, disabled : true },Validators.required],
+        ctrlCategory: [{ value: this.permission.category, disabled: true }, Validators.required],
         ctrlObu: [this.permission.obu.obuCode, Validators.required],
         ctrlAreaIdList: [areasIdSelected, Validators.required],
-        ctrlDateStart: [this.permission.validationDateStart, Validators.required],
-        ctrlDateEnd: [this.permission.validationDateEnd, Validators.required],
+        ctrlDateStart: [{ value: this.permission.validationDateStart, disabled: true }, Validators.required],
+        ctrlDateEnd: [{ value: this.permission.validationDateEnd, disabled: true }, Validators.required],
       });
-      if (this.permission.category === 'T' || this.permission.category === 'D') { // temporaneo
+      if (this.permission.category === 'T') { // temporaneo
         this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('HH:mm'), Validators.required));
+        this.formGroup.get('ctrlHourStart')?.disable();
         this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment(this.permission.endTime, 'hh:mm:ss').format('HH:mm'), Validators.required));
+        this.formGroup.get('ctrlHourEnd')?.disable();
+      } else if (this.permission.category === 'D') {
+        this.formGroup.addControl('ctrlHourStartDaily', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('HH:mm'),
+          Validators.required));
+        this.formGroup.get('ctrlHourStartDaily')?.disable();
+        this.formGroup.addControl('ctrlHourEndDaily', this.formBuilder.control(moment(this.permission.endTime, 'hh:mm:ss').format('HH:mm'),
+          Validators.required));
+        this.formGroup.get('ctrlHourEndDaily')?.disable();
       } else if (this.permission.category === 'P') { // permanente
         this.getPermissionType();
         this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control(this.permission.permissionType.permissionTypeId, Validators.required));
@@ -70,7 +79,7 @@ export class AddEditPermissionComponent implements OnInit {
         ctrlObu: ['', Validators.required],
         ctrlAreaIdList: ['', Validators.required],
         ctrlDateStart: [moment(this.today).toDate(), Validators.required],
-        ctrlDateEnd: [ moment(this.today).toDate(),Validators.required],
+        ctrlDateEnd: [moment(this.today).toDate(), Validators.required],
       });
     }
   }
@@ -80,22 +89,29 @@ export class AddEditPermissionComponent implements OnInit {
     if (categoryValue === 'T') { // temporaneo
       this.formGroup.removeControl('ctrlHourStart');
       this.formGroup.removeControl('ctrlHourEnd');
+      this.formGroup.removeControl('ctrlHourStart');
+      this.formGroup.removeControl('ctrlHourEnd');
       this.formGroup.addControl('ctrlHourStart', this.formBuilder.control('', Validators.required));
       this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
-    } else if (categoryValue === 'D' ) { //giornaliero
-      this.formGroup.patchValue({ctrlDateStart: moment(this.today).toDate()});
-      this.formGroup.patchValue({ctrlDateEnd: moment(this.today).toDate()});
+    } else if (categoryValue === 'D') { //giornaliero
+      const hour = moment().hour();
+      const minutes = moment().minutes();
+      const HM = hour + ':' + minutes;
+      this.formGroup.patchValue({ ctrlDateStart: moment(this.today).toDate() });
+      this.formGroup.patchValue({ ctrlDateEnd: moment(this.today).toDate() });
       this.formGroup.removeControl('ctrlHourStart');
       this.formGroup.removeControl('ctrlHourEnd');
-      this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.today, 'hh:mm:ss').format('HH:mm'), Validators.required));
-      this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment( "23:59:00", "hh:mm:ss").format("HH:mm"), Validators.required));
+      this.formGroup.addControl('ctrlHourStartDaily', this.formBuilder.control(HM, Validators.required));
+      this.formGroup.addControl('ctrlHourEndDaily', this.formBuilder.control(moment('23:30:00', "hh:mm:ss").format("HH:mm"), Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
-    } else if (categoryValue === 'P' ) { // permanente
+    } else if (categoryValue === 'P') { // permanente
       if (this.permissionTypes.length === 0) { this.getPermissionType(); }
       this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlHourStart');
       this.formGroup.removeControl('ctrlHourEnd');
+      this.formGroup.removeControl('ctrlHourStartDaily');
+      this.formGroup.removeControl('ctrlHourEndDaily');
     }
   }
 
@@ -116,7 +132,7 @@ export class AddEditPermissionComponent implements OnInit {
     const startDate = this.formGroup.get('ctrlDateStart').value;
     const endDate = this.formGroup.get('ctrlDateEnd').value;
     const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
-    if (categoryValue === 'T' || categoryValue === 'D' ) { // temporaneo
+    if (categoryValue === 'T' || categoryValue === 'D') { // temporaneo
       const startHour = this.formGroup.get('ctrlHourStart').value;
       const endHour = this.formGroup.get('ctrlHourEnd').value;
       const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected, startHour, endHour);
