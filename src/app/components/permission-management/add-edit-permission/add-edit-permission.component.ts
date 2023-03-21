@@ -84,13 +84,12 @@ export class AddEditPermissionComponent implements OnInit {
       this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control('', Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
     } else if (categoryValue === 'D' ) { //giornaliero
-      const currentDate = new Date;
       this.formGroup.patchValue({ctrlDateStart: moment(this.today).toDate()});
       this.formGroup.patchValue({ctrlDateEnd: moment(this.today).toDate()});
       this.formGroup.removeControl('ctrlHourStart');
       this.formGroup.removeControl('ctrlHourEnd');
-      this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(currentDate, 'hh:mm:ss').format('HH:mm'), Validators.required));
-      this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control( moment( "23:59:00", "hh:mm:ss").format("HH:mm"), Validators.required));
+      this.formGroup.addControl('ctrlHourStart', this.formBuilder.control(moment(this.today, 'hh:mm:ss').format('HH:mm'), Validators.required));
+      this.formGroup.addControl('ctrlHourEnd', this.formBuilder.control(moment( "23:59:00", "hh:mm:ss").format("HH:mm"), Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
     } else if (categoryValue === 'P' ) { // permanente
       if (this.permissionTypes.length === 0) { this.getPermissionType(); }
