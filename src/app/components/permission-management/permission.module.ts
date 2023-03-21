@@ -9,7 +9,6 @@ import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
 import { PermissionManagementComponent } from './permission-management.component';
 import { PermissionRoutingModule } from './permission-routing.module';
 import { AddEditPermissionComponent } from './add-edit-permission/add-edit-permission.component';
-import { MatSelectFilterModule } from 'mat-select-filter';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
@@ -26,7 +25,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectFilterModule,
+
     PermissionRoutingModule,
     NgxMaterialTimepickerModule
   ]

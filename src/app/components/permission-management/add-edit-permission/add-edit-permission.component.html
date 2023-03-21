@@ -33,8 +33,6 @@
                     fxFlex.gt-md="30">
                     <mat-label> {{'manage-permission.areaSelection' | translate}}</mat-label>
                     <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
-                        <mat-select-filter [displayMember]="'areaName'" [array]="areas"
-                            (filteredReturn)="areaFiltered = $event" required></mat-select-filter>
                         <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
                             {{item.areaName}}
                         </mat-option>
@@ -127,8 +125,6 @@
                     fxFlex.gt-xs="100" fxFlex.gt-lg="40" fxFlex.gt-md="40">
                     <mat-label> {{'manage-permission.permissionTypeSelection' | translate}}</mat-label>
                     <mat-select formControlName="ctrlTypePermissionList">
-                        <mat-select-filter [displayMember]="'permissionTypeDesc'" [array]="permissionTypes"
-                            (filteredReturn)="permissionTypesFiltered = $event" required></mat-select-filter>
                         <mat-option *ngFor="let item of permissionTypesFiltered" [value]="item.permissionTypeId">
                             {{item.permissionTypeDesc}}
                         </mat-option>
