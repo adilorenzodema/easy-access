@@ -79,6 +79,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
+          console.log(this.dataSource.data),
           this.dataSource.paginator = this.paginator,
           this.dataSource.sort = this.sort
         ),
