@@ -242,7 +242,7 @@
     "bar": "Bar",
     "photocell": "Photocell",
     "errorCodeFilter": "Filter by error code",
-    "error1":"Error 1",
+    "error1": "Error 1",
     "error2": "Error 2",
     "status": "Status",
     "resolved": "Resolved",
@@ -265,7 +265,7 @@
     "searchByGate": "Search by Gate",
     "validationType": "Validation Type",
     "status": "Status",
-    "complete":"Complete",
+    "complete": "Complete",
     "incomplete": "Incomplete",
     "obuCode": "OBU Code",
     "dateStart": "Start Date",
@@ -280,7 +280,7 @@
     "jobName": "Batch name",
     "batchDescription": "Batch description",
     "chronExpression": "Cron expression",
-    "chronDescription" : "Cron description",
+    "chronDescription": "Cron description",
     "nextRunDate": "Next run date",
     "scheduled": "Scheduled",
     "activateTitle": "Schedule Batch",
@@ -309,7 +309,7 @@
     "yearSelect": "Choose a year",
     "dateSelect": "Add or remove holidays"
   },
-  "manage_efc":{
+  "manage_efc": {
     "title": "Manage EFCs",
     "efcCode": "EFC Code",
     "serviceProvider": "Service Provider",
@@ -352,7 +352,8 @@
     "permission": {
       "notFound": "Permission not found",
       "alreadyActivated": "Permission is already active",
-      "alreadyDeactivated": "Permission is already inactive"
+      "alreadyDeactivated": "Permission is already inactive",
+      "notValid": "Permission not valid"
     },
     "permissionType": {
       "alreadyExist": "Permission type already exists",
@@ -372,26 +373,36 @@
       "alreadyActivated": "Parking lot is already active",
       "alreadyDeactivated": "Parking lot already inactive"
     },
-    "gate":{
+    "gate": {
       "alreadyExist": "Gate already exists",
       "notFound": "Gate not found",
       "alreadyActivated": "Gate is already active",
       "alreadyDeactivated": "Gate already inactive",
       "ipAlreadyExists": "Ip is already associated to another antenna",
-      "codeAntennaAlreadyExists": "Code antenna already exists"
+      "codeAntennaAlreadyExists": "Code antenna already exists",
+      "notActive": "Gate is not active",
+      "unreachable": "Gate is unreachable",
+      "antennaCodeNotMatch": "Antenna code retrieved from Gate does not match with one present on Easy Access"
     },
     "incident": {
       "notFound": "Incident not found"
     },
     "transit": {
-      "notFound": "Transit not found "
+      "notFound": "Transit not found",
+      "alreadyExist": "Transit already exists",
+      "maxDifference": "Transit not completed on time"
     },
-    "obu":{
+    "obu": {
       "notFound": "OBU code not found",
       "alreadyActivated": "OBU code is already active",
-      "notValid":"Obu code is not valid"
+      "notValid": "OBU code is not valid",
+      "alreadyExist": "OBU code already exists"
     },
-
+    "efc": {
+      "notFound": "EFC not found",
+      "alreadyActivated": "EFC is already active",
+      "alreadyDeactivated": "EFC already inactive"
+    },
     "profile": {
       "notFound": "Profile not found"
     },
