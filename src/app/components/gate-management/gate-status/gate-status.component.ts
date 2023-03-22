@@ -47,7 +47,8 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     this.complete = false;
     this.subscription.push(this.gatePilotingService.testGateConnection(this.gate.idGate).subscribe({
       next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.testOk'), "INFO"),
-      error: () => this.complete = true
+      error: () => this.complete = true,
+      complete: () => this.complete = true
     }));
   }
 
