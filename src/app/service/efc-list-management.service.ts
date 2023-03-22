@@ -17,10 +17,10 @@ export class EfcListManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getEfcList(keyword: string): Observable<EFC[]> {
+  getEfcList(efcCode: string): Observable<EFC[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword })
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), efcCode: efcCode })
     };
     return this.http.get<EFC[]>(this.apiURL + '/getEfc', options)
       .pipe(catchError(err => { throw err; }));
