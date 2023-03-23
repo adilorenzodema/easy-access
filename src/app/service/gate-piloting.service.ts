@@ -58,7 +58,7 @@ export class GatePilotingService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.get<void>(this.apiURL + '/deactivateGate/' + gateId, options)
+    return this.http.get<void>(this.apiURL + '/openGate/' + gateId, options)
       .pipe(catchError(err => { throw err; }));
   }
 

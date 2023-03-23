@@ -127,6 +127,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
         }
       });
   }
+
   public closeGate(): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
