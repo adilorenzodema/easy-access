@@ -199,6 +199,7 @@
     "editPermissionTitle": "Modifica Permesso",
     "addPermissionTitle": "Aggiungi Permesso",
     "obuInsert": "Inserire un codice OBU",
+    "obuErrorMessage": "Un codice OBU è formato solamente da numeri ed ha lunghezza 9 o 19 caratteri.",
     "areaSelection": "Associa una o più Aree",
     "areaAssociationError": "Perfavore, associare almeno un'Area",
     "invalidDate": "Perfavore, inserire una data valida",

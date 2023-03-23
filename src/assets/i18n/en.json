@@ -189,6 +189,7 @@
     "permissionCategory": "Permission Category",
     "permissionName": "Permission Name",
     "obuCode": "OBU Code",
+    "obuErrorMessage": "An OBU code consists only of numbers and has a length of 9 or 19 characters",
     "validationDateStart": "Validity Start Date",
     "validationDateEnd": "Validity End Date ",
     "noPermission": "There are no permissions present.",
