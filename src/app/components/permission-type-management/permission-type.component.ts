@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +10,7 @@ import { Operation } from 'dema-movyon-template/lib/components/domain/interface'
 import { Subscription } from 'rxjs';
 import { PermissionType } from 'src/app/domain/interface';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
+import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 
 @Component({
   selector: 'app-permission-type',
@@ -30,6 +32,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: SnackBar,
+    private dialog: MatDialog,
     private pagePermissionService: PagePermissionService,
     private permissionTypeService: PermissionTypeManagementService,
     private translate: TranslateService
@@ -64,21 +67,51 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   }
 
   public deletePermissionType(id: number): void {
-    this.complete = false;
-    this.subscription.push(this.permissionTypeService.deletePermissionType(id).subscribe({
-      error: () => this.complete = true,
-      complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission_type.permissionDisactivated'),
-        'INFO'), this.callGetAPI(), this.complete = true)
-    }));
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '30%', height: '30%',
+        data: {
+          title: "Cancellazione tipo di permesso", content: "Desideri disattivare il tipo di permesso selezionato?"
+        },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (resp: boolean) => {
+        if (resp) {
+          this.complete = false;
+          this.subscription.push(this.permissionTypeService.deletePermissionType(id).subscribe({
+            error: () => this.complete = true,
+            complete: () => (this.snackBar.showMessage(
+              this.translate.instant('manage_permission_type.permissionDisactivated'), 'INFO'), this.callGetAPI(), this.complete = true)
+          }));
+        }
+      }
+    );
   }
 
   public activePermissionType(id: number): void {
-    this.complete = false;
-    this.subscription.push(this.permissionTypeService.activePermissionType(id).subscribe({
-      error: () => this.complete = true,
-      complete: () => (this.snackBar.showMessage(this.translate.instant('manage_permission_type.permissionActivated'),
-        'INFO'), this.callGetAPI(), this.complete = true)
-    }));
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '30%', height: '30%',
+        data: {
+          title: "Riattivazione tipo di permesso", content: "Desideri riattivare il tipo di permesso selezionato?"
+        },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (resp: boolean) => {
+        if (resp) {
+          this.complete = false;
+          this.subscription.push(this.permissionTypeService.activePermissionType(id).subscribe({
+            error: () => this.complete = true,
+            complete: () => (this.snackBar.showMessage(this.translate.instant('manage_permission_type.permissionActivated'),
+              'INFO'), this.callGetAPI(), this.complete = true)
+          }));
+        }
+      }
+    );
   }
 
   private getPermissionAPI(): void {

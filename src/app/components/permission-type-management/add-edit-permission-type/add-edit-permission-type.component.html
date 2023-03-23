@@ -15,8 +15,8 @@
             <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex="20">
                     <mat-label>{{'manage_permission_type.nameInsert' | translate}}</mat-label>
-                    <input matInput type="text" formControlName="ctrlName" [readonly]="viewMode" [required]="!viewMode"
-                        [style.opacity]="viewMode ? '0.5' : ''">
+                    <input matInput type="text" formControlName="ctrlName" [readonly]="permissionType && viewMode" [required]="!viewMode"
+                        [style.opacity]="permissionType && viewMode ? '0.5' : ''">
                     <mat-error>{{'manage_permission_type.nameError' | translate}}</mat-error>
                 </mat-form-field>
             </div>
