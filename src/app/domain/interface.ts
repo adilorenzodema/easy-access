@@ -170,15 +170,16 @@ export interface DeviceStatus {
   status: Status;
   error_code: string;
 }
-export interface Calendar{
+export interface Calendar {
   date: Date;
-  flagHoliday: Boolean; }
+  flagHoliday: Boolean;
+}
 
-  export interface EFC {
-    efcCode: string;
-    serviceProvider: string;
-    flagActive: boolean;
-  }
+export interface EFC {
+  efcCode: string;
+  serviceProvider: string;
+  flagActive: boolean;
+}
 
 export type Status = 'OK' | 'KO';
 

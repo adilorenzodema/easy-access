@@ -33,7 +33,7 @@
             <ng-container matColumnDef="nextRunDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'manage_batches.nextRunDate' | translate}}
                 </th>
-                <td mat-cell *matCellDef="let element"> {{element.nextRunDate | date: 'dd/MM/yyyy hh:mm:ss'}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.nextRunDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="scheduled">

@@ -352,7 +352,8 @@
     "permission": {
       "notFound": "Permesso non trovato",
       "alreadyActivated": "Permesso già attivato",
-      "alreadyDeactivated": "Permesso già disattivato"
+      "alreadyDeactivated": "Permesso già disattivato",
+      "notValid": "Permesso non valido"
     },
     "permissionType": {
       "alreadyExist": "Tipo permesso già esistente",
@@ -378,18 +379,29 @@
       "alreadyActivated": "Varco già attivato",
       "alreadyDeactivated": "Varco già disattivato",
       "ipAlreadyExists": "Ip già associato ad un'altra antenna",
-      "codeAntennaAlreadyExists": "Codice antenna già esistente"
+      "codeAntennaAlreadyExists": "Codice antenna già esistente",
+      "notActive": "Varco non attivo",
+      "unreachable": "Varco irraggiungibile",
+      "antennaCodeNotMatch": "Il codice antenna del varco non corrisponde ad un codice presente su Easy Access"
     },
     "incident": {
       "notFound": "Incidente non trovato"
     },
     "transit": {
-      "notFound": "Transito non trovato "
+      "notFound": "Transito non trovato",
+      "alreadyExist": "Transito già esistente",
+      "maxDifference": "Transitonon completato in tempo"
     },
     "obu":{
       "notFound": "Codice OBU non trovato",
       "alreadyActivated": "Codice OBU già attivato",
-      "notValid":"Codice OBU non valido"
+      "notValid":"Codice OBU non valido",
+      "alreadyExist": "Codice OBU già esistente"
+    },
+    "efc": {
+      "notFound": "EFC non trovato",
+      "alreadyActivated": "EFC già attivato",
+      "alreadyDeactivated": "EFC già disattivato"
     },
     "profile": {
       "notFound": "Profilo non trovato"

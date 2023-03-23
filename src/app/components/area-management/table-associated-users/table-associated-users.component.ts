@@ -63,7 +63,7 @@ export class TableAssociatedUsersComponent implements OnInit, OnChanges, OnDestr
   public saveAssociation(): void {
     this.subscription.push(this.areaManageService.editAssociateUserArea(this.idArea, this.dataSourceAssUsers.data).subscribe({
       error: () => (this.snackBar.showMessage(this.translate.instant('manage_areas.associationError'), "ERROR")),
-      complete: () => (this.snackBar.showMessage(this.translate.instant('manage_areas.associationError'),
+      complete: () => (this.snackBar.showMessage(this.translate.instant('manage_areas.associationComplete'),
         "INFO"), this.changeViewEdit(), this.updateAssociatedUsers.emit())
     }));
   }

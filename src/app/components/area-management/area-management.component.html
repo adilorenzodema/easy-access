@@ -39,7 +39,7 @@
 
       <ng-container matColumnDef="creationDate">
         <th mat-header-cell *matHeaderCellDef> {{'common.creationDate' | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{ element.creationDate | date:'medium' }} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.creationDate | date:'y/MM/dd H:mm:ss' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="modificationUser">
@@ -49,7 +49,7 @@
 
       <ng-container matColumnDef="modificationDate">
         <th mat-header-cell *matHeaderCellDef> {{'common.modificationDate' | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.modificationDate | date:'medium' }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.modificationDate | date:'y/MM/dd H:mm:ss' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
@@ -67,7 +67,7 @@
           </button>
 
           <button mat-icon-button
-            *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'active-area'"
+            *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-area'"
             (click)="activateArea(element.idArea)">
             <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}">refresh</mat-icon>
           </button>

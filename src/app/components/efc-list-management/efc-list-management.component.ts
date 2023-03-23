@@ -44,8 +44,9 @@ export class EfcListManagementComponent implements OnInit {
 
   public callGetAPI(): void {
     this.complete = false;
-    const keyword = this.search.get('ctrlSearch')?.value;
-    this.subscription.push(this.efcListService.getEfcList(keyword).subscribe({
+    const efcCode = this.search.get('ctrlSearch')?.value;
+    console.log(efcCode);
+    this.subscription.push(this.efcListService.getEfcList(efcCode).subscribe({
       next: efc => {
         this.dataSource.data = efc;
         this.dataSource.paginator = this.paginator;

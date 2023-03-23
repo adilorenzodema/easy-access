@@ -7,23 +7,25 @@ import { HolidaysComponentComponent } from './holidays-component.component';
 import { LibMaterialModule } from 'dema-movyon-template';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMultipleDatesModule } from 'ngx-multiple-dates';
+import { PipesModuleModule } from "../../shared/pipes/pipes.module";
 
 
 
 @NgModule({
-  declarations: [
-    HolidaysComponentComponent
-  ],
-  imports: [
-    CommonModule,
-    LibMaterialModule,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HolidaysComponentRoutingModule,
-    TranslateModule,
-    NgxMultipleDatesModule,
-  ],
-  providers: [DatePipe]
+    declarations: [
+        HolidaysComponentComponent
+    ],
+    providers: [DatePipe],
+    imports: [
+        CommonModule,
+        LibMaterialModule,
+        FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HolidaysComponentRoutingModule,
+        TranslateModule,
+        NgxMultipleDatesModule,
+        PipesModuleModule
+    ]
 })
 export class HolidaysComponentModule { }

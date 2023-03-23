@@ -23,7 +23,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public formGroup: FormGroup;
-  public start = moment(moment.now()).subtract(2, 'day');
+  public start = moment(moment.now()).subtract(20, 'day');
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =
@@ -75,7 +75,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       const obuSearch = this.formGroup.get('ctrlObuSearch')?.value;
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
-      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD HH:mm:ss');
+      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
+      console.log(start + '' + end);
+      //Orario inizio deve essere 00:00, orario fine 23:59
       this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
