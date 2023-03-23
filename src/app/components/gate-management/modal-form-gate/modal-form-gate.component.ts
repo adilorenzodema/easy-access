@@ -49,8 +49,8 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [null, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$') */]],
         ctrlParkId: [null, Validators.required],
-        ctrlGateDirection: [null, [Validators.required]], //ENTRATA, USCITA, DOPPIO SENSO
-        ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]], //ip
+        ctrlGateDirection: [null, [Validators.required]], 
+        ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]], 
         ctrlPortAntenna: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
         ctrlCodeAntenna: [null, Validators.required]
       });

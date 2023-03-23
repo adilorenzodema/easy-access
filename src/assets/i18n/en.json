@@ -378,6 +378,7 @@
       "alreadyExist": "Gate already exists",
       "notFound": "Gate not found",
       "alreadyActivated": "Gate is already active",
+      "gateNameAlreadyExists": "Gate name already exists",
       "alreadyDeactivated": "Gate already inactive",
       "ipAlreadyExists": "Ip is already associated to another antenna",
       "codeAntennaAlreadyExists": "Code antenna already exists",

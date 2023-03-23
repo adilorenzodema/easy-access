@@ -377,6 +377,7 @@
     "gate":{
       "alreadyExist": "Varco già esistente",
       "notFound": "Varco non trovato",
+      "gateNameAlreadyExists": "Nome varco già esistente",
       "alreadyActivated": "Varco già attivato",
       "alreadyDeactivated": "Varco già disattivato",
       "ipAlreadyExists": "Ip già associato ad un'altra antenna",
