@@ -66,6 +66,7 @@ export class HolidaysComponentComponent implements OnInit {
       next: date => {
         date.map((singledate) => {
           this.model.push(singledate.date);
+          this.model.sort();
         });
       },
       error: () => this.complete = true,
