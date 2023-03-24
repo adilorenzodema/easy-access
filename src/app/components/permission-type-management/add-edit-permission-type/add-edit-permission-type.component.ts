@@ -25,7 +25,7 @@ import { PermissionTypeManagementService } from 'src/app/service/permission-type
 export class AddEditPermissionTypeComponent implements OnInit {
   public formGroup: FormGroup;
   public days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-  public holidays = ['holiday', 'preHoliday'];
+  public holidays = ['holiday'];
   public viewMode = true;
   public complete = true;
   public permissionType: PermissionType;
@@ -104,7 +104,6 @@ export class AddEditPermissionTypeComponent implements OnInit {
       saturday: [false],
       sunday: [false],
       holiday: [false],
-      preHoliday: [false]
     });
   }
 
@@ -123,7 +122,6 @@ export class AddEditPermissionTypeComponent implements OnInit {
           saturday: [timeSlot.saturday],
           sunday: [timeSlot.sunday],
           holiday: [timeSlot.holiday],
-          preHoliday: [timeSlot.preHoliday]
         }));
     });
     return formGroupArray;

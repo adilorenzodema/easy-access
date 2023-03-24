@@ -20,8 +20,8 @@ export class TransitComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate', 'endDate', 'gate', 'park', 'validationType', 'flagPassed'];
   public dataSource = new MatTableDataSource<Transit>();
-  public start = moment(moment.now()).subtract(22, 'day');
-  public end = moment(moment.now());
+  public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
+  public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
   public formGroup: FormGroup;
   public complete = true;
 
@@ -34,6 +34,8 @@ export class TransitComponent implements OnInit {
     this.formGroup = new FormGroup({
       start: new FormControl(moment(this.start).toDate(), Validators.required),
       end: new FormControl(moment(this.end).toDate(), Validators.required),
+      startTime: new FormControl (moment("00:00:00", 'hh:mm:ss').format('HH:mm'), Validators.required),
+      endTime:new FormControl (moment("23:59:00", 'hh:mm:ss').format('HH:mm'), Validators.required),
       ctrlOBUSearch: new FormControl(''),
       ctrlParkSearch: new FormControl(''),
       ctrlGateSearch: new FormControl(''),
@@ -43,12 +45,15 @@ export class TransitComponent implements OnInit {
     this.callGetAPI();
   }
 
-  // obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string, flagTransited: boolean
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
-      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD');
-      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD');
+      const startTime = this.formGroup.get('startTime')?.value;
+      const endTime = this.formGroup.get('endTime')?.value;
+      const startDate = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD');
+      const endDate = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD');
+      const start = startDate + " " + startTime + ":00";
+      const end = endDate + " " + endTime + ":59";
       const obuSearch = this.formGroup.get('ctrlOBUSearch')?.value;
       const parkSearch = this.formGroup.get('ctrlParkSearch')?.value;
       const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;

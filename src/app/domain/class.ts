@@ -107,11 +107,9 @@ export class FasciaOraria {
   friday: boolean;
   saturday: boolean;
   sunday: boolean;
-  preHoliday: boolean;
   holiday: boolean;
   constructor(startTime: string, endTime: string,
-    monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean,
-    preHoliday: boolean, holiday: boolean) {
+    monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean, holiday: boolean) {
     this.startTime = startTime;
     this.endTime = endTime;
     this.monday = monday;
@@ -120,7 +118,6 @@ export class FasciaOraria {
     this.thursday = thursday;
     this.friday = friday;
     this.saturday = saturday;
-    this.preHoliday = preHoliday;
     this.holiday = holiday;
   }
 
