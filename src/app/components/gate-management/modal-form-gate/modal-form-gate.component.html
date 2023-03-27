@@ -1,5 +1,10 @@
 <form [formGroup]="inputUserForm" fxLayout="column" fxLayoutGap="25px">
-  <mat-card-title fxLayoutAlign="center"> {{"manage_gates.modalTitle" | translate}} </mat-card-title>
+  <ng-container *ngIf="data else add">
+    <mat-card-title fxLayoutAlign="center"> {{"manage_gates.modalTitleEdit" | translate}} </mat-card-title>
+  </ng-container>
+  <ng-template #add>
+    <mat-card-title fxLayoutAlign="center"> {{"manage_gates.modalTitleAdd" | translate}} </mat-card-title>
+  </ng-template>
   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
     <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="30" fxFlex.gt-lg="29">
       <mat-label>{{"manage_gates.gateName" | translate}}</mat-label>

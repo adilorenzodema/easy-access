@@ -81,8 +81,12 @@
               router
             </mat-icon>
           </button>
-          <button mat-icon-button *ngIf="operations | getPermissionPipe: 'edit-gate'">
-            <mat-icon class="edit-icon"  matTooltip="{{'common.edit' | translate}}"
+
+          <button mat-icon-button *ngIf="search.controls['ctrlActive'].value" disabled>
+            <mat-icon class="edit-icon" style="color: grey" matTooltip="{{'manage_gates.notEditable' | translate}}">edit_off</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'edit-gate'">
+            <mat-icon class="edit-icon" matTooltip="{{'common.edit' | translate}}"
               (click)="addEditGate(element)">edit</mat-icon>
           </button>
           <button mat-icon-button
@@ -92,7 +96,7 @@
           </button>
           <button *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-gate'"
             mat-icon-button (click)="activateGate(element.idGate)">
-            <mat-icon class="refreshIcon"matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
+            <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
         </td>
       </ng-container>
 
