@@ -109,6 +109,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
         this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(this.dataSource.sort);
       },
       error: () => this.complete = true,
       complete: () => this.complete = true

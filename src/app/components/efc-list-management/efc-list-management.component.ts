@@ -51,7 +51,6 @@ export class EfcListManagementComponent implements OnInit {
         this.dataSource.data = efc;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
       },
       error: () => this.complete = true,
       complete: () => this.complete = true

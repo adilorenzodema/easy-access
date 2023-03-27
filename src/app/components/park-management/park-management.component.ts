@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -20,14 +20,13 @@ import { ModalFormParkComponent } from './modal-form-park/modal-form-park.compon
   templateUrl: './park-management.component.html',
   styleUrls: ['./park-management.component.css']
 })
-export class ParkManagementComponent implements OnInit {
+export class ParkManagementComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
   public search: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
   public displayedColumns: string[] =
-    ['idParcheggio', 'nomeParcheggio', 'indirizzo', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
+    ['idPark', 'namePark', 'location', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public areaName: string;
   public idArea: number;
   public complete = true;
@@ -56,16 +55,20 @@ export class ParkManagementComponent implements OnInit {
     this.getPermissionAPI();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
   public callGetAPI(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
     this.parkingService.getParking(keyword, isActive).subscribe({
-      next: (park) => (
-        this.dataSource.data = park,
-        this.dataSource.paginator = this.paginator,
-        this.dataSource.sort = this.sort
-      ),
+      next: park => {
+        this.dataSource.data = park;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
       error: () => this.complete = true,
       complete: () => this.complete = true
     });
