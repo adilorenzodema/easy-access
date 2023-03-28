@@ -109,7 +109,7 @@
   "manage_parks": {
     "parkTitle": "Manage Parking Lots",
     "associatedParksTitle": "Parking lots assocciated with area: ",
-    "park": "Parking lot: ",
+    "park": "Manage Parking Lots: Edit Parking lot ",
     "modalTitle": "Add a new Parking Lot",
     "active": "Active",
     "inactive": "Inactive",
@@ -139,6 +139,7 @@
   "manage_gates": {
     "title": "Manage Gates",
     "associatedTitle": "Gates associated with parking lot:",
+    "statusTitle": "Manage Gates: Status of Gate ",
     "searchByPark": "Search by parking lot",
     "searchByGate": "Search by gate",
     "gateName": "Name",

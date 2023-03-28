@@ -131,6 +131,7 @@ export class AddEditPermissionComponent implements OnInit {
     const obuCode = this.formGroup.get('ctrlObu').value;
     const startDate = this.formGroup.get('ctrlDateStart').value;
     const endDate = this.formGroup.get('ctrlDateEnd').value;
+    console.log(endDate);
     const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
     if (categoryValue === 'T') { // temporaneo
       const startHour = this.formGroup.get('ctrlHourStart').value;

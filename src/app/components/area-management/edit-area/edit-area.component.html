@@ -1,6 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
-        <mat-card-title> Area: {{area.areaName}}</mat-card-title>
+        <mat-card-title> {{"common.edit" | translate}} Area: {{area.areaName}}</mat-card-title>
         <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.back' | translate}}</button>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">

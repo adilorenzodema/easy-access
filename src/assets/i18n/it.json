@@ -110,7 +110,7 @@
     "parkTitle": "Gestione Parcheggi",
     "associatedParksTitle": "Parcheggi associati all'area",
     "modalTitle": "Aggiungi un nuovo Parcheggio",
-    "park": "Parcheggio: ",
+    "park": "Gestione Parcheggi: Modifica Parcheggio ",
     "active": "Attivo",
     "inactive": "Inattivo",
     "parkName": "Nome",
@@ -139,6 +139,7 @@
   "manage_gates": {
     "title": "Gestione Varchi",
     "associatedTitle": "Varchi associati al parcheggio:",
+    "statusTitle": "Gestione Varchi: Stato del Varco ",
     "searchByPark": "Ricerca per parcheggio",
     "searchByGate": "Ricerca per varco",
     "gateName": "Nome",
