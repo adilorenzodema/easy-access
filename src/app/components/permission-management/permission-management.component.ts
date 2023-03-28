@@ -135,6 +135,15 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  public getIconColor(status: string): any {
+    switch(status) {
+      case "EXPIRED": return 'expired';
+      case "EXPIRING": return 'expiring';
+      case "VALID": return 'valid';
+    }
+
+  }
+
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(

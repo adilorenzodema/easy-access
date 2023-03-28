@@ -1,5 +1,18 @@
-mat-header-cell, mat-cell {
-  justify-content: center;
+/* mat-header-cell, mat-cell {
+  display: flex !important;
+  justify-content: center !important;
+} */
+
+.center-th {
+  display: flex;
+  justify-content: center !important;
+  height: inherit;
+}
+
+.center-td{
+  text-align: center !important; 
+  /*  display: flex !important;
+  justify-content: center !important;  */
 }
 
 .table-button{
