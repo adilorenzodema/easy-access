@@ -41,7 +41,7 @@
 
       <ng-container matColumnDef="creationUser">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{"manage_parks.creationUser" | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.creationUser }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.creationUserFirstname}} {{element.creationUserLastname}} </td>
       </ng-container>
 
       <ng-container matColumnDef="creationDate">
@@ -52,7 +52,7 @@
 
       <ng-container matColumnDef="modificationUser">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.modificationUser" | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.modificationUser }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.modificationUserFirstname}} {{element.modificationUserLastname}} </td>
       </ng-container>
 
       <ng-container matColumnDef="modificationDate">
