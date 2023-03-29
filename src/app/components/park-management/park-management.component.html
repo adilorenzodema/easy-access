@@ -41,7 +41,7 @@
 
       <ng-container matColumnDef="creationUser">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{"manage_parks.creationUser" | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.creationUser }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.creationUserFirstname}} {{element.creationUserLastname}} </td>
       </ng-container>
 
       <ng-container matColumnDef="creationDate">
@@ -52,7 +52,8 @@
 
       <ng-container matColumnDef="modificationUser">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.modificationUser" | translate}} </th>
-        <td mat-cell *matCellDef="let element"> {{element.modificationUser }} </td>
+        <td mat-cell *matCellDef="let element"> {{element.modificationUserFirstname}}
+          {{element.modificationUserLastname}} </td>
       </ng-container>
 
       <ng-container matColumnDef="modificationDate">
@@ -65,18 +66,22 @@
         <td mat-cell *matCellDef="let element" style="text-align: end;">
           <button mat-icon-button *ngIf="operations | getPermissionPipe: 'edit-park'" [routerLink]="['edit-park']"
             [state]="{ park: element}">
-            <mat-icon class="edit-icon"  matTooltip="{{'common.longEdit' | translate}}">edit</mat-icon>
+            <mat-icon class="edit-icon" matTooltip="{{'common.longEdit' | translate}}">edit</mat-icon>
           </button>
           <button mat-icon-button
             *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
             <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
-              (click)="deletePark(element.idPark)">delete</mat-icon></button>
+              (click)="onDisactivate(element.idPark)">power_off</mat-icon></button>
 
           <button mat-icon-button
             *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-park'">
             <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
               (click)="activePark(element.idPark)">refresh</mat-icon></button>
 
+          <button mat-icon-button 
+            *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
+            <mat-icon  disabled style="color: red" matTooltip="{{'common.delete' | translate}}"
+              (click)="deletePark(element.idPark)">delete</mat-icon></button>
         </td>
       </ng-container>
 

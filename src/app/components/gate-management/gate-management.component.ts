@@ -87,7 +87,7 @@ export class GateManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  public deleteGate(gateId: number): void {
+  public onDisactivate(gateId: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -98,7 +98,7 @@ export class GateManagementComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.gateService.deleteGate(gateId).subscribe({
+          this.subscription.push(this.gateService.disactivateGate(gateId).subscribe({
             next: () => this.callGetAPI(),
             error: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deactivationError'), "ERROR"),
             complete: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deactivationSuccess'), "INFO")

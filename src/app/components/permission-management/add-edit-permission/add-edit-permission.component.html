@@ -1,5 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>{{permission ? ('manage-permission.editPermissionTitle' | translate) :
+    <mat-card-title> {{"manage-permission.title" | translate}}: 
+        {{permission ? ('manage-permission.editPermissionTitle' | translate) :
         ('manage-permission.addPermissionTitle' | translate) }}</mat-card-title>
     <mat-card-content>
         <div style="height: 5px;">

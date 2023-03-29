@@ -60,7 +60,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  public onDelete(areaId: number): void {
+  public onDisactivate(areaId: number): void {
     const title = this.translate.instant('manage_areas.disactivateTitle');
     const content = this.translate.instant('manage_areas.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
@@ -73,7 +73,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe(
+          this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe(
             () => this.callGetAPI()
           ));
         }
@@ -100,6 +100,27 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  public deleteArea(areaId: number): void {
+    const title = this.translate.instant('manage_areas.deleteTitle');
+    const content = this.translate.instant('manage_areas.deleteConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '35%', height: '25%',
+        data: { title, content },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe(
+            () => this.callGetAPI()
+          ));
+        }
+      });
+  }
+
+
   public callGetAPI(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
@@ -109,7 +130,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
         this.dataSource.data = areas;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.sort);
       },
       error: () => this.complete = true,
       complete: () => this.complete = true

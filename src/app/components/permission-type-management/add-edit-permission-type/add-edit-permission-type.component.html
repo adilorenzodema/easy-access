@@ -1,6 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
-        <mat-card-title> {{permissionType ?  ('manage_permission_type.editTitle' | translate) : ('manage_permission_type.addTitle' | translate)}}</mat-card-title>
+        <mat-card-title> {{'manage_permission_type.title' | translate}}: {{permissionType ?  ('manage_permission_type.editTitle' | translate) : ('manage_permission_type.addTitle' | translate)}}</mat-card-title>
         <div fxLayoutGap="10px">
             <button mat-button class="actionButton" *ngIf="permissionType" (click)="viewMode = !viewMode">
                 {{(viewMode) ? ('common.edit' | translate) : ('common.view' | translate) }} </button>

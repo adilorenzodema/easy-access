@@ -28,7 +28,7 @@
             </ng-container>
 
             <ng-container matColumnDef="flagActive">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'manage_efc.flagActive' | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > {{'manage_efc.flagActive' | translate}} </th>
                 <td mat-cell *matCellDef="let element">
                     <ng-container *ngIf="element.flagActive">
                         <mat-icon style="color: #51b1a1;">done</mat-icon>
@@ -42,7 +42,7 @@
 
                     <button mat-icon-button *ngIf="element.flagActive  && operations | getPermissionPipe: 'delete-efc'"
                         (click)="deactivate(element.efcCode)">
-                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">delete</mat-icon>
+                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
                     </button>
 
                     <button mat-icon-button *ngIf="!element.flagActive && operations | getPermissionPipe: 'activate-efc'"
