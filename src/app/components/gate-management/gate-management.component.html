@@ -90,9 +90,9 @@
               (click)="addEditGate(element)">edit</mat-icon>
           </button>
           <button mat-icon-button
-            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-gate'"
-            (click)="deleteGate(element.idGate)">
-            <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">delete</mat-icon>
+            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-gate'"
+            (click)="onDisactivate(element.idGate)">
+            <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
           </button>
           <button *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-gate'"
             mat-icon-button (click)="activateGate(element.idGate)">

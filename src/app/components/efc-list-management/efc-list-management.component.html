@@ -42,7 +42,7 @@
 
                     <button mat-icon-button *ngIf="element.flagActive  && operations | getPermissionPipe: 'delete-efc'"
                         (click)="deactivate(element.efcCode)">
-                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">delete</mat-icon>
+                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
                     </button>
 
                     <button mat-icon-button *ngIf="!element.flagActive && operations | getPermissionPipe: 'activate-efc'"

@@ -81,7 +81,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
         next: (permission) => (
           this.dataSource.data = permission,
           this.dataSource.paginator = this.paginator,
-          this.dataSource.sort = this.sort
+          this.dataSource.sort = this.sort,
+          console.log(this.dataSource.data)
         ),
         error: () => this.complete = true,
         complete: () => (this.applyFilter(this.permissionStatus), this.complete = true)
@@ -89,7 +90,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     }
   }
 
-  public deletePermission(id: number): void {
+  public onDisactivate(id: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -103,7 +104,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       (result: boolean) => {
         if (result) {
           this.complete = false;
-          this.subscription.push(this.permissionService.deletePermission(id).subscribe({
+          this.subscription.push(this.permissionService.disactivatePermission(id).subscribe({
             error: () => this.complete = true,
             complete: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.permissionDisactivated'),
               'INFO'), this.callGetAPI())

@@ -61,9 +61,9 @@
           </button>
 
           <button mat-icon-button
-            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-area'"
-            (click)="onDelete(element.idArea)">
-            <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">delete</mat-icon>
+            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-area'"
+            (click)="onDisactivate(element.idArea)">
+            <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
           </button>
 
           <button mat-icon-button
@@ -71,6 +71,14 @@
             (click)="activateArea(element.idArea)">
             <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}">refresh</mat-icon>
           </button>
+
+          <button mat-icon-button
+          *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-area'"
+          (click)="deleteArea(element.idArea)">
+          <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}">delete</mat-icon>
+        </button>
+
+
         </td>
       </ng-container>
 

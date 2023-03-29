@@ -84,7 +84,7 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     );
   }
 
-  public deletePark(parkId: number): void {
+  public onDisactivate(parkId: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -97,7 +97,7 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.parkingService.deletePark(parkId).subscribe(
+          this.subscription.push(this.parkingService.disactivatePark(parkId).subscribe(
             () => this.callGetAPI()
           ));
         }
@@ -118,6 +118,26 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       (result) => {
         if (result) {
           this.subscription.push(this.parkingService.activatePark(parkId).subscribe(
+            () => this.callGetAPI()
+          ));
+        }
+      });
+  }
+
+  public deletePark(parkId: number): void {
+    const title = this.translate.instant('manage_parks.deleteTitle');
+    const content = this.translate.instant('manage_parks.deleteConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '35%', height: '25%',
+        data: { title, content },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.parkingService.deletePark(parkId).subscribe(
             () => this.callGetAPI()
           ));
         }

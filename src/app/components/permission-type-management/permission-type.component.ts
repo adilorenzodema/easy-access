@@ -66,7 +66,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public deletePermissionType(id: number): void {
+  public onDisactivate(id: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -80,7 +80,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
       (resp: boolean) => {
         if (resp) {
           this.complete = false;
-          this.subscription.push(this.permissionTypeService.deletePermissionType(id).subscribe({
+          this.subscription.push(this.permissionTypeService.disactivatePermissionType(id).subscribe({
             error: () => this.complete = true,
             complete: () => (this.snackBar.showMessage(
               this.translate.instant('manage_permission_type.permissionDisactivated'), 'INFO'), this.callGetAPI(), this.complete = true)
