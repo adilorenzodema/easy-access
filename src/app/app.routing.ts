@@ -69,6 +69,12 @@ const routes: Routes = [
         loadChildren:
           () => import("src/app/components/efc-list-management/efc-list-management.module").then(m => m.EfcListManagementModule),
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'logs',
+        loadChildren:
+          () => import("src/app/components/logs-component/logs.module").then(m => m.LogsModule),
+        canActivate: [AuthGuard]
       }
     ]
   }
