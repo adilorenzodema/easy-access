@@ -75,14 +75,14 @@
                 <td mat-cell *matCellDef="let element"> {{element.obu.obuCode}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="obuStd">
+              <<th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuStd" | translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.obu.obuStd}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="startDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.dateStart" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef> {{"manage_transits.dateEnd" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="gate">

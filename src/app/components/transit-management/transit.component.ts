@@ -18,7 +18,7 @@ import { Transit } from '../../domain/interface';
 export class TransitComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['idTransit', 'codeObu', 'startDate', 'endDate', 'gate', 'park', 'validationType', 'flagPassed'];
+  public displayedColumns: string[] = ['idTransit', 'codeObu', 'obuStd', 'startDate', 'gate', 'park', 'validationType', 'flagPassed'];
   public dataSource = new MatTableDataSource<Transit>();
   public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
   public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");

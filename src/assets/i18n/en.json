@@ -276,7 +276,8 @@
     "gate": "Gate",
     "park": "Parking lot",
     "transitStatus": "Transit Status",
-    "noTransits": "There are no transits present."
+    "noTransits": "There are no transits present.",
+    "obuStd": "Obu STD"
   },
   "manage_batches": {
     "title": "Batch Management",

@@ -275,7 +275,8 @@
     "gate": "Varco",
     "park": "Parcheggio",
     "transitStatus": "Status Transito",
-    "noTransits": "Nessun transito presente."
+    "noTransits": "Nessun transito presente.",
+    "obuStd": "Obu STD"
     },
   "manage_batches": {
     "title": "Gestione Batch",

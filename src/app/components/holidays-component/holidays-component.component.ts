@@ -42,7 +42,9 @@ export class HolidaysComponentComponent implements OnInit {
   ) {
   }
   public dateClass = (date: Date): string[] => {
-    if (this._findDate(date) !== -1) {
+    let d:any = new Date(date.setDate(date.getDate()+1));
+
+    if (this._findDate(d) !== -1) {
       return ['selected'];
     }
     return [];
@@ -70,7 +72,10 @@ export class HolidaysComponentComponent implements OnInit {
         });
       },
       error: () => this.complete = true,
-      complete: () => this.complete = true
+      complete: () => {
+        this.model.sort( (a, b) => this.orderDate(a, b));
+        this.complete = true;
+      }
     }));
   }
 
@@ -86,10 +91,15 @@ export class HolidaysComponentComponent implements OnInit {
 
   public dateChanged(event: MatDatepickerInputEvent<Date>): void {
     if (event.value) {
-      const date = event.value;
+      let date = event.value;
+      date = new Date(date.setDate(date.getDate()+1))
       const index = this._findDate(date);
+
       if (index === -1) {
+        console.log("date : ", date)
+        date = new Date(date.setDate(date.getDate()-1))
         this.model.push(date);
+        this.model.sort( (a, b) => this.orderDate(a, b));
       } else {
         this.model.splice(index, 1);
       }
@@ -111,7 +121,39 @@ export class HolidaysComponentComponent implements OnInit {
   }
 
   private _findDate(date: Date): number {
-    return this.model.map((m) => +m).indexOf(+date);
+    let d:any;
+    for (let i in this.model){
+      d = moment(this.model[i]).format('yyyy-MM-DD');
+      if (d === date.toISOString().split('T')[0]){
+        console.log( d +" vs ", date.toISOString().split('T')[0])
+        return +i;
+      }
+    }
+    return -1;
+
+
+    // return this.model.map((m) => {
+    //   let d = new Date(moment(m).format('yyyy-MM-DD'));
+    //   console.log("m = ", d, " VS date = ", date);
+    //   return d;
+    // }).indexOf(date);
+  }
+
+  private orderDate(a: any, b:any): number {
+    // console.log("a = ", typeof a);
+    // console.log("b: ", b);
+
+    a = moment(a).format('yyyy-MM-DD');
+    b = moment(b).format('yyyy-MM-DD');
+
+    const d1 = new Date(a);
+    const d2 = new Date(b);
+
+    if (d1.getTime() > d2.getTime()) return 1;
+
+    else if (d1.getTime() < d2.getTime()) return -1;
+
+    else return 0; //date uguali
   }
 }
 

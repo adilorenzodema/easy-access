@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PagePermissionService } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
+import { EFC } from 'src/app/domain/interface';
 import { EfcListManagementService } from 'src/app/service/efc-list-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 
@@ -48,12 +49,13 @@ export class EfcListManagementComponent implements OnInit {
     console.log(efcCode);
     this.subscription.push(this.efcListService.getEfcList(efcCode).subscribe({
       next: efc => {
+        efc.sort( (a:EFC ,b:EFC ) => +b.flagActive - +a.flagActive); //sort per flagActive = true
         this.dataSource.data = efc;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: () => this.complete = true,
-      complete: () => this.complete = true
+      complete: () =>  this.complete = true
     }));
   }
 
