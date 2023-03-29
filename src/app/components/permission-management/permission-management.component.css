@@ -12,15 +12,15 @@
 
   .center-icon {
     vertical-align: middle;
-
   }
 
-  .vadid{
+  .valid{
     color: green;
   }
 
   .expiring{
     color: orange;
+    /* transform: scale(0.9); */
   }
 
   .expired{

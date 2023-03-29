@@ -61,11 +61,11 @@
                     | translate) : ('manage-permission.temporary' | translate)}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="status">
+            <ng-container matColumnDef="permissionStatus">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'manage-permission.permissionStatus' |
                 translate}} </th>
                 <td mat-cell *matCellDef="let element" > {{'manage-permission.' + element.permissionStatus | translate}}
-                <mat-icon [ngClass]="getIconColor(element.permissionStatus)" class="center-icon">timer</mat-icon>
+                <mat-icon [ngClass]="element.permissionStatus | iconColor" class="center-icon">timer</mat-icon>
                 </td>
             </ng-container>
 

@@ -80,7 +80,7 @@
 
           <button mat-icon-button 
             *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
-            <mat-icon  disabled style="color: red" matTooltip="{{'common.delete' | translate}}"
+            <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
               (click)="deletePark(element.idPark)">delete</mat-icon></button>
         </td>
       </ng-container>

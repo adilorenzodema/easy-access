@@ -27,7 +27,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =
-    ['idPermission', 'category', 'status', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+    ['idPermission', 'category', 'permissionStatus', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
   public permissionStatus: PermissionSearchStatus = 'VALID';
 
@@ -134,15 +134,6 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
           }));
         }
       });
-  }
-
-  public getIconColor(status: string): any {
-    switch(status) {
-      case "EXPIRED": return 'expired';
-      case "EXPIRING": return 'expiring';
-      case "VALID": return 'valid';
-    }
-
   }
 
   private getPermissionAPI(): void {

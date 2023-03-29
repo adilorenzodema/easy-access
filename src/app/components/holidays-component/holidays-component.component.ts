@@ -92,12 +92,11 @@ export class HolidaysComponentComponent implements OnInit {
   public dateChanged(event: MatDatepickerInputEvent<Date>): void {
     if (event.value) {
       let date = event.value;
-      date = new Date(date.setDate(date.getDate()+1))
+      date = new Date(date.setDate(date.getDate()+1));
       const index = this._findDate(date);
 
       if (index === -1) {
-        console.log("date : ", date)
-        date = new Date(date.setDate(date.getDate()-1))
+        date = new Date(date.setDate(date.getDate()-1));
         this.model.push(date);
         this.model.sort( (a, b) => this.orderDate(a, b));
       } else {
@@ -125,7 +124,6 @@ export class HolidaysComponentComponent implements OnInit {
     for (let i in this.model){
       d = moment(this.model[i]).format('yyyy-MM-DD');
       if (d === date.toISOString().split('T')[0]){
-        console.log( d +" vs ", date.toISOString().split('T')[0])
         return +i;
       }
     }
