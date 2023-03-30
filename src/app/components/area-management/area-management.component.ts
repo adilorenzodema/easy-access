@@ -34,7 +34,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     private areaManagementService: AreaManagementService,
     private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog) {  }
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
@@ -120,11 +120,21 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       });
   }
 
-
+  /**
+   * This function performs a GET request to the backend API to retrieve a list of areas.
+   * It then updates the data source of the current component to display the returned list of areas.
+   */
   public callGetAPI(): void {
+    // Set the "complete" property to false to indicate that the request is still ongoing.
     this.complete = false;
+    // Retrieve the search keyword and isActive status from the search parameters.
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
+    // Subscribe to the observable returned by the "getAreaList" method of the "areaManagementService".
+    // When the observable emits a value (i.e., the list of areas), update the data source of the component with the returned data.
+    // If an error occurs during the request, set the "complete" property to true to indicate that the request is complete.
+    // If the request completes successfully, also set the "complete" property to true to indicate that the request is complete.
+
     this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe({
       next: areas => {
         this.dataSource.data = areas;

@@ -22,7 +22,8 @@
     "Incidents": "Incidents",
     "Batch Management": "Batch",
     "Holidays Selection": "Holidays Selection",
-    "EFC List": "EFC List"
+    "EFC List": "Service Provider List",
+    "Logs" : "Logs"
   },
   "common": {
     "searchLabel": "Search",

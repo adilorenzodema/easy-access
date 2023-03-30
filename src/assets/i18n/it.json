@@ -22,7 +22,8 @@
     "Incidents": "Anomalie",
     "Batch Management": "Batch",
     "Holidays Selection": "Selezione Festività",
-    "EFC List": "Lista EFC"
+    "EFC List": "Lista Service Providers",
+    "Logs": "Log"
   },
   "common": {
     "searchLabel": "Cerca",

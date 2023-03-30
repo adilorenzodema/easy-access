@@ -10,8 +10,8 @@ export class IconColorPipe implements PipeTransform {
       case "EXPIRED": return 'expired';
       case "EXPIRING": return 'expiring';
       case "VALID": return 'valid';
+      default: return null;
     }
-    return "null";
   }
 
 }
