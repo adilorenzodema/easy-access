@@ -94,7 +94,7 @@ export class AddEditPermissionComponent implements OnInit {
       this.formGroup.removeControl('ctrlHourStartDaily');
       this.formGroup.removeControl('ctrlHourEndDaily');
       this.formGroup.addControl('ctrlDateEnd', this.formBuilder.control('', Validators.required));
-      this.formGroup.patchValue({ ctrlDateEnd: moment(this.today).toDate() });
+      this.formGroup.patchValue({ ctrlDateEnd: moment(this.today).add(5, 'days').toDate() });
     } else if (categoryValue === 'D') { //giornaliero
       /* const hour = moment().hour();
       const minutes = moment().minutes();
