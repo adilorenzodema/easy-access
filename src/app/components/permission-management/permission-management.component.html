@@ -113,7 +113,7 @@
                             [state]="{permission: element}">edit</mat-icon>
                     </button>
                     <button mat-icon-button
-                        *ngIf="formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permission'">
+                        *ngIf="formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-permission'">
                         <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
                             (click)="onDisactivate(element.idPermission)">power_off</mat-icon>
                     </button>
@@ -122,6 +122,10 @@
                         <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
                             (click)="activePermission(element.idPermission)">refresh</mat-icon>
                     </button>
+                    <button mat-icon-button 
+                    *ngIf="!formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permission'">
+                    <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
+                      (click)="deletePermission(element.idPermission)">delete</mat-icon></button>
                 </td>
             </ng-container>
 

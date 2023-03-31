@@ -153,7 +153,7 @@
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                         fxFlex.gt-md="20">
                         <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-                        <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart"> <!-- (dateChange)="dateValidator()" -->
+                        <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate"> <!-- (dateChange)="dateValidator()" -->
                         <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                         <mat-datepicker #pickerStart></mat-datepicker>
                         <!-- <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">

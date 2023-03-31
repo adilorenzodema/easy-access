@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { PagePermissionService } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
@@ -34,6 +34,7 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     private areaManagementService: AreaManagementService,
     private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
+    private snackBar: SnackBar,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -74,8 +75,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationSuccess'), "INFO")
+            }));
         }
       });
   }
@@ -94,8 +98,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.areaManagementService.activateArea(areaId).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.activationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.activationSuccess'), "INFO")
+            }));
         }
       });
   }
@@ -113,9 +120,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe(
-            () => this.callGetAPI()
-          ));
+          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe({
+            next: () => this.callGetAPI(),
+            error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.deletionError'), "ERROR"),
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.deletionSuccess'), "INFO")
+          }));
         }
       });
   }

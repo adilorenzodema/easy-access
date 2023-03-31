@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { PagePermissionService } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { ParkManagementService } from 'src/app/service/park-management.service';
@@ -40,6 +40,7 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
+    private snackBar: SnackBar,
     private translate: TranslateService
   ) {
     this.idArea = this.router.getCurrentNavigation()?.extras.state?.['idArea'] as number;
@@ -85,11 +86,13 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
   }
 
   public onDisactivate(parkId: number): void {
+    const title = this.translate.instant('manage_parks.disactivateTitle');
+    const content = this.translate.instant('manage_parks.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
         data: {
-          title: "Cancellazione parcheggio", content: "Desideri disattivare il parcheggio selezionato?"
+          title, content
         },
         autoFocus: false
       }
@@ -98,18 +101,23 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       (result) => {
         if (result) {
           this.subscription.push(this.parkingService.disactivatePark(parkId).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_parks.disactivationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_parks.disactivationSuccess'), "INFO")
+            }));
         }
       });
   }
 
   public activePark(parkId: number): void {
+    const title = this.translate.instant('manage_parks.activateTitle');
+    const content = this.translate.instant('manage_parks.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
         data: {
-          title: "Riattivazione parcheggio", content: "Desideri attivare il parcheggio disattivato?"
+          title, content
         },
         autoFocus: false
       }
@@ -118,8 +126,11 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       (result) => {
         if (result) {
           this.subscription.push(this.parkingService.activatePark(parkId).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_parks.disactivationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_parks.disactivationSuccess'), "INFO")
+            }));
         }
       });
   }
@@ -138,8 +149,11 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       (result) => {
         if (result) {
           this.subscription.push(this.parkingService.deletePark(parkId).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_parks.deleteError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_parks.deletionSuccess'), "INFO")
+            }));
         }
       });
   }

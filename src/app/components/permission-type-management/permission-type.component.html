@@ -56,6 +56,11 @@
                         class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
                             (click)="activePermissionType(element.permissionTypeId)">refresh</mat-icon>
                     </button>
+
+                    <button mat-icon-button 
+                    *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permissiontype'">
+                    <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
+                      (click)="deletePermissionType(element.permissionTypeId)">delete</mat-icon></button>
                 </td>
             </ng-container>
 

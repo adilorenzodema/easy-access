@@ -114,6 +114,28 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     );
   }
 
+  public deletePermissionType(id: number): void {
+    const title = this.translate.instant('manage_permission_type.deleteTitle');
+    const content = this.translate.instant('manage_permission_type.deleteConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '35%', height: '25%',
+        data: { title, content },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.permissionTypeService.deletePermissionType(id).subscribe({
+            next: () => this.callGetAPI(),
+            error: () => this.snackBar.showMessage(this.translate.instant('manage_permission_type.deletionError'), "ERROR"),
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_permission_type.deletionSuccess'), "INFO")
+          }));
+        }
+      });
+  }
+
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(

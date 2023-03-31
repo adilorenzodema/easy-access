@@ -69,7 +69,7 @@
             <mat-icon class="edit-icon" matTooltip="{{'common.longEdit' | translate}}">edit</mat-icon>
           </button>
           <button mat-icon-button
-            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
+            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-park'">
             <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
               (click)="onDisactivate(element.idPark)">power_off</mat-icon></button>
 
