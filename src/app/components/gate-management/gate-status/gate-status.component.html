@@ -2,12 +2,13 @@
     <mat-card-header fxLayoutAlign="space-between">
         <mat-card-title>
             <div fxLayoutGap="10px">
-                <span>{{gate.gateDescription}}</span>
+                <span> {{"manage_gates.statusTitle" | translate}} {{gate.gateDescription}}</span>
                 <mat-icon [style.color]="gate.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
             </div>
         </mat-card-title>
         <mat-card-subtitle>
-            Antenna: {{gate.ipAntenna}} - Porta: {{gate.portAntenna}} - Direzione: {{gate.gateDirection}}
+            Antenna IP: {{gate.ipAntenna}} - {{"manage_gates.antennaPort" | translate}}: {{gate.portAntenna}} - {{"manage_gates.gateDirection" | translate}}: {{gate.gateDirection}}
+            - {{"manage_gates.associatedPark" | translate}}: {{gate.park.namePark}}
         </mat-card-subtitle>
         <span><button mat-button class="actionButton" routerLink="../">{{'common.back' | translate}}</button></span>
     </mat-card-header>
@@ -16,7 +17,7 @@
             <div class="border-grey" fxFlex="50">
                 <mat-card-subtitle> Azioni su antenna</mat-card-subtitle>
                 <div fxLayoutGap="10px">
-                    <button mat-button class="actionButton" (click)="testGateInfo()">Test connessione</button>
+                    <button mat-button class="actionButton" (click)="testGateConnection()">Test connessione</button>
                     <button mat-button class="actionButton" (click)="reboot()">Riavvio</button>
                     <button mat-button class="actionButton" (click)="disactive()">Disattiva</button>
                     <button mat-button class="actionButton" (click)="active()">Attiva</button>

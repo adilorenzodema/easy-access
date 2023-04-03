@@ -87,18 +87,20 @@ export class GateManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  public deleteGate(gateId: number): void {
+  public onDisactivate(gateId: number): void {
+    const title = this.translate.instant('manage_gates.disactivateTitle');
+    const content = this.translate.instant('manage_gates.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
-        width: '30%', height: '30%',
-        data: { title: "Cancellazione varco", content: "Desideri cancellare il varco selezionato?" },
+        width: '35%', height: '25%',
+        data: { title, content },
         autoFocus: false
       }
     );
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.gateService.deleteGate(gateId).subscribe({
+          this.subscription.push(this.gateService.disactivateGate(gateId).subscribe({
             next: () => this.callGetAPI(),
             error: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deactivationError'), "ERROR"),
             complete: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deactivationSuccess'), "INFO")
@@ -107,10 +109,12 @@ export class GateManagementComponent implements OnInit, OnDestroy {
       });
   }
   public activateGate(gateId: number): void{
+    const title = this.translate.instant('manage_gates.activateTitle');
+    const content = this.translate.instant('manage_gates.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
-        width: '30%', height: '30%',
-        data: { title: "Attivazione varco", content: "Desideri Attivare il varco selezionato?" },
+        width: '35%', height: '25%',
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -124,7 +128,28 @@ export class GateManagementComponent implements OnInit, OnDestroy {
           }));
         }
       });
+  }
 
+  public deleteGate(gateId: number): void {
+    const title = this.translate.instant('manage_gates.deleteTitle');
+    const content = this.translate.instant('manage_gates.deleteConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '35%', height: '25%',
+        data: { title, content },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.gateService.deleteGate(gateId).subscribe({
+            next: () => this.callGetAPI(),
+            error: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deletionError'), "ERROR"),
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_gates.deletionSuccess'), "INFO")
+          }));
+        }
+      });
   }
 
   private getPermissionAPI(): void {

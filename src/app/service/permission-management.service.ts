@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { AddPermanentPermission, AddTemporaryPermission } from '../domain/class';
+import { AddDailyPermission, AddPermanentPermission, AddTemporaryPermission } from '../domain/class';
 import { Permission } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
@@ -48,6 +48,15 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  addDailyPermission(dailyPermission: AddDailyPermission): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/addDailyPermission', dailyPermission, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
   editTemporaryPermission(tempPermission: AddTemporaryPermission, idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -66,12 +75,21 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  deletePermission(idPermission: number): Observable<void> {
+  editDailyPermission(tempPermission: AddPermanentPermission, idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<void>(this.apiURL + `/deletePermission/${idPermission}`, null, options)
+    return this.http.post<void>(this.apiURL + '/editDailyPermission/' + idPermission, tempPermission, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  disactivatePermission(idPermission: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + `/disactivatePermission/${idPermission}`, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 
@@ -81,6 +99,15 @@ export class PermissionManagementService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<void>(this.apiURL + `/activatePermission/${idPermission}`, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  deletePermission(idPermission: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + `/deletePermission/${idPermission}`, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 }

@@ -7,8 +7,8 @@ export const environment = {
   },
   footer: {
     year: '2022',
-    title: 'Powered by Dema Engineering',
-    link: 'https://dema-engineering.it/',
+    title: '',
+    link: '',
   },
   login: {
     image: 'assets/images/logo.png',

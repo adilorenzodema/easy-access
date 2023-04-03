@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  //beUrl: 'http://192.168.1.2:8085/',
+  // beUrl: 'http://192.168.1.2:8080/',
   configFile: 'assets/config/config-test-app.json',
   header: {
     imgSidebar: 'assets/images/movyon.svg',
@@ -12,8 +12,8 @@ export const environment = {
   },
   footer: {
     year: '2022',
-    title: 'Powered by Dema Engineering',
-    link: 'https://dema-engineering.it/',
+    title: '',
+    link: '',
   },
   login: {
     image: 'assets/images/logo.png',

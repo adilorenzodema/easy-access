@@ -20,8 +20,8 @@ export class IncidentsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
-  public start = moment(moment.now()).subtract(22, 'day');
-  public end = moment(moment.now());
+  public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
+  public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
   public formGroup: FormGroup;
   public complete = true;
   public parkByIncidents;
@@ -50,8 +50,8 @@ export class IncidentsComponent implements OnInit {
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
-      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD');
-      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD');
+      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD' + '00:00:00');
+      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD' + '23:59:59');
       const parkSearch = this.formGroup.get('ctrlParkSearch')?.value;
       const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;
       const errorCode = this.formGroup.get('ctrlErrorCode')?.value;

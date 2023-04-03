@@ -10,6 +10,7 @@ import { PermissionManagementComponent } from './permission-management.component
 import { PermissionRoutingModule } from './permission-routing.module';
 import { AddEditPermissionComponent } from './add-edit-permission/add-edit-permission.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { PipesModuleModule } from "../../shared/pipes/pipes.module";
 
 
 @NgModule({
@@ -25,9 +26,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
-
     PermissionRoutingModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    PipesModuleModule
   ]
 })
 export class PermissionModule { }

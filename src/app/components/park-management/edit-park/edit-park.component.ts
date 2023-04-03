@@ -35,8 +35,8 @@ export class EditParkComponent implements OnInit, OnDestroy {
     private parkManagementService: ParkManagementService) {
 
     this.park = this.router.getCurrentNavigation()?.extras.state?.['park'] as Park;
+    if (!this.park) { this.router.navigate(['/park-management']); }
     this.active = this.router.getCurrentNavigation()?.extras.state?.['active'] as boolean;
-    if (!this.park) { this.router.navigate(['/parking-management']); }
   }
 
   ngOnInit(): void {

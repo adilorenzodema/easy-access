@@ -17,7 +17,8 @@ export class TransitService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getTransitList(startDate: string, endDate: string, obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string, flagTransited: boolean): Observable<Transit[]> {
+  getTransitList(startDate: string, endDate: string, obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string, 
+    flagTransited: boolean): Observable<Transit[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), 

@@ -35,7 +35,7 @@ export class Park {
   }
 }
 
-export class AddEditGate{
+export class AddEditGate {
   idGate?: number;
   parkId: number;
   gateName: string;
@@ -43,7 +43,7 @@ export class AddEditGate{
   ipAntenna: string;
   portAntenna: number;
   codeAntenna: string;
-  constructor(idPark: number, gateDescription: string, gateDirection: string, ipAntenna: string, portAntenna: number, codeAntenna: string){
+  constructor(idPark: number, gateDescription: string, gateDirection: string, ipAntenna: string, portAntenna: number, codeAntenna: string) {
     this.parkId = idPark;
     this.gateName = gateDescription;
     this.gateDirection = gateDirection;
@@ -68,6 +68,20 @@ export class AddPermission {
 }
 
 export class AddTemporaryPermission extends AddPermission {
+  permissionTypeId: number;
+  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], permissionTypeId: number) {
+    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
+    this.permissionTypeId = permissionTypeId;
+  }
+}
+
+export class AddPermanentPermission extends AddPermission {
+  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[]) {
+    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
+  }
+}
+
+export class AddDailyPermission extends AddPermission {
   startTime: string;
   endTime: string;
   constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], startTime: string, endTime: string) {
@@ -77,19 +91,12 @@ export class AddTemporaryPermission extends AddPermission {
   }
 }
 
-export class AddPermanentPermission extends AddPermission {
-  permissionTypeId: number;
-  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], permissionTypeId: number) {
-    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
-    this.permissionTypeId = permissionTypeId;
-  }
-}
 
 export class AddEditTypePermission {
   idPermissionType?: number;
   permissionTypeName: string;
   list: FasciaOraria[];
-  constructor(permissionTypeName: string, list: FasciaOraria[], idPermissionType?: number){
+  constructor(permissionTypeName: string, list: FasciaOraria[], idPermissionType?: number) {
     this.permissionTypeName = permissionTypeName;
     this.list = list;
     if (idPermissionType) this.idPermissionType = idPermissionType;
@@ -107,11 +114,9 @@ export class FasciaOraria {
   friday: boolean;
   saturday: boolean;
   sunday: boolean;
-  preHoliday: boolean;
   holiday: boolean;
   constructor(startTime: string, endTime: string,
-    monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean,
-    preHoliday: boolean, holiday: boolean) {
+    monday: boolean, tuesday: boolean, wednesday: boolean, thursday: boolean, friday: boolean, saturday: boolean, holiday: boolean) {
     this.startTime = startTime;
     this.endTime = endTime;
     this.monday = monday;
@@ -120,7 +125,6 @@ export class FasciaOraria {
     this.thursday = thursday;
     this.friday = friday;
     this.saturday = saturday;
-    this.preHoliday = preHoliday;
     this.holiday = holiday;
   }
 

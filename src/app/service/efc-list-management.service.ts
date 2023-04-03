@@ -31,7 +31,7 @@ export class EfcListManagementService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<void>(this.apiURL + '/deactivateEfc/' + efcCode, null, options)
+    return this.http.post<void>(this.apiURL + '/disactivateEfc/' + efcCode, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 

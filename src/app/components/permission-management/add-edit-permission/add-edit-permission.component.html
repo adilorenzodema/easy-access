@@ -1,5 +1,6 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>{{permission ? ('manage-permission.editPermissionTitle' | translate) :
+    <mat-card-title> {{"manage-permission.title" | translate}}: 
+        {{permission ? ('manage-permission.editPermissionTitle' | translate) :
         ('manage-permission.addPermissionTitle' | translate) }}</mat-card-title>
     <mat-card-content>
         <div style="height: 5px;">
@@ -27,7 +28,8 @@
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                     fxFlex.gt-md="20">
                     <mat-label>{{'manage-permission.obuInsert' | translate}}</mat-label>
-                    <input matInput type="text" formControlName="ctrlObu">
+                    <input matInput type="text" formControlName="ctrlObu" required>
+                    <mat-error> {{'manage-permission.obuErrorMessage' | translate}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
                     fxFlex.gt-md="30">
@@ -44,44 +46,7 @@
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                         fxFlex.gt-md="20">
                         <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-                        <input matInput readonly [matDatepicker]="pickerStart" formControlName="ctrlDateStart"
-                            (dateChange)="dateValidator()">
-                        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-                        <mat-datepicker disabled="true" #pickerStart></mat-datepicker>
-                        <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
-                            {{'manage-permission.invalidDate' | translate}}
-                        </mat-error>
-                        <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
-                            {{'manage-permission.dateError' | translate}}
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
-                        fxFlex.gt-md="20">
-                        <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
-                        <input matInput readonly [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd"
-                            (dateChange)="dateValidator()">
-                        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-                        <mat-datepicker disabled="true" #pickerEnd></mat-datepicker>
-                        <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
-                    </mat-form-field>
-                    <div fxLayoutGap="10px">
-                        <mat-form-field appearance="outline">
-                            <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
-                            <input matInput readonly formControlName="ctrlHourStartDaily" required>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
-                            <input matInput readonly formControlName="ctrlHourEndDaily" required>
-                        </mat-form-field>
-                    </div>
-                </ng-container>
-
-                <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'T' ">
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
-                        fxFlex.gt-md="20">
-                        <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-                        <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart"
-                            (dateChange)="dateValidator()">
+                        <input matInput readonly [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate" (dateChange)="setDateEnd()">
                         <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                         <mat-datepicker #pickerStart></mat-datepicker>
                         <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
@@ -94,13 +59,64 @@
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                         fxFlex.gt-md="20">
                         <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
-                        <input matInput [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd"
+                        <input matInput readonly [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd">
+                        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                        <mat-datepicker disabled="true" #pickerEnd></mat-datepicker>
+                        <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
+                    </mat-form-field>
+                    <div fxLayoutGap="10px">
+                        <!-- <mat-form-field appearance="outline">
+                            <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
+                            <input matInput readonly formControlName="ctrlHourStartDaily" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
+                            <input matInput readonly formControlName="ctrlHourEndDaily" required>
+                        </mat-form-field> -->
+                        <mat-form-field appearance="outline">
+                            <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
+                            <input matInput formControlName="ctrlHourStartDaily" [ngxTimepicker]="pickerHourStart"
+                                [format]="24" required >
+                            <ngx-material-timepicker-toggle matSuffix [disabled]="this.permission ? true : false"
+                                [for]="pickerHourStart" ></ngx-material-timepicker-toggle>
+                            <ngx-material-timepicker #pickerHourStart [minutesGap]="5"></ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
+                            <input matInput formControlName="ctrlHourEndDaily" [ngxTimepicker]="pickerHourEnd" [format]="24"
+                                required>
+                            <ngx-material-timepicker-toggle matSuffix [disabled]="this.permission ? true : false"
+                                [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
+                            <ngx-material-timepicker #pickerHourEnd [minutesGap]="5"></ngx-material-timepicker>
+                        </mat-form-field>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'T' ">
+                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
+                        fxFlex.gt-md="20">
+                        <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerStart" [min]="minDate" [max]="maxDate"  formControlName="ctrlDateStart"
+                            (dateChange)="dateValidator()">
+                        <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerStart ></mat-datepicker>
+                        <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
+                            {{'manage-permission.invalidDate' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
+                            {{'manage-permission.dateError' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
+                        fxFlex.gt-md="20">
+                        <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
+                        <input matInput [matDatepicker]="pickerEnd" [min]="minDate" [max]="maxDate" formControlName="ctrlDateEnd"
                             (dateChange)="dateValidator()">
                         <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                         <mat-datepicker #pickerEnd></mat-datepicker>
                         <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
                     </mat-form-field>
-                    <div fxLayoutGap="10px">
+                    <!-- <div fxLayoutGap="10px">
                         <mat-form-field appearance="outline">
                             <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
                             <input matInput formControlName="ctrlHourStart" [ngxTimepicker]="pickerHourStart"
@@ -117,6 +133,19 @@
                                 [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
                             <ngx-material-timepicker #pickerHourEnd [minutesGap]="30"></ngx-material-timepicker>
                         </mat-form-field>
+                    </div> -->
+                    <div fxLayout="row" fxLayoutAlign="center"  fxFlex="80">
+                        <mat-form-field  appearance="outline" fxFlex.gt-xs="80" fxFlex.gt-lg="40"
+                            fxFlex.gt-md="40">
+                            <mat-label> {{'manage-permission.permissionTypeSelection' | translate}}</mat-label>
+                            <mat-select formControlName="ctrlTypePermissionList">
+                                <mat-option *ngFor="let item of permissionTypesFiltered"
+                                    [value]="item.permissionTypeId">
+                                    {{item.permissionTypeDesc}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'manage-permission.permissionTypeAssociationError' | translate}}</mat-error>
+                        </mat-form-field>
                     </div>
                 </ng-container>
 
@@ -124,18 +153,17 @@
                     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                         fxFlex.gt-md="20">
                         <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-                        <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart"
-                            (dateChange)="dateValidator()">
+                        <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate"> <!-- (dateChange)="dateValidator()" -->
                         <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
                         <mat-datepicker #pickerStart></mat-datepicker>
-                        <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
+                        <!-- <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
                             {{'manage-permission.invalidDate' | translate}}
                         </mat-error>
                         <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
                             {{'manage-permission.dateError' | translate}}
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
-                    <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
+                  <!--   <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
                         fxFlex.gt-md="20">
                         <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
                         <input matInput [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd"
@@ -156,12 +184,13 @@
                             </mat-select>
                             <mat-error>{{'manage-permission.permissionTypeAssociationError' | translate}}</mat-error>
                         </mat-form-field>
-                    </div>
+                    </div> -->
                 </ng-container>
             </div>
         </form>
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
             <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.cancel' | translate}}</button>
+           <!--  dirty permette l'edit solo se è stato cambiato almeno un campo -->
             <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
                 (click)="addEditPermission()">{{'common.save' | translate}}</button>
         </div>

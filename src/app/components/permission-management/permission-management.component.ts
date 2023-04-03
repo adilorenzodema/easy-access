@@ -27,7 +27,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =
-    ['idPermission', 'category', 'status', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+    ['idPermission', 'category', 'permissionStatus', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
   public permissionStatus: PermissionSearchStatus = 'VALID';
 
@@ -76,13 +76,13 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
       const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
-      console.log(start + '' + end);
       //Orario inizio deve essere 00:00, orario fine 23:59
       this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
           this.dataSource.paginator = this.paginator,
-          this.dataSource.sort = this.sort
+          this.dataSource.sort = this.sort,
+          console.log(this.dataSource.data)
         ),
         error: () => this.complete = true,
         complete: () => (this.applyFilter(this.permissionStatus), this.complete = true)
@@ -90,7 +90,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     }
   }
 
-  public deletePermission(id: number): void {
+  public onDisactivate(id: number): void {
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -104,8 +104,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       (result: boolean) => {
         if (result) {
           this.complete = false;
-          this.subscription.push(this.permissionService.deletePermission(id).subscribe({
-            error: () => this.complete = true,
+          this.subscription.push(this.permissionService.disactivatePermission(id).subscribe({
+            error: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.disactivationError'),
+              'ERROR'), this.callGetAPI()),
             complete: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.permissionDisactivated'),
               'INFO'), this.callGetAPI())
           }));
@@ -114,12 +115,12 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   }
 
   public activePermission(id: number): void {
+    const title = this.translate.instant('manage-permission.activateTitle');
+    const content = this.translate.instant('manage-permission.deleteTitle');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
-        width: '30%', height: '30%',
-        data: {
-          title: "Riattivazione permesso", content: "Desideri attivare il permesso disattivato?"
-        },
+        width: '35%', height: '25%',
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -128,10 +129,34 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
         if (result) {
           this.complete = false;
           this.subscription.push(this.permissionService.activePermission(id).subscribe({
-            error: () => this.complete = true,
+            error: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.activationError'),
+              'ERROR'), this.callGetAPI()),
             complete: () => (this.complete = true, this.snackBar.showMessage(this.translate.instant('manage-permission.permissionActivated'),
               'INFO'), this.callGetAPI())
           }));
+        }
+      });
+  }
+
+  public deletePermission(id: number): void {
+    const title = this.translate.instant('manage-permission.deleteTitle');
+    const content = this.translate.instant('manage-permission.deleteConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '35%', height: '25%',
+        data: { title, content },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.permissionService.deletePermission(id).subscribe(
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage-permission.deleteError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage-permission.deletionSuccess'), "INFO")
+            }));
         }
       });
   }

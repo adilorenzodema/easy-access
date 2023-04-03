@@ -46,12 +46,12 @@ export class PermissionTypeManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  deletePermissionType(idPermissionType: number): Observable<void> {
+  disactivatePermissionType(idPermissionType: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
-    return this.http.post<void>(this.apiURL + `/deletePermissionType/${idPermissionType}`, null, options)
+    return this.http.post<void>(this.apiURL + `/disactivatePermissionType/${idPermissionType}`, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 
@@ -61,6 +61,15 @@ export class PermissionTypeManagementService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<void>(this.apiURL + `/activatePermissionType/${idPermissionType}`, null, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  deletePermissionType(idPermissionType: number): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + `/deletePermissionType/${idPermissionType}`, null, options)
       .pipe(catchError(err => { throw err; }));
   }
 }

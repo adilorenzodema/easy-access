@@ -46,9 +46,9 @@
                             matTooltip="{{'manage_permission_type.details_edit' | translate}}">edit</mat-icon>
                     </button>
                     <button mat-icon-button
-                        *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permissiontype'">
+                        *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-permissiontype'">
                         <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
-                            (click)="deletePermissionType(element.permissionTypeId)">delete</mat-icon>
+                            (click)="onDisactivate(element.permissionTypeId)">power_off</mat-icon>
                     </button>
 
                     <button mat-icon-button
@@ -56,6 +56,11 @@
                         class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
                             (click)="activePermissionType(element.permissionTypeId)">refresh</mat-icon>
                     </button>
+
+                    <button mat-icon-button 
+                    *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permissiontype'">
+                    <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
+                      (click)="deletePermissionType(element.permissionTypeId)">delete</mat-icon></button>
                 </td>
             </ng-container>
 

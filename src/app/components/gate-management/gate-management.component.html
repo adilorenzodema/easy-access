@@ -81,18 +81,27 @@
               router
             </mat-icon>
           </button>
-          <button mat-icon-button *ngIf="operations | getPermissionPipe: 'edit-gate'">
-            <mat-icon class="edit-icon"  matTooltip="{{'common.edit' | translate}}"
+
+          <button mat-icon-button *ngIf="search.controls['ctrlActive'].value" disabled>
+            <mat-icon class="edit-icon" style="color: grey" matTooltip="{{'manage_gates.notEditable' | translate}}">edit_off</mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'edit-gate'">
+            <mat-icon class="edit-icon" matTooltip="{{'common.edit' | translate}}"
               (click)="addEditGate(element)">edit</mat-icon>
           </button>
           <button mat-icon-button
-            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-gate'"
-            (click)="deleteGate(element.idGate)">
-            <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">delete</mat-icon>
+            *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-gate'"
+            (click)="onDisactivate(element.idGate)">
+            <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
           </button>
           <button *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-gate'"
             mat-icon-button (click)="activateGate(element.idGate)">
-            <mat-icon class="refreshIcon"matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
+            <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}">refresh</mat-icon></button>
+            <button mat-icon-button
+            *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-gate'"
+            (click)="deleteGate(element.idGate)">
+            <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}">delete</mat-icon>
+          </button>
         </td>
       </ng-container>
 

@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { PagePermissionService } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
+import { EFC } from 'src/app/domain/interface';
 import { EfcListManagementService } from 'src/app/service/efc-list-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 
@@ -31,6 +32,7 @@ export class EfcListManagementComponent implements OnInit {
     private efcListService: EfcListManagementService,
     private formBuilder: FormBuilder,
     public translate: TranslateService,
+    private snackBar: SnackBar,
     private dialog: MatDialog
   ) { }
 
@@ -48,13 +50,13 @@ export class EfcListManagementComponent implements OnInit {
     console.log(efcCode);
     this.subscription.push(this.efcListService.getEfcList(efcCode).subscribe({
       next: efc => {
+        efc.sort( (a:EFC ,b:EFC ) => +b.flagActive - +a.flagActive); //sort per flagActive = true
         this.dataSource.data = efc;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.data);
       },
       error: () => this.complete = true,
-      complete: () => this.complete = true
+      complete: () =>  this.complete = true
     }));
   }
 
@@ -72,13 +74,16 @@ export class EfcListManagementComponent implements OnInit {
       (result) => {
         if (result) {
           this.subscription.push(this.efcListService.activateEfc(efcCode).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_efc.activationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_efc.activationSuccess'), "INFO")
+            }));
         }
       });
   }
 
-  public deactivate(efcCode: String): void {
+  public disactivate(efcCode: String): void {
     const title = this.translate.instant('manage_efc.disactivateTitle');
     const content = this.translate.instant('manage_efc.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
@@ -92,8 +97,11 @@ export class EfcListManagementComponent implements OnInit {
       (result) => {
         if (result) {
           this.subscription.push(this.efcListService.deactivateEfc(efcCode).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_efc.disactivationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_efc.disactivationSuccess'), "INFO")
+            }));
         }
       });
   }

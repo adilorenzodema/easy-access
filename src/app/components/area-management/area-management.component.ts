@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TranslateService } from '@ngx-translate/core';
-import { PagePermissionService } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { AreaManagementService } from 'src/app/service/area-management.service';
@@ -34,7 +34,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     private areaManagementService: AreaManagementService,
     private permissionService: PagePermissionService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog) {  }
+    private snackBar: SnackBar,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.search = this.formBuilder.group({
@@ -60,9 +61,9 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  public onDelete(areaId: number): void {
-    const title = this.translate.instant('manage_efc.disactivateTitle');
-    const content = this.translate.instant('manage_efc.disactivateConfirm');
+  public onDisactivate(areaId: number): void {
+    const title = this.translate.instant('manage_areas.disactivateTitle');
+    const content = this.translate.instant('manage_areas.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -73,16 +74,19 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe(
-            () => this.callGetAPI()
-          ));
+          this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe(
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationSuccess'), "INFO")
+            }));
         }
       });
   }
 
   public activateArea(areaId: number): void {
-    const title = this.translate.instant('manage_efc.activateTitle');
-    const content = this.translate.instant('manage_efc.activateConfirm');
+    const title = this.translate.instant('manage_areas.activateTitle');
+    const content = this.translate.instant('manage_areas.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
@@ -94,16 +98,52 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.areaManagementService.activateArea(areaId).subscribe(
-            () => this.callGetAPI()
-          ));
+            {
+              next: () => this.callGetAPI(),
+              error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.activationError'), "ERROR"),
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.activationSuccess'), "INFO")
+            }));
         }
       });
   }
 
+  public deleteArea(areaId: number): void {
+    const title = this.translate.instant('manage_areas.deleteTitle');
+    const content = this.translate.instant('manage_areas.deleteConfirm');
+    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+      {
+        width: '35%', height: '25%',
+        data: { title, content },
+        autoFocus: false
+      }
+    );
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe({
+            next: () => this.callGetAPI(),
+            error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.deletionError'), "ERROR"),
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.deletionSuccess'), "INFO")
+          }));
+        }
+      });
+  }
+
+  /**
+   * This function performs a GET request to the backend API to retrieve a list of areas.
+   * It then updates the data source of the current component to display the returned list of areas.
+   */
   public callGetAPI(): void {
+    // Set the "complete" property to false to indicate that the request is still ongoing.
     this.complete = false;
+    // Retrieve the search keyword and isActive status from the search parameters.
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
+    // Subscribe to the observable returned by the "getAreaList" method of the "areaManagementService".
+    // When the observable emits a value (i.e., the list of areas), update the data source of the component with the returned data.
+    // If an error occurs during the request, set the "complete" property to true to indicate that the request is complete.
+    // If the request completes successfully, also set the "complete" property to true to indicate that the request is complete.
+
     this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe({
       next: areas => {
         this.dataSource.data = areas;

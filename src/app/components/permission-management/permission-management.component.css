@@ -1,0 +1,28 @@
+.center-th {
+    display: flex;
+    justify-content: center !important;
+    height: inherit;
+  }
+  
+  .center-td{
+    text-align: center !important; 
+    /*  display: flex !important;
+    justify-content: center !important;  */
+  }
+
+  .center-icon {
+    vertical-align: middle;
+  }
+
+  .valid{
+    color: green;
+  }
+
+  .expiring{
+    color: orange;
+    /* transform: scale(0.9); */
+  }
+
+  .expired{
+    color: red;
+  }
