@@ -93,13 +93,13 @@ export class HolidaysComponentComponent implements OnInit {
   public dateChanged(event: MatDatepickerInputEvent<Date>): void {
     if (event.value) {
       /* let date = event.value; */
-      moment(event.value).add('day', 1);
+      moment(event.value).add(1, 'day');
       /* date = new Date(date.setDate(date.getDate()+1)); */
       const index = this._findDate(event.value);
 
       if (index === -1) {
         /* date = new Date(date.setDate(date.getDate()-1)); */
-        moment(event.value).subtract('day', 1);
+        moment(event.value).subtract(1, 'day');
         this.model.push(event.value);
         this.model.sort( (a, b) => this.orderDate(a, b));
       } else {
