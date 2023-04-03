@@ -18,10 +18,6 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepi
 })
 export class HolidaysComponentComponent implements OnInit {
   @ViewChild('picker', { static: true }) _picker: MatDatepicker<Date>;
-  /* public formGroup: FormGroup;
-  public picker: Date | null;
-  public holidays: Calendar[] = [];
-  public holidays2: Date[] = []; */
   public defaultYear = moment().year();
   public years: number[] = [];
   public complete = true;
@@ -42,7 +38,7 @@ export class HolidaysComponentComponent implements OnInit {
   ) {
   }
   public dateClass = (date: Date): string[] => {
-    const d:any = new Date(date.setDate(date.getDate()+1));
+    const d: any = new Date(date.setDate(date.getDate() + 1));
     //moment(date).add('day', 1).toDate();
 
     if (this._findDate(d) !== -1) {
@@ -74,7 +70,7 @@ export class HolidaysComponentComponent implements OnInit {
       },
       error: () => this.complete = true,
       complete: () => {
-        this.model.sort( (a, b) => this.orderDate(a, b));
+        this.model.sort((a, b) => this.orderDate(a, b));
         this.complete = true;
       }
     }));
@@ -101,7 +97,7 @@ export class HolidaysComponentComponent implements OnInit {
         /* date = new Date(date.setDate(date.getDate()-1)); */
         moment(event.value).subtract(1, 'day');
         this.model.push(event.value);
-        this.model.sort( (a, b) => this.orderDate(a, b));
+        this.model.sort((a, b) => this.orderDate(a, b));
       } else {
         this.model.splice(index, 1);
       }
@@ -118,20 +114,20 @@ export class HolidaysComponentComponent implements OnInit {
   }
 
   public remove(date: Date): void {
-  /*   const mDate = moment(date).format('yyyy-MM-DD'); //.split('T')[0]
-    const mDate1= new Date(mDate);
-    const mDate2 = mDate1.toISOString().split('T')[0];
-    console.log("data prima check", mDate1);
-    console.log("data prima check ISO", mDate2); */
+    /*   const mDate = moment(date).format('yyyy-MM-DD'); //.split('T')[0]
+      const mDate1= new Date(mDate);
+      const mDate2 = mDate1.toISOString().split('T')[0];
+      console.log("data prima check", mDate1);
+      console.log("data prima check ISO", mDate2); */
     const index = this._findDateRemoved(date);
     this.model.splice(index, 1);
   }
 
   private _findDate(date: Date): number {
-    let d:any;
-    for (let i in this.model){
+    let d: any;
+    for (const i in this.model) {
       d = moment(this.model[i]).format('yyyy-MM-DD');
-      if (d === date.toISOString().split('T')[0]){
+      if (d === date.toISOString().split('T')[0]) {
         return +i;
       }
     }
@@ -139,18 +135,18 @@ export class HolidaysComponentComponent implements OnInit {
   }
 
   private _findDateRemoved(date: Date): number {
-    let d:any;
+    let d: any;
     const dateTMP = moment(date).format('yyyy-MM-DD');
-    for (let i in this.model){
+    for (const i in this.model) {
       d = moment(this.model[i]).format('yyyy-MM-DD');
-      if (d === dateTMP){
+      if (d === dateTMP) {
         return +i;
       }
     }
     return -1;
   }
 
-  private orderDate(a: any, b:any): number {
+  private orderDate(a: any, b: any): number {
     // console.log("a = ", typeof a);
     // console.log("b: ", b);
 
