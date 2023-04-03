@@ -42,7 +42,8 @@ export class HolidaysComponentComponent implements OnInit {
   ) {
   }
   public dateClass = (date: Date): string[] => {
-    let d:any = new Date(date.setDate(date.getDate()+1));
+    const d:any = new Date(date.setDate(date.getDate()+1));
+    //moment(date).add('day', 1).toDate();
 
     if (this._findDate(d) !== -1) {
       return ['selected'];
@@ -91,13 +92,15 @@ export class HolidaysComponentComponent implements OnInit {
 
   public dateChanged(event: MatDatepickerInputEvent<Date>): void {
     if (event.value) {
-      let date = event.value;
-      date = new Date(date.setDate(date.getDate()+1));
-      const index = this._findDate(date);
+      /* let date = event.value; */
+      moment(event.value).add('day', 1);
+      /* date = new Date(date.setDate(date.getDate()+1)); */
+      const index = this._findDate(event.value);
 
       if (index === -1) {
-        date = new Date(date.setDate(date.getDate()-1));
-        this.model.push(date);
+        /* date = new Date(date.setDate(date.getDate()-1)); */
+        moment(event.value).subtract('day', 1);
+        this.model.push(event.value);
         this.model.sort( (a, b) => this.orderDate(a, b));
       } else {
         this.model.splice(index, 1);
@@ -126,7 +129,6 @@ export class HolidaysComponentComponent implements OnInit {
 
   private _findDate(date: Date): number {
     let d:any;
-    const dateTMP = moment(date).format('yyyy-MM-DD');
     for (let i in this.model){
       d = moment(this.model[i]).format('yyyy-MM-DD');
       if (d === date.toISOString().split('T')[0]){

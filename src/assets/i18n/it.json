@@ -356,7 +356,11 @@
     "activateTitle": "Attivazione EFC",
     "disactivateTitle": "Disattivazione EFC",
     "activateConfirm": "Sei sicur* di voler riattivare l'EFC selezionato?",
-    "disactivateConfirm": "Sei sicur* di voler disattivare l'EFC selezionato?"
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'EFC selezionato?",
+    "disactivationError": "C'è stato un errore nella disattivazione!",
+    "disactivationSuccess": "EFC disattivato con successo!",
+    "activationError": "C'è stato un errore nell'attivazione!",
+    "activationSuccess": "EFC attivato con successo!"
   },
   "text": "testo",
   "error": {

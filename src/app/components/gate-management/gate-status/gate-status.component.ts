@@ -37,16 +37,26 @@ export class GateStatusComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.gateIncidentApi();
+    this.getGateInfo();
   }
 
   ngOnDestroy(): void {
     this.subscription.map((sub) => sub.unsubscribe());
   }
 
-  public testGateInfo(): void {
+  public testGateConnection(): void {
     this.complete = false;
     this.subscription.push(this.gatePilotingService.testGateConnection(this.gate.idGate).subscribe({
       next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.testOk'), "INFO"),
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    }));
+  }
+
+  public getGateInfo(): void {
+    this.complete = false;
+    this.subscription.push(this.gatePilotingService.getGateInfo(this.gate.idGate).subscribe({
+      next: () => this.snackBar.showMessage("GateInfo", "INFO"),
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));

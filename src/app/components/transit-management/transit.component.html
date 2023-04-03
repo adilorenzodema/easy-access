@@ -43,7 +43,7 @@
                     <mat-label>{{"manage_transits.validationType" | translate}}</mat-label>
                     <mat-select formControlName="ctrlValidationType"
                         placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
-                        <mat-option value="CDC">CDC</mat-option>
+                        <mat-option value="CDC">{{'manage_transits.CDC' | translate}}</mat-option>
                         <mat-option value="Antenna">Antenna</mat-option>
                         <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
@@ -76,7 +76,7 @@
             </ng-container>
 
             <ng-container matColumnDef="obuStd">
-              <<th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuStd" | translate}} </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuStd" | translate}} </th>
               <td mat-cell *matCellDef="let element"> {{element.obu.obuStd}} </td>
             </ng-container>
 
@@ -98,7 +98,7 @@
             <ng-container matColumnDef="validationType">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.validationType" | translate}}
                 </th>
-                <td mat-cell *matCellDef="let element"> {{element.validationType}} </td>
+                <td mat-cell *matCellDef="let element"> {{(element.validationType === "CDC") ? ('manage_transits.CDC' | translate) : element.validationType}} </td>
             </ng-container>
 
             <ng-container matColumnDef="flagPassed">

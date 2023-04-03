@@ -3,16 +3,18 @@
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="formGroup">
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
-                <mat-form-field appearance="outline">
-                    <mat-label>{{"manage_incidents.searchRange" | translate}}</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                        <input matStartDate formControlName="start">
-                        <input matEndDate formControlName="end" (dateChange)="callGetAPI()">
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                    <mat-error>{{"manage_incidents.rangeError" | translate}} </mat-error>
-                </mat-form-field>
+            
+                <mat-form-field appearance="outline" fxFlex="15">
+                    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="start">
+                    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker [stepMinute]="5" > </ngx-mat-datetime-picker>
+                 </mat-form-field>
+
+                 <mat-form-field appearance="outline" fxFlex="15">
+                    <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" formControlName="end" (dateChange)="callGetAPI()">
+                    <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker2 [stepMinute]="1"> </ngx-mat-datetime-picker>
+                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40">
                     <mat-label>{{"manage_incidents.parkSearch" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
@@ -64,12 +66,12 @@
 
             <ng-container matColumnDef="startDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateStart" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy'}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="endDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateEnd" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy'}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="gateName">
