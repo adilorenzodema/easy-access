@@ -115,12 +115,18 @@ export class HolidaysComponentComponent implements OnInit {
   }
 
   public remove(date: Date): void {
-    const index = this._findDate(date);
+  /*   const mDate = moment(date).format('yyyy-MM-DD'); //.split('T')[0]
+    const mDate1= new Date(mDate);
+    const mDate2 = mDate1.toISOString().split('T')[0];
+    console.log("data prima check", mDate1);
+    console.log("data prima check ISO", mDate2); */
+    const index = this._findDateRemoved(date);
     this.model.splice(index, 1);
   }
 
   private _findDate(date: Date): number {
     let d:any;
+    const dateTMP = moment(date).format('yyyy-MM-DD');
     for (let i in this.model){
       d = moment(this.model[i]).format('yyyy-MM-DD');
       if (d === date.toISOString().split('T')[0]){
@@ -128,13 +134,18 @@ export class HolidaysComponentComponent implements OnInit {
       }
     }
     return -1;
+  }
 
-
-    // return this.model.map((m) => {
-    //   let d = new Date(moment(m).format('yyyy-MM-DD'));
-    //   console.log("m = ", d, " VS date = ", date);
-    //   return d;
-    // }).indexOf(date);
+  private _findDateRemoved(date: Date): number {
+    let d:any;
+    const dateTMP = moment(date).format('yyyy-MM-DD');
+    for (let i in this.model){
+      d = moment(this.model[i]).format('yyyy-MM-DD');
+      if (d === dateTMP){
+        return +i;
+      }
+    }
+    return -1;
   }
 
   private orderDate(a: any, b:any): number {
