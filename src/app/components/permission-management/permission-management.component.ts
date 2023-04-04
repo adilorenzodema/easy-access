@@ -81,8 +81,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
         next: (permission) => (
           this.dataSource.data = permission,
           this.dataSource.paginator = this.paginator,
-          this.dataSource.sort = this.sort,
-          console.log(this.dataSource.data)
+          this.dataSource.sort = this.sort
         ),
         error: () => this.complete = true,
         complete: () => (this.applyFilter(this.permissionStatus), this.complete = true)

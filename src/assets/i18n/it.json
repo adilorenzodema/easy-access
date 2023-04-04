@@ -201,7 +201,19 @@
     "activeOk": "Attivazione eseguita",
     "openOk": "Sbarra aperta",
     "closeOk": "Sbarra chiusa",
-    "autoOk": "Sbarra in modalità automatica"
+    "autoOk": "Sbarra in modalità automatica",
+    "gateStatus":{
+      "connectionTest": "Test connessione",
+      "reboot": "Riavvia",
+      "openBarrier": "Apri barriera",
+      "closeBarrier": "Chiudi barriera",
+      "autoBarrier": "Modalità automatica",
+      "lists": "Liste a bordo",
+      "noIncidents": "Nessun incidente presente",
+      "incidentsDetected": "Incidenti rilevati",
+      "rebootTitle":"Reboot Antenna",
+      "rebootConfirm": "Sei sicur* di voler riavviare questa antenna?"
+    }
   },
   "manage-permission": {
     "add": "Aggiungi Permesso",

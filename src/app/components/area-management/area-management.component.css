@@ -5,3 +5,7 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
+
+.display-button{
+  color: black !important;
+}

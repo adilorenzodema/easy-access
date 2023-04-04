@@ -197,7 +197,19 @@
     "activeOk": "Activation executed",
     "openOk": "Device open",
     "closeOk": "Device close",
-    "autoOk": "Device in automatic mode"
+    "autoOk": "Device in automatic mode",
+    "gateStatus":{
+      "connectionTest": "Test connection",
+      "reboot": "Reboot",
+      "openBarrier": "Open barrier",
+      "closeBarrier": "Close barrier",
+      "autoBarrier": "Auto Mode",
+      "lists": "Lists on board",
+      "noIncidents": "There are no incidents present",
+      "incidentsDetected": "Incidents detected",
+      "rebootTitle":"Reboot Antenna",
+      "rebootConfirm": "Are you sure you want to reboot this Antenna?"
+    }
   },
   "manage-permission": {
     "add": "Add Permission",

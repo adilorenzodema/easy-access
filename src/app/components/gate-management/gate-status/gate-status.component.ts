@@ -20,6 +20,8 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['startDate', 'endDate', 'errorCode', 'errorMessage'];
   public dataSource = new MatTableDataSource<Incident>();
   public complete = true;
+  //MOKUP
+  public element = {status: "Active"};
 
   private subscription: Subscription[] = [];
 
@@ -63,10 +65,12 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   }
 
   public reboot(): void {
+    const title = this.translate.instant('manage_gates.gateStatus.rebootTitle');
+    const content = this.translate.instant('manage_gates.gateStatus.rebootConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Reboot device", content: "Desideri riavviare il device selezionato?" },
+        data: { title, content },
         autoFocus: false
       }
     );

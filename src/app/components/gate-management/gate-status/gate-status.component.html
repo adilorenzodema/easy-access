@@ -2,60 +2,106 @@
     <mat-card-header fxLayoutAlign="space-between">
         <mat-card-title>
             <div fxLayoutGap="10px">
-                <span> {{"manage_gates.statusTitle" | translate}} {{gate.gateDescription}}</span>
-                <mat-icon [style.color]="gate.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
+                <span> {{"manage_gates.statusTitle" | translate}}{{gate.gateDescription}}</span>
+                <mat-icon class="center-icon-title" [style.color]="gate.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
             </div>
         </mat-card-title>
         <mat-card-subtitle>
-            Antenna IP: {{gate.ipAntenna}} - {{"manage_gates.antennaPort" | translate}}: {{gate.portAntenna}} - {{"manage_gates.gateDirection" | translate}}: {{gate.gateDirection}}
-            - {{"manage_gates.associatedPark" | translate}}: {{gate.park.namePark}}
+            Antenna IP: {{gate.ipAntenna}} - {{"manage_gates.antennaPort" | translate}}: {{gate.portAntenna}} -
+            {{"manage_gates.gateDirection" | translate}}: {{gate.gateDirection}}
+            - {{"manage_gates.associatedPark" | translate}}: {{gate.park.namePark}} - Status: {{gate.status}}
         </mat-card-subtitle>
-        <span><button mat-button class="actionButton" routerLink="../">{{'common.back' | translate}}</button></span>
+        <div fxLayoutGap="10px">
+            <span><button mat-button class="actionButton" routerLink="../">{{'common.back' | translate}}</button></span>
+            <span> <button mat-button class="actionButton" (click)="testGateConnection()">{{'manage_gates.gateStatus.connectionTest' | translate}}</button></span>
+        </div>
     </mat-card-header>
     <mat-card-content fxLayout="column" fxLayoutGap="50px">
         <div fxLayoutGap="10px">
             <div class="border-grey" fxFlex="50">
-                <mat-card-subtitle> Azioni su antenna</mat-card-subtitle>
+                <p class="subtitle">
+                    Antenna - Status: OFFLINE <mat-icon class="center-icon" matTooltip="ANTENNA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
+                </p>
                 <div fxLayoutGap="10px">
-                    <button mat-button class="actionButton" (click)="testGateConnection()">Test connessione</button>
-                    <button mat-button class="actionButton" (click)="reboot()">Riavvio</button>
-                    <button mat-button class="actionButton" (click)="disactive()">Disattiva</button>
-                    <button mat-button class="actionButton" (click)="active()">Attiva</button>
+                    <!-- <mat-form-field>
+                        <input matInput readonly type="text" value="Antenna Attiva" id="input1">
+                    </mat-form-field> -->
+                    <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> Antenna Attiva </button>
+                    <button mat-button id="display-button" >Antenna Attiva</button>
+                    <button mat-fab *ngIf="element.status === 'Active'"  (click)="disactive()" id="mat-icon-disactivate">
+                        <mat-icon 
+                            matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
+                    </button>
+                    <button mat-fab *ngIf="element.status === 'Inactive'" (click)="active()" id="mat-icon-activate">
+                        <mat-icon 
+                            matTooltip="{{'common.activate' | translate}}">power</mat-icon>
+                    </button>
+                    <button mat-button class="actionButton" (click)="reboot()">{{'manage_gates.gateStatus.reboot' | translate}}</button>
                 </div>
             </div>
             <div class="border-grey" fxFlex="50">
-                <mat-card-subtitle> Azioni sulla sbarra</mat-card-subtitle>
+                <p class="subtitle">
+                    Sbarra - Status: OFFLINE <mat-icon class="center-icon" matTooltip="SBARRA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
+                </p>
                 <div fxLayoutGap="10px">
-                    <button mat-button class="actionButton" (click)="openGate()">Apri sbarra</button>
-                    <button mat-button class="actionButton" (click)="closeGate()">Chiudi sbarra</button>
-                    <button mat-button class="actionButton" (click)="autoGate()">Modalità automatica</button>
+                    <button mat-button class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
+                    <button mat-button class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
+                    <button mat-button class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
                 </div>
+            </div>
+        </div>
+        <div fxLayoutGap="10px">
+            <div class="border-grey-center" fxFlex="50">
+                <p style=" font-weight: bold !important; color: black !important; text-align: center;">
+                    Fotocellula - Status: OFFLINE <mat-icon class="center-icon" matTooltip="FOTOCELLULA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
+                </p>
+            </div>
+            <div class="border-grey" fxFlex="50">
+                <p class="subtitle">
+                    {{'manage_gates.gateStatus.lists' | translate}}
+                </p>
+                <mat-grid-list cols="2" rowHeight="40px">
+                    <mat-grid-tile> 
+                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{"element.lists.tlp"}} </button>
+                     </mat-grid-tile>
+                    <mat-grid-tile> 
+                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{"element.lists.set"}} </button> 
+                    </mat-grid-tile>
+                    <mat-grid-tile> 
+                        <button mat-button id="display-button" >{{"element.lists.efc"}}</button>
+                    </mat-grid-tile>
+                    <mat-grid-tile> 
+                        <button mat-button id="display-button" >{{"element.lists.time"}}</button>
+                    </mat-grid-tile>
+                </mat-grid-list>
             </div>
         </div>
         <mat-progress-bar *ngIf="!complete else title" mode="indeterminate"></mat-progress-bar>
         <ng-template #title>
-            <mat-card-subtitle>{{dataSource.data.length === 0 ? 'Nessun incident rilevato' : 'Incident rilevati'}}</mat-card-subtitle>
+            <mat-card-subtitle>{{dataSource.data.length === 0 ? ('manage_gates.gateStatus.noIncidents' | translate) : ('manage_gates.gateStatus.incidentsDetected' | translate)}}</mat-card-subtitle>
         </ng-template>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
             <ng-container matColumnDef="startDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateStart" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy'}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="endDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateEnd" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy'}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="errorCode">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorCode" | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorCode" | translate}}
+                </th>
                 <td mat-cell *matCellDef="let element"> {{ element.errorCode }}</td>
             </ng-container>
 
             <ng-container matColumnDef="errorMessage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorMessage" | translate}} </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorMessage" | translate}}
+                </th>
                 <td mat-cell *matCellDef="let element"> {{ element.errorMessage }}</td>
             </ng-container>
 
@@ -65,3 +111,36 @@
         </table>
     </mat-card-content>
 </mat-card>
+
+<!-- {
+        "antenna_id": "Test_ID",
+        "functionality": {
+            "antenna": "enabled",
+            "barrier": "automatic"
+        },
+         "lists": {
+        "tlp": "TLP_230122_01.txt",
+        "set": "",
+        "efc": "",
+        "time": "TIME_230122_00.txt"
+    },
+        "status": [
+            {
+                "device_id": "Antenna",
+                "status": "OK",
+                "error_code": null
+            },
+            {
+                "device_id": "Barrier",
+                "status": "OK",
+                "error_code": null
+            },
+            {
+                "device_id": "FC",
+                "status": "OK",
+                "error_code": null
+            }
+        ]
+    } -->
+    
+    
