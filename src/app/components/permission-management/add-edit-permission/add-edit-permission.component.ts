@@ -59,7 +59,6 @@ export class AddEditPermissionComponent implements OnInit {
         ctrlDateEnd: [{ value: this.permission.validationDateEnd, disabled: true }, Validators.required],
       });
       if (this.permission.category === 'T') { // temporaneo
-        console.log(this.permission);
         this.getPermissionType();
         this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control(this.permission.permissionType.permissionTypeId, Validators.required));
       } else if (this.permission.category === 'D') { //daily

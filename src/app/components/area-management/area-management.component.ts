@@ -19,8 +19,14 @@ import { ModalFormAreaComponent } from './modal-form-area/modal-form-area.compon
   styleUrls: ['./area-management.component.css']
 })
 export class AreaManagementComponent implements OnInit, OnDestroy {
+  /**
+     *Gestione della pagina /#/area-management
+     */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    */
   public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
   public search: FormGroup;
@@ -37,6 +43,10 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     private snackBar: SnackBar,
     private dialog: MatDialog) { }
 
+  /**
+      *Inizializza la barra di ricerca (stringa vuota) e la toggle-slide (true).
+      *Poi popola la tabella con la callGetAPI() e ritorna tutti i permessi disponibili all'utente con la getPermissionAPI()
+      */
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
@@ -46,12 +56,19 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     this.getPermissionAPI();
   }
 
+  /**
+    *Quando viene distrutto il componente, cancella tutte le sottoscrizioni agli Observable.
+    */
   ngOnDestroy(): void {
     this.subscription.forEach(subscription => {
       subscription.unsubscribe();
     });
   }
 
+  /**
+     * Apre una finestra modale ed passa il valore dell'elemento al componente responsabile per l'aggiunta o la modifica di un'area.
+     * @param element - Se presente, l'Area da modificiare. Se undefined, fa aggiungere una nuova Area.
+     */
   public add(element?: Area): void {
     const dialogRef = this.dialog.open(ModalFormAreaComponent, { width: '25%', height: '27%', data: element ? element : '' });
     dialogRef.afterClosed().subscribe(
@@ -60,7 +77,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  /**
+    * Apre una finestra modale ed in base alla scelta dell'utente, disattiva un'Area.
+    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+    * @param areaId - L'ID dell'Area da disattivare
+    */
   public onDisactivate(areaId: number): void {
     const title = this.translate.instant('manage_areas.disactivateTitle');
     const content = this.translate.instant('manage_areas.disactivateConfirm');
@@ -83,7 +104,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
         }
       });
   }
-
+  /**
+    * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un'Area.
+    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+    * @param areaId - L'ID dell'Area da riattivare
+    */
   public activateArea(areaId: number): void {
     const title = this.translate.instant('manage_areas.activateTitle');
     const content = this.translate.instant('manage_areas.activateConfirm');
@@ -107,6 +132,11 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+  * Apre una finestra modale ed in base alla scelta dell'utente, rimuove un'Area.
+  * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+  * @param areaId - L'ID dell'Area da rimuovere
+  */
   public deleteArea(areaId: number): void {
     const title = this.translate.instant('manage_areas.deleteTitle');
     const content = this.translate.instant('manage_areas.deleteConfirm');
@@ -129,21 +159,14 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+
   /**
-   * This function performs a GET request to the backend API to retrieve a list of areas.
-   * It then updates the data source of the current component to display the returned list of areas.
+   * Ritorna una lista di oggetti di tipo Area, in base ai parametri di ricerca(Una keyword e lo status dell'Area[Active o Inactive])
    */
   public callGetAPI(): void {
-    // Set the "complete" property to false to indicate that the request is still ongoing.
     this.complete = false;
-    // Retrieve the search keyword and isActive status from the search parameters.
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
-    // Subscribe to the observable returned by the "getAreaList" method of the "areaManagementService".
-    // When the observable emits a value (i.e., the list of areas), update the data source of the component with the returned data.
-    // If an error occurs during the request, set the "complete" property to true to indicate that the request is complete.
-    // If the request completes successfully, also set the "complete" property to true to indicate that the request is complete.
-
     this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe({
       next: areas => {
         this.dataSource.data = areas;
@@ -155,6 +178,9 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+     * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+     */
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
