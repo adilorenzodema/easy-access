@@ -183,3 +183,10 @@ export interface EFC {
 
 export type Status = 'OK' | 'KO';
 
+export interface Logs{
+  nomeUtente: string;
+  cognomeUtente?:string;
+  date: Date;
+  nomeOperazione: string;
+  nomeComponente: string;
+}
