@@ -120,6 +120,7 @@
     "parkTitle": "Manage Parking Lots",
     "associatedParksTitle": "Parking lots assocciated with area: ",
     "park": "Manage Parking Lots: Edit Parking lot ",
+    "filterArea": "Filter by Area",
     "activateTitle": "Activate Parking Lot",
     "disactivateTitle": "Disactivate Parking Lot",
     "activateConfirm": "Are you sure you want to re-activate the selected  Parking Lot?",

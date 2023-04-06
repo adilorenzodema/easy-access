@@ -33,7 +33,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription.push(this.parkService.getParking('', true).subscribe(
+    this.subscription.push(this.parkService.getParking('', true, null).subscribe(
       (respParks) => this.parks = respParks
     ));
     if (this.data) {

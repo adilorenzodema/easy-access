@@ -2,12 +2,21 @@
   <app-title-park [areaName]="areaName" [idArea]="idArea"> </app-title-park>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field appearance="outline" fxFlex="84">
+      <mat-form-field appearance="outline" fxFlex="50">
         <mat-label>{{"common.searchLabel" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
+      </mat-form-field>
+      <mat-form-field  appearance="outline" fxFlex="50" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+        <mat-label> {{"manage_parks.filterArea" | translate}}</mat-label>
+        <mat-select formControlName="ctrlAreaIdList" placeholder="Area" (selectionChange)="callGetAPI()">
+          <mat-option [value]="">Tutti </mat-option>
+          <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
+            {{item.areaName}}
+          </mat-option>  
+        </mat-select>
       </mat-form-field>
       <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
         {{search.controls['ctrlActive'].value ? ('manage_parks.active' | translate) : ('manage_parks.inactive' |

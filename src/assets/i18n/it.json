@@ -118,6 +118,7 @@
   },
   "manage_parks": {
     "parkTitle": "Gestione Parcheggi",
+    "filterArea": "Filtra per Area",
     "associatedParksTitle": "Parcheggi associati all'area",
     "modalTitle": "Aggiungi un nuovo Parcheggio",
     "activateTitle": "Attivazione Parcheggio",

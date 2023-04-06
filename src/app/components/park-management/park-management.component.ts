@@ -11,8 +11,9 @@ import { Operation } from 'dema-movyon-template/lib/components/domain/interface'
 import { Subscription } from 'rxjs';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Park } from '../../domain/class';
+import { Area, Park } from '../../domain/class';
 import { ModalFormParkComponent } from './modal-form-park/modal-form-park.component';
+import { AreaManagementService } from 'src/app/service/area-management.service';
 
 
 @Component({
@@ -31,12 +32,15 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
   public idArea: number;
   public complete = true;
   public operations: Operation[];
+  public areas: Area[] = [];
+  public areaFiltered: Area[] = [];
   private subscription: Subscription[] = [];
 
 
   constructor(
     private parkingService: ParkManagementService,
     private permissionService: PagePermissionService,
+    private areaManagementService: AreaManagementService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private router: Router,
@@ -50,8 +54,10 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
-      ctrlActive: [true]
+      ctrlActive: [true],
+      ctrlAreaIdList: [null]
     });
+    this.getAreas();
     this.callGetAPI();
     this.getPermissionAPI();
   }
@@ -64,7 +70,8 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
-    this.parkingService.getParking(keyword, isActive).subscribe({
+    const areaId = this.search.get('ctrlAreaIdList')?.value;
+    this.parkingService.getParking(keyword, isActive, areaId).subscribe({
       next: park => {
         this.dataSource.data = park;
         this.dataSource.paginator = this.paginator;
@@ -156,6 +163,16 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
             }));
         }
       });
+  }
+
+  private getAreas(): void {
+    const keyword = "";
+    const isActive = true;
+    this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe((res) => {
+      this.areas = res;
+      this.areaFiltered = this.areas.slice();
+      this.areaFiltered.sort((a:any ,b:any )=> a.areaName.localeCompare(b.areaName));
+    }));
   }
 
   private getPermissionAPI(): void {
