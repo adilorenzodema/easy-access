@@ -162,7 +162,21 @@ export interface Job {
 
 export interface GateStatus {
   antenna_id: string;
+  lists: Lists;
+  functionality: Functionality;
   status: DeviceStatus[];
+}
+
+export interface Functionality {
+  antenna: string;
+  barrier: string;
+}
+
+export interface Lists {
+  efc: string;
+  set: string;
+  tlp: string;
+  time: string;
 }
 
 export interface DeviceStatus {

@@ -16,62 +16,56 @@
             <span> <button mat-button class="actionButton" (click)="testGateConnection()">{{'manage_gates.gateStatus.connectionTest' | translate}}</button></span>
         </div>
     </mat-card-header>
-    <mat-card-content fxLayout="column" fxLayoutGap="50px">
+    <mat-card-content *ngIf="gateStatus" fxLayout="column" fxLayoutGap="50px">
         <div fxLayoutGap="10px">
-            <div class="border-grey" fxFlex="50">
-                <p class="subtitle">
-                    Antenna - Status: OFFLINE <mat-icon class="center-icon" matTooltip="ANTENNA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
-                </p>
+            <div class="border-grey-center" fxFlex="50">
                 <div fxLayoutGap="10px">
-                    <!-- <mat-form-field>
-                        <input matInput readonly type="text" value="Antenna Attiva" id="input1">
-                    </mat-form-field> -->
-                    <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> Antenna Attiva </button>
-                    <button mat-button id="display-button" >Antenna Attiva</button>
-                    <button mat-fab *ngIf="element.status === 'Active'"  (click)="disactive()" id="mat-icon-disactivate">
-                        <mat-icon 
-                            matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
-                    </button>
-                    <button mat-fab *ngIf="element.status === 'Inactive'" (click)="active()" id="mat-icon-activate">
-                        <mat-icon 
-                            matTooltip="{{'common.activate' | translate}}">power</mat-icon>
-                    </button>
-                    <button mat-button class="actionButton" (click)="reboot()">{{'manage_gates.gateStatus.reboot' | translate}}</button>
+                <p  style=" font-weight: bold !important; color: black !important; text-align: center;">
+                    {{gateStatus.status[0].device_id }} - Status: {{gateStatus.status[0].status }} 
+                    <mat-icon *ngIf="gateStatus.status[0].status === 'KO'" class="center-icon" matTooltip="ANTENNA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
+                </p>
+                    <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> Antenna {{gateStatus.functionality.antenna}} </button>
+                    <button mat-raised-button class="actionButton" *ngIf="isActive"  (click)="disactive()" >{{'common.disactivate' | translate}} </button>
+                    <button mat-raised-button class="actionButton" *ngIf="!isActive" (click)="active()" >{{'common.activate' | translate}}</button>
+                    <button mat-raised-button class="actionButton" (click)="reboot()">{{'manage_gates.gateStatus.reboot' | translate}}</button>
                 </div>
             </div>
-            <div class="border-grey" fxFlex="50">
-                <p class="subtitle">
-                    Sbarra - Status: OFFLINE <mat-icon class="center-icon" matTooltip="SBARRA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
-                </p>
+            <div class="border-grey-center" fxFlex="50">
                 <div fxLayoutGap="10px">
-                    <button mat-button class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
-                    <button mat-button class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
-                    <button mat-button class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
+                <p style=" font-weight: bold !important; color: black !important; text-align: center;">
+                    {{gateStatus.status[1].device_id }} - Status: {{gateStatus.status[1].status }} 
+                    <mat-icon *ngIf="gateStatus.status[1].status === 'KO'" class="center-icon" matTooltip="SBARRA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
+                </p>
+                    <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> Modalità Sbarra: {{gateStatus.functionality.barrier}} </button>
+                    <button mat-button *ngIf="(gateStatus.functionality.barrier === 'open')? false  : true" class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
+                    <button mat-button *ngIf="(gateStatus.functionality.barrier === 'closed')? false  : true"class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
+                    <button mat-button *ngIf="(gateStatus.functionality.barrier === 'automatic')? false  : true" class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
                 </div>
             </div>
         </div>
         <div fxLayoutGap="10px">
             <div class="border-grey-center" fxFlex="50">
                 <p style=" font-weight: bold !important; color: black !important; text-align: center;">
-                    Fotocellula - Status: OFFLINE <mat-icon class="center-icon" matTooltip="FOTOCELLULA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
+                    {{gateStatus.status[2].device_id }} - Status: {{gateStatus.status[2].status }} 
+                    <mat-icon *ngIf="gateStatus.status[2].status === 'KO' "class="center-icon" matTooltip="FOTOCELLULA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
                 </p>
             </div>
             <div class="border-grey" fxFlex="50">
-                <p class="subtitle">
+                <p style=" font-weight: bold !important; color: black !important; text-align: center;">
                     {{'manage_gates.gateStatus.lists' | translate}}
                 </p>
                 <mat-grid-list cols="2" rowHeight="40px">
                     <mat-grid-tile> 
-                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{"element.lists.tlp"}} </button>
+                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{gateStatus.lists.tlp }} </button>
                      </mat-grid-tile>
                     <mat-grid-tile> 
-                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{"element.lists.set"}} </button> 
+                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{gateStatus.lists.efc}} </button> 
                     </mat-grid-tile>
                     <mat-grid-tile> 
-                        <button mat-button id="display-button" >{{"element.lists.efc"}}</button>
+                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{gateStatus.lists.set}} </button> 
                     </mat-grid-tile>
                     <mat-grid-tile> 
-                        <button mat-button id="display-button" >{{"element.lists.time"}}</button>
+                        <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> {{gateStatus.lists.time}} </button> 
                     </mat-grid-tile>
                 </mat-grid-list>
             </div>
