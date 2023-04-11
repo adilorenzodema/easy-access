@@ -23,7 +23,10 @@ import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.compon
 export class GateManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['idGate', 'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna','codeAntenna', 'action'];
+  public displayedColumns: string[] = [
+    'gateDescription', 'parkAssociate','gateDirection','ipAntenna','portAntenna','codeAntenna',
+    'modificationDate','modificationUser','action'
+  ];
   public dataSource = new MatTableDataSource<Gate>();
   public complete = true;
   public search: FormGroup;
@@ -71,6 +74,15 @@ export class GateManagementComponent implements OnInit, OnDestroy {
       next: (gates) => (
         this.dataSource.data = gates,
         this.dataSource.sort = this.sort,
+        //se modificationDate null allora fa sort per creationDate
+        this.dataSource.sortingDataAccessor = (item, property) => {
+          switch (property) {
+            case 'modificationDate':
+              return item.modificationDate? item.modificationDate : item.creationDate;
+            case 'parkAssociate': return item.park.namePark; /* sort per nome parcheggio associato in colonna parkAssociate */
+            default: return item[property];
+          }
+        },
         this.dataSource.paginator = this.paginator
       ),
       error: () => this.complete = true,

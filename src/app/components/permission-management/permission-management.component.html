@@ -6,7 +6,8 @@
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <form [formGroup]="formGroup" fxLayout="row" fxLayoutGap="20px">
-            <mat-form-field appearance="outline" fxFlex="30">
+          <!-- range di ricerca -->
+            <mat-form-field appearance="outline" fxFlex="23">
                 <mat-label>{{'manage-permission.searchRange' | translate}}</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
                     <input matStartDate formControlName="ctrlStart">
@@ -16,20 +17,33 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
                 <mat-error>{{'manage-permission.rangeError' | translate}}</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="30">
+
+            <!-- ricerca per Obu -->
+            <mat-form-field appearance="outline" fxFlex="23">
                 <mat-label>{{'manage-permission.searchByOBU' | translate}}</mat-label>
                 <input matInput type="search" formControlName="ctrlObuSearch" autocomplete="off">
                 <button matPrefix mat-icon-button (click)="callGetAPI()">
                     <mat-icon>search</mat-icon>
                 </button>
             </mat-form-field>
-            <mat-form-field appearance="outline" fxFlex="30">
+
+            <!-- ricerca per tipo permesso -->
+            <mat-form-field appearance="outline" fxFlex="23">
                 <mat-label>{{'manage-permission.searchByPermissionType' | translate}}</mat-label>
                 <input matInput type="search" formControlName="ctrlPermTypeSearch" autocomplete="off">
                 <button matPrefix mat-icon-button (click)="callGetAPI()">
                     <mat-icon>search</mat-icon>
                 </button>
             </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="23">
+              <mat-label>Ricerca per area</mat-label>
+              <mat-select (selectionChange)="callGetAPI()" formControlName="idArea">
+                <mat-option [value]="undefined">Tutte</mat-option>
+                <mat-option *ngFor="let area of areas" [value]="area.idArea">{{ area.areaName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
                 {{formGroup.controls['ctrlActive'].value ? ('common.active' | translate) :
                 ('common.disactive' | translate)}}
@@ -45,13 +59,8 @@
         <div style="height: 5px;">
             <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         </div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="idPermission"
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
             matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
-
-            <ng-container matColumnDef="idPermission">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                <td mat-cell *matCellDef="let element"> {{element.idPermission}} </td>
-            </ng-container>
 
             <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -84,9 +93,15 @@
                 </td>
             </ng-container>
 
-            <ng-container matColumnDef="creationDate">
-                <th mat-header-cell *matHeaderCellDef> {{'common.creationDate' | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'dd/MM/yyyy H:mm:ss'}} </td>
+            <ng-container matColumnDef="modificationDate">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'common.modificationDate' | translate}} </th>
+                <td mat-cell *matCellDef="let element"> {{element.modificatinDate ? element.modificationDate : element.creationDate | date:'dd/MM/yyyy H:mm:ss'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="modificationUser">
+              <th mat-header-cell *matHeaderCellDef>{{ 'common.modificationUser' | translate }}</th>
+              <td mat-cell *matCellDef="let element">{{ element.modificationUser? element.modificationUserFirstname +' '+ element.modificationUSerLastname :
+                element.creationUserFirstname +' '+ element.creationUserLastname }}</td>
             </ng-container>
 
             <ng-container matColumnDef="codiceObu">
@@ -122,7 +137,7 @@
                         <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
                             (click)="activePermission(element.idPermission)">refresh</mat-icon>
                     </button>
-                    <button mat-icon-button 
+                    <button mat-icon-button
                     *ngIf="!formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permission'">
                     <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
                       (click)="deletePermission(element.idPermission)">delete</mat-icon></button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,7 @@ import { LogsService } from 'src/app/service/logs.service';
   templateUrl: './logs-component.component.html',
   styleUrls: ['./logs-component.component.css']
 })
-export class LogsComponentComponent implements OnInit {
+export class LogsComponentComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -44,6 +44,10 @@ export class LogsComponentComponent implements OnInit {
 
     this.getComponentsName(); //chiamata per prendere lista nomi componenti
     this.getOperationsName(); //chiamata per prendere lista nomi operazioni
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
   public callGetAPI(): void{

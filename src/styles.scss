@@ -1,9 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+  $font-family:'Montserrat, sans-serif'
+);
+
+@include mat-core($custom-typography);
 
 html,
 body {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+mat-card-title{
+  font-family: Monstserrat, sans-serif;
+  font-weight: 600;
 }
 
 // template
@@ -18,18 +31,18 @@ h3 {
 .example-sidenav{
     .menu-link {
         color: white !important;
-    
+
         mat-icon {
             color: white !important;
         }
-    
+
         &:hover {
             color: #d4d8e3 !important;
-    
+
             mat-icon {
                 color: #d4d8e3 !important;
             }
-        } 
+        }
     }
 
 }

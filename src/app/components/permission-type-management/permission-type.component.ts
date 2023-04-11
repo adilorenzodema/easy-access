@@ -23,7 +23,7 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public dataSource = new MatTableDataSource<PermissionType>();
-  public displayedColumns: string[] = ['idTipoPermesso', 'descrizioneTipoPermesso', 'action'];
+  public displayedColumns: string[] = ['permissionTypeDesc', 'modificationDate', 'modificationUser', 'action'];
   public search: FormGroup;
   public operations: Operation[] = [];
 
@@ -56,9 +56,17 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     const keyword = this.search.get('ctrlSearch')?.value;
     const isActive = this.search.get('ctrlActive')?.value;
     this.subscription.push(this.permissionTypeService.getPermissionType(keyword, isActive).subscribe({
-      next: (park) => (
-        this.dataSource.data = park,
+      next: (permType) => (
+        this.dataSource.data = permType,
         this.dataSource.paginator = this.paginator,
+        //se modificationDate null allora fa sort per creationDate
+        this.dataSource.sortingDataAccessor = (item, property) => {
+          switch (property) {
+            case 'modificationDate':
+              return item.modificationDate? item.modificationDate : item.creationDate;
+            default: return item[property];
+          }
+        },
         this.dataSource.sort = this.sort
       ),
       error: () => this.complete = true,

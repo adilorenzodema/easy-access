@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Permission, PermissionSearchStatus } from '../../domain/interface';
+import { AreaManagementService } from 'src/app/service/area-management.service';
+import { Area } from 'src/app/domain/class';
 
 @Component({
   selector: 'app-permission-management',
@@ -27,15 +29,17 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
   public displayedColumns: string[] =
-    ['idPermission', 'category', 'permissionStatus', 'permissionType', 'creationDate', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+    ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
   public permissionStatus: PermissionSearchStatus = 'VALID';
+  public areas: Area[] = [];
 
   private subscription: Subscription[] = [];
 
   constructor(
     private permissionService: PermissionManagementService,
     private pagePermissionService: PagePermissionService,
+    private areaService: AreaManagementService,
     private dialog: MatDialog,
     private snackBar: SnackBar,
     private translate: TranslateService
@@ -47,9 +51,11 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       ctrlEnd: new FormControl(moment(this.end).toDate(), Validators.required),
       ctrlObuSearch: new FormControl(''),
       ctrlPermTypeSearch: new FormControl(''),
-      ctrlActive: new FormControl(true)
+      ctrlActive: new FormControl(true),
+      idArea: new FormControl()
     });
     this.callGetAPI();
+    this.getArea();
     this.getPermissionAPI();
     this.dataSource.filterPredicate = (data: Permission, filter: string) => {
       return data.permissionStatus === filter;
@@ -76,13 +82,21 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
       const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
+      const idArea = this.formGroup.get('idArea')?.value;
       //Orario inizio deve essere 00:00, orario fine 23:59
-      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch).subscribe({
+      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch, idArea).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
           this.dataSource.paginator = this.paginator,
-          this.dataSource.sort = this.sort,
-          console.log(this.dataSource.data)
+          //se modificationDate null allora fa sort per creationDate
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              case 'modificationDate':
+                return item.modificationDate? item.modificationDate : item.creationDate;
+              default: return item[property];
+            }
+          },
+          this.dataSource.sort = this.sort
         ),
         error: () => this.complete = true,
         complete: () => (this.applyFilter(this.permissionStatus), this.complete = true)
@@ -165,6 +179,17 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => this.operations = permission.operations
+    ));
+  }
+
+  private getArea(): void{
+    const isActive = true;
+    const keyword = "";
+
+    this.subscription.push(this.areaService.getAreaList(keyword, isActive).subscribe(
+      areas => (
+        this.areas = areas
+      )
     ));
   }
 }
