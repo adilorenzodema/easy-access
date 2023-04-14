@@ -215,7 +215,7 @@
     "permissionCategory": "Permission Category",
     "permissionName": "Permission Name",
     "obuCode": "OBU Code",
-    "obuErrorMessage": "An OBU code consists only of numbers and has a length of 9 or 19 characters",
+    "obuErrorMessage": "An OBU code consists only of numbers and has a length of 10 or 19 characters",
     "validationDateStart": "Validity Start Date",
     "validationDateEnd": "Validity End Date ",
     "noPermission": "There are no permissions present.",
@@ -247,7 +247,9 @@
     "permissionDisactivated": "Permission successfully deactivated!",
     "permissionActivated": "Permission successfully activated!",
     "permissionAdded": "Permission successfully created!",
-    "permissionEdited": "Permission successfully edited!"
+    "permissionEdited": "Permission successfully edited!",
+    "seachPermCategory": "Search by permission category",
+    "searchArea": "Search by area"
   },
   "manage_permission_type": {
     "title": "Manage Permission Types",
