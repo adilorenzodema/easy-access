@@ -249,7 +249,7 @@
     "activationError": "C'è stato un errore nell'attivazione!",
     "disactivationError": "C'è stato un errore nella disattivazione!",
     "obuInsert": "Inserire un codice OBU",
-    "obuErrorMessage": "Un codice OBU è formato solamente da numeri ed ha lunghezza 9 o 19 caratteri.",
+    "obuErrorMessage": "Un codice OBU è formato solamente da numeri ed ha lunghezza 10 o 19 caratteri.",
     "areaSelection": "Associa una o più Aree",
     "areaAssociationError": "Perfavore, associare almeno un'Area",
     "invalidDate": "Perfavore, inserire una data valida",
@@ -261,7 +261,9 @@
     "permissionDisactivated": "Permesso disattivato con successo!",
     "permissionActivated": "Permesso attivato con successo!",
     "permissionAdded": "Permesso cretao con successo",
-    "permissionEdited": "Permesso modificato con successo"
+    "permissionEdited": "Permesso modificato con successo",
+    "seachPermCategory": "Ricerca per categoria di permesso",
+    "searchArea": "Ricerca per area"
   },
   "manage_permission_type": {
     "title": "Gestione Tipo Permessi",
@@ -324,7 +326,8 @@
     "park": "Parcheggio",
     "transitStatus": "Status Transito",
     "noTransits": "Nessun transito presente.",
-    "obuStd": "Obu STD"
+    "obuStd": "Obu STD",
+    "CDC": "CDC"
     },
   "manage_batches": {
     "title": "Gestione Batch",

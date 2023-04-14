@@ -3,6 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import '~@angular/material/theming';
 
+
+//FONT
 $custom-typography: mat-typography-config(
   $font-family:'Montserrat, sans-serif'
 );
@@ -14,8 +16,7 @@ body {
   font-family: 'Montserrat', sans-serif !important;
 }
 
-mat-card-title{
-  font-family: Monstserrat, sans-serif;
+.mat-card-title{
   font-weight: 600;
 }
 

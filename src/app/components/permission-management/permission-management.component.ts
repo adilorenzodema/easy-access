@@ -52,7 +52,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       ctrlObuSearch: new FormControl(''),
       ctrlPermTypeSearch: new FormControl(''),
       ctrlActive: new FormControl(true),
-      idArea: new FormControl()
+      idArea: new FormControl(),
+      category: new FormControl('')
     });
     this.callGetAPI();
     this.getArea();
@@ -83,9 +84,11 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
       const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
       const idArea = this.formGroup.get('idArea')?.value;
+      const category = this.formGroup.get('category')?.value;
       //Orario inizio deve essere 00:00, orario fine 23:59
-      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch, idArea).subscribe({
+      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch, idArea, category).subscribe({
         next: (permission) => (
+          console.log("perm: ", permission),
           this.dataSource.data = permission,
           this.dataSource.paginator = this.paginator,
           //se modificationDate null allora fa sort per creationDate

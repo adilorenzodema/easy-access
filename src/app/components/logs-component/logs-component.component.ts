@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,8 +20,8 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['date', "nomeUtente", "nomeOperazione", "nomeComponente"];
   public dataSource = new MatTableDataSource<any>();
   public formGroup: FormGroup;
-  // public start = moment(moment.now()).subtract(30, 'day').format("yyyy-MM-DD 00:00:00");
-  // public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
+  public start = moment(moment.now()).subtract(30, 'day').format("yyyy-MM-DD 00:00:00");
+  public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
   public complete = true;
   public compNames:string[]; //nomi di tutti i componenti
   public showOpNames:string[]; //nome operazioni che vengono mostrate nella select
@@ -35,8 +35,8 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.formGroup = new FormGroup({
-      start: new FormControl(),
-      end: new FormControl(),
+      start: new FormControl(moment(this.start).toDate(), Validators.required),
+      end: new FormControl(moment(this.end).toDate(), Validators.required),
       name: new FormControl(),
       componentName: new FormControl(),
       operation: new FormControl()
