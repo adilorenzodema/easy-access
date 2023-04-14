@@ -35,4 +35,15 @@ export class IncidentsManagementService {
     return this.http.get<Incident[]>(this.apiURL + '/getAllIncidents', options)
       .pipe(catchError(err => { throw err; }));
   }
+
+  getAllErrorCodes(): Observable<String[]>{
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({
+        token: Cookie.getToken(this.cookieService)
+      })
+    };
+
+    return this.http.get<string[]>(this.apiURL + "/getAllCodeErrors", options);
+  }
 }

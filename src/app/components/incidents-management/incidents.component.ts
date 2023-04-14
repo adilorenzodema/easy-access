@@ -25,6 +25,7 @@ export class IncidentsComponent implements OnInit {
   public formGroup: FormGroup;
   public complete = true;
   public parkByIncidents;
+  public listaCodErrori = [];
   private subscription: Subscription[] = [];
 
   constructor(
@@ -45,6 +46,8 @@ export class IncidentsComponent implements OnInit {
     });
     if(this.parkByIncidents) this.formGroup.patchValue({ctrlParkSearch: this.parkByIncidents});
     this.callGetAPI();
+
+    this.getAllCodeErrors();
   }
 
   public callGetAPI(): void {
@@ -69,6 +72,14 @@ export class IncidentsComponent implements OnInit {
         complete: () => this.complete = true
       }));
     }
+  }
+
+  getAllCodeErrors():void{
+    this.subscription.push(this.incidentsManagementService.getAllErrorCodes().subscribe({
+      next: code => {
+        this.listaCodErrori = code;
+      }
+    }));
   }
 
 }

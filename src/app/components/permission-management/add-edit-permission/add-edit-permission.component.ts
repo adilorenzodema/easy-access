@@ -104,7 +104,7 @@ export class AddEditPermissionComponent implements OnInit {
       this.formGroup.removeControl('ctrlHourStart');
       this.formGroup.removeControl('ctrlHourEnd');
       this.formGroup.addControl('ctrlHourStartDaily', this.formBuilder.control(moment("00:00:00", "HH:mm").format("HH:mm"), Validators.required));
-      this.formGroup.addControl('ctrlHourEndDaily', this.formBuilder.control(moment('23:55:59', "hh:mm:ss").format("HH:mm"), Validators.required));
+      this.formGroup.addControl('ctrlHourEndDaily', this.formBuilder.control(moment('00:00:00', "hh:mm:ss").format("HH:mm"), Validators.required));
       this.formGroup.removeControl('ctrlTypePermissionList');
     } else if (categoryValue === 'P') { // permanente
       /*  if (this.permissionTypes.length === 0) { this.getPermissionType(); }
@@ -170,10 +170,11 @@ export class AddEditPermissionComponent implements OnInit {
         }));
       }
     }
-    else if (categoryValue === 'D') {
-      const endDateD = this.formGroup.get('ctrlDateStart').value;
+    else if (categoryValue === 'D') { //daily
+      const endDateD = startDate;
       const startHour = this.formGroup.get('ctrlHourStartDaily').value;
-      const endHour = this.formGroup.get('ctrlHourEndDaily').value;
+      const endHour = this.formGroup.get('ctrlHourEndDaily').value == "00:00"? "23:59:59" : this.formGroup.get('ctrlHourEndDaily').value;
+
       const addDaily = new AddDailyPermission(obuCode, startDate, endDateD, idAreasSelected, startHour, endHour);
       if (this.permission) { // edit
         this.subscription.push(this.permissionService.editDailyPermission(addDaily, this.permission.idPermission).subscribe({
@@ -192,8 +193,11 @@ export class AddEditPermissionComponent implements OnInit {
   }
 
   public setDateEnd(): void{
-    const endDateD = this.formGroup.get('ctrlDateStart').value;
+    const endDateD:Date = this.formGroup.get('ctrlDateStart').value;
+
     this.formGroup.patchValue({ ctrlDateEnd: endDateD });
+
+
   }
 
   private getAreas(): void {
