@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import { Subscription } from 'rxjs';
-import { Gate, Incident } from 'src/app/domain/interface';
+import { Gate, GateStatus, Incident } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
 import { GatePilotingService } from 'src/app/service/gate-piloting.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
@@ -20,7 +20,8 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['startDate', 'endDate', 'errorCode', 'errorMessage'];
   public dataSource = new MatTableDataSource<Incident>();
   public complete = true;
-
+  public gateStatus: GateStatus;
+  public isActive: boolean;
   private subscription: Subscription[] = [];
 
   constructor(
@@ -47,26 +48,34 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   public testGateConnection(): void {
     this.complete = false;
     this.subscription.push(this.gatePilotingService.testGateConnection(this.gate.idGate).subscribe({
-      next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.testOk'), "INFO"),
       error: () => this.complete = true,
-      complete: () => this.complete = true
+      complete: () => {
+        this.snackBar.showMessage(this.translate.instant('manage_gates.testOk'), "INFO");
+        this.complete = true;}
     }));
   }
 
   public getGateInfo(): void {
     this.complete = false;
     this.subscription.push(this.gatePilotingService.getGateInfo(this.gate.idGate).subscribe({
-      next: () => this.snackBar.showMessage("GateInfo", "INFO"),
+      next: (gateStatus) => (
+        this.gateStatus = gateStatus,
+        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false,
+        console.log(this.gateStatus)),
       error: () => this.complete = true,
-      complete: () => this.complete = true
+      complete: () => {
+        this.snackBar.showMessage("GateInfo", "INFO");
+        this.complete = true;}
     }));
   }
 
   public reboot(): void {
+    const title = this.translate.instant('manage_gates.gateStatus.rebootTitle');
+    const content = this.translate.instant('manage_gates.gateStatus.rebootConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Reboot device", content: "Desideri riavviare il device selezionato?" },
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -93,8 +102,12 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.deactivateGate(this.gate.idGate).subscribe({
-            next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.disactiveOk'), "INFO"),
-            error: () => this.complete = true
+            error: () => this.complete = true,
+            complete: ()=>{
+              this.complete = true;
+              this.snackBar.showMessage(this.translate.instant('manage_gates.disactiveOk'), "INFO");
+              this.isActive = false;
+            }
           }));
         }
       });
@@ -112,8 +125,12 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.activateGate(this.gate.idGate).subscribe({
-            next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.activeOk'), "INFO"),
-            error: () => this.complete = true
+            error: () => this.complete = true,
+            complete: ()=>{
+              this.complete = true;
+              this.snackBar.showMessage(this.translate.instant('manage_gates.activeOk'), "INFO");
+              this.isActive = true;
+            }
           }));
         }
       });

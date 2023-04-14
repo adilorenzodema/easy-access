@@ -47,7 +47,6 @@ export class EfcListManagementComponent implements OnInit {
   public callGetAPI(): void {
     this.complete = false;
     const efcCode = this.search.get('ctrlSearch')?.value;
-    console.log(efcCode);
     this.subscription.push(this.efcListService.getEfcList(efcCode).subscribe({
       next: efc => {
         efc.sort( (a:EFC ,b:EFC ) => +b.flagActive - +a.flagActive); //sort per flagActive = true

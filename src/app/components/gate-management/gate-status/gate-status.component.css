@@ -1,3 +1,44 @@
 table {
     width: 100%;
 }
+
+.subtitle{
+    font-weight: bold !important;
+    color: black !important;
+}
+
+.center-icon-title {
+    vertical-align: middle;
+  }
+
+  .center-icon {
+    vertical-align: middle;
+    color: #ff0000;
+  }
+  /* error ff0000
+   info 5cb85c */
+  #display-button{
+    color: white;
+    background-color: black;
+  }
+
+  #mat-icon-activate{
+    color: white;
+    background-color: #283c74;
+    transform: scale(0.7);
+  }
+  #mat-icon-disactivate{
+    color: white;
+    background-color: #ff0000;
+    transform: scale(0.7);
+  }
+
+  .border-grey-center{
+    border-color: darkgray;
+    border-radius: 10px;
+    border-style: solid;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
