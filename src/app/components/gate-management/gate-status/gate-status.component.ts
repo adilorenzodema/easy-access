@@ -17,7 +17,7 @@ import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-
 })
 export class GateStatusComponent implements OnInit, OnDestroy {
   public gate: Gate;
-  public displayedColumns: string[] = ['startDate', 'endDate', 'errorCode', 'errorMessage'];
+  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
   public complete = true;
 
@@ -179,7 +179,9 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   private gateIncidentApi(): void {
     this.complete = false;
     this.subscription.push(this.gateService.getGateIncident(this.gate.idGate).subscribe({
-      next: (incidents) => this.dataSource.data = incidents,
+      next: (incidents) =>{
+        this.dataSource.data = incidents;
+      },
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));
