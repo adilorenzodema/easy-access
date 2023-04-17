@@ -19,7 +19,7 @@
     "Permissions": "Permissions",
     "Permission Profiles": "Permission profiles",
     "Transits": "Transits",
-    "Incidents": "Incidents",
+    "Incidents": "Alerts",
     "Batch Management": "Batch",
     "Holidays Selection": "Holidays Selection",
     "EFC List": "Service Provider List",
@@ -206,8 +206,8 @@
       "closeBarrier": "Close barrier",
       "autoBarrier": "Auto Mode",
       "lists": "Lists on board",
-      "noIncidents": "There are no incidents present",
-      "incidentsDetected": "Incidents detected",
+      "noIncidents": "There are no alerts present",
+      "incidentsDetected": "alerts detected",
       "rebootTitle":"Reboot Antenna",
       "rebootConfirm": "Are you sure you want to reboot this Antenna?"
     }
@@ -284,7 +284,7 @@
     "permissionEdited": "Permission Type successfully edited!"
   },
   "manage_incidents": {
-    "incidentTitle": "Incidents List",
+    "incidentTitle": "Alerts List",
     "searchRange": "Search range",
     "parkSearch": "Search by parking lot",
     "gateSearch": "Search by gate",
@@ -304,7 +304,7 @@
     "rangeError": "Error in the given range",
     "gate": "Gate",
     "park": "Parking lot",
-    "noIncidents": "There are no incidents present.",
+    "noIncidents": "There are no alerts present.",
     "viewHistory": ""
   },
   "manage_transits": {
@@ -351,15 +351,15 @@
     "Permission": "Permission",
     "PermissionType": "Permission type",
     "Transit": "Transit",
-    "Incident": "Incident",
+    "Incident": "Alert",
     "Batch": "Batch",
     "Holidays": "Holidays",
     "Efc": "Efc",
     "Logs": "Logs",
     "Dashboard": "Dashboard",
     "view-gate-status": "View gate status ",
-    "view-park-incidents": "View park incidents",
-    "view-gate-incidents": "View gate incidents",
+    "view-park-incidents": "View park alerts",
+    "view-gate-incidents": "View gate alerts",
     "view-park-status": "View park status",
     "view-gate": "View gate",
     "view-user": "View user",
@@ -367,7 +367,7 @@
     "activate-user": "Activate user",
     "delete-user": "Delete user",
     "edit-user":"Edit user",
-    "view-park-incident-dashboard": "View park incident",
+    "view-park-incident-dashboard": "View park alert",
     "insert-permissiontype": "Insert permission type",
     "view-profile": "View profile",
     "disactivate-area": "Disactivate area",
@@ -411,14 +411,14 @@
   },
 
   "dashboard": {
-    "lastIncident": "Last incident detected:",
+    "lastIncident": "Last alert detected:",
     "date": "Date: ",
     "device": "Device: ",
     "gate": "Gate:",
-    "history": "View incident history",
-    "noIncidents": "There are no incidents present",
-    "incidentList": "Detected incidents",
-    "incidentDesc": "Incident description",
+    "history": "View alert history",
+    "noIncidents": "There are no alerts present",
+    "incidentList": "Detected alerts",
+    "incidentDesc": "Alert description",
     "park": "Parking lot"
   },
   "select_holidays": {
@@ -510,7 +510,7 @@
       "antennaCodeNotMatch": "Antenna code retrieved from Gate does not match with one present on Easy Access"
     },
     "incident": {
-      "notFound": "Incident not found"
+      "notFound": "Alert not found"
     },
     "transit": {
       "notFound": "Transit not found",

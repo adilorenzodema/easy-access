@@ -19,7 +19,7 @@
     "Permissions": "Permessi",
     "Permission Profiles": "Tipi permesso",
     "Transits": "Transiti",
-    "Incidents": "Anomalie",
+    "Incidents": "Alert",
     "Batch Management": "Batch",
     "Holidays Selection": "Selezione Festività",
     "EFC List": "Lista Service Providers",
@@ -210,8 +210,8 @@
       "closeBarrier": "Chiudi barriera",
       "autoBarrier": "Modalità automatica",
       "lists": "Liste a bordo",
-      "noIncidents": "Nessun incidente presente",
-      "incidentsDetected": "Incidenti rilevati",
+      "noIncidents": "Nessun alert presente",
+      "incidentsDetected": "Alert rilevati",
       "rebootTitle":"Reboot Antenna",
       "rebootConfirm": "Sei sicur* di voler riavviare questa antenna?"
     }
@@ -286,7 +286,7 @@
     "permissionEdited": "Tipo Permesso modificato con successo"
   },
   "manage_incidents": {
-    "incidentTitle": "Lista Incidenti",
+    "incidentTitle": "Lista Alert",
     "searchRange": "Range di ricerca",
     "parkSearch": "Ricerca per parcheggio",
     "gateSearch": "Ricerca per varco",
@@ -306,7 +306,7 @@
     "rangeError": "Errore nel range inserito",
     "gate": "Varco",
     "park": "Parcheggio",
-    "noIncidents": "Nessun incidente presente."
+    "noIncidents": "Nessun alert presente."
   },
   "manage_transits": {
     "title": "Visualizzazione Transiti",
@@ -360,8 +360,8 @@
     "Logs": "Log",
     "Dashboard": "Dashboard",
     "view-gate-status": "Visualizza status varchi",
-    "view-park-incidents": "Visualizza incidenti parcheggio",
-    "view-gate-incidents": "Visualizza incidenti varco",
+    "view-park-incidents": "Visualizza alert parcheggio",
+    "view-gate-incidents": "Visualizza alert varco",
     "view-park-status": "Visualizza status parcheggi",
     "view-gate": "Visualizza varchi",
     "view-user": "Visualizza utenti",
@@ -369,7 +369,7 @@
     "activate-user": "Attivazione utenti",
     "delete-user": "Elimina utenti",
     "edit-user":"Modifica utenti",
-    "view-park-incident-dashboard": "Visualizza incidenti parcheggio",
+    "view-park-incident-dashboard": "Visualizza alert parcheggio",
     "insert-permissiontype": "Inserimento tipi permesso",
     "view-profile": "Visualizza profili",
     "disactivate-area": "Disattiva area",
@@ -413,14 +413,14 @@
   },
 
   "dashboard": {
-    "lastIncident": "Ultimo incident rilevato:",
+    "lastIncident": "Ultimo alert rilevato:",
     "date": "Data: ",
     "device": "Componente: ",
     "gate": "Varco: ",
-    "history": "Visualizza storico incidenti",
-    "noIncidents": "Nessun incidente presente",
-    "incidentList": "Incidenti rilevati",
-    "incidentDesc": "Descrizione incidente",
+    "history": "Visualizza storico alert",
+    "noIncidents": "Nessun alert presente",
+    "incidentList": "Alert rilevati",
+    "incidentDesc": "Descrizione alert",
     "park": "Parcheggio"
   },
   "select_holidays": {
@@ -512,7 +512,7 @@
       "antennaCodeNotMatch": "Il codice antenna del varco non corrisponde ad un codice presente su Easy Access"
     },
     "incident": {
-      "notFound": "Incidente non trovato"
+      "notFound": "Alert non trovato"
     },
     "transit": {
       "notFound": "Transito non trovato",
