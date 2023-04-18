@@ -17,6 +17,18 @@ export class IncidentsManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
+  /*
+    * Prende la lista degli incidenti
+    *
+    * @param {string} startDate
+    * @param {string} endDate
+    * @param {string} gateName
+    * @param {string} parkName
+    * @param {string} device
+    * @param {string} errorCode
+    * @param {boolean} status
+    * @returns {Observable<Incident[]>}
+  * */
   getIncidentsList(
     startDate: string,
     endDate: string,
@@ -36,6 +48,11 @@ export class IncidentsManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /*
+   * Prende lista dei codici di errore
+   *
+   * @returns {Observable<String[]>}
+  * */
   getAllErrorCodes(): Observable<String[]>{
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

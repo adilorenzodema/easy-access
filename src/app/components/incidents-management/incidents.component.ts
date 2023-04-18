@@ -18,6 +18,12 @@ export class IncidentsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: data di inizio, data di fine, nome varco, nome parcheggio, dispositivo, codice errore e stato dell'alert
+    * azioni eseguibili sull'area
+    */
   public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
   public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
@@ -34,6 +40,9 @@ export class IncidentsComponent implements OnInit {
     this.parkByIncidents = this.router.getCurrentNavigation()?.extras.state?.['parkName'] as string;
   }
 
+  /*
+   * Popolata la select dei codici di errore e la tabella incidenti
+  * */
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       start: new FormControl(moment(this.start).toDate(), Validators.required),
@@ -50,6 +59,10 @@ export class IncidentsComponent implements OnInit {
     this.getAllCodeErrors();
   }
 
+  /**
+   * Chiamata per popolare la tabella degli incidenti
+   * Viene chiamata ad ogni modifica nelle select o nell'invio dei campi di input sopra la tabella
+   */
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
@@ -74,6 +87,9 @@ export class IncidentsComponent implements OnInit {
     }
   }
 
+  /**
+   * Popola la select per la scelta del codice di errore
+   */
   getAllCodeErrors():void{
     this.subscription.push(this.incidentsManagementService.getAllErrorCodes().subscribe({
       next: code => {
