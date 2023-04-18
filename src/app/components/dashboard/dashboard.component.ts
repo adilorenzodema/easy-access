@@ -35,7 +35,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private getParkStatusAPI(): void {
     this.complete = false;
     this.subscription.push(this.parkService.getParkStatus().subscribe({
-      next: (status) => this.parkStatus = status,
+      next: (status) => {this.parkStatus = status;
+        console.log(this.parkStatus);},
       error: () => this.complete = true,
       complete: () => this.complete = true
     }));

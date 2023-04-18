@@ -411,6 +411,7 @@
   },
 
   "dashboard": {
+    "areas": "Associated areas: ",
     "lastIncident": "Last alert detected:",
     "date": "Date: ",
     "device": "Device: ",

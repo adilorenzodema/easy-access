@@ -413,6 +413,7 @@
   },
 
   "dashboard": {
+    "areas": "Aree associate: ",
     "lastIncident": "Ultimo alert rilevato:",
     "date": "Data: ",
     "device": "Componente: ",

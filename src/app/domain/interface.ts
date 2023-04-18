@@ -133,6 +133,7 @@ export interface ParkStatus {
   parkName: string;
   status: Status;
   incidentList: Incident[];
+  areaList: String[];
 }
 
 export interface Incident {

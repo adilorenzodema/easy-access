@@ -15,6 +15,9 @@
                 </div>
                 <ng-container *ngIf="status.incidentList.length > 0 else noIncidents">
                     <mat-card-subtitle>
+                        {{("dashboard.areas" | translate) + status.areaList }}<br>
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
                         {{("dashboard.lastIncident" | translate) + status.incidentList[0].errorMessage}}<br>
                     </mat-card-subtitle>
                     <mat-card-subtitle>
