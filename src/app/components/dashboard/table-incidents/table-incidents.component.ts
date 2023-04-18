@@ -10,6 +10,9 @@ import { ParkStatus, TableIncident } from 'src/app/domain/interface';
   styleUrls: ['./table-incidents.component.css']
 })
 export class TableIncidentsComponent implements OnInit, AfterViewInit {
+  /**
+   *Creazione della tabella Incidenti nella pagina /#/dashboard
+   */
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() parkStatus: ParkStatus[];
@@ -23,6 +26,9 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
     this.saveAllIncident();
   }
 
+  /*
+ * Prende in input la variabile parkStatus dal componente Dashboard, e popola la tabella degli incidenti, ordinati per data di inizio più recente
+ */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -30,11 +36,11 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
       switch (columnName) {
         case 'idIncident': return row.incident.idIncident;
         case 'parkName': return row.parkName;
-        case 'startDate' : return row.incident.startDate;
+        case 'startDate': return row.incident.startDate;
         default: return columnName;
       }
     };
-    this.sort.sortChange.emit({active: 'startDate', direction: 'desc'});
+    this.sort.sortChange.emit({ active: 'startDate', direction: 'desc' });
   }
 
   private saveAllIncident(): void {
