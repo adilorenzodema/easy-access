@@ -209,7 +209,11 @@
       "noIncidents": "There are no alerts present",
       "incidentsDetected": "alerts detected",
       "rebootTitle":"Reboot Antenna",
-      "rebootConfirm": "Are you sure you want to reboot this Antenna?"
+      "rebootConfirm": "Are you sure you want to reboot this Antenna?",
+      "disactivateTitle": "Disactivate Device",
+      "disactivateConfirm" : "Are you sure you want to disactivate the selected device?",
+      "activateTitle": "Activate Device",
+      "activateConfirm": "Are you sure you want to re-activate the selected device?"
     }
   },
   "manage-permission": {
@@ -281,7 +285,13 @@
     "permissionDisactivated": "Permission successfully deactivated!",
     "permissionActivated": "Permission successfully activated!",
     "permissionAdded": "Permission Type successfully created!",
-    "permissionEdited": "Permission Type successfully edited!"
+    "permissionEdited": "Permission Type successfully edited!",
+    "activateTitle": "Activate Permission Type",
+    "disactivateTitle": "Disactivate Permission Type",
+    "activateConfirm": "Are you sure you want to re-activate the selected permission type?",
+    "disactivateConfirm": "Are you sure you want to disactivate the selected permission type?",
+    "deleteTitle": "Delete Permission Type",
+    "deleteConfirm": "Are you sure you want to delte the selected permission type? This action is permanent."
   },
   "manage_incidents": {
     "incidentTitle": "Alerts List",

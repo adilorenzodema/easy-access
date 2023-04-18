@@ -91,10 +91,12 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   }
 
   public disactive(): void {
+    const title = this.translate.instant('manage_gates.gateStatus.disactivateTitle');
+    const content = this.translate.instant('manage_gates.gateStatus.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Disattivazione device", content: "Desideri disattivare il device selezionato?" },
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -114,10 +116,12 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   }
 
   public active(): void {
+    const title = this.translate.instant('manage_gates.gateStatus.activateTitle');
+    const content = this.translate.instant('manage_gates.gateStatus.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: { title: "Attivazione device", content: "Desideri attivare il device selezionato?" },
+        data: { title, content },
         autoFocus: false
       }
     );

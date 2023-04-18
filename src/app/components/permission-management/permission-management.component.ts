@@ -108,12 +108,12 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   }
 
   public onDisactivate(id: number): void {
+    const title = this.translate.instant('manage-permission.disactivateTitle');
+    const content = this.translate.instant('manage-permission.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: {
-          title: "Cancellazione permesso", content: "Desideri disattivare il permesso selezionato?"
-        },
+        data: { title, content },
         autoFocus: false
       }
     );
@@ -133,7 +133,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
 
   public activePermission(id: number): void {
     const title = this.translate.instant('manage-permission.activateTitle');
-    const content = this.translate.instant('manage-permission.deleteTitle');
+    const content = this.translate.instant('manage-permission.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '35%', height: '25%',
