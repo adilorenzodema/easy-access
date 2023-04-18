@@ -429,7 +429,8 @@
     "update": "Aggiorna festività ",
     "updateSnackbar": "Festività aggiornate con successo!",
     "yearSelect": "Scegliere un anno",
-    "dateSelect": "Aggiungi o rimuovi festività"
+    "dateSelect": "Aggiungi o rimuovi festività",
+    "loadHolidays": "Carica festività "
   },
   "manage_efc":{
     "title": "Gestione EFC",

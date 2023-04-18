@@ -427,7 +427,8 @@
     "update": "Update holidays for ",
     "updateSnackbar": "Holiday list successfully updated!",
     "yearSelect": "Choose a year",
-    "dateSelect": "Add or remove holidays"
+    "dateSelect": "Add or remove holidays",
+    "loadHolidays": "Load holidays "
   },
   "manage_efc": {
     "title": "Manage EFCs",
