@@ -18,8 +18,16 @@ import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-
   styleUrls: ['./batch-management.component.css']
 })
 export class BatchManagementComponent implements OnInit, OnDestroy {
+  /**
+    *Gestione della pagina /#/batch-management
+    */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    *In ordine: Nome del Job, Descrizione, chronExpression collegata, traduzione della chronExpression, Data della prossima esecuzione, flag programmato,
+    *azioni eseguibili sul Job
+    */
   public displayedColumns: string[] = ['jobName', 'jobDescription', 'chronExpression', 'chronDescription', 'nextRunDate', 'scheduled', 'action'];
   public complete = true;
   public search: FormGroup;
@@ -37,6 +45,10 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
   ) { }
 
+  /**
+      *Dato che alcuni Job possono essere eseguiti più volte nel giro di minuti, ogni minuto viene ri-effettuata la chiamata GET.
+      *Popola la tabella con la callGetAPI() e ritorna tutti i permessi disponibili all'utente con la getPermissionAPI()
+      */
   ngOnInit(): void {
     this.interval = interval(60000).subscribe(
       () => this.callGetAPI()
@@ -45,6 +57,9 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
     this.getPermissionAPI();
   }
 
+  /**
+      *Quando viene distrutto il componente, cancella tutte le sottoscrizioni agli Observable.
+      */
   ngOnDestroy(): void {
     this.subscription.forEach(subscription => {
       subscription.unsubscribe();
@@ -52,6 +67,9 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
     this.interval.unsubscribe();
   }
 
+  /**
+    *Ritorna una lista di oggetti di tipo Job.
+    */
   public callGetAPI(): void {
     this.complete = false;
     this.subscription.push(this.batchManagementService.getAllJobs().subscribe({
@@ -65,6 +83,10 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * Apre una finestra modale ed in base alla scelta dell'utente, disabilita un Job.
+   * @param jobName - Nome del Job da disattivare.
+   */
   public disableJob(jobName: string): void {
     const title = this.translate.instant('manage_batches.disactivateTitle');
     const content = this.translate.instant('manage_batches.disactivateConfirm');
@@ -85,6 +107,10 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+  * Apre una finestra modale ed in base alla scelta dell'utente, abilita un Job.
+  * @param jobName - Nome del Job da ri-abilitare.
+  */
   public enableJob(jobName: string): void {
     const title = this.translate.instant('manage_batches.activateTitle');
     const content = this.translate.instant('manage_batches.activateConfirm');
@@ -105,6 +131,10 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+  * Apre una finestra modale ed in base alla scelta dell'utente, lancia l'esecuzione di un Job.
+  * @param jobName - Nome del Job da eseguire.
+  */
   public runJob(jobName: string): void {
     const title = this.translate.instant('manage_batches.executeJobTitle');
     const content = this.translate.instant('manage_batches.executeJobConfirm');
@@ -125,6 +155,9 @@ export class BatchManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+    * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+    */
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(

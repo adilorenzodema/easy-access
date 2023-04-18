@@ -75,12 +75,12 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   }
 
   public onDisactivate(id: number): void {
+    const title = this.translate.instant('manage_permission_type.disactivateTitle');
+    const content = this.translate.instant('manage_permission_type.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: {
-          title: "Cancellazione tipo di permesso", content: "Desideri disattivare il tipo di permesso selezionato?"
-        },
+        data: {title, content},
         autoFocus: false
       }
     );
@@ -99,11 +99,13 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   }
 
   public activePermissionType(id: number): void {
+    const title = this.translate.instant('manage_permission_type.activateTitle');
+    const content = this.translate.instant('manage_permission_type.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
         data: {
-          title: "Riattivazione tipo di permesso", content: "Desideri riattivare il tipo di permesso selezionato?"
+          title, content
         },
         autoFocus: false
       }

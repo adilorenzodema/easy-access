@@ -26,6 +26,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   /**
     *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: Id dell'Area, Nome, Utente da cui è stata creata, Data di creazione, Nome dell'ultimo utente che la ha modificata, Data dell'ultima modifica,
+    * azioni eseguibili sull'area
     */
   public displayedColumns: string[] = ['idArea', 'areaName', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public dataSource = new MatTableDataSource<Area>();
