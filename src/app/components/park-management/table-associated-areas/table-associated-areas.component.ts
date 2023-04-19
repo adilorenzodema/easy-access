@@ -17,6 +17,12 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
   styleUrls: ['./table-associated-areas.component.css']
 })
 export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestroy {
+  /**
+   * Componente richiamato nell'edit del parcheggio
+   * Prende in input l'id del parcheggio e la lista delle aree associate
+   * Gestisce la tabella della aree associate al parcheggio.
+   * E' possibile assegnre il parcheggio a delle nuove aree all'interno di modifica parcheggio (modifica associazioni)
+   */
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,6 +62,10 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
     this.subscription.forEach((subscription) => subscription.unsubscribe());
   }
 
+
+  /*
+   * Salva la lista della aree alla quale il parcheggio è associato
+  * */
   public saveAssociation(): void {
     this.subscription.push(this.parkManageService.editAssociateParkArea(this.idPark, this.dataSourceAssAreas.data).subscribe({
       error: () => (this.snackBar.showMessage(this.translate.instant('manage_parks.associationErrorSnackbar'), "ERROR")),
@@ -64,6 +74,11 @@ export class TableAssociatedAreasComponent implements OnInit, OnChanges, OnDestr
     }));
   }
 
+  /**
+   *
+   * Mostra la lista delle aree associate all'utente in una tabella
+   * Tramite un checkbox e il tasto salva è possibile associare un parcheggio a nuove aree
+   */
   public changeViewEdit(): void {
     if (this.viewMode) {
       this.displayedColumnsAreas = this.displayedColumnsAreas.concat('associated');

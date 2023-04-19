@@ -14,6 +14,10 @@ import { GateAssociated } from 'src/app/domain/interface';
   styleUrls: ['./table-associated-gates.component.css']
 })
 export class TableAssociatedGatesComponent implements OnInit, OnChanges, OnDestroy {
+  /*
+   * Gestisce la tabella dei varchi associati al parcheggio
+   * In Input prende l'id del parcheggio e la lista dei varchi associati
+  * */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Input() allAssociatedGates: GateAssociated[];

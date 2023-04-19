@@ -46,6 +46,9 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     });
   }
 
+  /*
+   * Aggiunta di un nuovo parcheggio
+  * */
   public onSubmit(): void {
     const name = this.inputUserForm.get('ctrlParkName')?.value;
     const country = this.inputUserForm.get('ctrlParkCountry')?.value;
@@ -66,6 +69,9 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     this.dialogRef.close(false);
   }
 
+  /*
+   * Popola la select delle aree associate all'utente
+  * */
   private getAreas(): void {
     const keyword = "";
     const isActive = true;
