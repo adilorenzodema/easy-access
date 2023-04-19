@@ -21,6 +21,9 @@ import { Area } from 'src/app/domain/class';
   styleUrls: ['./permission-management.component.css']
 })
 export class PermissionManagementComponent implements OnInit, OnDestroy {
+  /**
+   * Pagina di gestione dei permessi
+   */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
@@ -28,6 +31,13 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   public start = moment(moment.now()).subtract(20, 'day');
   public end = moment(moment.now());
   public dataSource = new MatTableDataSource<Permission>();
+
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: categoria di permesso, stato permesso, tipo di perm, data utlima modifica,
+    * codice obu associato, data di inizio validità, data fine validità, azioni eseguibili sul permesso
+    * azioni eseguibili sull'area
+    */
   public displayedColumns: string[] =
     ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
@@ -45,6 +55,10 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     private translate: TranslateService
   ) { }
 
+  /**
+   * Inizializza la barra di ricerca
+   * Popola la tabella con callGetAPI(), la select delle aree associate all'utente con getArea()
+   */
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       ctrlStart: new FormControl(moment(this.start).toDate(), Validators.required),
@@ -75,6 +89,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Ritorna una lista di oggetti di tipo Permission, in base ai parametri di ricerca(Una keyword)
+   */
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
@@ -107,6 +124,12 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Apre una finestra modale ed in base alla scelta dell'utente, disattiva un permesso.
+   * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+   *
+   * @param {number} id
+   */
   public onDisactivate(id: number): void {
     const title = this.translate.instant('manage-permission.disactivateTitle');
     const content = this.translate.instant('manage-permission.disactivateConfirm');
@@ -131,6 +154,12 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+
+   /**
+    * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un permesso.
+    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+    * @param id - id del permesso da attivare
+    */
   public activePermission(id: number): void {
     const title = this.translate.instant('manage-permission.activateTitle');
     const content = this.translate.instant('manage-permission.activateConfirm');
@@ -155,6 +184,10 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  /*
+   * Apre una modale di conferma, ed in base alla scelta dell'utente, elimina un permesso che ha l'id passato
+   * @param {number} id
+  * */
   public deletePermission(id: number): void {
     const title = this.translate.instant('manage-permission.deleteTitle');
     const content = this.translate.instant('manage-permission.deleteConfirm');
@@ -178,6 +211,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+    * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+  */
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
