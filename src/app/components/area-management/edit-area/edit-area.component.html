@@ -5,7 +5,6 @@
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
         <div fxLayout="row" fxLayoutGap="20px">
-            <mat-card-subtitle>{{'common.details' | translate}}</mat-card-subtitle>
             <button mat-button class="actionButton"
                 (click)="!viewModeUser ? saveDetails() : null; viewModeUser = !viewModeUser">
                 {{(viewModeUser ? 'manage_areas.edit_details' : 'common.save') | translate}}

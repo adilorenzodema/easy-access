@@ -23,6 +23,10 @@ import { PermissionTypeManagementService } from 'src/app/service/permission-type
   ]
 })
 export class AddEditPermissionTypeComponent implements OnInit {
+  /**
+   * Componente per l'aggiunta e la modifica di permessi
+   */
+
   public formGroup: FormGroup;
   public days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
   public holidays = ['holiday'];
@@ -38,10 +42,16 @@ export class AddEditPermissionTypeComponent implements OnInit {
     private translate: TranslateService
   ) { this.permissionType = this.router.getCurrentNavigation()?.extras.state?.['permissionType'] as PermissionType; }
 
+  /**
+   * Ritorna l'array di fasce orarie del tipo di permesso
+   */
   get timesSlot(): FormArray {
     return this.formGroup.get('ctrlTimesSlot') as FormArray;
   }
 
+  /*
+   * Inizializza la barre di ricerca in base al tipo di permesso e a se è stato passato un permesso o no (così che distingue se fare add o edit)
+  * */
   ngOnInit(): void {
     if (!this.permissionType && this.router.url === '/permission-type-management/edit-permission-type') { this.router.navigate(['/permission-type-management']); }
     if (this.permissionType) {
@@ -58,6 +68,10 @@ export class AddEditPermissionTypeComponent implements OnInit {
     }
   }
 
+  /*
+   * Crea o modifica un tipo di permesso
+   * se la variabile permissionType è undefined si tratta di una add, altrimenti è una edit
+  * */
   public addEditPermissionType(): void {
     this.complete = false;
     if (this.permissionType) {
@@ -84,14 +98,24 @@ export class AddEditPermissionTypeComponent implements OnInit {
     }
   }
 
+  /**
+   * Aggiunge una nuova fascia oraria (creazione nuovo form per una fascia oraria aggiuntiva al tipo di permeeso)
+   */
   public addTimeSlot(): void {
     this.timesSlot.push(this.buildTimeSlotArray());
   }
 
+  /*
+   * Rimozione delle fasce orarie
+  * */
   public removeTimeSlot(index: number): void {
     this.timesSlot.removeAt(index);
   }
 
+  /*
+   * creazione formGroup per i checkbox della scelta dei giorni e la scelta dell'orario
+   * per l'inserimento di un nuovo tipo di permesso
+  * */
   public buildTimeSlotArray(): FormGroup {
     return this.formBuilder.group({
       startTime: ['', Validators.required],
@@ -107,6 +131,10 @@ export class AddEditPermissionTypeComponent implements OnInit {
     });
   }
 
+  /*
+   * creazione formGroup per i checkbox della scelta dei giorni e la scelta dell'orario
+   * per la modifica di un tipo di permesso
+  * */
   public buildExistingTimeSlotArray(): FormGroup[] {
     const formGroupArray: FormGroup[] = [];
     this.permissionType.timeslotList.forEach(timeSlot => {
@@ -126,5 +154,4 @@ export class AddEditPermissionTypeComponent implements OnInit {
     });
     return formGroupArray;
   }
-
 }
