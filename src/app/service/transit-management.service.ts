@@ -17,11 +17,23 @@ export class TransitService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-  getTransitList(startDate: string, endDate: string, obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string, 
+    /**
+     * Prende una lista di transiti Transit
+     * I valori sono passati come parametri
+     * @param startDate
+     * @param endDate
+     * @param obuCodeKeyword
+     * @param gateNameKeyword
+     * @param parkNameKeyword
+     * @param validationType
+     * @param flagTransited
+     * @returns Observable<Transit[]>
+     */
+  getTransitList(startDate: string, endDate: string, obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string,
     flagTransited: boolean): Observable<Transit[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), 
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService),
         startDate, endDate, obuCodeKeyword, gateNameKeyword, parkNameKeyword, validationType, flagTransited  })
     };
     return this.http.get<Transit[]>(this.apiURL + '/getAllTransits', options)
