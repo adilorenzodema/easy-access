@@ -16,6 +16,14 @@ export class HolidaysService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
+    /**
+     * Prende le vacanze selezionate in un intervallo di date richiamando le API fornite da backend (GestioneCalendarioRestController)
+     * startDate, endDate e toke dell'utente sono passati come parametri
+     *
+     * @param startDate
+     * @param endDate
+     * @returns Observable<Calendar[]>
+     */
   getCalendar(startDate: string, endDate: string): Observable<Calendar[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -25,6 +33,15 @@ export class HolidaysService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Aggiunge le vacanze scelte all'anno selezionato
+   * year passato coma path param
+   * calendar passato nel body
+   * token dell'utente passato come parametro
+   * @param calendar
+   * @param year
+   * @returns Observable<Date[]>
+   */
   addCalendar(calendar: Date[], year: number): Observable<Date[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

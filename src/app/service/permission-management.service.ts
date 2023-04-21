@@ -132,6 +132,16 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Modifica un permesso giornaliero richiamando le API fornite da backend (GestionePermessoRestController)
+   * tempPermission passato nel body
+   * idPermission passato come path param
+   * Token dell'utente passato come parametro
+   *
+   * @param tempPermission
+   * @param idPermission
+   * @returns Observable<void>
+   */
   editDailyPermission(tempPermission: AddPermanentPermission, idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -141,6 +151,14 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Disattiva permesso richiamando le API fornite da backend (GestionePermessoRestController)
+   * Token dell'utente passato come parametro
+   * idPermission passato come path param
+   *
+   * @param idPermission
+   * @returns Observable<void>
+   */
   disactivatePermission(idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -150,6 +168,14 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Ri-attiva permesso richiamando le API fornite da backend (GestionePermessoRestController)
+   * Token dell'utente passato come parametro
+   * idPermission passato come path param
+   *
+   * @param idPermission
+   * @returns Observable<void>
+   */
   activePermission(idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -159,6 +185,14 @@ export class PermissionManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Elimina permesso richiamando le API fornite da backend (GestionePermessoRestController)
+   * Token dell'utente passato come parametro
+   * idPermission passato come path param
+   *
+   * @param idPermission
+   * @returns Observable<void>
+   */
   deletePermission(idPermission: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

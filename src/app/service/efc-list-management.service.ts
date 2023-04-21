@@ -17,6 +17,13 @@ export class EfcListManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
+  /**
+   * Ottieni lista di efc richiamando le API fornite da bacneknd (GestioneEfcRestController)
+   * efcCode e token come parametri
+   *
+   * @param efcCode
+   * @returns
+   */
   getEfcList(efcCode: string): Observable<EFC[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -26,6 +33,14 @@ export class EfcListManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Disattiva efc richiamando le API fornite da bacneknd (GestioneEfcRestController)
+   * token come parametro
+   * efcCode come path param
+   *
+   * @param efcCode
+   * @returns Observable<void>
+   */
   deactivateEfc(efcCode: String): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -35,6 +50,14 @@ export class EfcListManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Ri-attiva efc richiamando le API fornite da bacneknd (GestioneEfcRestController)
+   * token passato coma parametro
+   * efcCode come path param
+   *
+   * @param efcCode
+   * @returns
+   */
   activateEfc(efcCode: String): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
