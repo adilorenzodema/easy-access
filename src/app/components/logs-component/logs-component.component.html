@@ -6,13 +6,13 @@
     <form (ngSubmit)="callGetAPI()" [formGroup]="formGroup">
       <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
         <!-- RANGE DATE PICKER -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" fxFlex="30">
           <input matInput [ngxMatDatetimePicker]="picker" placeholder="Scegli una data" formControlName="start">
           <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
           <ngx-mat-datetime-picker #picker [stepMinute]="30"></ngx-mat-datetime-picker>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" fxFlex="30">
           <input (dateChange)="callGetAPI()" matInput [ngxMatDatetimePicker]="picker2" placeholder="Scegli una data" formControlName="end">
           <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
           <ngx-mat-datetime-picker #picker2 [stepMinute]="30"></ngx-mat-datetime-picker>
@@ -26,9 +26,11 @@
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
+      </div>
 
+      <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
         <!-- RICERCA PER OPERAZIONE -->
-        <mat-form-field appearance="outline" fxFlex="25">
+        <mat-form-field appearance="outline" fxFlex="30">
           <mat-label>Ricerca per componente</mat-label>
           <mat-select (selectionChange)="callGetAPI()" formControlName="componentName" >
             <mat-option [value]="undefined">Tutti</mat-option>
@@ -37,7 +39,7 @@
         </mat-form-field>
 
         <!-- RICERCA PER OPERAZIONE -->
-        <mat-form-field appearance="outline" fxFlex="25">
+        <mat-form-field appearance="outline" fxFlex="30">
           <mat-label>Ricerca per operazione</mat-label>
           <mat-select (selectionChange)="callGetAPI()" formControlName="operation" >
             <mat-option [value]="undefined">Tutti</mat-option>

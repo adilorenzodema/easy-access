@@ -18,7 +18,7 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
   @Input() parkStatus: ParkStatus[];
   public allIncidentList: TableIncident[] = [];
   public dataSource = new MatTableDataSource<TableIncident>();
-  public displayedColumns = ['idIncident', 'errorMessage', 'parkName', 'device', 'startDate'];
+  public displayedColumns = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorMessage', 'status'];
 
   constructor() { }
 
@@ -34,9 +34,11 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (row: TableIncident, columnName: string) => {
       switch (columnName) {
-        case 'idIncident': return row.incident.idIncident;
+        case 'startDate': return row.incident.startDate;
         case 'parkName': return row.parkName;
         case 'startDate': return row.incident.startDate;
+        case 'endDate' : return row.incident.endDate;
+        case 'gateName': return row.incident.gateName;
         default: return columnName;
       }
     };
@@ -50,5 +52,6 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
       )
     );
     this.dataSource.data = this.allIncidentList;
+    console.log("incidents = ", this.allIncidentList);
   }
 }

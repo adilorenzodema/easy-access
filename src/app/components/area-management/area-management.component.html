@@ -2,14 +2,14 @@
   <mat-card-title>{{'manage_areas.title' | translate }}</mat-card-title>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field appearance="outline" fxFlex="84">
+      <mat-form-field appearance="outline" fxFlex="80">
         <mat-label>{{'common.searchLabel' | translate }}</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
+      <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()" >
         {{search.controls['ctrlActive'].value ? ('manage_areas.active' | translate) :
         ('manage_areas.inactive' | translate) }}
       </mat-slide-toggle>

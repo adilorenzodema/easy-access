@@ -432,7 +432,9 @@
     "noIncidents": "Nessun alert presente",
     "incidentList": "Alert rilevati",
     "incidentDesc": "Descrizione alert",
-    "park": "Parcheggio"
+    "park": "Parcheggio",
+    "incidentResolved": "Risolto",
+    "incidentOngoing": "In corso"
   },
   "select_holidays": {
     "title": "Selezione Festività",

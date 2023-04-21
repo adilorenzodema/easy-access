@@ -430,7 +430,9 @@
     "noIncidents": "There are no alerts present",
     "incidentList": "Detected alerts",
     "incidentDesc": "Alert description",
-    "park": "Parking lot"
+    "park": "Parking lot",
+    "incidentResolved": "Resolved",
+    "incidentOngoing": "Ongoing"
   },
   "select_holidays": {
     "title": "Select Holidays",

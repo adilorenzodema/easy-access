@@ -2,14 +2,14 @@
   <app-title-gate [namePark]="namePark" [idPark]="idPark"> </app-title-gate>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="40">
+      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="39">
         <mat-label>{{"manage_gates.searchByPark" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="40">
+      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="39">
         <mat-label>{{"manage_gates.searchByGate" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">

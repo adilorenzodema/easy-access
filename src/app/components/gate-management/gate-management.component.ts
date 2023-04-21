@@ -153,11 +153,11 @@ export class GateManagementComponent implements OnInit, OnDestroy {
       });
   }
 
-   /**
-    * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un varco.
-    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
-    * @param gateId - L'ID del varco da ri-attivare
-    */
+  /**
+  * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un varco.
+  * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+  * @param gateId - L'ID del varco da ri-attivare
+  */
   public activateGate(gateId: number): void {
     const title = this.translate.instant('manage_gates.activateTitle');
     const content = this.translate.instant('manage_gates.activateConfirm');

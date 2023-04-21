@@ -2,20 +2,20 @@
   <app-title-park [areaName]="areaName" [idArea]="idArea"> </app-title-park>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field appearance="outline" fxFlex="50">
+      <mat-form-field appearance="outline" fxFlex="39">
         <mat-label>{{"common.searchLabel" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-form-field  appearance="outline" fxFlex="50" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
+      <mat-form-field  appearance="outline" fxFlex="39">
         <mat-label> {{"manage_parks.filterArea" | translate}}</mat-label>
         <mat-select formControlName="ctrlAreaIdList" placeholder="Area" (selectionChange)="callGetAPI()">
           <mat-option [value]="">Tutti </mat-option>
           <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
             {{item.areaName}}
-          </mat-option>  
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
@@ -87,7 +87,7 @@
             <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
               (click)="activePark(element.idPark)">refresh</mat-icon></button>
 
-          <button mat-icon-button 
+          <button mat-icon-button
             *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
             <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
               (click)="deletePark(element.idPark)">delete</mat-icon></button>

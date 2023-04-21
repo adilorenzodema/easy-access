@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.subscription.push(this.parkService.getParkStatus().subscribe({
       next: (status) => {
         this.parkStatus = status;
+        console.log("park status: ", status);
       },
       error: () => this.complete = true,
       complete: () => this.complete = true
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         (list) => this.allIncidentList.push({ parkName: park.parkName, incident: list })
       )
     );
+
   }
 
   /**
