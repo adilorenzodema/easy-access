@@ -27,7 +27,9 @@
     <div style="height: 5px;">
       <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
+
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
       matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
       <ng-container matColumnDef="gateDescription">
@@ -115,7 +117,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"
         [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+      </table>
+    </div>
+
+
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
       [style.display]="dataSource.data.length === 0 ? 'none' : ''">
     </mat-paginator>

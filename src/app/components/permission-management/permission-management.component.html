@@ -79,8 +79,9 @@
         </div>
 
         <!-- tabella permessi -->
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
-            matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+        <div class="table-container">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
+            matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
             <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -168,7 +169,8 @@
                 [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;">
             </tr>
-        </table>
+          </table>
+        </div>
 
         <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">

@@ -114,7 +114,10 @@
     "activateTitle": "Activate User",
     "disactivateTitle": "Disactivate User",
     "activateConfirm": "Are you sure you want to re-activate the selected user?",
-    "disactivateConfirm": "Are you sure you want to disactivate the selected user?"
+    "disactivateConfirm": "Are you sure you want to disactivate the selected user?",
+    "deleteTitle": "Delete User",
+    "deleteConfirm": "Are you sure you want to delete the selected user?",
+    "delete": "Delete"
   },
   "manage_parks": {
     "parkTitle": "Manage Parking Lots",

@@ -15,7 +15,8 @@ export class AreaManagementService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    @Inject('beUrl') private beUrl: string) { }
+    @Inject('beUrl') private beUrl: string,
+    @Inject('pathUrl') private pathUrl: string) { }
 
   /**
    * Ottieni una lista di oggetti Area che rispettano i filtri selezionati richiamando le API fornite da bacneknd (GestioneAreaRestController)

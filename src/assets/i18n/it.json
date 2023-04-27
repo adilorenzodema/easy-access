@@ -114,7 +114,10 @@
     "activateTitle": "Attivazione Utente",
     "disactivateTitle": "Disattivazione Utente",
     "activateConfirm": "Sei sicur* di voler riattivare l'utente selezionato?",
-    "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?"
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?",
+    "deleteTitle": "Eliminazione Utente",
+    "deleteConfirm": "Sei sicur* di voler eliminare l'utente selezionato?",
+    "delete": "Elimina"
   },
   "manage_parks": {
     "parkTitle": "Gestione Parcheggi",
