@@ -154,7 +154,6 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
         if (result) {
           this.subscription.push(this.areaManagementService.deleteArea(areaId).subscribe({
             next: () => this.callGetAPI(),
-            error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.deletionError'), "ERROR"),
             complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.deletionSuccess'), "INFO")
           }));
         }

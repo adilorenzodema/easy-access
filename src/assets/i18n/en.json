@@ -523,7 +523,8 @@
       "notFound": "Area not found",
       "alreadyActivated": "Area is already active",
       "alreadyDeactivated": "Area is already inactive",
-      "nameAlreadyExist": "Area name already exist"
+      "nameAlreadyExist": "Area name already exist",
+      "hasParksAssociated": "Area can't be deleted due to having associated parking lots. De-associate them first."
     },
     "park": {
       "alreadyExist": "Parking lot already exists",

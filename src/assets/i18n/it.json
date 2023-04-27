@@ -526,7 +526,8 @@
       "notFound": "Area non trovata",
       "alreadyActivated": "Area già attivata",
       "alreadyDeactivated": "Area già disattivata",
-      "nameAlreadyExist": "Nome area già esistente"
+      "nameAlreadyExist": "Nome area già esistente",
+      "hasParksAssociated": "L'Area non può essere cancellata perchè ha dei parcheggi associati. Disassociali per cancellarla"
     },
     "park": {
       "alreadyExist": "Parcheggio già esistente",
