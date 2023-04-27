@@ -12,7 +12,8 @@
         </mat-form-field>
 
         <div fxLayout="column" fxLayoutAlign="end start" fxFlexOffset="60" appearance="outline" fxLayoutGap="20px">
-          <button mat-raised-button class="actionButton" (click)="getYearHolidays(defaultYear)">
+          <button mat-raised-button class="actionButton" (click)="getYearHolidays(defaultYear)"
+          matTooltip="Capodanno, epifania, liberazione, pasqua, pasquetta, festa del lavoro, festa della repubblica, assunzione, ognissanti, immacolata, natale, santo Stefano">
             {{ ("select_holidays.loadHolidays" | translate) + defaultYear}}
           </button>
         </div>
