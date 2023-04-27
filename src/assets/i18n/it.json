@@ -314,12 +314,30 @@
     "resolved": "Risolto",
     "ongoing": "In corso",
     "component": "Componente",
-    "errorCode": "Codice errore",
+    "errorCode": "Tipo errore",
     "errorMessage": "Messaggio d'errore",
     "rangeError": "Errore nel range inserito",
     "gate": "Varco",
     "park": "Parcheggio",
-    "noIncidents": "Nessun alert presente."
+    "noIncidents": "Nessun alert presente.",
+    "error": {
+      "ANTENNA_LISTFORMAT": "Errore nel formato Lista",
+      "ANTENNA_LISTEXPIRED": "Lista scaduta",
+      "ANTENNA_LISTNAME": "Errore nel nome lista",
+      "BARRIER_DISCONNECTED": "Sbarra irraggiungibile",
+      "BARRIER_CLOSURE": "Barriera non chiusa",
+      "BARRIER_OPENING": "Barriera non aperta",
+      "BARRIER_SAFETYCOAST": "Allarme costa",
+      "BARRIER_ARMDROPPED": "Sbarra sganciata",
+      "FC_GENERICISSUE": "Malfunzionamento fotocellula",
+      "GATE_UNREACHABLE": "Varco irraggiungibile"
+    },
+    "device": {
+      "0": "Antenna",
+      "1": "Sbarra",
+      "2": "Fotocellula",
+      "GATE": "Varco"
+    }
   },
   "manage_transits": {
     "title": "Visualizzazione Transiti",

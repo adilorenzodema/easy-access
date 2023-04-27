@@ -18,7 +18,7 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
   @Input() parkStatus: ParkStatus[];
   public allIncidentList: TableIncident[] = [];
   public dataSource = new MatTableDataSource<TableIncident>();
-  public displayedColumns = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorMessage', 'status'];
+  public displayedColumns = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'errorMessage', 'status'];
 
   constructor() { }
 

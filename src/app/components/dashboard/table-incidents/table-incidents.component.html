@@ -24,8 +24,13 @@
 
         <ng-container matColumnDef="device">
           <th mat-header-cell *matHeaderCellDef> {{"dashboard.device" | translate}}</th>
-          <td mat-cell *matCellDef="let element"> {{element.incident.device}} </td>
+          <td mat-cell *matCellDef="let element">{{("manage_incidents.device." + element.incident.device) | translate}} </td>
         </ng-container>
+
+        <ng-container matColumnDef="errorCode">
+          <th mat-header-cell *matHeaderCellDef> {{"dashboard.incidentDesc" | translate}}</th>
+          <td mat-cell *matCellDef="let element"> {{ ("manage_incidents.error." + element.incident.errorCode) | translate }} </td>
+      </ng-container>
 
         <ng-container matColumnDef="errorMessage">
             <th mat-header-cell *matHeaderCellDef> {{"dashboard.incidentDesc" | translate}}</th>

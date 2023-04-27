@@ -24,7 +24,7 @@ export class IncidentsComponent implements OnInit {
     * In Ordine: data di inizio, data di fine, nome varco, nome parcheggio, dispositivo, codice errore e stato dell'alert
     * azioni eseguibili sull'area
     */
-  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
+  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'errorMessage', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
   public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
   public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
@@ -32,6 +32,7 @@ export class IncidentsComponent implements OnInit {
   public complete = true;
   public parkByIncidents;
   public listaCodErrori = [];
+  public showListaError = [];
   private subscription: Subscription[] = [];
 
   constructor(
@@ -53,7 +54,7 @@ export class IncidentsComponent implements OnInit {
       ctrlErrorCode: new FormControl(''),
       ctrlStatus: new FormControl('')
     });
-    if(this.parkByIncidents) this.formGroup.patchValue({ctrlParkSearch: this.parkByIncidents});
+    if (this.parkByIncidents) this.formGroup.patchValue({ ctrlParkSearch: this.parkByIncidents });
     this.callGetAPI();
 
     this.getAllCodeErrors();
@@ -80,6 +81,7 @@ export class IncidentsComponent implements OnInit {
           this.dataSource.data = incident;
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          console.log(incident);
         },
         error: () => this.complete = true,
         complete: () => this.complete = true
@@ -90,13 +92,25 @@ export class IncidentsComponent implements OnInit {
   /**
    * Popola la select per la scelta del codice di errore
    */
-  getAllCodeErrors():void{
+  getAllCodeErrors(): void {
     this.subscription.push(this.incidentsManagementService.getAllErrorCodes().subscribe({
       next: code => {
         this.listaCodErrori = code;
+        console.log(code);
       }
     }));
   }
 
+  /**
+ * Aggiorna la lista delle operazioni nella select in base al componente selezionato
+ */
+  changeOpShowed(): void {
+    const compName = this.formGroup.get('ctrlComponent')?.value;
+    this.showListaError = [];
+    this.listaCodErrori.forEach(err => {
+      if (err.device.includes(compName))
+        this.showListaError.push(err.errorCode);
+    });
+  }
 }
 
