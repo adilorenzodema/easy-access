@@ -62,7 +62,11 @@
         <div style="height: 5px;">
             <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         </div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+
+        <div *ngIf="dataSource.data.length === 0"> {{"manage_transits.noTransits" | translate}}</div>
+
+        <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
             <ng-container matColumnDef="idTransit">
@@ -111,10 +115,12 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"
                 [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+          </table>
+        </ng-scrollbar>
+
         <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
         </mat-paginator>
-        <div *ngIf="dataSource.data.length === 0"> {{"manage_transits.noTransits" | translate}}</div>
+
     </mat-card-content>
 </mat-card>

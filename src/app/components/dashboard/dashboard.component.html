@@ -15,6 +15,9 @@
                 </div>
                 <ng-container *ngIf="status.incidentList.length > 0 else noIncidents">
                     <mat-card-subtitle>
+                        {{("dashboard.areas" | translate) + status.areaList }}<br>
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
                         {{("dashboard.lastIncident" | translate) + status.incidentList[0].errorMessage}}<br>
                     </mat-card-subtitle>
                     <mat-card-subtitle>
@@ -40,5 +43,8 @@
             </mat-card-content>
         </mat-card>
     </div>
-    <app-table-incidents *ngIf="parkStatus.length > 0" [parkStatus]="parkStatus"></app-table-incidents>
+
+    <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+      <app-table-incidents *ngIf="parkStatus.length > 0" [parkStatus]="parkStatus"></app-table-incidents>
+    </ng-scrollbar>
 </div>

@@ -1,43 +1,45 @@
 <mat-card fxLayout="column" fxLayoutGap="20px">
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <mat-card-title> {{'manage-permission.title' | translate}}</mat-card-title>
-        <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-permission'"
-            [routerLink]="'add-permission'" [state]="{daily: false}"> {{'common.add' | translate}} </button>
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="10px">
-        <form [formGroup]="formGroup" fxLayout="row" fxLayoutGap="20px">
-          <!-- range di ricerca -->
-            <mat-form-field appearance="outline" fxFlex="20">
-                <mat-label>{{'manage-permission.searchRange' | translate}}</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate formControlName="ctrlStart">
-                    <input matEndDate formControlName="ctrlEnd" (dateChange)="callGetAPI()">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-                <mat-error>{{'manage-permission.rangeError' | translate}}</mat-error>
+        <form [formGroup]="formGroup">
+
+          <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="left center">
+            <!-- range di ricerca -->
+            <mat-form-field appearance="outline" fxFlex="30">
+              <mat-label>{{'manage-permission.searchRange' | translate}}</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate formControlName="ctrlStart">
+                  <input matEndDate formControlName="ctrlEnd" (dateChange)="callGetAPI()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+              <mat-error>{{'manage-permission.rangeError' | translate}}</mat-error>
             </mat-form-field>
 
             <!-- ricerca per Obu -->
-            <mat-form-field appearance="outline" fxFlex="20">
-                <mat-label>{{'manage-permission.searchByOBU' | translate}}</mat-label>
-                <input matInput type="search" formControlName="ctrlObuSearch" autocomplete="off">
-                <button matPrefix mat-icon-button (click)="callGetAPI()">
-                    <mat-icon>search</mat-icon>
-                </button>
+            <mat-form-field appearance="outline" fxFlex="30">
+              <mat-label>{{'manage-permission.searchByOBU' | translate}}</mat-label>
+              <input matInput type="search" formControlName="ctrlObuSearch" autocomplete="off">
+              <button matPrefix mat-icon-button (click)="callGetAPI()">
+                  <mat-icon>search</mat-icon>
+              </button>
             </mat-form-field>
 
-            <!-- ricerca per tipo permesso -->
-            <mat-form-field appearance="outline" fxFlex="20">
-                <mat-label>{{'manage-permission.searchByPermissionType' | translate}}</mat-label>
-                <input matInput type="search" formControlName="ctrlPermTypeSearch" autocomplete="off">
-                <button matPrefix mat-icon-button (click)="callGetAPI()">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </mat-form-field>
+            <div style="justify-content: end; display: flex;" fxFlex="30" fxLayoutGap="20px">
+              <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
+                {{formGroup.controls['ctrlActive'].value ? ('common.active' | translate) :
+                ('common.disactive' | translate)}}
+              </mat-slide-toggle>
 
+              <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-permission'" style="height: 2.6em;"
+                [routerLink]="'add-permission'" [state]="{daily: false}"> {{'common.add' | translate}} </button>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="20px">
             <!-- ricerca er categoria di permesso -->
-            <mat-form-field appearance="outline" fxFlex="20">
+            <mat-form-field appearance="outline" fxFlex="30">
               <mat-label>{{ "manage-permission.seachPermCategory" | translate}}</mat-label>
               <mat-select (selectionChange)="callGetAPI()" formControlName="category">
                 <mat-option [value]="undefined">{{ 'manage-permission.ALL' | translate }}</mat-option>
@@ -47,7 +49,7 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" fxFlex="20">
+            <mat-form-field appearance="outline" fxFlex="30">
               <mat-label>{{ "manage-permission.searchArea" | translate}}</mat-label>
               <mat-select (selectionChange)="callGetAPI()" formControlName="idArea">
                 <mat-option [value]="undefined">{{ 'manage-permission.ALL' | translate }}</mat-option>
@@ -55,10 +57,15 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
-                {{formGroup.controls['ctrlActive'].value ? ('common.active' | translate) :
-                ('common.disactive' | translate)}}
-            </mat-slide-toggle>
+            <!-- ricerca per tipo permesso -->
+            <mat-form-field appearance="outline" fxFlex="30">
+              <mat-label>{{'manage-permission.searchByPermissionType' | translate}}</mat-label>
+              <input matInput type="search" formControlName="ctrlPermTypeSearch" autocomplete="off">
+              <button matPrefix mat-icon-button (click)="callGetAPI()">
+                  <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
         </form>
         <mat-radio-group [(ngModel)]="permissionStatus" color="primary" fxLayoutGap="5px"
             (change)="applyFilter($event.value)">
@@ -72,8 +79,9 @@
         </div>
 
         <!-- tabella permessi -->
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
-            matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
+        <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
+            matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
             <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -161,7 +169,8 @@
                 [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;">
             </tr>
-        </table>
+          </table>
+        </ng-scrollbar>
 
         <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">

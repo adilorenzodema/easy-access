@@ -57,6 +57,9 @@ export class EditParkComponent implements OnInit, OnDestroy {
     );
   }
 
+  /*
+   * Modifica di un parcheggio
+  * */
   public saveDetails(): void {
     const parkName = this.inputParkForm.get('ctrlParkName').value;
     const parkAddress = this.inputParkForm.get('ctrlParkAddress').value;
@@ -70,6 +73,11 @@ export class EditParkComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * Prende 2 liste:
+   * 1 lista di oggetti AreaAssociated
+   * 1 lista di oggetti GateAssociated
+   */
   public apiGetAssociation(): void {
     this.complete = false;
     this.subscription.push(forkJoin({
@@ -85,6 +93,9 @@ export class EditParkComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * Prende un oggetto di tipo Park
+   */
   private getParkById(): void {
     this.subscription.push(this.parkManagementService.getParkByIdPark(this.park.idPark).subscribe(
       (respPark) => this.park = respPark

@@ -19,7 +19,7 @@
     "Permissions": "Permessi",
     "Permission Profiles": "Tipi permesso",
     "Transits": "Transiti",
-    "Incidents": "Anomalie",
+    "Incidents": "Alert",
     "Batch Management": "Batch",
     "Holidays Selection": "Selezione Festività",
     "EFC List": "Lista Service Providers",
@@ -114,7 +114,10 @@
     "activateTitle": "Attivazione Utente",
     "disactivateTitle": "Disattivazione Utente",
     "activateConfirm": "Sei sicur* di voler riattivare l'utente selezionato?",
-    "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?"
+    "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?",
+    "deleteTitle": "Eliminazione Utente",
+    "deleteConfirm": "Sei sicur* di voler eliminare l'utente selezionato?",
+    "delete": "Elimina"
   },
   "manage_parks": {
     "parkTitle": "Gestione Parcheggi",
@@ -210,10 +213,14 @@
       "closeBarrier": "Chiudi barriera",
       "autoBarrier": "Modalità automatica",
       "lists": "Liste a bordo",
-      "noIncidents": "Nessun incidente presente",
-      "incidentsDetected": "Incidenti rilevati",
+      "noIncidents": "Nessun alert presente",
+      "incidentsDetected": "Alert rilevati",
       "rebootTitle":"Reboot Antenna",
-      "rebootConfirm": "Sei sicur* di voler riavviare questa antenna?"
+      "rebootConfirm": "Sei sicur* di voler riavviare questa antenna?",
+      "disactivateTitle": "Disattivazione Device",
+      "disactivateConfirm" : "Sei sicur* di voler disattivare il device selezionato?",
+      "activateTitle": "Attivazione Device",
+      "activateConfirm": "Sei sicur* di voler riattivare il device selezionato?"
     }
   },
   "manage-permission": {
@@ -283,10 +290,16 @@
     "permissionDisactivated": "Permesso disattivato con successo!",
     "permissionActivated": "Permesso attivato con successo!",
     "permissionAdded": "Tipo Permesso cretao con successo",
-    "permissionEdited": "Tipo Permesso modificato con successo"
+    "permissionEdited": "Tipo Permesso modificato con successo",
+    "activateTitle": "Attivazione Tipo Permesso",
+    "disactivateTitle": "Disattivazione Tipo Permesso",
+    "activateConfirm": "Sei sicur* di voler disattivare il tipo di permesso selezionato?",
+    "disactivateConfirm": "Sei sicur* di voler disattivare il tipo di permesso selezionato?",
+    "deleteTitle": "Rimuovi Tipo Permesso",
+    "deleteConfirm": "Sei sicur* di voler rimuovere il tipo di permesso selezionato? Questa azione è permanente"
   },
   "manage_incidents": {
-    "incidentTitle": "Lista Incidenti",
+    "incidentTitle": "Lista Alert",
     "searchRange": "Range di ricerca",
     "parkSearch": "Ricerca per parcheggio",
     "gateSearch": "Ricerca per varco",
@@ -301,12 +314,30 @@
     "resolved": "Risolto",
     "ongoing": "In corso",
     "component": "Componente",
-    "errorCode": "Codice errore",
+    "errorCode": "Tipo errore",
     "errorMessage": "Messaggio d'errore",
     "rangeError": "Errore nel range inserito",
     "gate": "Varco",
     "park": "Parcheggio",
-    "noIncidents": "Nessun incidente presente."
+    "noIncidents": "Nessun alert presente.",
+    "error": {
+      "ANTENNA_LISTFORMAT": "Errore nel formato Lista",
+      "ANTENNA_LISTEXPIRED": "Lista scaduta",
+      "ANTENNA_LISTNAME": "Errore nel nome lista",
+      "BARRIER_DISCONNECTED": "Sbarra irraggiungibile",
+      "BARRIER_CLOSURE": "Barriera non chiusa",
+      "BARRIER_OPENING": "Barriera non aperta",
+      "BARRIER_SAFETYCOAST": "Allarme costa",
+      "BARRIER_ARMDROPPED": "Sbarra sganciata",
+      "FC_GENERICISSUE": "Malfunzionamento fotocellula",
+      "GATE_UNREACHABLE": "Varco irraggiungibile"
+    },
+    "device": {
+      "0": "Antenna",
+      "1": "Sbarra",
+      "2": "Fotocellula",
+      "GATE": "Varco"
+    }
   },
   "manage_transits": {
     "title": "Visualizzazione Transiti",
@@ -360,8 +391,8 @@
     "Logs": "Log",
     "Dashboard": "Dashboard",
     "view-gate-status": "Visualizza status varchi",
-    "view-park-incidents": "Visualizza incidenti parcheggio",
-    "view-gate-incidents": "Visualizza incidenti varco",
+    "view-park-incidents": "Visualizza alert parcheggio",
+    "view-gate-incidents": "Visualizza alert varco",
     "view-park-status": "Visualizza status parcheggi",
     "view-gate": "Visualizza varchi",
     "view-user": "Visualizza utenti",
@@ -369,7 +400,7 @@
     "activate-user": "Attivazione utenti",
     "delete-user": "Elimina utenti",
     "edit-user":"Modifica utenti",
-    "view-park-incident-dashboard": "Visualizza incidenti parcheggio",
+    "view-park-incident-dashboard": "Visualizza alert parcheggio",
     "insert-permissiontype": "Inserimento tipi permesso",
     "view-profile": "Visualizza profili",
     "disactivate-area": "Disattiva area",
@@ -413,22 +444,26 @@
   },
 
   "dashboard": {
-    "lastIncident": "Ultimo incident rilevato:",
+    "areas": "Aree associate: ",
+    "lastIncident": "Ultimo alert rilevato:",
     "date": "Data: ",
     "device": "Componente: ",
     "gate": "Varco: ",
-    "history": "Visualizza storico incidenti",
-    "noIncidents": "Nessun incidente presente",
-    "incidentList": "Incidenti rilevati",
-    "incidentDesc": "Descrizione incidente",
-    "park": "Parcheggio"
+    "history": "Visualizza storico alert",
+    "noIncidents": "Nessun alert presente",
+    "incidentList": "Alert rilevati",
+    "incidentDesc": "Descrizione alert",
+    "park": "Parcheggio",
+    "incidentResolved": "Risolto",
+    "incidentOngoing": "In corso"
   },
   "select_holidays": {
     "title": "Selezione Festività",
     "update": "Aggiorna festività ",
     "updateSnackbar": "Festività aggiornate con successo!",
     "yearSelect": "Scegliere un anno",
-    "dateSelect": "Aggiungi o rimuovi festività"
+    "dateSelect": "Aggiungi o rimuovi festività",
+    "loadHolidays": "Carica festività "
   },
   "manage_efc":{
     "title": "Gestione EFC",
@@ -491,7 +526,8 @@
       "notFound": "Area non trovata",
       "alreadyActivated": "Area già attivata",
       "alreadyDeactivated": "Area già disattivata",
-      "nameAlreadyExist": "Nome area già esistente"
+      "nameAlreadyExist": "Nome area già esistente",
+      "hasParksAssociated": "L'Area non può essere cancellata perchè ha dei parcheggi associati. Disassociali per cancellarla"
     },
     "park": {
       "alreadyExist": "Parcheggio già esistente",
@@ -512,7 +548,7 @@
       "antennaCodeNotMatch": "Il codice antenna del varco non corrisponde ad un codice presente su Easy Access"
     },
     "incident": {
-      "notFound": "Incidente non trovato"
+      "notFound": "Alert non trovato"
     },
     "transit": {
       "notFound": "Transito non trovato",

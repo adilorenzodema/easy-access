@@ -8,7 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddEditPermissionTypeComponent } from './add-edit-permission-type/add-edit-permission-type.component';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { AddEditPermissionTypeComponent } from './add-edit-permission-type/add-e
     FlexLayoutModule,
     ReactiveFormsModule,
     TranslateModule,
-    PermissionTypeManagementRoutingModule
+    PermissionTypeManagementRoutingModule,
+    NgScrollbarModule
   ]
 })
 export class PermissionTypeManagementModule { }

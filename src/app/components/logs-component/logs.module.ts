@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LogsRoutingModule } from './logs-routing.module';
 import { LogsComponentComponent } from './logs-component.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 @NgModule({
@@ -21,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TranslateModule,
     LogsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgScrollbarModule
   ]
 })
 export class LogsModule { }

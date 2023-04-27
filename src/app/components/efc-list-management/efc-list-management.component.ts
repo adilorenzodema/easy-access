@@ -18,9 +18,15 @@ import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-
   styleUrls: ['./efc-list-management.component.css']
 })
 export class EfcListManagementComponent implements OnInit {
-
+  /*
+   * *Gestione della pagina /#/efc-list-management
+   */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  /**
+   *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+   * In Ordine: Codice relativo all'EFC, il service provider, flag attivo/disattivo, azioni eseguibili
+   */
   public displayedColumns: string[] = ['efcCode', 'serviceProvider', 'flagActive', 'action'];
   public dataSource = new MatTableDataSource<any>();
   public search: FormGroup;
@@ -36,6 +42,10 @@ export class EfcListManagementComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
+  /**
+    *Inizializza la barra di ricerca (stringa vuota).
+    *Poi popola la tabella con la callGetAPI() e ritorna tutti i permessi disponibili all'utente con la getPermissionAPI()
+    */
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: ['']
@@ -44,21 +54,30 @@ export class EfcListManagementComponent implements OnInit {
     this.getPermissionAPI();
   }
 
+  /**
+   * Ritorna una lista di oggetti di tipo EFC, in base ai parametri di ricerca(Una keyword)
+   * Poi ordina i dati, mostrando per primi gli efc attivi.
+   */
   public callGetAPI(): void {
     this.complete = false;
     const efcCode = this.search.get('ctrlSearch')?.value;
     this.subscription.push(this.efcListService.getEfcList(efcCode).subscribe({
       next: efc => {
-        efc.sort( (a:EFC ,b:EFC ) => +b.flagActive - +a.flagActive); //sort per flagActive = true
+        efc.sort((a: EFC, b: EFC) => +b.flagActive - +a.flagActive); //sort per flagActive = true
         this.dataSource.data = efc;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
       error: () => this.complete = true,
-      complete: () =>  this.complete = true
+      complete: () => this.complete = true
     }));
   }
 
+  /**
+    * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un'EFC.
+    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+    * @param efcCode - Codice dell'EFC da riattivare
+    */
   public activate(efcCode: String): void {
     const title = this.translate.instant('manage_efc.activateTitle');
     const content = this.translate.instant('manage_efc.activateConfirm');
@@ -82,6 +101,11 @@ export class EfcListManagementComponent implements OnInit {
       });
   }
 
+  /**
+  * Apre una finestra modale ed in base alla scelta dell'utente, disattiva un'EFC.
+  * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+  * @param efcCode - Codice dell'EFC da disattivare
+  */
   public disactivate(efcCode: String): void {
     const title = this.translate.instant('manage_efc.disactivateTitle');
     const content = this.translate.instant('manage_efc.disactivateConfirm');
@@ -105,7 +129,9 @@ export class EfcListManagementComponent implements OnInit {
       });
   }
 
-
+  /**
+    * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+    */
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(

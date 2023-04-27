@@ -133,6 +133,7 @@ export interface ParkStatus {
   parkName: string;
   status: Status;
   incidentList: Incident[];
+  areaList: String[];
 }
 
 export interface Incident {
@@ -141,8 +142,14 @@ export interface Incident {
   errorMessage: string;
   idGate: number;
   gateName: string;
+  gateErrorCode: string;
   startDate: string;
   endDate: string;
+  device: string;
+}
+
+export interface ErrorCode{
+  errorCode: string;
   device: string;
 }
 

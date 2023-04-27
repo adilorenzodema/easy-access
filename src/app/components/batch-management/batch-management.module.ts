@@ -5,7 +5,7 @@ import { BatchManagementComponent } from './batch-management.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [BatchManagementComponent],
@@ -15,7 +15,8 @@ import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
     FlexLayoutModule,
     LibMaterialModule,
     LibPipesModule,
-    BatchManagementRoutingModule
+    BatchManagementRoutingModule,
+    NgScrollbarModule
   ]
 })
 export class BatchManagementModule { }

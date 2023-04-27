@@ -18,7 +18,13 @@ export class IncidentsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
+
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: data di inizio, data di fine, nome varco, nome parcheggio, dispositivo, codice errore e stato dell'alert
+    * azioni eseguibili sull'area
+    */
+  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'errorMessage', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
   public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
   public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
@@ -26,6 +32,7 @@ export class IncidentsComponent implements OnInit {
   public complete = true;
   public parkByIncidents;
   public listaCodErrori = [];
+  public showListaError = [];
   private subscription: Subscription[] = [];
 
   constructor(
@@ -34,6 +41,9 @@ export class IncidentsComponent implements OnInit {
     this.parkByIncidents = this.router.getCurrentNavigation()?.extras.state?.['parkName'] as string;
   }
 
+  /*
+   * Popolata la select dei codici di errore e la tabella incidenti
+  * */
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       start: new FormControl(moment(this.start).toDate(), Validators.required),
@@ -44,12 +54,16 @@ export class IncidentsComponent implements OnInit {
       ctrlErrorCode: new FormControl(''),
       ctrlStatus: new FormControl('')
     });
-    if(this.parkByIncidents) this.formGroup.patchValue({ctrlParkSearch: this.parkByIncidents});
+    if (this.parkByIncidents) this.formGroup.patchValue({ ctrlParkSearch: this.parkByIncidents });
     this.callGetAPI();
 
     this.getAllCodeErrors();
   }
 
+  /**
+   * Chiamata per popolare la tabella degli incidenti
+   * Viene chiamata ad ogni modifica nelle select o nell'invio dei campi di input sopra la tabella
+   */
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
@@ -67,6 +81,7 @@ export class IncidentsComponent implements OnInit {
           this.dataSource.data = incident;
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          console.log(incident);
         },
         error: () => this.complete = true,
         complete: () => this.complete = true
@@ -74,13 +89,28 @@ export class IncidentsComponent implements OnInit {
     }
   }
 
-  getAllCodeErrors():void{
+  /**
+   * Popola la select per la scelta del codice di errore
+   */
+  getAllCodeErrors(): void {
     this.subscription.push(this.incidentsManagementService.getAllErrorCodes().subscribe({
       next: code => {
         this.listaCodErrori = code;
+        console.log(code);
       }
     }));
   }
 
+  /**
+ * Aggiorna la lista delle operazioni nella select in base al componente selezionato
+ */
+  changeOpShowed(): void {
+    const compName = this.formGroup.get('ctrlComponent')?.value;
+    this.showListaError = [];
+    this.listaCodErrori.forEach(err => {
+      if (err.device.includes(compName))
+        this.showListaError.push(err.errorCode);
+    });
+  }
 }
 

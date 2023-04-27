@@ -17,9 +17,12 @@ import { DIRECTION } from 'src/app/shared/costants/constants';
   styles: ['']
 })
 export class ModalFormGateComponent implements OnInit, OnDestroy {
-
+  /*
+   * *Gestione della modale per l'aggiunta o la modifica di un varco
+   */
   public inputUserForm: FormGroup;
   public parks: Park[] = [];
+  //DIRECTION è una costante creata ad-hoc causa specifiche progettuali
   public direction = DIRECTION;
   private subscription: Subscription[] = [];
   constructor(
@@ -28,14 +31,19 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
     private gateService: GateService,
     private parkService: ParkManagementService,
     private snackBar: SnackBar,
-    private translate : TranslateService,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: Gate
   ) { }
 
+  /*
+  *Vengono presi e salvati nella variabile parks tutti i parcheggi attivi ed accessibili all'utente. Ci serviranno poi per popolare la rispettiva dropdown
+  *In base alla presenza o no di un varco, la modale viene inizializzata per l'aggiunta di un nuovo varco o per la modifica di un varco esistente
+  */
   ngOnInit(): void {
     this.subscription.push(this.parkService.getParking('', true, null).subscribe(
       (respParks) => this.parks = respParks
     ));
+    //Se data esiste (quindi === true), allora siamo nella modifica, altrimenti nell'aggiunta
     if (this.data) {
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [this.data.gateDescription, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$')] */]],
@@ -49,20 +57,29 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [null, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$') */]],
         ctrlParkId: [null, Validators.required],
-        ctrlGateDirection: [null, [Validators.required]], 
-        ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]], 
+        ctrlGateDirection: [null, [Validators.required]],
+        ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]],
         ctrlPortAntenna: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
         ctrlCodeAntenna: [null, Validators.required]
       });
     }
   }
 
+   /**
+   *Quando viene distrutto il componente, cancella tutte le sottoscrizioni agli Observable.
+   */
   ngOnDestroy(): void {
     this.subscription.forEach(element => {
       element.unsubscribe();
     });
   }
 
+  /**
+   *Crea la variabile formGateAdd popolata con i dati inseriti dall'utente nel form.
+   *Poi richiaman la funzione addGate() o editGate() del servizio gate-management, passandogli in input la variabile formGateAdd.
+   *In caso di successo o errore, genera una snackbar con l'appropriato messaggio.
+   *@param idAdd - Stabilisce se si sta aggiungendo un varco o se si sta modificando un varco.
+   */
   public onSubmit(isAdd: boolean): void {
     if (isAdd) {
       const gateName = this.inputUserForm.get('ctrlGateName')?.value;
@@ -71,7 +88,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const ipAntenna = this.inputUserForm.get('ctrlIpAntenna')?.value;
       const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
       const codeAntenna = this.inputUserForm.get('ctrlCodeAntenna')?.value;
-      const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
+      const formGateAdd = new AddEditGate(parkId, gateName, gateDirection, ipAntenna, portAntenna, codeAntenna);
       this.subscription.push(this.gateService.addGate(formGateAdd).subscribe({
         next: () => {
           this.snackBar.showMessage(this.translate.instant('manage_gates.insertGate'), 'INFO');
@@ -86,7 +103,7 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       const ipAntenna = this.inputUserForm.get('ctrlIpAntenna')?.value;
       const portAntenna = this.inputUserForm.get('ctrlPortAntenna')?.value;
       const codeAntenna = this.inputUserForm.get('ctrlCodeAntenna')?.value;
-      const formGateAdd = new AddEditGate(parkId,gateName,gateDirection, ipAntenna, portAntenna, codeAntenna);
+      const formGateAdd = new AddEditGate(parkId, gateName, gateDirection, ipAntenna, portAntenna, codeAntenna);
       formGateAdd.idGate = idGate;
       this.subscription.push(this.gateService.editGate(formGateAdd).subscribe({
         next: () => {

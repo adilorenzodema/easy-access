@@ -19,6 +19,14 @@ export class PermissionTypeManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
+  /**
+   * Prende la lista di tipi di permessi PermissionType
+   * Dati passati come parametri
+   *
+   * @param keyword
+   * @param isActive
+   * @returns Observable<PermissionType[]>
+   */
   getPermissionType(keyword: string, isActive: boolean): Observable<PermissionType[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -28,6 +36,14 @@ export class PermissionTypeManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Aggiunge un tipo ti permresso richiamando le API fornite dal backend (GestioneTipoPermessoRstController)
+   * L'oggetto permissionType è passato nel body della chiamata
+   * Il token dell'utente è passato come parametro
+   *
+   * @param permissionType
+   * @returns Observable<void>
+   */
   addPermissionType(permissionType: AddEditTypePermission): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -37,6 +53,14 @@ export class PermissionTypeManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Modifica un tipo di permesso richiamando le API fornite dal backend (GestioneTipoPermessoRstController)
+   * L'ID del permissionType è passato come path param
+   * L'oggetto permissionType è passato nel body
+   * Il token dell'utente è passato come parametro
+   * @param permissionType
+   * @returns Observable<void>
+   */
   editPermissionType(permissionType: AddEditTypePermission): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -46,6 +70,14 @@ export class PermissionTypeManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Disattiva un tipo di permesso richiamando le API fornite dal backend (GestioneTipoPermessoRstController)
+   * idPermissionType è passato come path param
+   * Il token dell'utente è passato come parametro
+   *
+   * @param idPermissionType
+   * @returns Observable<void>
+   */
   disactivatePermissionType(idPermissionType: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -55,6 +87,14 @@ export class PermissionTypeManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Ri-attiva un tipo di permesso richiamando le API fornite dal backend (GestioneTipoPermessoRstController)
+   * idPermissionType è passato come path param
+   * Il token dell'utente è passato come parametro
+   *
+   * @param idPermissionType
+   * @returns Observable<void>
+   */
   activePermissionType(idPermissionType: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -64,6 +104,14 @@ export class PermissionTypeManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
+  /**
+   * Elimina un tipo di permesso richiamando le API fornite dal backend
+   * idPermissionType passato come path param
+   * Il token dell'utente è passato come parametro
+   *
+   * @param idPermissionType
+   * @returns Observable<void>
+   */
   deletePermissionType(idPermissionType: number): Observable<void> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

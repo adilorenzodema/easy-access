@@ -2,14 +2,14 @@
   <app-title-gate [namePark]="namePark" [idPark]="idPark"> </app-title-gate>
   <mat-card-content fxLayout="column" fxLayoutGap="10px">
     <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="40">
+      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="39">
         <mat-label>{{"manage_gates.searchByPark" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="40">
+      <mat-form-field *ngIf="!idPark" appearance="outline" fxFlex="39">
         <mat-label>{{"manage_gates.searchByGate" | translate}}</mat-label>
         <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
         <button matPrefix mat-icon-button (click)="callGetAPI()">
@@ -27,7 +27,9 @@
     <div style="height: 5px;">
       <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     </div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
+
+    <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
       matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
       <ng-container matColumnDef="gateDescription">
@@ -115,7 +117,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"
         [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+      </table>
+    </ng-scrollbar>
+
+
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
       [style.display]="dataSource.data.length === 0 ? 'none' : ''">
     </mat-paginator>

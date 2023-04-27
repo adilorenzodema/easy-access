@@ -10,12 +10,15 @@ import { ParkStatus, TableIncident } from 'src/app/domain/interface';
   styleUrls: ['./table-incidents.component.css']
 })
 export class TableIncidentsComponent implements OnInit, AfterViewInit {
+  /**
+   *Creazione della tabella Incidenti nella pagina /#/dashboard
+   */
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() parkStatus: ParkStatus[];
   public allIncidentList: TableIncident[] = [];
   public dataSource = new MatTableDataSource<TableIncident>();
-  public displayedColumns = ['idIncident', 'errorMessage', 'parkName', 'device', 'startDate'];
+  public displayedColumns = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'errorMessage', 'status'];
 
   constructor() { }
 
@@ -23,18 +26,23 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
     this.saveAllIncident();
   }
 
+  /*
+ * Prende in input la variabile parkStatus dal componente Dashboard, e popola la tabella degli incidenti, ordinati per data di inizio più recente
+ */
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (row: TableIncident, columnName: string) => {
       switch (columnName) {
-        case 'idIncident': return row.incident.idIncident;
+        case 'startDate': return row.incident.startDate;
         case 'parkName': return row.parkName;
-        case 'startDate' : return row.incident.startDate;
+        case 'startDate': return row.incident.startDate;
+        case 'endDate' : return row.incident.endDate;
+        case 'gateName': return row.incident.gateName;
         default: return columnName;
       }
     };
-    this.sort.sortChange.emit({active: 'startDate', direction: 'desc'});
+    this.sort.sortChange.emit({ active: 'startDate', direction: 'desc' });
   }
 
   private saveAllIncident(): void {
@@ -44,5 +52,6 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
       )
     );
     this.dataSource.data = this.allIncidentList;
+    console.log("incidents = ", this.allIncidentList);
   }
 }

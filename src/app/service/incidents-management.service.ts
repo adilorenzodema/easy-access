@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { Incident } from '../domain/interface';
+import { ErrorCode, Incident } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -17,6 +17,18 @@ export class IncidentsManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
+  /*
+    * Prende la lista degli incidenti
+    *
+    * @param {string} startDate
+    * @param {string} endDate
+    * @param {string} gateName
+    * @param {string} parkName
+    * @param {string} device
+    * @param {string} errorCode
+    * @param {boolean} status
+    * @returns {Observable<Incident[]>}
+  * */
   getIncidentsList(
     startDate: string,
     endDate: string,
@@ -36,7 +48,12 @@ export class IncidentsManagementService {
       .pipe(catchError(err => { throw err; }));
   }
 
-  getAllErrorCodes(): Observable<String[]>{
+  /*
+   * Prende lista dei codici di errore
+   *
+   * @returns {Observable<String[]>}
+  * */
+  getAllErrorCodes(): Observable<ErrorCode[]>{
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({
@@ -44,6 +61,6 @@ export class IncidentsManagementService {
       })
     };
 
-    return this.http.get<string[]>(this.apiURL + "/getAllCodeErrors", options);
+    return this.http.get<ErrorCode[]>(this.apiURL + "/getAllCodeErrors", options);
   }
 }

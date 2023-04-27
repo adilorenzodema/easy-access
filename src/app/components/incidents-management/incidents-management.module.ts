@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LibMaterialModule } from 'dema-movyon-template';
 import { IncidentsRoutingModule } from './incidents-management-routing.module';
 import { IncidentsComponent } from './incidents.component';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { IncidentsComponent } from './incidents.component';
     FlexLayoutModule,
     ReactiveFormsModule,
     IncidentsRoutingModule,
-    TranslateModule
+    TranslateModule,
+    NgScrollbarModule
   ]
 })
 export class IncidentsManagementModule { }

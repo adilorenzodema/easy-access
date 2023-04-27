@@ -11,7 +11,7 @@ import { PermissionRoutingModule } from './permission-routing.module';
 import { AddEditPermissionComponent } from './add-edit-permission/add-edit-permission.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { PipesModuleModule } from "../../shared/pipes/pipes.module";
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [PermissionManagementComponent, AddEditPermissionComponent],
@@ -28,7 +28,8 @@ import { PipesModuleModule } from "../../shared/pipes/pipes.module";
     ReactiveFormsModule,
     PermissionRoutingModule,
     NgxMaterialTimepickerModule,
-    PipesModuleModule
+    PipesModuleModule,
+    NgScrollbarModule
   ]
 })
 export class PermissionModule { }

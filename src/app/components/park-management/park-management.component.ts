@@ -22,10 +22,20 @@ import { AreaManagementService } from 'src/app/service/area-management.service';
   styleUrls: ['./park-management.component.css']
 })
 export class ParkManagementComponent implements OnInit, AfterViewInit {
+  /**
+   * Gestione della pagina /#/parkmanagement
+  */
+
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public search: FormGroup;
   public dataSource = new MatTableDataSource<Park>();
+
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: id parcheggio, nome parcheggio, posizione, utente che l'ha creato, data di creazione, l'ultimo utente che l'ha modificato,
+    * data ultima modifica, azioni eseguibili sul parcheegggio
+    */
   public displayedColumns: string[] =
     ['idPark', 'namePark', 'location', 'creationUser', 'creationDate', 'modificationUser', 'modificationDate', 'action'];
   public areaName: string;
@@ -51,6 +61,9 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     this.areaName = this.router.getCurrentNavigation()?.extras.state?.['areaName'] as string;
   }
 
+  /*
+   * Popola select delle aree, prende lista dei parcheggi attivi
+  * */
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
@@ -66,6 +79,10 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Ritorna una lista di oggetti di tipo Parcheggio, in base ai parametri di ricerca(Una keyword,
+   * lo status del parcheggio[Active o Inactive] o l'id dell'Area associata)
+   */
   public callGetAPI(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
@@ -82,7 +99,11 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     });
   }
 
-
+  /*
+   * Apre una finestra modale per l'inserimento di un parcheggio
+   * I dati da inserire sono: nome, stato, città, cap, indirizzo e aree associate
+   * @param {Park} [park]
+  * */
   public addPark(park?: Park): void {
     const dialogRef = this.dialog.open(ModalFormParkComponent, { width: '40%', height: '50%', data: park ? park : '' });
     dialogRef.afterClosed().subscribe(
@@ -92,6 +113,11 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+   * Apre una finestra modale ed in base alla scelta dell'utente, disattiva un Parcheggio.
+   * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+   * @param {number} parkId
+   */
   public onDisactivate(parkId: number): void {
     const title = this.translate.instant('manage_parks.disactivateTitle');
     const content = this.translate.instant('manage_parks.disactivateConfirm');
@@ -117,6 +143,11 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       });
   }
 
+  /*
+   * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un Parcheggio.
+   * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+   * @param {number} parkId
+  * */
   public activePark(parkId: number): void {
     const title = this.translate.instant('manage_parks.activateTitle');
     const content = this.translate.instant('manage_parks.activateConfirm');
@@ -142,6 +173,11 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       });
   }
 
+  /*
+    * Apre una finestra modale ed in base alla scelta dell'utente, rimuove un Parcheggio.
+    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+    * @param {number} parkId
+  * */
   public deletePark(parkId: number): void {
     const title = this.translate.instant('manage_parks.deleteTitle');
     const content = this.translate.instant('manage_parks.deleteConfirm');
@@ -165,6 +201,10 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
       });
   }
 
+  /*
+   * Prende la lista di oggetti di tipo Area
+   * @memberOf ParkManagementComponent
+  * */
   private getAreas(): void {
     const keyword = "";
     const isActive = true;
@@ -175,6 +215,9 @@ export class ParkManagementComponent implements OnInit, AfterViewInit {
     }));
   }
 
+  /**
+   * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+  */
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(

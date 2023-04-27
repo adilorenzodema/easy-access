@@ -23,6 +23,10 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public dataSource = new MatTableDataSource<PermissionType>();
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: Descrizione tipo permesso, data ultima modifica, ultimo utente che ha modificaato, azioni eseguibili sul tipo di permesso
+  */
   public displayedColumns: string[] = ['permissionTypeDesc', 'modificationDate', 'modificationUser', 'action'];
   public search: FormGroup;
   public operations: Operation[] = [];
@@ -38,6 +42,9 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     private translate: TranslateService
   ) { }
 
+  /*
+   * Inizializza la barra di ricerca a stringa vuota
+  */
   ngOnInit(): void {
     this.search = this.formBuilder.group({
       ctrlSearch: [''],
@@ -47,10 +54,16 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     this.getPermissionAPI();
   }
 
+  /**
+   * Quando viene distrutto il componente, cancella tutte le sottoscrizioni agli Observable
+   */
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
+  /*
+   * Popola la tabella dei tipi di permesso
+  * */
   public callGetAPI(): void {
     this.complete = false;
     const keyword = this.search.get('ctrlSearch')?.value;
@@ -74,13 +87,18 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /*
+   * Apre una finestra modale ed in base alla scelta dell'utente, disattiva un tipo di permesso.
+   * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+   * @param id - L'ID del tipo di permesso da disattivare
+  * */
   public onDisactivate(id: number): void {
+    const title = this.translate.instant('manage_permission_type.disactivateTitle');
+    const content = this.translate.instant('manage_permission_type.disactivateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
-        data: {
-          title: "Cancellazione tipo di permesso", content: "Desideri disattivare il tipo di permesso selezionato?"
-        },
+        data: {title, content},
         autoFocus: false
       }
     );
@@ -98,12 +116,19 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+    * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un'Area.
+    * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+    * @param id - L'ID del tipo di permesso da riattivare
+    */
   public activePermissionType(id: number): void {
+    const title = this.translate.instant('manage_permission_type.activateTitle');
+    const content = this.translate.instant('manage_permission_type.activateConfirm');
     const dialogRef = this.dialog.open(ModalFormConfirmComponent,
       {
         width: '30%', height: '30%',
         data: {
-          title: "Riattivazione tipo di permesso", content: "Desideri riattivare il tipo di permesso selezionato?"
+          title, content
         },
         autoFocus: false
       }
@@ -122,6 +147,11 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Apre una finestra modale ed in base alla scelta dell'utente, rimuove un tipo di permesso.
+   * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
+   * @param id - L'ID del tipo di permesso da eliminare
+   */
   public deletePermissionType(id: number): void {
     const title = this.translate.instant('manage_permission_type.deleteTitle');
     const content = this.translate.instant('manage_permission_type.deleteConfirm');
@@ -144,6 +174,9 @@ export class PermissionTypeComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+   */
   private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(

@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EditAreaComponent } from './edit-area/edit-area.component';
 import { TableAssociatedParkComponent } from './table-associated-park/table-associated-park.component';
 import { TableAssociatedUsersComponent } from './table-associated-users/table-associated-users.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TableAssociatedUsersComponent } from './table-associated-users/table-as
     AreaManagementRoutingModule,
     SharedComponentsModule,
     PipesModuleModule,
-    TranslateModule
+    TranslateModule,
+    NgScrollbarModule
   ]
 })
 export class AreaManagementModule { }

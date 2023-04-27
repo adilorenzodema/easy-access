@@ -4,7 +4,11 @@
         <div style=" height: 5px;">
             <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
         </div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort
+
+        <div *ngIf="dataSource.data.length === 0"> {{"manage_incidents.noIncidents" | translate}}</div>
+
+        <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
             <ng-container matColumnDef="jobName">
@@ -74,9 +78,10 @@
                 [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        </ng-scrollbar>
+
         <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
         </mat-paginator>
-        <div *ngIf="dataSource.data.length === 0"> {{"manage_incidents.noIncidents" | translate}}</div>
     </mat-card-content>
 </mat-card>

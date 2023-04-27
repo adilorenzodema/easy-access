@@ -18,6 +18,9 @@ import { PermissionTypeManagementService } from 'src/app/service/permission-type
   ]
 })
 export class AddEditPermissionComponent implements OnInit {
+  /**
+   * Componente per l'aggiunta e la modifica di permessi
+   */
   public formGroup: FormGroup;
   public areas: Area[] = [];
   public areaFiltered: Area[] = [];
@@ -45,6 +48,9 @@ export class AddEditPermissionComponent implements OnInit {
     this.daily = this.router.getCurrentNavigation()?.extras.state?.['daily'] as Boolean;
   }
 
+  /*
+   * Inizializza la barre di ricerca in base al tipo di permesso e a se è stato passato un permesso o no (così che distingue se fare add o edit)
+  * */
   ngOnInit(): void {
     if (!this.permission && this.router.url === '/permission-management/edit-permission') { this.router.navigate(['/permission-management']); }
     this.getAreas();
@@ -83,6 +89,9 @@ export class AddEditPermissionComponent implements OnInit {
     }
   }
 
+  /*
+   * Cambia il form in base al tipo di categoria selezionato per il nuovo permesso (rimuove e aggiunge formControl)
+  * */
   public changeCategory(): void {
     const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
     if (categoryValue === 'T') { // temporaneo
@@ -128,6 +137,11 @@ export class AddEditPermissionComponent implements OnInit {
     }
   }
 
+  /*
+   * Crea o modifica un permesso
+   * Effettua una chiamata diversa in base alla categoria di permesso
+   *
+  * */
   public addEditPermission(): void {
     this.complete = false;
     const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
@@ -196,10 +210,11 @@ export class AddEditPermissionComponent implements OnInit {
     const endDateD:Date = this.formGroup.get('ctrlDateStart').value;
 
     this.formGroup.patchValue({ ctrlDateEnd: endDateD });
-
-
   }
 
+  /*
+   * Popola select delle aree associate all'utente
+  * */
   private getAreas(): void {
     const keyword = "";
     const isActive = true;
@@ -209,6 +224,9 @@ export class AddEditPermissionComponent implements OnInit {
     }));
   }
 
+  /*
+   * Popola select dei tipi di permesso
+  * */
   private getPermissionType(): void {
     this.permissionTypeService.getPermissionType('', true).subscribe(
       (permission) => (

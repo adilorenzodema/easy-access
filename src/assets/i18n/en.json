@@ -19,11 +19,11 @@
     "Permissions": "Permissions",
     "Permission Profiles": "Permission profiles",
     "Transits": "Transits",
-    "Incidents": "Incidents",
+    "Incidents": "Alerts",
     "Batch Management": "Batch",
     "Holidays Selection": "Holidays Selection",
     "EFC List": "Service Provider List",
-    "Logs" : "Logs"
+    "Logs": "Logs"
   },
   "common": {
     "searchLabel": "Search",
@@ -114,7 +114,10 @@
     "activateTitle": "Activate User",
     "disactivateTitle": "Disactivate User",
     "activateConfirm": "Are you sure you want to re-activate the selected user?",
-    "disactivateConfirm": "Are you sure you want to disactivate the selected user?"
+    "disactivateConfirm": "Are you sure you want to disactivate the selected user?",
+    "deleteTitle": "Delete User",
+    "deleteConfirm": "Are you sure you want to delete the selected user?",
+    "delete": "Delete"
   },
   "manage_parks": {
     "parkTitle": "Manage Parking Lots",
@@ -168,7 +171,7 @@
     "associatedPark": "Associated Parking Lot",
     "parkDisactivated": "The associated parking lot is not active",
     "modalTitleAss": "Add a new Gate",
-    "modalTitleEdit" : "Edit Gate",
+    "modalTitleEdit": "Edit Gate",
     "notEditable": "You can only edit an inactive Gate",
     "directionError": "Please choose a direction",
     "entry": "Entry",
@@ -199,17 +202,21 @@
     "openOk": "Device open",
     "closeOk": "Device close",
     "autoOk": "Device in automatic mode",
-    "gateStatus":{
+    "gateStatus": {
       "connectionTest": "Test connection",
       "reboot": "Reboot",
       "openBarrier": "Open barrier",
       "closeBarrier": "Close barrier",
       "autoBarrier": "Auto Mode",
       "lists": "Lists on board",
-      "noIncidents": "There are no incidents present",
-      "incidentsDetected": "Incidents detected",
-      "rebootTitle":"Reboot Antenna",
-      "rebootConfirm": "Are you sure you want to reboot this Antenna?"
+      "noIncidents": "There are no alerts present",
+      "incidentsDetected": "alerts detected",
+      "rebootTitle": "Reboot Antenna",
+      "rebootConfirm": "Are you sure you want to reboot this Antenna?",
+      "disactivateTitle": "Disactivate Device",
+      "disactivateConfirm": "Are you sure you want to disactivate the selected device?",
+      "activateTitle": "Activate Device",
+      "activateConfirm": "Are you sure you want to re-activate the selected device?"
     }
   },
   "manage-permission": {
@@ -281,10 +288,16 @@
     "permissionDisactivated": "Permission successfully deactivated!",
     "permissionActivated": "Permission successfully activated!",
     "permissionAdded": "Permission Type successfully created!",
-    "permissionEdited": "Permission Type successfully edited!"
+    "permissionEdited": "Permission Type successfully edited!",
+    "activateTitle": "Activate Permission Type",
+    "disactivateTitle": "Disactivate Permission Type",
+    "activateConfirm": "Are you sure you want to re-activate the selected permission type?",
+    "disactivateConfirm": "Are you sure you want to disactivate the selected permission type?",
+    "deleteTitle": "Delete Permission Type",
+    "deleteConfirm": "Are you sure you want to delte the selected permission type? This action is permanent."
   },
   "manage_incidents": {
-    "incidentTitle": "Incidents List",
+    "incidentTitle": "Alerts List",
     "searchRange": "Search range",
     "parkSearch": "Search by parking lot",
     "gateSearch": "Search by gate",
@@ -299,13 +312,31 @@
     "resolved": "Resolved",
     "ongoing": "Ongoing",
     "component": "Component",
-    "errorCode": "Error code",
+    "errorCode": "Error type",
     "errorMessage": "Error message",
     "rangeError": "Error in the given range",
     "gate": "Gate",
     "park": "Parking lot",
-    "noIncidents": "There are no incidents present.",
-    "viewHistory": ""
+    "noIncidents": "There are no alerts present.",
+    "viewHistory": "",
+    "error": {
+      "ANTENNA_LISTFORMAT": "Error in list format",
+      "ANTENNA_LISTEXPIRED": "List has expired",
+      "ANTENNA_LISTNAME": "Error in list name",
+      "BARRIER_DISCONNECTED": "Barrier unreachable",
+      "BARRIER_CLOSURE": "Barrier not closed",
+      "BARRIER_OPENING": "Barrier not opened",
+      "BARRIER_SAFETYCOAST": "Safety coast alert",
+      "BARRIER_ARMDROPPED": "Barrier undocked",
+      "FC_GENERICISSUE": "Generic issue on photocell",
+      "GATE_UNREACHABLE": "Gate unreachable"
+    },
+    "device": {
+      "0": "Antenna",
+      "1": "Bar",
+      "2": "Photocell",
+      "GATE": "Gate"
+    }
   },
   "manage_transits": {
     "title": "View Transits",
@@ -351,23 +382,23 @@
     "Permission": "Permission",
     "PermissionType": "Permission type",
     "Transit": "Transit",
-    "Incident": "Incident",
+    "Incident": "Alert",
     "Batch": "Batch",
     "Holidays": "Holidays",
     "Efc": "Efc",
     "Logs": "Logs",
     "Dashboard": "Dashboard",
     "view-gate-status": "View gate status ",
-    "view-park-incidents": "View park incidents",
-    "view-gate-incidents": "View gate incidents",
+    "view-park-incidents": "View park alerts",
+    "view-gate-incidents": "View gate alerts",
     "view-park-status": "View park status",
     "view-gate": "View gate",
     "view-user": "View user",
     "view-permission": "View permission",
     "activate-user": "Activate user",
     "delete-user": "Delete user",
-    "edit-user":"Edit user",
-    "view-park-incident-dashboard": "View park incident",
+    "edit-user": "Edit user",
+    "view-park-incident-dashboard": "View park alert",
     "insert-permissiontype": "Insert permission type",
     "view-profile": "View profile",
     "disactivate-area": "Disactivate area",
@@ -409,24 +440,27 @@
     "disactivate-gate": "Disactivate gate",
     "delete-efc": "Delete EFC"
   },
-
   "dashboard": {
-    "lastIncident": "Last incident detected:",
+    "areas": "Associated areas: ",
+    "lastIncident": "Last alert detected:",
     "date": "Date: ",
     "device": "Device: ",
     "gate": "Gate:",
-    "history": "View incident history",
-    "noIncidents": "There are no incidents present",
-    "incidentList": "Detected incidents",
-    "incidentDesc": "Incident description",
-    "park": "Parking lot"
+    "history": "View alert history",
+    "noIncidents": "There are no alerts present",
+    "incidentList": "Detected alerts",
+    "incidentDesc": "Alert description",
+    "park": "Parking lot",
+    "incidentResolved": "Resolved",
+    "incidentOngoing": "Ongoing"
   },
   "select_holidays": {
     "title": "Select Holidays",
     "update": "Update holidays for ",
     "updateSnackbar": "Holiday list successfully updated!",
     "yearSelect": "Choose a year",
-    "dateSelect": "Add or remove holidays"
+    "dateSelect": "Add or remove holidays",
+    "loadHolidays": "Load holidays "
   },
   "manage_efc": {
     "title": "Manage EFCs",
@@ -489,7 +523,8 @@
       "notFound": "Area not found",
       "alreadyActivated": "Area is already active",
       "alreadyDeactivated": "Area is already inactive",
-      "nameAlreadyExist": "Area name already exist"
+      "nameAlreadyExist": "Area name already exist",
+      "hasParksAssociated": "Area can't be deleted due to having associated parking lots. De-associate them first."
     },
     "park": {
       "alreadyExist": "Parking lot already exists",
@@ -510,7 +545,7 @@
       "antennaCodeNotMatch": "Antenna code retrieved from Gate does not match with one present on Easy Access"
     },
     "incident": {
-      "notFound": "Incident not found"
+      "notFound": "Alert not found"
     },
     "transit": {
       "notFound": "Transit not found",

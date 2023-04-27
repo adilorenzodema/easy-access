@@ -13,10 +13,16 @@ import { LogsService } from 'src/app/service/logs.service';
   styleUrls: ['./logs-component.component.css']
 })
 export class LogsComponentComponent implements OnInit, OnDestroy {
-
+  /**
+    *Gestione della pagina /#/logmanagement
+  */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  /**
+    *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
+    * In Ordine: Data log, Utente, nome dell'operazione effettuata, nome del componente che esegue l'operazione
+    */
   public displayedColumns: string[] = ['date', "nomeUtente", "nomeOperazione", "nomeComponente"];
   public dataSource = new MatTableDataSource<any>();
   public formGroup: FormGroup;
@@ -32,6 +38,9 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
     private logService : LogsService
   ) { }
 
+  /*
+    * Popola le 2 select per Ricerca per componente e ricerca per operazione
+  * */
   ngOnInit(): void {
 
     this.formGroup = new FormGroup({
@@ -44,12 +53,17 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
 
     this.getComponentsName(); //chiamata per prendere lista nomi componenti
     this.getOperationsName(); //chiamata per prendere lista nomi operazioni
+
+    this.callGetAPI();
   }
 
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+    * Chiamata per popolare la tabella
+   */
   public callGetAPI(): void{
 
     const startDate =  moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD H:mm:ss');
