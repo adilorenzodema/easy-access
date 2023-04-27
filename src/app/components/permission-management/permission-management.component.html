@@ -79,7 +79,7 @@
         </div>
 
         <!-- tabella permessi -->
-        <div class="table-container">
+        <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
             matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
@@ -170,7 +170,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;">
             </tr>
           </table>
-        </div>
+        </ng-scrollbar>
 
         <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
             [style.display]="dataSource.data.length === 0 ? 'none' : '' ">

@@ -43,5 +43,8 @@
             </mat-card-content>
         </mat-card>
     </div>
-    <app-table-incidents *ngIf="parkStatus.length > 0" [parkStatus]="parkStatus"></app-table-incidents>
+
+    <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+      <app-table-incidents *ngIf="parkStatus.length > 0" [parkStatus]="parkStatus"></app-table-incidents>
+    </ng-scrollbar>
 </div>

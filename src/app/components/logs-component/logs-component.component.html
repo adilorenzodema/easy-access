@@ -53,10 +53,11 @@
       <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     </div>
 
-    <div class="table-container">
+    <div *ngIf="dataSource.data.length === 0">Nessun log</div>
+
+    <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
       <div fxLayout="row">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-          style="width: 100%;"
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort style="width: 100%;"
           [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
           <ng-container matColumnDef="date">
@@ -84,12 +85,12 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
-    </div>
+    </ng-scrollbar>
+
+
 
     <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
       [style.display]="dataSource.data.length === 0? 'none' : '' ">
     </mat-paginator>
-
-    <div *ngIf="dataSource.data.length === 0">Nessun log</div>
   </mat-card-content>
 </mat-card>

@@ -6,7 +6,7 @@ import { EfcListManagementComponent } from './efc-list-management.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LibMaterialModule, LibPipesModule } from 'dema-movyon-template';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [EfcListManagementComponent],
@@ -16,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LibMaterialModule,
     TranslateModule,
     ReactiveFormsModule,
-    LibPipesModule
+    LibPipesModule,
+    NgScrollbarModule
 
   ]
 })

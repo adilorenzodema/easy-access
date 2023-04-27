@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LibMaterialModule } from 'dema-movyon-template';
 import { TransitManagementRoutingModule } from './transit-management-routing.module';
 import { TransitComponent } from './transit.component';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { TransitComponent } from './transit.component';
     FlexLayoutModule,
     ReactiveFormsModule,
     TransitManagementRoutingModule,
-    TranslateModule
+    TranslateModule,
+    NgScrollbarModule
   ]
 })
 export class TransitManagementModule { }

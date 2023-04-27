@@ -21,7 +21,7 @@
       <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     </div>
 
-    <div class="table-container">
+    <ng-scrollbar class="my-scrollbar table-container" style="height: 38em;">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
       [style.display]="dataSource.data.length === 0 ? 'none' : ''">
       <ng-container matColumnDef="idArea">
@@ -88,7 +88,7 @@
         [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-    </div>
+    </ng-scrollbar>
 
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
       [style.display]="dataSource.data.length === 0 ? 'none' : ''">

@@ -10,6 +10,7 @@ import { ModalFormGateComponent } from './modal-form-gate/modal-form-gate.compon
 import { TitleGateComponent } from './title-gate/title-gate.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { GateStatusComponent } from './gate-status/gate-status.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { GateStatusComponent } from './gate-status/gate-status.component';
     LibPipesModule,
     FlexLayoutModule,
     GateManagementRoutingModule,
-    TranslateModule
+    TranslateModule,
+    NgScrollbarModule
   ]
 })
 export class GateManagementModule { }

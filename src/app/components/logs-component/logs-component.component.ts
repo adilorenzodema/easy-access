@@ -53,6 +53,8 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
 
     this.getComponentsName(); //chiamata per prendere lista nomi componenti
     this.getOperationsName(); //chiamata per prendere lista nomi operazioni
+
+    this.callGetAPI();
   }
 
   ngOnDestroy(): void {

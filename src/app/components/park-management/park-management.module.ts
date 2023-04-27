@@ -11,7 +11,7 @@ import { EditParkComponent } from './edit-park/edit-park.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableAssociatedAreasComponent } from './table-associated-areas/table-associated-areas.component';
 import { TableAssociatedGatesComponent } from './table-associated-gates/table-associated-gates.component';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { TableAssociatedGatesComponent } from './table-associated-gates/table-as
     FormsModule,
     ReactiveFormsModule,
     ParkManagementRoutingModule,
-    TranslateModule
+    TranslateModule,
+    NgScrollbarModule
   ]
 })
 export class ParkManagementModule { }

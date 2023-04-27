@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableIncidentsComponent } from './components/dashboard/table-incidents/table-incidents.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -35,6 +36,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     LibTemplateModule,
     LibPipesModule,
     HttpClientModule,
+    NgScrollbarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
