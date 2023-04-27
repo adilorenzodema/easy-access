@@ -23,7 +23,7 @@
     "Batch Management": "Batch",
     "Holidays Selection": "Holidays Selection",
     "EFC List": "Service Provider List",
-    "Logs" : "Logs"
+    "Logs": "Logs"
   },
   "common": {
     "searchLabel": "Search",
@@ -168,7 +168,7 @@
     "associatedPark": "Associated Parking Lot",
     "parkDisactivated": "The associated parking lot is not active",
     "modalTitleAss": "Add a new Gate",
-    "modalTitleEdit" : "Edit Gate",
+    "modalTitleEdit": "Edit Gate",
     "notEditable": "You can only edit an inactive Gate",
     "directionError": "Please choose a direction",
     "entry": "Entry",
@@ -199,7 +199,7 @@
     "openOk": "Device open",
     "closeOk": "Device close",
     "autoOk": "Device in automatic mode",
-    "gateStatus":{
+    "gateStatus": {
       "connectionTest": "Test connection",
       "reboot": "Reboot",
       "openBarrier": "Open barrier",
@@ -208,10 +208,10 @@
       "lists": "Lists on board",
       "noIncidents": "There are no alerts present",
       "incidentsDetected": "alerts detected",
-      "rebootTitle":"Reboot Antenna",
+      "rebootTitle": "Reboot Antenna",
       "rebootConfirm": "Are you sure you want to reboot this Antenna?",
       "disactivateTitle": "Disactivate Device",
-      "disactivateConfirm" : "Are you sure you want to disactivate the selected device?",
+      "disactivateConfirm": "Are you sure you want to disactivate the selected device?",
       "activateTitle": "Activate Device",
       "activateConfirm": "Are you sure you want to re-activate the selected device?"
     }
@@ -309,13 +309,31 @@
     "resolved": "Resolved",
     "ongoing": "Ongoing",
     "component": "Component",
-    "errorCode": "Error code",
+    "errorCode": "Error type",
     "errorMessage": "Error message",
     "rangeError": "Error in the given range",
     "gate": "Gate",
     "park": "Parking lot",
     "noIncidents": "There are no alerts present.",
-    "viewHistory": ""
+    "viewHistory": "",
+    "error": {
+      "ANTENNA_LISTFORMAT": "Error in list format",
+      "ANTENNA_LISTEXPIRED": "List has expired",
+      "ANTENNA_LISTNAME": "Error in list name",
+      "BARRIER_DISCONNECTED": "Barrier unreachable",
+      "BARRIER_CLOSURE": "Barrier not closed",
+      "BARRIER_OPENING": "Barrier not opened",
+      "BARRIER_SAFETYCOAST": "Safety coast alert",
+      "BARRIER_ARMDROPPED": "Barrier undocked",
+      "FC_GENERICISSUE": "Generic issue on photocell",
+      "GATE_UNREACHABLE": "Gate unreachable"
+    },
+    "device": {
+      "0": "Antenna",
+      "1": "Bar",
+      "2": "Photocell",
+      "GATE": "Gate"
+    }
   },
   "manage_transits": {
     "title": "View Transits",
@@ -376,7 +394,7 @@
     "view-permission": "View permission",
     "activate-user": "Activate user",
     "delete-user": "Delete user",
-    "edit-user":"Edit user",
+    "edit-user": "Edit user",
     "view-park-incident-dashboard": "View park alert",
     "insert-permissiontype": "Insert permission type",
     "view-profile": "View profile",
@@ -419,7 +437,6 @@
     "disactivate-gate": "Disactivate gate",
     "delete-efc": "Delete EFC"
   },
-
   "dashboard": {
     "areas": "Associated areas: ",
     "lastIncident": "Last alert detected:",

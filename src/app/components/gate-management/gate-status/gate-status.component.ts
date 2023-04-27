@@ -25,7 +25,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
    *In Ordine: Data di inizio dell'incidente, Data di fine, nome del varco, nome del parcheggio associato, nome del device che ha generato l'errore,
    *codice d'erorre e status attuale del varco (Incidente risolto/Incidente in corso)
    */
-  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'status'];
+  public displayedColumns: string[] = ['startDate', 'endDate', 'gateName', 'parkName', 'device', 'errorCode', 'errorMessage', 'status'];
   public dataSource = new MatTableDataSource<Incident>();
   public complete = true;
   public gateStatus: GateStatus;
@@ -92,7 +92,6 @@ export class GateStatusComponent implements OnInit, OnDestroy {
         console.log(this.gateStatus)),
       error: () => this.complete = true,
       complete: () => {
-        this.snackBar.showMessage("GateInfo", "INFO");
         this.complete = true;
       }
     }));

@@ -34,17 +34,18 @@
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-label>{{"manage_incidents.component" | translate}}</mat-label>
                     <mat-select formControlName="ctrlComponent" placeholder="{{'manage_incidents.component' | translate}}" (selectionChange)="callGetAPI()">
-                        <mat-option value="FC">{{"manage_incidents.photocell" | translate}}</mat-option>
-                        <mat-option value="Antenna">{{"manage_incidents.antenna" | translate}}</mat-option>
-                        <mat-option value="Barrier">{{"manage_incidents.bar" | translate}}</mat-option>
-                        <mat-option value="">{{"common.all" | translate}}</mat-option>
+                        <mat-option value="2" (click)="changeOpShowed()" >{{"manage_incidents.device.2" | translate}}</mat-option> <!-- Fotocellula -->
+                        <mat-option value="0" (click)="changeOpShowed()" >{{"manage_incidents.device.0" | translate}}</mat-option> <!-- Antenna -->
+                        <mat-option value="1"(click)="changeOpShowed()" >{{"manage_incidents.device.1" | translate}}</mat-option> <!-- Sbarra -->
+                        <mat-option value="GATE" (click)="changeOpShowed()" >{{"manage_incidents.device.GATE" | translate}}</mat-option> <!-- Gate -->
+                        <mat-option value="" (click)="changeOpShowed()" >{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-label>{{"manage_incidents.errorCode" | translate}}</mat-label>
                     <mat-select formControlName="ctrlErrorCode" placeholder="{{'manage_incidents.errorCode' | translate}}" (selectionChange)="callGetAPI()">
                       <mat-option value="">{{"common.all" | translate}}</mat-option>
-                      <mat-option *ngFor="let err of listaCodErrori" [value]="err">{{ err }}</mat-option>
+                      <mat-option *ngFor="let err of showListaError " [value]="err">{{ ("manage_incidents.error." + err) | translate }}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
@@ -62,7 +63,7 @@
         </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
-
+            
             <ng-container matColumnDef="startDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateStart" | translate}} </th>
                 <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
@@ -85,12 +86,17 @@
 
             <ng-container matColumnDef="device">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.component" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.device}} </td>
+                <td mat-cell *matCellDef="let element"> {{("manage_incidents.device." + element.device) | translate}} </td>
             </ng-container>
 
             <ng-container matColumnDef="errorCode">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorCode" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{ element.errorCode }}</td>
+                <td mat-cell *matCellDef="let element"> {{ ("manage_incidents.error." + element.errorCode) | translate }}</td> <!-- aggiungere info aggiuntuive -->
+            </ng-container>
+
+            <ng-container matColumnDef="errorMessage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorMessage" | translate}} </th>
+                <td mat-cell *matCellDef="let element"> {{ element.errorMessage }}</td> 
             </ng-container>
 
             <ng-container matColumnDef="status">

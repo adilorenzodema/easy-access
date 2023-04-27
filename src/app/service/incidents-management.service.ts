@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable } from 'rxjs';
-import { Incident } from '../domain/interface';
+import { ErrorCode, Incident } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
 
 @Injectable({
@@ -53,7 +53,7 @@ export class IncidentsManagementService {
    *
    * @returns {Observable<String[]>}
   * */
-  getAllErrorCodes(): Observable<String[]>{
+  getAllErrorCodes(): Observable<ErrorCode[]>{
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({
@@ -61,6 +61,6 @@ export class IncidentsManagementService {
       })
     };
 
-    return this.http.get<string[]>(this.apiURL + "/getAllCodeErrors", options);
+    return this.http.get<ErrorCode[]>(this.apiURL + "/getAllCodeErrors", options);
   }
 }
