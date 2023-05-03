@@ -17,7 +17,7 @@ export class ParkManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-    /**
+  /**
      * Prende una lista di parchegggi Park dalle API fornite da backend (GestioneParcheggioRestController)
      * keyword, isActive e idArea passati come parametri
      *
@@ -221,6 +221,17 @@ export class ParkManagementService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.get<ParkStatus[]>(this.apiURL + '/getParkStatus', options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  //Restituisce tutti i pacheggi associati all'utente
+  getAssociatedParksToUser(): Observable<Park[]>{
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+
+    return this.http.get<Park[]>(this.apiURL + "/getAllParksAssociated", options)
       .pipe(catchError(err => { throw err; }));
   }
 

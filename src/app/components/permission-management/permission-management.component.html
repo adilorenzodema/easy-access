@@ -50,10 +50,10 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex="30">
-              <mat-label>{{ "manage-permission.searchArea" | translate}}</mat-label>
-              <mat-select (selectionChange)="callGetAPI()" formControlName="idArea">
+              <mat-label>{{ "manage-permission.searchPark" | translate}}</mat-label>
+              <mat-select (selectionChange)="callGetAPI()" formControlName="idPark">
                 <mat-option [value]="undefined">{{ 'manage-permission.ALL' | translate }}</mat-option>
-                <mat-option *ngFor="let area of areas" [value]="area.idArea">{{ area.areaName }}</mat-option>
+                <mat-option *ngFor="let park of parks" [value]="park.idPark">{{ park.namePark }}</mat-option>
               </mat-select>
             </mat-form-field>
 

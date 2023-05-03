@@ -33,11 +33,11 @@ export class PermissionManagementService {
      * @returns
      */
   getPermission(startDate: string, endDate: string, isActive: boolean, obuKeyword: string, permissionTypeKeyword: string,
-    idArea: number, category: string): Observable<Permission[]>{
+    idPark: number, category: string): Observable<Permission[]>{
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams(
-        { token: Cookie.getToken(this.cookieService), startDate, endDate, active: isActive, obuKeyword, permissionTypeKeyword, idArea, category }
+        { token: Cookie.getToken(this.cookieService), startDate, endDate, active: isActive, obuKeyword, permissionTypeKeyword, idPark, category }
       )
     };
     return this.http.get<Permission[]>(this.apiURL + '/getAllPermissions', options)

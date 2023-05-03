@@ -13,7 +13,8 @@ import { PermissionManagementService } from 'src/app/service/permission-manageme
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Permission, PermissionSearchStatus } from '../../domain/interface';
 import { AreaManagementService } from 'src/app/service/area-management.service';
-import { Area } from 'src/app/domain/class';
+import { Area, Park } from 'src/app/domain/class';
+import { ParkManagementService } from 'src/app/service/park-management.service';
 
 @Component({
   selector: 'app-permission-management',
@@ -42,7 +43,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
   public permissionStatus: PermissionSearchStatus = 'VALID';
-  public areas: Area[] = [];
+  //public areas: Area[] = [];
+  public parks: Park[] = [];
 
   private subscription: Subscription[] = [];
 
@@ -50,6 +52,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     private permissionService: PermissionManagementService,
     private pagePermissionService: PagePermissionService,
     private areaService: AreaManagementService,
+    private parkManagementService : ParkManagementService,
     private dialog: MatDialog,
     private snackBar: SnackBar,
     private translate: TranslateService
@@ -66,11 +69,12 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       ctrlObuSearch: new FormControl(''),
       ctrlPermTypeSearch: new FormControl(''),
       ctrlActive: new FormControl(true),
-      idArea: new FormControl(),
+      idPark: new FormControl(),
       category: new FormControl('')
     });
     this.callGetAPI();
-    this.getArea();
+    // this.getArea();
+    this.getParks();
     this.getPermissionAPI();
     this.dataSource.filterPredicate = (data: Permission, filter: string) => {
       return data.permissionStatus === filter;
@@ -100,12 +104,11 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
       const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
-      const idArea = this.formGroup.get('idArea')?.value;
+      const idPark = this.formGroup.get('idPark')?.value;
       const category = this.formGroup.get('category')?.value;
       //Orario inizio deve essere 00:00, orario fine 23:59
-      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch, idArea, category).subscribe({
+      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch, idPark, category).subscribe({
         next: (permission) => (
-          console.log("perm: ", permission),
           this.dataSource.data = permission,
           this.dataSource.paginator = this.paginator,
           //se modificationDate null allora fa sort per creationDate
@@ -155,7 +158,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   }
 
 
-   /**
+  /**
     * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un permesso.
     * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
     * @param id - id del permesso da attivare
@@ -205,7 +208,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
             {
               next: () => this.callGetAPI(),
               error: () => this.snackBar.showMessage(this.translate.instant('manage-permission.deleteError'), "ERROR"),
-              complete: () => this.snackBar.showMessage(this.translate.instant('manage-permission.deletionSuccess'), "INFO")
+              complete: () => this.snackBar.showMessage(this.translate.instant('manage-permission.deleteSuccess'), "INFO")
             }));
         }
       });
@@ -221,14 +224,25 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     ));
   }
 
-  private getArea(): void{
-    const isActive = true;
-    const keyword = "";
+  // private getArea(): void{
+  //   const isActive = true;
+  //   const keyword = "";
 
-    this.subscription.push(this.areaService.getAreaList(keyword, isActive).subscribe(
-      areas => (
-        this.areas = areas
-      )
+  //   this.subscription.push(this.areaService.getAreaList(keyword, isActive).subscribe(
+  //     areas => (
+  //       this.areas = areas
+  //     )
+  //   ));
+  // }
+
+  /**
+   * Popola la select per la ricerca per parcheggio
+   */
+  private getParks(): void{
+    this.subscription.push(this.parkManagementService.getAssociatedParksToUser().subscribe(
+      (r) => {
+        this.parks = r;
+      }
     ));
   }
 }

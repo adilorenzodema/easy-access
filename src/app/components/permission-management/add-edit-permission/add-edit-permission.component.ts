@@ -5,11 +5,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { AddDailyPermission, AddPermanentPermission, AddTemporaryPermission, Area } from 'src/app/domain/class';
+import { AddDailyPermission, AddPermanentPermission, AddTemporaryPermission, Area, Park } from 'src/app/domain/class';
 import { Category, Permission, PermissionType } from 'src/app/domain/interface';
-import { AreaManagementService } from 'src/app/service/area-management.service';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
+import { ParkManagementService } from 'src/app/service/park-management.service';
 
 @Component({
   selector: 'app-add-edit-permission',
@@ -22,7 +22,7 @@ export class AddEditPermissionComponent implements OnInit {
    * Componente per l'aggiunta e la modifica di permessi
    */
   public formGroup: FormGroup;
-  public areas: Area[] = [];
+  public parks: Park[] = [];
   public areaFiltered: Area[] = [];
   public permissionTypes: PermissionType[] = [];
   public permissionTypesFiltered: PermissionType[] = [];
@@ -40,7 +40,7 @@ export class AddEditPermissionComponent implements OnInit {
     private router: Router,
     private snackBar: SnackBar,
     private permissionService: PermissionManagementService,
-    private areaManagementService: AreaManagementService,
+    private parkManagementService: ParkManagementService,
     private permissionTypeService: PermissionTypeManagementService,
     private translate: TranslateService
   ) {
@@ -53,14 +53,17 @@ export class AddEditPermissionComponent implements OnInit {
   * */
   ngOnInit(): void {
     if (!this.permission && this.router.url === '/permission-management/edit-permission') { this.router.navigate(['/permission-management']); }
-    this.getAreas();
+
+    //this.getAreas();
+    this.getParks();
+
     if (this.permission) {
-      const areasIdSelected: number[] = [];
-      this.permission.areaList.map((area) => areasIdSelected.push(area.idArea));
+      const parksIdSelected: number[] = [];
+      this.permission.parkList.map((park) => parksIdSelected.push(park.idPark));
       this.formGroup = this.formBuilder.group({
         ctrlCategory: [{ value: this.permission.category, disabled: true }, Validators.required],
         ctrlObu: [this.permission.obu.obuCode, [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlAreaIdList: [areasIdSelected, Validators.required],
+        ctrlAreaIdList: [parksIdSelected, Validators.required],
         ctrlDateStart: [{ value: this.permission.validationDateStart, disabled: true }, Validators.required],
         ctrlDateEnd: [{ value: this.permission.validationDateEnd, disabled: true }, Validators.required],
       });
@@ -212,15 +215,13 @@ export class AddEditPermissionComponent implements OnInit {
     this.formGroup.patchValue({ ctrlDateEnd: endDateD });
   }
 
-  /*
-   * Popola select delle aree associate all'utente
-  * */
-  private getAreas(): void {
-    const keyword = "";
-    const isActive = true;
-    this.subscription.push(this.areaManagementService.getAreaList(keyword, isActive).subscribe((res) => {
-      this.areas = res;
-      this.areaFiltered = this.areas.slice();
+  /**
+   * Popola le select dei parcheggi associati all'utente
+   */
+  private getParks():void{
+
+    this.subscription.push(this.parkManagementService.getAssociatedParksToUser().subscribe((res) => {
+      this.parks = res;
     }));
   }
 

@@ -249,14 +249,16 @@
     "deleteTitle": "Delete Permission",
     "deleteConfirm": "Are you sure you want to delte the selected Permission? This action is permanent.",
     "deletionError": "There was an error in the deletion!",
-    "deletionSuccess": "Permission successfully deleted!",
+    "deleteSuccess": "Permission successfully deleted!",
     "activationError": "There was an error in the activation!",
     "disactivationError": "There was an error in the disactivation!",
     "editPermissionTitle": "Edit Permission",
     "addPermissionTitle": "Add Permission",
     "obuInsert": "Insert an OBU code",
     "areaSelection": "Associate one or more Areas",
+    "parkSelection": "Associate one or more Parks",
     "areaAssociationError": "Please, associate at least one Area",
+    "parkAssociationError": "Please, associate at least one Park",
     "invalidDate": "Please enter a valid date",
     "dateError": "The start date cannot be later than the end date",
     "startTime": "Start Time",
@@ -268,7 +270,8 @@
     "permissionAdded": "Permission successfully created!",
     "permissionEdited": "Permission successfully edited!",
     "seachPermCategory": "Search by permission category",
-    "searchArea": "Search by area"
+    "searchArea": "Search by area",
+    "searchPark": "Search by park"
   },
   "manage_permission_type": {
     "title": "Manage Permission Types",

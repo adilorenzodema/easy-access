@@ -73,7 +73,8 @@ export interface Permission {
   modificationUser: number;
   modificationDate: Date;
   permissionStatus: PermissionSearchStatus;
-  areaList: Area[];
+  // areaList: Area[];
+  parkList: Park[];
 }
 
 export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';
