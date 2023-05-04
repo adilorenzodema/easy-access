@@ -19,7 +19,7 @@ export class PermissionManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-    /**
+  /**
      * Prende la lista di permessi che rispettano il filtro dei valori passati dalle API fornite da backend (GestionePermessoRestController)
      * Tutti i dati vengono passati come parametri
      *

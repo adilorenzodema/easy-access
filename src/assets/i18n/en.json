@@ -403,6 +403,7 @@
     "edit-user": "Edit user",
     "view-park-incident-dashboard": "View park alert",
     "insert-permissiontype": "Insert permission type",
+    "disactivate-permissiontype": "Disactivate permission type",
     "view-profile": "View profile",
     "disactivate-area": "Disactivate area",
     "insert-permission": "Insert permission",
@@ -441,7 +442,8 @@
     "delete-permission": "Delete permission",
     "disactivate-permissionype": "Disactivate permission type",
     "disactivate-gate": "Disactivate gate",
-    "delete-efc": "Delete EFC"
+    "delete-efc": "Delete EFC",
+    "disactivate-user": "Disactivate user"
   },
   "dashboard": {
     "areas": "Associated areas: ",

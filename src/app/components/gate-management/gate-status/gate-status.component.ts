@@ -41,7 +41,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     private gatePilotingService: GatePilotingService
   ) {
     /*
-    *Quando sulla pagina di gestione varchi si viene rimandati a questa pagina, viene passato un oggetto contenete tutte le info del varco 
+    *Quando sulla pagina di gestione varchi si viene rimandati a questa pagina, viene passato un oggetto contenete tutte le info del varco
     *che ha eseguito la chiamata.
     *In caso questo oggetto sia assenti, si viene re-indirizzati alla pagina di gestione varchi
     */
@@ -88,8 +88,8 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     this.subscription.push(this.gatePilotingService.getGateInfo(this.gate.idGate).subscribe({
       next: (gateStatus) => (
         this.gateStatus = gateStatus,
-        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false,
-        console.log(this.gateStatus)),
+        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false
+      ),
       error: () => this.complete = true,
       complete: () => {
         this.complete = true;

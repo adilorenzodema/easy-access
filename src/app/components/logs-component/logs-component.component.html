@@ -61,22 +61,22 @@
           [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
           <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Data</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
             <td mat-cell *matCellDef="let element">{{ element.date | date: 'dd/MM/yyyy H:mm:ss' }}</td>
           </ng-container>
 
           <ng-container matColumnDef="nomeUtente">
-            <th mat-header-cell *matHeaderCellDef>Nome utente</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome utente</th>
             <td mat-cell *matCellDef="let element">{{ element.nomeUtente +' '+ element.cognomeUtente }}</td>
           </ng-container>
 
           <ng-container matColumnDef="nomeOperazione">
-            <th mat-header-cell *matHeaderCellDef>Operazione</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Operazione</th>
             <td mat-cell *matCellDef="let element">{{ "manage_logs." +element.nomeOperazione | translate }}</td>
           </ng-container>
 
           <ng-container matColumnDef="nomeComponente">
-            <th mat-header-cell *matHeaderCellDef>Componente</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Componente</th>
             <td mat-cell *matCellDef="let element">{{ element.nomeComponente }}</td>
           </ng-container>
 

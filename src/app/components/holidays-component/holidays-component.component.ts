@@ -127,7 +127,7 @@ export class HolidaysComponentComponent implements OnInit {
     }
   }
 
- /**
+  /**
   * Inserisce tutte le festività dell'anno selezionato dentro l'array di date model
   * Dopo l'inserimento ordina tutte le date in model
   * @param {number} year
@@ -151,7 +151,7 @@ export class HolidaysComponentComponent implements OnInit {
     //inserire nelle festività
     dates = [capodanno, epifania, liberazione, pasqua, pasquetta, festaLavoro, festaRepubblica, assunzione, ognisanti, immacolata, natale, santoStefano];
 
-    for(let d of dates) {
+    for(const d of dates) {
       if (this._findDate(d) == -1) this.model.push(d);
     }
 
@@ -167,8 +167,7 @@ export class HolidaysComponentComponent implements OnInit {
     /*   const mDate = moment(date).format('yyyy-MM-DD'); //.split('T')[0]
       const mDate1= new Date(mDate);
       const mDate2 = mDate1.toISOString().split('T')[0];
-      console.log("data prima check", mDate1);
-      console.log("data prima check ISO", mDate2); */
+    */
     const index = this._findDateRemoved(date);
     this.model.splice(index, 1);
   }
@@ -215,9 +214,6 @@ export class HolidaysComponentComponent implements OnInit {
    * @returns {number}
    */
   private orderDate(a: any, b: any): number {
-    // console.log("a = ", typeof a);
-    // console.log("b: ", b);
-
     a = moment(a).format('yyyy-MM-DD');
     b = moment(b).format('yyyy-MM-DD');
 

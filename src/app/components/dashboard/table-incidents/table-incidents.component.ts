@@ -52,6 +52,5 @@ export class TableIncidentsComponent implements OnInit, AfterViewInit {
       )
     );
     this.dataSource.data = this.allIncidentList;
-    console.log("incidents = ", this.allIncidentList);
   }
 }

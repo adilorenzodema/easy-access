@@ -405,7 +405,8 @@
     "delete-user": "Elimina utenti",
     "edit-user":"Modifica utenti",
     "view-park-incident-dashboard": "Visualizza alert parcheggio",
-    "insert-permissiontype": "Inserimento tipi permesso",
+    "insert-permissiontype": "Inserito tipp permesso",
+    "disactivate-permissiontype": "Disattivato tipo permesso",
     "view-profile": "Visualizza profili",
     "disactivate-area": "Disattiva area",
     "insert-permission": "Inserimento permessi",
@@ -444,7 +445,8 @@
     "delete-permission": "Elimina permesso",
     "disactivate-permissionype": "Disattiva tipo permesso",
     "disactivate-gate": "Disattiva varco",
-    "delete-efc": "Elimina EFC"
+    "delete-efc": "Elimina EFC",
+    "disactivate-user": "Disattiva utente"
   },
 
   "dashboard": {

@@ -77,6 +77,7 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
 
     this.subscription.push(this.logService.getListLogs(startDate, endDate, name, componentName, operation).subscribe({
       next: logs => {
+        logs.sort((a, b) => this.orderDate(a.date, b.date, true));
         this.dataSource.data = logs;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -104,6 +105,7 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
     this.subscription.push(this.logService.getOperationsName().subscribe({
       next: opNames => {
         this.opNames = opNames;
+        this.changeOpShowed();
       }
     }));
   }
@@ -115,9 +117,35 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
     const compName = this.formGroup.get('componentName')?.value;
     this.showOpNames = [];
 
-    this.opNames.forEach(op => {
-      if (op.toUpperCase().includes(compName.toUpperCase()))
-        this.showOpNames.push(op);
-    });
+    if (!compName) this.showOpNames = this.opNames;
+    else {
+      this.opNames.forEach(op => {
+        if (op.toUpperCase().includes(compName.toUpperCase()))
+          this.showOpNames.push(op);
+      });
+    }
+  }
+
+  //usato per ordinare i logs per data tramite la funzione sort
+  private orderDate(a: any, b: any, desc = false): number {
+    a = moment(a).format('yyyy-MM-DD H:mm:ss');
+    b = moment(b).format('yyyy-MM-DD H:mm:ss');
+
+    const d1 = new Date(a);
+    const d2 = new Date(b);
+
+    if (!desc){ //riordina in modo crescente
+      if (d1> d2 ) return 1;
+
+      else if (d1 < d2) return -1;
+    }
+
+    if (desc) { //riordina in modo decrescente
+      if (d1 > d2) return -1;
+
+      else if (d1 < d2) return 1;
+    }
+
+    return 0; //date uguali
   }
 }

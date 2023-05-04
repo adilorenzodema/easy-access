@@ -27,7 +27,6 @@ export class ParkManagementService {
      * @returns Observable<Park[]>
      */
   getParking(keyword: string, isActive: boolean, idArea :number): Observable<Park[]> {
-    console.log(idArea);
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), keyword: keyword, active: isActive, idArea: idArea })

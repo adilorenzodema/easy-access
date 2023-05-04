@@ -81,7 +81,6 @@ export class IncidentsComponent implements OnInit {
           this.dataSource.data = incident;
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-          console.log(incident);
         },
         error: () => this.complete = true,
         complete: () => this.complete = true
@@ -96,7 +95,6 @@ export class IncidentsComponent implements OnInit {
     this.subscription.push(this.incidentsManagementService.getAllErrorCodes().subscribe({
       next: code => {
         this.listaCodErrori = code;
-        console.log(code);
       }
     }));
   }
