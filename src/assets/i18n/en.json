@@ -156,6 +156,8 @@
     "associationErrorSnackbar": "There was an error in the association!",
     "associationComplete": "The association was successful!",
     "deletionError": "There was an error in the deletion!",
+    "disactivationError": "There was an error in the disactivation!",
+    "disactivationSuccess": "Park successfully disactivated!",
     "deletionSuccess": "Gate successfully deleted!"
   },
   "manage_gates": {
@@ -535,6 +537,7 @@
       "alreadyExist": "Parking lot already exists",
       "notFound": "Parking lot not found",
       "alreadyActivated": "Parking lot is already active",
+      "hasMoreAreasAssociated": "Park has more areas associated. It will not be disactivated",
       "alreadyDeactivated": "Parking lot already inactive"
     },
     "gate": {

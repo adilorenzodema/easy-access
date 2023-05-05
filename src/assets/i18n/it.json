@@ -150,9 +150,11 @@
     "associatedAreas": "Visualizza aree associate",
     "associatedGates": "Visualizza varchi associati",
     "edit_association": "Modifica associazioni",
+    "disactivationError": "C'è stato un errore nella disattivazione!",
     "editDetailsSuccess": "Dettagli modificati con successo!",
     "insertParkSuccess": "Parcheggio creato con successo!",
     "insertParkError": "C'è stato un errore nella creazione!",
+    "disactivationSuccess": "Parcheggio disattivato con successo!",
     "associationErrorSnackbar": "C'è stato un errore nell'associazione!",
     "associationComplete": "L'associazione è stata eseguita con successo!",
     "deletionError": "C'è stato un errore nella rimozione!",
@@ -539,7 +541,8 @@
       "alreadyExist": "Parcheggio già esistente",
       "notFound": "Parcheggio non trovato",
       "alreadyActivated": "Parcheggio già attivato",
-      "alreadyDeactivated": "Parcheggio già disattivato"
+      "alreadyDeactivated": "Parcheggio già disattivato",
+      "hasMoreAreasAssociated": "I parcheggi associati non possono essere disattivati perchè sono associato ad altre aree"
     },
     "gate":{
       "alreadyExist": "Varco già esistente",
