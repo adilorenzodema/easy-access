@@ -79,102 +79,105 @@
         </div>
 
         <!-- tabella permessi -->
-        <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
-            matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
+        <div class="root-table-container" style="height: 36em;">
+          <ng-scrollbar class="my-scrollbar table-container" style="height: 32em !important;">
+            <div *ngIf="dataSource.data.length === 0 && complete"> {{'manage-permission.noPermission' | translate}}</div>
 
-            <ng-container matColumnDef="category">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    {{'manage-permission.permissionCategory' | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.category === 'P' ?
-                    ('manage-permission.permanent' | translate) : element.category === 'D' ? ('manage-permission.daily'
-                    | translate) : ('manage-permission.temporary' | translate)}} </td>
-            </ng-container>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="modificationDate"
+              matSortDirection="asc" [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
 
-            <ng-container matColumnDef="permissionStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'manage-permission.permissionStatus' |
-                translate}} </th>
-                <td mat-cell *matCellDef="let element" > {{'manage-permission.' + element.permissionStatus | translate}}
-                <mat-icon [ngClass]="element.permissionStatus | iconColor" class="center-icon">timer</mat-icon>
-                </td>
-            </ng-container>
+              <ng-container matColumnDef="category">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{'manage-permission.permissionCategory' | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element.category === 'P' ?
+                      ('manage-permission.permanent' | translate) : element.category === 'D' ? ('manage-permission.daily'
+                      | translate) : ('manage-permission.temporary' | translate)}} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="permissionType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    {{'manage-permission.permissionName' | translate}} </th>
-                <td mat-cell *matCellDef="let element">
-                    <div *ngIf="element.permissionType; else Null">
-                        {{element.permissionType.permissionTypeDesc}}
-                    </div>
-                    <ng-template #Null>
-                        <div style="margin-left: 22%">
-                            {{"--"}}
-                        </div>
-                    </ng-template>
-                </td>
-            </ng-container>
+              <ng-container matColumnDef="permissionStatus">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'manage-permission.permissionStatus' |
+                  translate}} </th>
+                  <td mat-cell *matCellDef="let element" > {{'manage-permission.' + element.permissionStatus | translate}}
+                  <mat-icon [ngClass]="element.permissionStatus | iconColor" class="center-icon">timer</mat-icon>
+                  </td>
+              </ng-container>
 
-            <ng-container matColumnDef="modificationDate">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'common.modificationDate' | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.modificatinDate ? element.modificationDate : element.creationDate | date:'dd/MM/yyyy H:mm:ss'}} </td>
-            </ng-container>
+              <ng-container matColumnDef="permissionType">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      {{'manage-permission.permissionName' | translate}} </th>
+                  <td mat-cell *matCellDef="let element">
+                      <div *ngIf="element.permissionType; else Null">
+                          {{element.permissionType.permissionTypeDesc}}
+                      </div>
+                      <ng-template #Null>
+                          <div style="margin-left: 22%">
+                              {{"--"}}
+                          </div>
+                      </ng-template>
+                  </td>
+              </ng-container>
 
-            <ng-container matColumnDef="modificationUser">
-              <th mat-header-cell *matHeaderCellDef>{{ 'common.modificationUser' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.modificationUser? element.modificationUserFirstname +' '+ element.modificationUSerLastname :
-                element.creationUserFirstname +' '+ element.creationUserLastname }}</td>
-            </ng-container>
+              <ng-container matColumnDef="modificationDate">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> {{'common.modificationDate' | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element.modificatinDate ? element.modificationDate : element.creationDate | date:'dd/MM/yyyy H:mm:ss'}} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="codiceObu">
-                <th mat-header-cell *matHeaderCellDef> {{'manage-permission.obuCode' | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.obu.obuCode}} </td>
-            </ng-container>
+              <ng-container matColumnDef="modificationUser">
+                <th mat-header-cell *matHeaderCellDef>{{ 'common.modificationUser' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.modificationUser? element.modificationUserFirstname +' '+ element.modificationUSerLastname :
+                  element.creationUserFirstname +' '+ element.creationUserLastname }}</td>
+              </ng-container>
 
-            <ng-container matColumnDef="validationDateStart">
-                <th mat-header-cell *matHeaderCellDef> {{'manage-permission.validationDateStart' | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{ (element.validationDateStart | date: 'dd/MM/yyyy') }} </td>
-            </ng-container>
+              <ng-container matColumnDef="codiceObu">
+                  <th mat-header-cell *matHeaderCellDef> {{'manage-permission.obuCode' | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element.obu.obuCode}} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="validationDateEnd">
-                <th mat-header-cell *matHeaderCellDef> {{'manage-permission.validationDateEnd' | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{ element.category === 'P' ? '' : element.validationDateEnd | date: 'dd/MM/yyyy' }} </td>
-            </ng-container>
+              <ng-container matColumnDef="validationDateStart">
+                  <th mat-header-cell *matHeaderCellDef> {{'manage-permission.validationDateStart' | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{ (element.validationDateStart | date: 'dd/MM/yyyy') }} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element" style="text-align: end;">
-                    <button mat-icon-button>
-                        <mat-icon class="edit-icon" matTooltip="{{'manage-permission.details_edit' | translate}}"
-                            *ngIf="operations | getPermissionPipe: 'edit-permission'" [routerLink]="'edit-permission'"
-                            [state]="{permission: element}">edit</mat-icon>
-                    </button>
-                    <button mat-icon-button
-                        *ngIf="formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-permission'">
-                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
-                            (click)="onDisactivate(element.idPermission)">power_off</mat-icon>
-                    </button>
-                    <button mat-icon-button
-                        *ngIf="!formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-permission'">
-                        <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
-                            (click)="activePermission(element.idPermission)">refresh</mat-icon>
-                    </button>
-                    <button mat-icon-button
-                    *ngIf="!formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permission'">
-                    <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
-                      (click)="deletePermission(element.idPermission)">delete</mat-icon></button>
-                </td>
-            </ng-container>
+              <ng-container matColumnDef="validationDateEnd">
+                  <th mat-header-cell *matHeaderCellDef> {{'manage-permission.validationDateEnd' | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.category === 'P' ? '' : element.validationDateEnd | date: 'dd/MM/yyyy' }} </td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"
-                [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-            </tr>
-          </table>
-        </ng-scrollbar>
+              <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element" style="text-align: end;">
+                      <button mat-icon-button>
+                          <mat-icon class="edit-icon" matTooltip="{{'manage-permission.details_edit' | translate}}"
+                              *ngIf="operations | getPermissionPipe: 'edit-permission'" [routerLink]="'edit-permission'"
+                              [state]="{permission: element}">edit</mat-icon>
+                      </button>
+                      <button mat-icon-button
+                          *ngIf="formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-permission'">
+                          <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
+                              (click)="onDisactivate(element.idPermission)">power_off</mat-icon>
+                      </button>
+                      <button mat-icon-button
+                          *ngIf="!formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-permission'">
+                          <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
+                              (click)="activePermission(element.idPermission)">refresh</mat-icon>
+                      </button>
+                      <button mat-icon-button
+                      *ngIf="!formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-permission'">
+                      <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
+                        (click)="deletePermission(element.idPermission)">delete</mat-icon></button>
+                  </td>
+              </ng-container>
 
-        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-            [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
-        </mat-paginator>
-        <div *ngIf="dataSource.data.length === 0"> {{'manage-permission.noPermission' | translate}}</div>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                  [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+          </ng-scrollbar>
+
+          <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+              [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+          </mat-paginator>
+        </div>
     </mat-card-content>
 </mat-card>
