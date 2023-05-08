@@ -9,9 +9,7 @@
         "*.ts"
       ],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": "movyon_easy_access/tsconfig.json",
         "createDefaultProgram": true
       },
       "extends": [

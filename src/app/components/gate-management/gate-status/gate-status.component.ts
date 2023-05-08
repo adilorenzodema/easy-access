@@ -41,7 +41,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     private gatePilotingService: GatePilotingService
   ) {
     /*
-    *Quando sulla pagina di gestione varchi si viene rimandati a questa pagina, viene passato un oggetto contenete tutte le info del varco 
+    *Quando sulla pagina di gestione varchi si viene rimandati a questa pagina, viene passato un oggetto contenete tutte le info del varco
     *che ha eseguito la chiamata.
     *In caso questo oggetto sia assenti, si viene re-indirizzati alla pagina di gestione varchi
     */
@@ -72,6 +72,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   public testGateConnection(): void {
     this.complete = false;
     this.subscription.push(this.gatePilotingService.testGateConnection(this.gate.idGate).subscribe({
+      next: () => this.getGateInfo(), //riprendo le info del varco
       error: () => this.complete = true,
       complete: () => {
         this.snackBar.showMessage(this.translate.instant('manage_gates.testOk'), "INFO");
@@ -88,8 +89,8 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     this.subscription.push(this.gatePilotingService.getGateInfo(this.gate.idGate).subscribe({
       next: (gateStatus) => (
         this.gateStatus = gateStatus,
-        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false,
-        console.log(this.gateStatus)),
+        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false
+      ),
       error: () => this.complete = true,
       complete: () => {
         this.complete = true;
@@ -115,7 +116,10 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.rebootGate(this.gate.idGate).subscribe({
-            next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.rebootOk'), "INFO"),
+            next: () => {
+              this.getGateInfo(); //riprendo le info del varco
+              this.snackBar.showMessage(this.translate.instant('manage_gates.rebootOk'), "INFO");
+            },
             error: () => this.complete = true
           }));
         }
@@ -140,6 +144,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.deactivateGate(this.gate.idGate).subscribe({
+            next: () => this.getGateInfo(), //riprendo le info del varco,
             error: () => this.complete = true,
             complete: () => {
               this.complete = true;
@@ -169,6 +174,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.activateGate(this.gate.idGate).subscribe({
+            next: () => this.getGateInfo(), //riprendo le info del varco
             error: () => this.complete = true,
             complete: () => {
               this.complete = true;
@@ -196,7 +202,10 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.openGate(this.gate.idGate).subscribe({
-            next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.openOk'), "INFO"),
+            next: () => {
+              this.getGateInfo(); //riprendo le info del varco
+              this.snackBar.showMessage(this.translate.instant('manage_gates.openOk'), "INFO");
+            },
             error: () => this.complete = true
           }));
         }
@@ -215,7 +224,10 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.closeGate(this.gate.idGate).subscribe({
-            next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.closeOk'), "INFO"),
+            next: () => {
+              this.getGateInfo(); //riprendo le info del varco
+              this.snackBar.showMessage(this.translate.instant('manage_gates.closeOk'), "INFO");
+            },
             error: () => this.complete = true
           }));
         }
@@ -234,7 +246,10 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       (result) => {
         if (result) {
           this.subscription.push(this.gatePilotingService.autoGate(this.gate.idGate).subscribe({
-            next: () => this.snackBar.showMessage(this.translate.instant('manage_gates.autoOk'), "INFO"),
+            next: () => {
+              this.getGateInfo(); //riprendo le info del varco
+              this.snackBar.showMessage(this.translate.instant('manage_gates.autoOk'), "INFO");
+            },
             error: () => this.complete = true
           }));
         }

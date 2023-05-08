@@ -33,13 +33,13 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30"
                     fxFlex.gt-md="30">
-                    <mat-label> {{'manage-permission.areaSelection' | translate}}</mat-label>
-                    <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
-                        <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
-                            {{item.areaName}}
+                    <mat-label> {{'manage-permission.parkSelection' | translate}}</mat-label>
+                    <mat-select formControlName="ctrlAreaIdList" placeholder="Parcheggi" multiple>
+                        <mat-option *ngFor="let item of parks" [value]="item.idPark">
+                            {{item.namePark}}
                         </mat-option>
                     </mat-select>
-                    <mat-error>{{'manage-permission.areaAssociationError' | translate}}</mat-error>
+                    <mat-error>{{'manage-permission.parkAssociationError' | translate}}</mat-error>
                 </mat-form-field>
 
                 <!-- DAILY -->

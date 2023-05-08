@@ -19,7 +19,7 @@ export class PermissionManagementService {
     private cookieService: CookieService,
     @Inject('beUrl') private beUrl: string) { }
 
-    /**
+  /**
      * Prende la lista di permessi che rispettano il filtro dei valori passati dalle API fornite da backend (GestionePermessoRestController)
      * Tutti i dati vengono passati come parametri
      *
@@ -33,11 +33,11 @@ export class PermissionManagementService {
      * @returns
      */
   getPermission(startDate: string, endDate: string, isActive: boolean, obuKeyword: string, permissionTypeKeyword: string,
-    idArea: number, category: string): Observable<Permission[]>{
+    idPark: number, category: string): Observable<Permission[]>{
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams(
-        { token: Cookie.getToken(this.cookieService), startDate, endDate, active: isActive, obuKeyword, permissionTypeKeyword, idArea, category }
+        { token: Cookie.getToken(this.cookieService), startDate, endDate, active: isActive, obuKeyword, permissionTypeKeyword, idPark, category }
       )
     };
     return this.http.get<Permission[]>(this.apiURL + '/getAllPermissions', options)

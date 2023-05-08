@@ -150,9 +150,11 @@
     "associatedAreas": "Visualizza aree associate",
     "associatedGates": "Visualizza varchi associati",
     "edit_association": "Modifica associazioni",
+    "disactivationError": "C'è stato un errore nella disattivazione!",
     "editDetailsSuccess": "Dettagli modificati con successo!",
     "insertParkSuccess": "Parcheggio creato con successo!",
     "insertParkError": "C'è stato un errore nella creazione!",
+    "disactivationSuccess": "Parcheggio disattivato con successo!",
     "associationErrorSnackbar": "C'è stato un errore nell'associazione!",
     "associationComplete": "L'associazione è stata eseguita con successo!",
     "deletionError": "C'è stato un errore nella rimozione!",
@@ -251,6 +253,7 @@
     "disactivateConfirm": "Sei sicur* di voler disattivare il Permesso selezionato?",
     "deleteTitle": "Rimuovi Permesso",
     "deleteConfirm": "Sei sicur* di voler rimuovere il Permesso selezionato? Questa azione è permanente",
+    "deleteSuccess": "Permesso eliminato con successo!",
     "editPermissionTitle": "Modifica Permesso",
     "addPermissionTitle": "Aggiungi Permesso",
     "activationError": "C'è stato un errore nell'attivazione!",
@@ -258,7 +261,9 @@
     "obuInsert": "Inserire un codice OBU",
     "obuErrorMessage": "Un codice OBU è formato solamente da numeri ed ha lunghezza 10 o 19 caratteri.",
     "areaSelection": "Associa una o più Aree",
+    "parkSelection": "Associa uno o più parcheggi",
     "areaAssociationError": "Perfavore, associare almeno un'Area",
+    "parkAssociationError": "Perfavore, associare almeno un Parcheggio",
     "invalidDate": "Perfavore, inserire una data valida",
     "dateError": "La data di inizio non può essere dopo della data di fine",
     "startTime": "Orario di inizio",
@@ -270,7 +275,8 @@
     "permissionAdded": "Permesso cretao con successo",
     "permissionEdited": "Permesso modificato con successo",
     "seachPermCategory": "Ricerca per categoria di permesso",
-    "searchArea": "Ricerca per area"
+    "searchArea": "Ricerca per area",
+    "searchPark": "Ricerca per parcheggio"
   },
   "manage_permission_type": {
     "title": "Gestione Tipo Permessi",
@@ -401,7 +407,8 @@
     "delete-user": "Elimina utenti",
     "edit-user":"Modifica utenti",
     "view-park-incident-dashboard": "Visualizza alert parcheggio",
-    "insert-permissiontype": "Inserimento tipi permesso",
+    "insert-permissiontype": "Inserito tipp permesso",
+    "disactivate-permissiontype": "Disattivato tipo permesso",
     "view-profile": "Visualizza profili",
     "disactivate-area": "Disattiva area",
     "insert-permission": "Inserimento permessi",
@@ -440,7 +447,8 @@
     "delete-permission": "Elimina permesso",
     "disactivate-permissionype": "Disattiva tipo permesso",
     "disactivate-gate": "Disattiva varco",
-    "delete-efc": "Elimina EFC"
+    "delete-efc": "Elimina EFC",
+    "disactivate-user": "Disattiva utente"
   },
 
   "dashboard": {
@@ -533,7 +541,8 @@
       "alreadyExist": "Parcheggio già esistente",
       "notFound": "Parcheggio non trovato",
       "alreadyActivated": "Parcheggio già attivato",
-      "alreadyDeactivated": "Parcheggio già disattivato"
+      "alreadyDeactivated": "Parcheggio già disattivato",
+      "hasMoreAreasAssociated": "I parcheggi associati non possono essere disattivati perchè sono associato ad altre aree"
     },
     "gate":{
       "alreadyExist": "Varco già esistente",

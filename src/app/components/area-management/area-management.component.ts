@@ -97,12 +97,15 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(
       (result) => {
         if (result) {
-          this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe(
-            {
-              next: () => this.callGetAPI(),
-              error: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationError'), "ERROR"),
-              complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationSuccess'), "INFO")
-            }));
+          this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe({
+            next: () => this.callGetAPI(),
+            error: (e) => {
+              this.snackBar.showMessage(this.translate.instant(e.error?.errorCode), "ERROR");
+
+              //this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationError'), "ERROR");
+            },
+            complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationSuccess'), "INFO")
+          }));
         }
       });
   }
