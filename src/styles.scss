@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 
 //FONT
@@ -62,13 +62,13 @@ h3 {
     background-color: #3e5082 !important;
 }
 
-.selected:hover {
+/* .selected:hover {
     a {
         &:hover {
             //vuoto
         }
     }
-}
+} */
 
 .border-grey {
     border-color: darkgray;
