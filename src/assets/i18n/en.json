@@ -491,6 +491,7 @@
     "validation": "Error on validation",
     "notAllowed": "Operation not allowed for this user",
     "notFound": "Operation not found",
+    "searchPeriodTooLong": "Search period exceeded",
     "token": {
       "notFound": "Token not found",
       "wrongFormat": "Wrong token format",
