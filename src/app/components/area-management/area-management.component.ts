@@ -51,8 +51,8 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       */
   ngOnInit(): void {
     this.search = this.formBuilder.group({
-      ctrlSearch: [''],
-      ctrlActive: [true]
+      ctrlSearch: ['']
+      // ctrlActive: [true]
     });
     this.callGetAPI();
     this.getPermissionAPI();
@@ -79,36 +79,38 @@ export class AreaManagementComponent implements OnInit, OnDestroy {
       }
     );
   }
+
   /**
     * Apre una finestra modale ed in base alla scelta dell'utente, disattiva un'Area.
     * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.
     * @param areaId - L'ID dell'Area da disattivare
     */
-  public onDisactivate(areaId: number): void {
-    const title = this.translate.instant('manage_areas.disactivateTitle');
-    const content = this.translate.instant('manage_areas.disactivateConfirm');
-    const dialogRef = this.dialog.open(ModalFormConfirmComponent,
-      {
-        width: '30%', height: '30%',
-        data: { title, content },
-        autoFocus: false
-      }
-    );
-    dialogRef.afterClosed().subscribe(
-      (result) => {
-        if (result) {
-          this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe({
-            next: () => this.callGetAPI(),
-            error: (e) => {
-              this.snackBar.showMessage(this.translate.instant(e.error?.errorCode), "ERROR");
+  // public onDisactivate(areaId: number): void {
+  //   const title = this.translate.instant('manage_areas.disactivateTitle');
+  //   const content = this.translate.instant('manage_areas.disactivateConfirm');
+  //   const dialogRef = this.dialog.open(ModalFormConfirmComponent,
+  //     {
+  //       width: '30%', height: '30%',
+  //       data: { title, content },
+  //       autoFocus: false
+  //     }
+  //   );
+  //   dialogRef.afterClosed().subscribe(
+  //     (result) => {
+  //       if (result) {
+  //         this.subscription.push(this.areaManagementService.disactivateArea(areaId).subscribe({
+  //           next: () => this.callGetAPI(),
+  //           error: (e) => {
+  //             this.snackBar.showMessage(this.translate.instant(e.error?.errorCode), "ERROR");
 
-              //this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationError'), "ERROR");
-            },
-            complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationSuccess'), "INFO")
-          }));
-        }
-      });
-  }
+  //             //this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationError'), "ERROR");
+  //           },
+  //           complete: () => this.snackBar.showMessage(this.translate.instant('manage_areas.disactivationSuccess'), "INFO")
+  //         }));
+  //       }
+  //     });
+  // }
+
   /**
     * Apre una finestra modale ed in base alla scelta dell'utente, ri-attiva un'Area.
     * Quando termina con errore o successo, genera una snackbar con l'appropriato messaggio.

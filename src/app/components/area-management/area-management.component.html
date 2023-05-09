@@ -9,10 +9,10 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-      <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()" >
+      <!-- <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()" >
         {{search.controls['ctrlActive'].value ? ('manage_areas.active' | translate) :
         ('manage_areas.inactive' | translate) }}
-      </mat-slide-toggle>
+      </mat-slide-toggle> -->
       <button mat-raised-button class="actionButton" (click)="add()"
         *ngIf="operations | getPermissionPipe: 'insert-area'">
         {{'common.add' | translate}}</button>
@@ -65,20 +65,20 @@
                 <mat-icon class="edit-icon" matTooltip="{{'common.edit' | translate}}">edit</mat-icon>
               </button>
 
-              <button mat-icon-button
+              <!-- <button mat-icon-button
                 *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-area'"
                 (click)="onDisactivate(element.idArea)">
                 <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}">power_off</mat-icon>
-              </button>
+              </button> -->
 
-              <button mat-icon-button
+              <!-- <button mat-icon-button
                 *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-area'"
                 (click)="activateArea(element.idArea)">
                 <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}">refresh</mat-icon>
-              </button>
+              </button> -->
 
               <button mat-icon-button
-              *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-area'"
+              *ngIf="operations | getPermissionPipe: 'delete-area'"
               (click)="deleteArea(element.idArea)">
               <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}">delete</mat-icon>
             </button>

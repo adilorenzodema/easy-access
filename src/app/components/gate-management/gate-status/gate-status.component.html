@@ -37,6 +37,7 @@
                     <mat-icon *ngIf="gateStatus.status[1].status === 'KO'" class="center-icon" matTooltip="SBARRA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
                 </p>
                     <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black;"> Modalità Sbarra: {{gateStatus.functionality.barrier}} </button>
+                    <br>
                     <button mat-button *ngIf="(gateStatus.functionality.barrier === 'open')? false  : true" class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
                     <button mat-button *ngIf="(gateStatus.functionality.barrier === 'closed')? false  : true"class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
                     <button mat-button *ngIf="(gateStatus.functionality.barrier === 'automatic')? false  : true" class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
