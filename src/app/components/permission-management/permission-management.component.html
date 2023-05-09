@@ -124,7 +124,7 @@
 
               <ng-container matColumnDef="modificationUser">
                 <th mat-header-cell *matHeaderCellDef>{{ 'common.modificationUser' | translate }}</th>
-                <td mat-cell *matCellDef="let element">{{ element.modificationUser? element.modificationUserFirstname +' '+ element.modificationUSerLastname :
+                <td mat-cell *matCellDef="let element">{{ element.modificationUser? element.modificationUserFirstname +' '+ element.modificationUserLastname :
                   element.creationUserFirstname +' '+ element.creationUserLastname }}</td>
               </ng-container>
 
