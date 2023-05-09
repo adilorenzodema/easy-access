@@ -20,7 +20,7 @@ export class TransitComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public displayedColumns: string[] = ['idTransit', 'codeObu', 'obuStd', 'startDate', 'gate', 'park', 'validationType', 'flagPassed'];
   public dataSource = new MatTableDataSource<Transit>();
-  public start = moment(moment.now()).subtract(22, 'day').format("yyyy-MM-DD 00:00:00");
+  public start = moment(moment.now()).subtract(30, 'day').format("yyyy-MM-DD 00:00:00");
   public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
   public formGroup: FormGroup;
   public complete = true;
@@ -65,5 +65,4 @@ export class TransitComponent implements OnInit {
       }));
     }
   }
-
 }
