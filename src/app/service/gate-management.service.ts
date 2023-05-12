@@ -153,4 +153,19 @@ export class GateService {
     return this.http.get<Incident[]>(this.apiURL + '/getGateIncidents/' + idGate, options)
       .pipe(catchError(err => { throw err; }));
   }
+
+  /**
+   * Restituisci oggetto di tipo Gate passanto id come path param
+   *
+   * @param gateId
+   * @returns
+   */
+  getGateById(gateId: number): Observable<Gate>{
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+
+    return this.http.get<Gate>(this.apiURL + '/getGateById/' +gateId, options);
+  }
 }

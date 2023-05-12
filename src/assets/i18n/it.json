@@ -496,6 +496,7 @@
     "notAllowed": "Utente non abilitato",
     "notFound": "Operazione non trovata",
     "searchPeriodTooLong": "Periodo di ricerca superato",
+    "endDateBeforeStartDate": "Data fine prima di data inizio",
     "token": {
       "notFound": "Token non trovato",
       "wrongFormat": "Formato token errato",

@@ -492,6 +492,7 @@
     "notAllowed": "Operation not allowed for this user",
     "notFound": "Operation not found",
     "searchPeriodTooLong": "Search period exceeded",
+    "endDateBeforeStartDate": "End date cannot be before start date",
     "token": {
       "notFound": "Token not found",
       "wrongFormat": "Wrong token format",

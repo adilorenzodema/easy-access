@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -46,6 +47,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     *In caso questo oggetto sia assenti, si viene re-indirizzati alla pagina di gestione varchi
     */
     this.gate = this.router.getCurrentNavigation()?.extras.state?.['gate'] as Gate;
+    console.log("GATE =z ", this.gate)
     if (!this.gate) { this.router.navigate(['/gate-management']); }
   }
 
@@ -72,11 +74,14 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   public testGateConnection(): void {
     this.complete = false;
     this.subscription.push(this.gatePilotingService.testGateConnection(this.gate.idGate).subscribe({
-      next: () => this.getGateInfo(), //riprendo le info del varco
-      error: () => this.complete = true,
+      error: () => {
+        this.complete = true;
+        this.getGateInfo()
+      },
       complete: () => {
         this.snackBar.showMessage(this.translate.instant('manage_gates.testOk'), "INFO");
         this.complete = true;
+        this.getGateInfo()
       }
     }));
   }
@@ -89,9 +94,13 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     this.subscription.push(this.gatePilotingService.getGateInfo(this.gate.idGate).subscribe({
       next: (gateStatus) => (
         this.gateStatus = gateStatus,
-        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false
+        this.isActive = gateStatus.functionality.antenna === "enabled" ? true : false,
+        this.getGateById()
       ),
-      error: () => this.complete = true,
+      error: () => {
+        this.complete = true;
+        this.getGateById();
+      },
       complete: () => {
         this.complete = true;
       }
@@ -267,6 +276,17 @@ export class GateStatusComponent implements OnInit, OnDestroy {
       },
       error: () => this.complete = true,
       complete: () => this.complete = true
+    }));
+  }
+
+  /**
+   *
+   */
+  private getGateById(): void{
+    this.subscription.push(this.gateService.getGateById(this.gate.idGate).subscribe({
+      next: (gate) => {
+        this.gate = gate;
+      }
     }));
   }
 
