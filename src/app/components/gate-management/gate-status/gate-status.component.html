@@ -27,9 +27,11 @@
                   <div class="center-button-container">
                     <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black; margin-bottom: 0.5em;"> Antenna {{gateStatus.functionality.antenna}} </button>
                   </div>
-                  <button mat-raised-button class="actionButton" [disabled]="!isActive"  (click)="disactive()" >{{'common.disactivate' | translate}} </button>
-                  <button mat-raised-button class="actionButton" [disabled]="isActive" (click)="active()" >{{'common.activate' | translate}}</button>
-                  <button mat-raised-button class="actionButton" (click)="reboot()">{{'manage_gates.gateStatus.reboot' | translate}}</button>
+                  <div class="center-button-container">
+                    <button mat-raised-button class="actionButton" [disabled]="!isActive"  (click)="disactive()">{{'common.disactivate' | translate}} </button>
+                    <button mat-raised-button class="actionButton" [disabled]="isActive" (click)="active()" >{{'common.activate' | translate}}</button>
+                    <button mat-raised-button class="actionButton" (click)="reboot()">{{'manage_gates.gateStatus.reboot' | translate}}</button>
+                  </div>
                 </div>
             </div>
             <div class="border-grey-center" fxFlex="50">
@@ -39,12 +41,14 @@
                       <mat-icon *ngIf="gateStatus.status[1].status === 'KO'" class="center-icon" matTooltip="SBARRA OFFLINE" [matTooltipPosition]="'above'">warning</mat-icon>
                   </p>
                   <div class="center-button-container">
-                    <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black; margin-bottom: 0.5em; width: 50%;">Modalità Sbarra: {{gateStatus.functionality.barrier}} </button>
+                    <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black; margin-bottom: 0.5em;">Modalità Sbarra: {{gateStatus.functionality.barrier}} </button>
                   </div>
 
-                  <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'open')? true  : false" class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
-                  <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'closed')? true  : false" class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
-                  <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'automatic')? true  : false" class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
+                  <div class="center-button-container">
+                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'open')? true  : false" class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
+                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'closed')? true  : false" class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
+                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'automatic')? true  : false" class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
+                  </div>
                 </div>
             </div>
         </div>
