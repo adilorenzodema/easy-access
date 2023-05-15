@@ -48,7 +48,8 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
       this.inputUserForm = this.formBuilder.group({
         ctrlGateName: [this.data.gateDescription, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$')] */]],
         ctrlGateDirection: [this.data.gateDirection, [Validators.required]],
-        ctrlIpAntenna: [this.data.ipAntenna, [Validators.required, Validators.pattern('^[0-9.]*$')]],
+        ctrlIpAntenna: [this.data.ipAntenna, [Validators.required,
+          Validators.pattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]],
         ctrlPortAntenna: [this.data.portAntenna, [Validators.required, Validators.pattern('^[0-9]*$')]],
         ctrlCodeAntenna: [this.data.codeAntenna, [Validators.required]],
         ctrlParkId: [this.data.park?.idPark, Validators.required]
@@ -58,7 +59,8 @@ export class ModalFormGateComponent implements OnInit, OnDestroy {
         ctrlGateName: [null, [Validators.required, /* Validators.pattern('^[a-zA-Z0-9_.- ]*$') */]],
         ctrlParkId: [null, Validators.required],
         ctrlGateDirection: [null, [Validators.required]],
-        ctrlIpAntenna: [null, [Validators.required, Validators.pattern('^[0-9.]*$')]],
+        ctrlIpAntenna: [null, [Validators.required,
+          Validators.pattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]],
         ctrlPortAntenna: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
         ctrlCodeAntenna: [null, Validators.required]
       });
