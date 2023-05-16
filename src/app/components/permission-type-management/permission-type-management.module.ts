@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddEditPermissionTypeComponent } from './add-edit-permission-type/add-edit-permission-type.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     FlexLayoutModule,
     ReactiveFormsModule,
     TranslateModule,
+    NgxMaterialTimepickerModule,
     PermissionTypeManagementRoutingModule,
     NgScrollbarModule
   ]

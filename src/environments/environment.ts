@@ -6,6 +6,26 @@ export const environment = {
   production: false,
   // beUrl: 'http://192.168.1.2:8080/',
   configFile: 'assets/config/config-test-app.json',
+  authGuard: true,
+  mokup: {
+    user: { userId: 0, firstName: "mokup", lastName: "mokup", email: "mokup@", profileCode: "ADMIN" },
+    token: "",
+    refreshToken: "",
+    menu: [{
+      id: 0,
+      code: "mokup",
+      name: "mokup1",
+      route: "dashboard",
+      icon: "home"
+    },
+    {
+      id: 2,
+      code: "user-management",
+      name: "user-management",
+      route: "user-management",
+      icon: "user"
+    }],
+  },
   header: {
     imgSidebar: 'assets/images/movyon.svg',
     title: 'Easy access'

@@ -49,7 +49,9 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     { provide: 'header', useValue: environment.header },
     { provide: 'footer', useValue: environment.footer },
     { provide: 'env', useValue: environment },
-    {provide: 'login', useValue: environment.login},
+    { provide: 'login', useValue: environment.login },
+    { provide: 'mokup', useValue: environment.mokup },
+    { provide: 'authGuard', useValue: environment.authGuard },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     CookieService
   ],
