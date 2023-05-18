@@ -28,9 +28,9 @@
                     <button mat-raised-button disabled style="border: 1px solid grey; background-color:white ; color: black; margin-bottom: 0.5em;"> Antenna {{gateStatus.functionality.antenna}} </button>
                   </div>
                   <div class="center-button-container">
-                    <button mat-raised-button class="actionButton" [disabled]="!isActive"  (click)="disactive()">{{'common.disactivate' | translate}} </button>
-                    <button mat-raised-button class="actionButton" [disabled]="isActive" (click)="active()" >{{'common.activate' | translate}}</button>
-                    <button mat-raised-button class="actionButton" (click)="reboot()">{{'manage_gates.gateStatus.reboot' | translate}}</button>
+                    <button mat-raised-button class="actionButton" [disabled]="!isActive"  (click)="disactive()" *ngIf="operations | getPermissionPipe: 'disactivate-gate'">{{'common.disactivate' | translate}} </button>
+                    <button mat-raised-button class="actionButton" [disabled]="isActive" (click)="active()" *ngIf="operations | getPermissionPipe: 'activate-gate'">{{'common.activate' | translate}}</button>
+                    <button mat-raised-button class="actionButton" (click)="reboot()" *ngIf="operations | getPermissionPipe: 'reboot-gate'">{{'manage_gates.gateStatus.reboot' | translate}}</button>
                   </div>
                 </div>
             </div>
@@ -45,9 +45,9 @@
                   </div>
 
                   <div class="center-button-container">
-                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'open')? true  : false" class="actionButton" (click)="openGate()">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
-                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'closed')? true  : false" class="actionButton" (click)="closeGate()">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
-                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'automatic')? true  : false" class="actionButton" (click)="autoGate()">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
+                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'open')? true  : false" class="actionButton" (click)="openGate()" *ngIf="operations | getPermissionPipe: 'open-gate'">{{'manage_gates.gateStatus.openBarrier' | translate}}</button>
+                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'closed')? true  : false" class="actionButton" (click)="closeGate()" *ngIf="operations | getPermissionPipe: 'close-gate'">{{'manage_gates.gateStatus.closeBarrier' | translate}}</button>
+                    <button mat-raised-button [disabled]="(gateStatus.functionality.barrier === 'automatic')? true  : false" class="actionButton" (click)="autoGate()" *ngIf="operations | getPermissionPipe: 'auto-gate'">{{'manage_gates.gateStatus.autoBarrier' | translate}}</button>
                   </div>
                 </div>
             </div>

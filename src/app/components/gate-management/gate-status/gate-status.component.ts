@@ -4,7 +4,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { SnackBar } from 'dema-movyon-template';
+import { PagePermissionService, SnackBar } from 'dema-movyon-template';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import { Subscription } from 'rxjs';
 import { Gate, GateStatus, Incident } from 'src/app/domain/interface';
 import { GateService } from 'src/app/service/gate-management.service';
@@ -31,12 +32,50 @@ export class GateStatusComponent implements OnInit, OnDestroy {
   public complete = true;
   public gateStatus: GateStatus;
   public isActive: boolean;
+  public operations: Operation[];
+
+  /**
+   *  = {
+		antenna_id : "ID_ANTENNA",
+    functionality: {
+      antenna: "ciao",
+      barrier: "barrier"
+    },
+		lists : {
+			tlp : "TLP_ yymmdd_00.txt",
+			set : "SET_ yymmdd_00.txt",
+		  efc : "EFC_ yymmdd_00.txt",
+			time : "TIME_ yymmdd_00.txt"
+			},
+		status : [{device_id : "xxx",
+			status : "OK",
+      error_code: "ciao"
+			},
+      {device_id : "xxx",
+			status : "OK",
+      error_code: "ciao"
+			},
+      {device_id : "xxx",
+			status : "OK",
+      error_code: "ciao"
+			},
+      {device_id : "xxx",
+			status : "OK",
+      error_code: "ciao"
+			}
+		],
+  };
+   *
+   */
+
+
   private subscription: Subscription[] = [];
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private snackBar: SnackBar,
+    private permissionService: PagePermissionService,
     private translate: TranslateService,
     private gateService: GateService,
     private gatePilotingService: GatePilotingService
@@ -47,7 +86,6 @@ export class GateStatusComponent implements OnInit, OnDestroy {
     *In caso questo oggetto sia assenti, si viene re-indirizzati alla pagina di gestione varchi
     */
     this.gate = this.router.getCurrentNavigation()?.extras.state?.['gate'] as Gate;
-    console.log("GATE =z ", this.gate)
     if (!this.gate) { this.router.navigate(['/gate-management']); }
   }
 
@@ -56,6 +94,7 @@ export class GateStatusComponent implements OnInit, OnDestroy {
      *Popola il resto della pagina con i dati ritornati dalla funzione getGateInfo().
      */
   ngOnInit(): void {
+    this.getPermissionAPI();
     this.gateIncidentApi();
     this.getGateInfo();
   }
@@ -288,6 +327,16 @@ export class GateStatusComponent implements OnInit, OnDestroy {
         this.gate = gate;
       }
     }));
+  }
+
+  /**
+     * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+     */
+  private getPermissionAPI(): void {
+    const currentUrl = (window.location.hash).replace('#/', '').replace('/gate-status', '');
+    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
+      permission => this.operations = permission.operations
+    ));
   }
 
 }
