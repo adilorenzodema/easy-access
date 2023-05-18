@@ -445,7 +445,10 @@
     "disactivate-permissionype": "Disactivate permission type",
     "disactivate-gate": "Disactivate gate",
     "delete-efc": "Delete EFC",
-    "disactivate-user": "Disactivate user"
+    "disactivate-user": "Disactivate user",
+    "open-gate": "Open gate",
+    "close-gate": "Close gate",
+    "auto-gate": "Auto gate"
   },
   "dashboard": {
     "areas": "Associated areas: ",

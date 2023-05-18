@@ -407,7 +407,7 @@
     "delete-user": "Elimina utenti",
     "edit-user":"Modifica utenti",
     "view-park-incident-dashboard": "Visualizza alert parcheggio",
-    "insert-permissiontype": "Inserito tipp permesso",
+    "insert-permissiontype": "Inserito tipo permesso",
     "disactivate-permissiontype": "Disattivato tipo permesso",
     "view-profile": "Visualizza profili",
     "disactivate-area": "Disattiva area",
@@ -448,7 +448,10 @@
     "disactivate-permissionype": "Disattiva tipo permesso",
     "disactivate-gate": "Disattiva varco",
     "delete-efc": "Elimina EFC",
-    "disactivate-user": "Disattiva utente"
+    "disactivate-user": "Disattiva utente",
+    "open-gate": "Aperta barriera",
+    "close-gate": "Chiusa barriera",
+    "auto-gate": "Barriera automatica"
   },
 
   "dashboard": {
