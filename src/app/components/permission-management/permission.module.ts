@@ -12,9 +12,10 @@ import { AddEditPermissionComponent } from './add-edit-permission/add-edit-permi
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { PipesModuleModule } from "../../shared/pipes/pipes.module";
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AddEditPermissionInterportoComponent } from './add-edit-permission-interporto/add-edit-permission-interporto.component';
 
 @NgModule({
-  declarations: [PermissionManagementComponent, AddEditPermissionComponent],
+  declarations: [PermissionManagementComponent, AddEditPermissionComponent, AddEditPermissionInterportoComponent],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
