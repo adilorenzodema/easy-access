@@ -1,4 +1,5 @@
 {
     "be_url": "http://localhost:8080/easyaccess/",
-    "path_url": "areamanagement/allAreasToAdmin/"
+    "path_url": "areamanagement/allAreasToAdmin/",
+    "domain": "easyaccess"
 }

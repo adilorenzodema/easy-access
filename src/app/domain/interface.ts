@@ -149,7 +149,7 @@ export interface Incident {
   device: string;
 }
 
-export interface ErrorCode{
+export interface ErrorCode {
   errorCode: string;
   device: string;
 }
@@ -205,9 +205,11 @@ export interface EFC {
 
 export type Status = 'OK' | 'KO';
 
-export interface Logs{
+export type Domains = 'easyaccess' | 'interporto';
+
+export interface Logs {
   nomeUtente: string;
-  cognomeUtente?:string;
+  cognomeUtente?: string;
   date: Date;
   nomeOperazione: string;
   nomeComponente: string;

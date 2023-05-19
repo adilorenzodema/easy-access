@@ -7,8 +7,8 @@
     "new_password": "New password",
     "repeat_password": "Repeat password",
     "back_login": "Back to login",
-    "it": "Italian",
-    "en": "English"
+    "it-easyaccess": "Italian",
+    "en-easyaccess": "English"
   },
   "Menu": {
     "Dashboard": "Dashboard",
