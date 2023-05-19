@@ -1,9 +1,6 @@
 {
   "yes": "Si",
   "it-easyaccess": "it",
-  "en-easyaccess": "en",
-  "it-interporto": "it",
-  "en-interporto": "en",
   "template": {
     "change_password": "Cambia password",
     "old_password": "Vecchia password",
