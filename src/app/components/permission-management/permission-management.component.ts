@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,8 +12,7 @@ import { Subscription } from 'rxjs';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
 import { Permission, PermissionSearchStatus } from '../../domain/interface';
-import { AreaManagementService } from 'src/app/service/area-management.service';
-import { Area, Park } from 'src/app/domain/class';
+import { Park } from 'src/app/domain/class';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 
 @Component({
@@ -21,13 +20,13 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
   templateUrl: './permission-management.component.html',
   styleUrls: ['./permission-management.component.css']
 })
-export class PermissionManagementComponent implements OnInit, OnDestroy {
+export class PermissionManagementComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Pagina di gestione dei permessi
    */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public permissionSwitch: {add:string, edit: string};
+  public permissionSwitch: {add?:string, edit?: string} = {};
   public complete = true;
   public formGroup: FormGroup;
   public start = moment(moment.now()).subtract(20, 'day');
@@ -52,19 +51,18 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   constructor(
     private permissionService: PermissionManagementService,
     private pagePermissionService: PagePermissionService,
-    private areaService: AreaManagementService,
     private parkManagementService : ParkManagementService,
     private dialog: MatDialog,
     private snackBar: SnackBar,
     private translate: TranslateService
-  ) { }
+  ) {
+  }
 
   /**
    * Inizializza la barra di ricerca
    * Popola la tabella con callGetAPI(), la select delle aree associate all'utente con getArea()
    */
   ngOnInit(): void {
-    this.getPermissionAPI();
     this.formGroup = new FormGroup({
       ctrlStart: new FormControl(moment(this.start).toDate(), Validators.required),
       ctrlEnd: new FormControl(moment(this.end).toDate(), Validators.required),
@@ -80,6 +78,11 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     this.dataSource.filterPredicate = (data: Permission, filter: string) => {
       return data.permissionStatus === filter;
     };
+  }
+
+  ngAfterViewInit():void {
+    this.getPermissionAPI();
+
   }
 
   ngOnDestroy(): void {
@@ -222,8 +225,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
+        console.log(permission)
         this.operations = permission.operations;
-        console.log(this.operations);
         this.operations.forEach(element => {
           if (element.code === "insert-permission"){
             this.permissionSwitch.add = element.code;
@@ -235,8 +238,8 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
           }else if (element.code === "edit-permission-interporto"){
             this.permissionSwitch.edit = element.code;
           };
-      });
-      }
+        });
+      },
     ));
   }
 
