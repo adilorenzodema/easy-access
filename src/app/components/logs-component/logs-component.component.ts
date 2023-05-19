@@ -66,6 +66,8 @@ export class LogsComponentComponent implements OnInit, OnDestroy {
    */
   public callGetAPI(): void{
 
+    this.complete = false;
+
     const startDate =  moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD H:mm:ss');
     const endDate = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD H:mm:ss');
     const name = this.formGroup.get('name')?.value;

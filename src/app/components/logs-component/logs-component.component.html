@@ -54,7 +54,7 @@
     </div>
 
     <div class="root-table-container">
-      <div *ngIf="dataSource.data.length === 0 && complete">Nessun log</div>
+      <div *ngIf="dataSource.data.length === 0 && complete">{{ "manage_logs.noLogs" | translate }}</div>
 
       <ng-scrollbar class="my-scrollbar table-container" style="height: 33em !important;">
         <div fxLayout="row">
@@ -62,24 +62,29 @@
             [style.display]="dataSource.data.length === 0 ? 'none' : ''">
 
             <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "manage_logs.date" | translate }}</th>
               <td mat-cell *matCellDef="let element">{{ element.date | date: 'dd/MM/yyyy H:mm:ss' }}</td>
             </ng-container>
 
             <ng-container matColumnDef="nomeUtente">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome utente</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "manage_logs.nameUser" | translate }}</th>
               <td mat-cell *matCellDef="let element">{{ element.nomeUtente +' '+ element.cognomeUtente }}</td>
             </ng-container>
 
             <ng-container matColumnDef="nomeOperazione">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Operazione</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "manage_logs.operation" | translate }}</th>
               <td mat-cell *matCellDef="let element">{{ "manage_logs." +element.nomeOperazione | translate }}</td>
             </ng-container>
 
             <ng-container matColumnDef="nomeComponente">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Componente</th>
-              <td mat-cell *matCellDef="let element">{{ element.nomeComponente }}</td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ "manage_logs.component" | translate }}</th>
+              <td mat-cell *matCellDef="let element">{{ element.nomeComponente + " - "+ element.nameLoggedObj }}</td>
             </ng-container>
+
+            <!-- <ng-container matColumnDef="nameLoggedObj">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+              <td mat-cell *matCellDef="let element">{{ element.nameLoggedObj }}</td>
+            </ng-container> -->
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"
               [style.display]="dataSource.data.length === 0 ? 'none' : ''"></tr>
