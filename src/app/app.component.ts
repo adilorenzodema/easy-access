@@ -9,12 +9,11 @@ import { Domains } from './domain/interface';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private translateService: TranslateService,
-    @Inject('domainValue') private domain: Domains) {}
+    private translateService: TranslateService) {}
 
   ngOnInit(): void {
-    this.translateService.setDefaultLang(`it-${this.domain}`);
-    this.translateService.addLangs([`it-${this.domain}`, `en-${this.domain}`]);
-    this.translateService.use(`it-${this.domain}`);
+    this.translateService.setDefaultLang('it');
+    this.translateService.addLangs(['it', 'en']);
+    this.translateService.use('it');
   }
 }
