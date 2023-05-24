@@ -88,7 +88,7 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element" style="text-align: end;">
-            <button mat-icon-button routerLink="gate-status" [state]="{gate: element}">
+            <button mat-icon-button routerLink="gate-status" [state]="{gate: element}" *ngIf="operations | getPermissionPipe: 'pilot-gate'">
               <mat-icon class="router" matTooltip="{{'manage_gates.state' | translate}}">
                 router
               </mat-icon>

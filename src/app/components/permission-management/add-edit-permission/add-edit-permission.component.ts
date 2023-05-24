@@ -46,6 +46,8 @@ export class AddEditPermissionComponent implements OnInit {
   ) {
     this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as Permission;
     this.daily = this.router.getCurrentNavigation()?.extras.state?.['daily'] as Boolean;
+
+    console.log(this.permission)
   }
 
   /*
@@ -54,7 +56,6 @@ export class AddEditPermissionComponent implements OnInit {
   ngOnInit(): void {
     if (!this.permission && this.router.url === '/permission-management/edit-permission') { this.router.navigate(['/permission-management']); }
 
-    //this.getAreas();
     this.getParks();
 
     if (this.permission) {
