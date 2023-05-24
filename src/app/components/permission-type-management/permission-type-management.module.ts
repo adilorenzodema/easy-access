@@ -11,19 +11,20 @@ import { AddEditPermissionTypeComponent } from './add-edit-permission-type/add-e
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
+
 @NgModule({
   declarations: [
     PermissionTypeComponent,
     AddEditPermissionTypeComponent
   ],
   imports: [
+    NgxMaterialTimepickerModule,
     CommonModule,
     LibMaterialModule,
     LibPipesModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     TranslateModule,
-    NgxMaterialTimepickerModule,
     PermissionTypeManagementRoutingModule,
     NgScrollbarModule
   ]
