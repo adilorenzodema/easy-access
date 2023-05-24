@@ -225,7 +225,6 @@ export class PermissionManagementComponent implements OnInit, OnDestroy, AfterVi
     const currentUrl = (window.location.hash).replace('#/', '');
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
-        console.log(permission)
         this.operations = permission.operations;
         this.operations.forEach(element => {
           if (element.code === "insert-permission"){
