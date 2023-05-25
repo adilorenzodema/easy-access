@@ -73,7 +73,29 @@ export interface Permission {
   modificationUser: number;
   modificationDate: Date;
   permissionStatus: PermissionSearchStatus;
-  // areaList: Area[];
+  parkList: Park[];
+}
+//eventuale extends?
+export interface PermissionInterporto {
+  idPermission: number;
+  permissionType: PermissionType;
+  category: Category;
+  obu: Obu;
+  license: string;
+  validationStartDate: Date;
+  issueValidationDate: Date;
+  flagActive: boolean;
+  startTime: string;
+  endTime: string;
+  validationDateStart: Date;
+  validationDateEnd: Date;
+  cancelationUser: number;
+  cancelationDate: Date;
+  creationUser: number;
+  creationDate: Date;
+  modificationUser: number;
+  modificationDate: Date;
+  permissionStatus: PermissionSearchStatus;
   parkList: Park[];
 }
 
@@ -149,7 +171,7 @@ export interface Incident {
   device: string;
 }
 
-export interface ErrorCode {
+export interface ErrorCode{
   errorCode: string;
   device: string;
 }
@@ -207,9 +229,9 @@ export type Status = 'OK' | 'KO';
 
 export type Domains = 'easyaccess' | 'interporto';
 
-export interface Logs {
+export interface Logs{
   nomeUtente: string;
-  cognomeUtente?: string;
+  cognomeUtente?:string;
   date: Date;
   nomeOperazione: string;
   nomeComponente: string;

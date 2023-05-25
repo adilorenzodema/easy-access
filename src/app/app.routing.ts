@@ -36,6 +36,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'permission-interporto-management',
+        loadChildren: () => import("src/app/components/permission-interporto-management/permission-interporto.module").then(m => m.PermissionInterportoModule),
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'transit-management',
         loadChildren: () => import("src/app/components/transit-management/transit-management.module").then(m => m.TransitManagementModule),
         canActivate: [AuthGuard]
