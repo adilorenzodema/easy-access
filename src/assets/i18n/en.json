@@ -381,11 +381,16 @@
     "execute": "Execute Batch"
   },
   "manage_logs": {
+    "noLogs": "No logs found.",
     "Area": "Area",
     "Park": "Parking lot",
     "User": "User",
     "Gate": "Gate",
     "Permission": "Permission",
+    "nameUser": "Name user",
+    "operation": "Operation",
+    "component": "Component",
+    "date": "Date",
     "PermissionType": "Permission type",
     "Transit": "Transit",
     "Incident": "Alert",
@@ -476,6 +481,7 @@
   "manage_efc": {
     "title": "Manage EFCs",
     "efcCode": "EFC Code",
+    "noEfc": "There are no EFC present.",
     "serviceProvider": "Service Provider",
     "flagActive": "Active",
     "activateTitle": "Activate EFC",

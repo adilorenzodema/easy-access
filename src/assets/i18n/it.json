@@ -384,11 +384,16 @@
     "execute": "Esegui Batch"
   },
   "manage_logs": {
+    "noLogs": "Nessun log trovato",
     "Area": "Area",
     "Park": "Parcheggio",
     "User": "Utente",
     "Gate": "Varco",
     "Permission": "Permessso",
+    "nameUser": "Nome Utente",
+    "operation": "Operazione",
+    "component": "Componente",
+    "date": "Data",
     "PermissionType": "Tipo di permesso",
     "Transit": "Transiti",
     "Incident": "Anomalie",
@@ -480,6 +485,7 @@
   "manage_efc":{
     "title": "Gestione EFC",
     "efcCode": "Codice EFC",
+    "noEfc": "Nessun EFC trovato",
     "serviceProvider": "Service Provider",
     "flagActive": "Attivo",
     "activateTitle": "Attivazione EFC",
