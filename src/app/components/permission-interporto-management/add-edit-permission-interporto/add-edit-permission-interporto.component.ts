@@ -7,7 +7,7 @@ import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { AddDailyPermission, AddPermanentPermission, AddTemporaryPermission, AddTemporaryPermissionInterporto, Park } from 'src/app/domain/class';
+import { AddDailyPermission, AddDailyPermissionInterporto, AddPermanentPermission, AddTemporaryPermission, AddTemporaryPermissionInterporto, Park } from 'src/app/domain/class';
 import { Category, Permission, PermissionType } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { PermissionInterportoManagementService } from 'src/app/service/permission-interporto-management.service';
@@ -191,15 +191,15 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       const startHour = this.formGroup.get('ctrlHourStartDaily').value;
       const endHour = this.formGroup.get('ctrlHourEndDaily').value == "00:00"? "23:59:59" : this.formGroup.get('ctrlHourEndDaily').value;
 
-      const addDaily = new AddDailyPermission(obuCode, startDate, endDateD, idAreasSelected, startHour, endHour);
+      const addDaily = new AddDailyPermissionInterporto(startDate, endDateD, idAreasSelected, startHour, endHour, obuCode, plate);
       if (this.permission) { // edit
-        this.subscription.push(this.permissionService.editDailyPermission(addDaily, this.permission.idPermission).subscribe({
+        /* this.subscription.push(this.permissionService.editDailyPermission(addDaily, this.permission.idPermission).subscribe({
           error: () => this.complete = true,
           complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
             'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
-        }));
+        })); */
       } else { // add
-        this.subscription.push(this.permissionService.addDailyPermission(addDaily).subscribe({
+        this.subscription.push(this.permissionInterportoService.addDailyPermission(addDaily).subscribe({
           error: () => this.complete = true,
           complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
             , 'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)

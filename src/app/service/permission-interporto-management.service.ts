@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError } from 'rxjs';
 import { PermissionInterporto } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
-import { AddTemporaryPermission, AddTemporaryPermissionInterporto } from '../domain/class';
+import { AddDailyPermissionInterporto, AddTemporaryPermission, AddTemporaryPermissionInterporto } from '../domain/class';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,15 @@ export class PermissionInterportoManagementService {
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
     };
     return this.http.post<void>(this.apiURL + '/addTemporaryPermission', tempPermission, options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  addDailyPermission(dailyPermission: AddDailyPermissionInterporto): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/addDailyPermission', dailyPermission, options)
       .pipe(catchError(err => { throw err; }));
   }
 }

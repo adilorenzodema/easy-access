@@ -118,17 +118,17 @@ export class AddTemporaryPermissionInterporto extends AddPermissionInterporto {
   constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[]) {
     super(obuCode, validationDateStart, validationDateEnd, areaIdList);
   }
-}
+}*/
 
-export class AddDailyPermission extends AddPermission {
+export class AddDailyPermissionInterporto extends AddPermissionInterporto {
   startTime: string;
   endTime: string;
-  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], startTime: string, endTime: string) {
-    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], startTime: string, endTime: string,  obuCode?: number, license?: string) {
+    super( validationDateStart, validationDateEnd, parkIdList, obuCode, license);
     this.startTime = startTime;
     this.endTime = endTime;
   }
-} */
+} 
 
 
 
