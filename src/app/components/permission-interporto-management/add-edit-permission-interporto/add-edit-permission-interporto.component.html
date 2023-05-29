@@ -14,7 +14,7 @@
               (change)="changeCategory()">
               <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
               <mat-radio-button [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
-              <mat-radio-button [value]="'P'" *ngIf="operations | getPermissionPipe: 'insert-permissions-permanent'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
+              <mat-radio-button [value]="'P'" *ngIf="operations | getPermissionPipe: 'insert-permission-permanent'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
           </mat-radio-group>
         </ng-container>
         <ng-template #edit>
@@ -22,7 +22,7 @@
               (change)="changeCategory()">
               <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
               <mat-radio-button [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
-              <mat-radio-button [value]="'P'" *ngIf="operations | getPermissionPipe: 'insert-permissions-permanent'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
+              <mat-radio-button [value]="'P'" *ngIf="operations | getPermissionPipe: 'insert-permission-permanent'">{{'manage-permission.permanent' | translate}}</mat-radio-button>
           </mat-radio-group>
         </ng-template>
 
@@ -30,23 +30,21 @@
 
           <!-- SELEZIONE TRA OBU E TARGA -->
           <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-            <mat-select (selectionChange)="changeSelect($event)" placeholder="Entrambi">
-              <mat-option [value]="'all'" default>Entrambi</mat-option>
-              <mat-option [value]="'targa'">Targa</mat-option>
-              <mat-option [value]="'obu'">Obu</mat-option>
-              <!-- <mat-option *ngFor="let c of compNames" [value]="c" (click)="changeOpShowed()">{{ "manage_logs." +c | translate }}</mat-option> -->
+            <mat-select (selectionChange)="changeSelect($event)" placeholder="Scegliere un tipo di validazione" required>
+              <mat-option [value]="'obu'"default >Tipo validazione: OBU</mat-option>
+              <mat-option [value]="'targa'" >Tipo validazione: Targa</mat-option>
             </mat-select>
           </mat-form-field>
 
           <!-- form field obu -->
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20" *ngIf="tipoInserimento !== 'targa'">
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20" *ngIf="tipoInserimento == 'obu'">
             <mat-label>{{'manage-permission.obuInsert' | translate}}</mat-label>
             <input matInput type="text" formControlName="ctrlObu" required>
             <mat-error> {{'manage-permission.obuErrorMessage' | translate}}</mat-error>
           </mat-form-field>
 
           <!-- form field targa -->
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20" *ngIf="tipoInserimento !== 'obu'">
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20" *ngIf="tipoInserimento == 'targa'">
             <mat-label>Inserire una targa</mat-label>
             <input matInput type="text" formControlName="ctrlPlate" required>
             <mat-error> Targa error message </mat-error>
@@ -138,7 +136,6 @@
                 <mat-datepicker #pickerEnd></mat-datepicker>
                 <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
             </mat-form-field>
-            <div fxLayout="row" fxLayoutAlign="center"  fxFlex="80">
                 <mat-form-field  appearance="outline" fxFlex.gt-xs="80" fxFlex.gt-lg="40"
                     fxFlex.gt-md="40">
                     <mat-label> {{'manage-permission.permissionTypeSelection' | translate}}</mat-label>
@@ -150,7 +147,6 @@
                     </mat-select>
                     <mat-error>{{'manage-permission.permissionTypeAssociationError' | translate}}</mat-error>
                 </mat-form-field>
-            </div>
           </ng-container>
 
           <!-- PERMANENTE -->

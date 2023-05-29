@@ -7,9 +7,10 @@ import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { AddDailyPermission, AddPermanentPermission, AddTemporaryPermission, Park } from 'src/app/domain/class';
+import { AddDailyPermission, AddPermanentPermission, AddTemporaryPermission, AddTemporaryPermissionInterporto, Park } from 'src/app/domain/class';
 import { Category, Permission, PermissionType } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+import { PermissionInterportoManagementService } from 'src/app/service/permission-interporto-management.service';
 import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
 
@@ -30,7 +31,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   public today = moment(moment.now());
   public minDate = moment(this.today).toDate();
   public maxDate = moment(moment.now()).add(1, 'year').toDate();
-  public tipoInserimento = "all";
+  public tipoInserimento = "obu";
   public operations: Operation[] = [];
 
 
@@ -42,6 +43,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     private snackBar: SnackBar,
     private pagePermissionService: PagePermissionService,
     private permissionService: PermissionManagementService,
+    private permissionInterportoService: PermissionInterportoManagementService,
     private parkManagementService: ParkManagementService,
     private permissionTypeService: PermissionTypeManagementService,
     private translate: TranslateService
@@ -52,9 +54,8 @@ export class AddEditPermissionInterportoComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.permission && this.router.url === '/permission-management/edit-permission-interporto') { this.router.navigate(['/permission-management']); }
-
+    this.getPermissionAPI();
     this.getParks();
-
     if (this.permission){
       const parksIdSelected: number[] = [];
       this.permission.parkList.map((park) => parksIdSelected.push(park.idPark));
@@ -69,7 +70,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       this.formGroup = this.formBuilder.group({
         ctrlCategory: ['', Validators.required],
         ctrlObu: ['', [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlPlate: ['', [Validators.minLength(9), Validators.maxLength(19), Validators.required]], //regex per la targa???
+        ctrlPlate: ['', [Validators.required]], //regex per la targa???
         ctrlAreaIdList: ['', Validators.required],
         ctrlDateStart: [moment(this.today).toDate(), Validators.required],
         ctrlDateEnd: [moment(this.today).toDate(), Validators.required],
@@ -91,10 +92,10 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       this.formGroup.removeControl('ctrlObu');
     }
 
-    if (this.tipoInserimento == 'all') {
+   /*  if (this.tipoInserimento == 'all') {
       this.formGroup.addControl('ctrlObu', this.formBuilder.control('', Validators.required));
       this.formGroup.addControl('ctrlPlate', this.formBuilder.control('', Validators.required));
-    }
+    } */
   }
 
   changeCategory():void{
@@ -137,75 +138,78 @@ export class AddEditPermissionInterportoComponent implements OnInit {
    * Effettua una chiamata diversa in base alla categoria di permesso
    *
   * */
-  //E' UNA CHIAMATA DIVERSAAAAA
-  public addEditPermission(): void { //COME GESTISCO LE INTERFACCE CON IL CAMPO TARGA??? AGGIUNGO CAMPO TARGA ALLE INTERFACCE?
-    // this.complete = false;
-    // const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
-    // const obuCode = this.formGroup.get('ctrlObu').value;
-    // const plate = this.formGroup.get('ctrlPlate').value;
-    // const startDate = this.formGroup.get('ctrlDateStart').value;
-    // const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
 
-    // if (categoryValue === 'T') { // temporaneo
-    //   const endDate = this.formGroup.get('ctrlDateEnd').value;
-    //   const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
-    //   const addTemp = new AddTemporaryPermission(obuCode, startDate, endDate, idAreasSelected,permissionTypeList );
-    //   if (this.permission) { // edit
-    //     this.subscription.push(this.permissionService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
-    //       error: () => this.complete = true,
-    //       complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
-    //         'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-    //     }));
-    //   } else { // add
-    //     this.subscription.push(this.permissionService.addTemporaryPermission(addTemp).subscribe({
-    //       error: () => this.complete = true,
-    //       complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
-    //         , 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-    //     }));
-    //   }
-    // }
-    // else if (categoryValue === 'P') { // permanente
-    //   const endDateP = moment("2999-12-31").toDate();
-    //   const addPerm = new AddPermanentPermission(obuCode, startDate, endDateP, idAreasSelected);
-    //   if (this.permission) { // edit
-    //     this.subscription.push(this.permissionService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
-    //       error: () => this.complete = true,
-    //       complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
-    //         'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-    //     }));
-    //   } else { // add
-    //     this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
-    //       error: () => this.complete = true,
-    //       complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
-    //         , 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-    //     }));
-    //   }
-    // }
-    // else if (categoryValue === 'D') { //daily
-    //   const endDateD = startDate;
-    //   const startHour = this.formGroup.get('ctrlHourStartDaily').value;
-    //   const endHour = this.formGroup.get('ctrlHourEndDaily').value == "00:00"? "23:59:59" : this.formGroup.get('ctrlHourEndDaily').value;
+  //Cambiare interfaccie e servizi
+  public addEditPermission(): void { 
+    this.complete = false;
+    const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
+    //settare null se vuote
+    const obuCode = (this.formGroup.get('ctrlObu')) ?  this.formGroup.get('ctrlObu').value : null;
+    console.log(obuCode);
+    const plate = (this.formGroup.get('ctrlPlate')) ? this.formGroup.get('ctrlPlate').value : "";
+    const startDate = this.formGroup.get('ctrlDateStart').value;
+    const idAreasSelected = this.formGroup.get('ctrlAreaIdList').value;
 
-    //   const addDaily = new AddDailyPermission(obuCode, startDate, endDateD, idAreasSelected, startHour, endHour);
-    //   if (this.permission) { // edit
-    //     this.subscription.push(this.permissionService.editDailyPermission(addDaily, this.permission.idPermission).subscribe({
-    //       error: () => this.complete = true,
-    //       complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
-    //         'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-    //     }));
-    //   } else { // add
-    //     this.subscription.push(this.permissionService.addDailyPermission(addDaily).subscribe({
-    //       error: () => this.complete = true,
-    //       complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
-    //         , 'INFO'), this.router.navigate(['/permission-management']), this.complete = true)
-    //     }));
-    //   }
-    // }
+    if (categoryValue === 'T') { // temporaneo
+      const endDate = this.formGroup.get('ctrlDateEnd').value;
+      const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
+      const addTemp = new AddTemporaryPermissionInterporto(startDate, endDate, idAreasSelected, permissionTypeList, obuCode, plate );
+      if (this.permission) { // edit
+       /*  this.subscription.push(this.permissionService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
+            'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
+        })); */
+      } else { // add
+        console.log(addTemp);
+        this.subscription.push(this.permissionInterportoService.addTemporaryPermission(addTemp).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
+            , 'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
+        }));
+      }
+    }
+    else if (categoryValue === 'P') { // permanente
+      const endDateP = moment("2999-12-31").toDate();
+      const addPerm = new AddPermanentPermission(obuCode, startDate, endDateP, idAreasSelected);
+      if (this.permission) { // edit
+        this.subscription.push(this.permissionService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
+            'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
+        }));
+      } else { // add
+        this.subscription.push(this.permissionService.addPermanentPermission(addPerm).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
+            , 'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
+        }));
+      }
+    }
+    else if (categoryValue === 'D') { //daily
+      const endDateD = startDate;
+      const startHour = this.formGroup.get('ctrlHourStartDaily').value;
+      const endHour = this.formGroup.get('ctrlHourEndDaily').value == "00:00"? "23:59:59" : this.formGroup.get('ctrlHourEndDaily').value;
+
+      const addDaily = new AddDailyPermission(obuCode, startDate, endDateD, idAreasSelected, startHour, endHour);
+      if (this.permission) { // edit
+        this.subscription.push(this.permissionService.editDailyPermission(addDaily, this.permission.idPermission).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
+            'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
+        }));
+      } else { // add
+        this.subscription.push(this.permissionService.addDailyPermission(addDaily).subscribe({
+          error: () => this.complete = true,
+          complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionAdded')
+            , 'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
+        }));
+      }
+    }
   }
 
   public setDateEnd(): void{
     const endDateD:Date = this.formGroup.get('ctrlDateStart').value;
-
     this.formGroup.patchValue({ ctrlDateEnd: endDateD });
   }
 

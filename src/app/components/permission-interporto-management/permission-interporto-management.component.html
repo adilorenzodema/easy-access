@@ -42,7 +42,7 @@
                 ('common.disactive' | translate)}}
               </mat-slide-toggle>
 
-              <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: this.permissionSwitch?.add" style="height: 2.6em;"
+              <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-permission-interporto'" style="height: 2.6em;"
                 [routerLink]="'insert-permission-interporto'" [state]="{daily: false}"> {{'common.add' | translate}} </button> 
             </div>
           </div>

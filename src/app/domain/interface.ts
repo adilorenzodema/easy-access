@@ -75,28 +75,9 @@ export interface Permission {
   permissionStatus: PermissionSearchStatus;
   parkList: Park[];
 }
-//eventuale extends?
-export interface PermissionInterporto {
-  idPermission: number;
-  permissionType: PermissionType;
-  category: Category;
-  obu: Obu;
+
+export interface PermissionInterporto extends  Permission{
   license: string;
-  validationStartDate: Date;
-  issueValidationDate: Date;
-  flagActive: boolean;
-  startTime: string;
-  endTime: string;
-  validationDateStart: Date;
-  validationDateEnd: Date;
-  cancelationUser: number;
-  cancelationDate: Date;
-  creationUser: number;
-  creationDate: Date;
-  modificationUser: number;
-  modificationDate: Date;
-  permissionStatus: PermissionSearchStatus;
-  parkList: Park[];
 }
 
 export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';

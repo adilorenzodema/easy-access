@@ -5,7 +5,7 @@ import { PermissionInterportoManagementComponent } from './permission-interporto
 
 const routes: Routes = [
   { path: '', component: PermissionInterportoManagementComponent},
-  { path: 'add-permission-interporto' , component: AddEditPermissionInterportoComponent},
+  { path: 'insert-permission-interporto' , component: AddEditPermissionInterportoComponent},
   { path: 'edit-permission-interporto' , component: AddEditPermissionInterportoComponent}
 ];
 

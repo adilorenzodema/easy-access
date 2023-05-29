@@ -3,8 +3,9 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtils } from 'dema-movyon-template';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError } from 'rxjs';
-import { Permission, PermissionInterporto } from '../domain/interface';
+import { PermissionInterporto } from '../domain/interface';
 import { Cookie } from '../shared/utils/cookieClass';
+import { AddTemporaryPermission, AddTemporaryPermissionInterporto } from '../domain/class';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,15 @@ export class PermissionInterportoManagementService {
       )
     };
     return this.http.get<PermissionInterporto[]>(this.apiURL + '/getAllPermissions', options)
+      .pipe(catchError(err => { throw err; }));
+  }
+
+  addTemporaryPermission(tempPermission: AddTemporaryPermissionInterporto): Observable<void> {
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService) })
+    };
+    return this.http.post<void>(this.apiURL + '/addTemporaryPermission', tempPermission, options)
       .pipe(catchError(err => { throw err; }));
   }
 }

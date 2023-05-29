@@ -229,7 +229,8 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
         this.operations = permission.operations;
-        this.operations.forEach(element => {
+         console.log(  permission.operations);
+      /*  this.operations.forEach(element => {
           if (element.code === "insert-permission"){
             this.permissionSwitch.add = element.code;
           }else if (element.code === "insert-permission-interporto"){
@@ -240,7 +241,7 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
           }else if (element.code === "edit-permission-interporto"){
             this.permissionSwitch.edit = element.code;
           };
-        });
+        }); */
       },
     ));
   }
