@@ -77,7 +77,7 @@ export interface Permission {
 }
 
 export interface PermissionInterporto extends  Permission{
-  license: string;
+  targa?: string;
 }
 
 export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';

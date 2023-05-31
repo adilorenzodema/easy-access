@@ -43,7 +43,7 @@
               </mat-slide-toggle>
 
               <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-permission-interporto'" style="height: 2.6em;"
-                [routerLink]="'insert-permission-interporto'" [state]="{daily: false}"> {{'common.add' | translate}} </button> 
+                [routerLink]="'insert-permission-interporto'" [state]="{daily: false, operations: this.operations}"> {{'common.add' | translate}} </button> 
             </div>
           </div>
           <div fxLayout="row" fxLayoutGap="20px">
@@ -139,7 +139,7 @@
 
               <ng-container matColumnDef="title">
                   <th mat-header-cell *matHeaderCellDef> {{'manage-permission.permit' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{(element.obu) ? element.obu.obuCode : element.license}} </td>
+                  <td mat-cell *matCellDef="let element"> {{(element.obu) ? element.obu.obuCode : element.targa}} </td>
               </ng-container>
 
               <ng-container matColumnDef="validationDateStart">
@@ -157,8 +157,8 @@
                   <td mat-cell *matCellDef="let element" style="text-align: end;">
                       <button mat-icon-button>
                           <mat-icon class="edit-icon" matTooltip="{{'manage-permission.details_edit' | translate}}"
-                              *ngIf="operations | getPermissionPipe: this.permissionSwitch.edit"  [routerLink]="(this.permissionSwitch.add === 'edit-permission')? 'edit-permission' : 'edit-permission-interporto'"
-                              [state]="{permission: element}">edit</mat-icon>
+                              *ngIf="operations | getPermissionPipe: 'edit-permission-interporto'"  [routerLink]=" 'edit-permission-interporto'"
+                              [state]="{permission: element, operations: this.operations}">edit</mat-icon>
                       </button>
                       <button mat-icon-button
                           *ngIf="formGroup.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-permission'">

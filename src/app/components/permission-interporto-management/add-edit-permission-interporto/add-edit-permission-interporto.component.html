@@ -29,7 +29,7 @@
         <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
 
           <!-- SELEZIONE TRA OBU E TARGA -->
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
+          <mat-form-field *ngIf="!this.permission" appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
             <mat-select (selectionChange)="changeSelect($event)" placeholder="Scegliere un tipo di validazione" required>
               <mat-option [value]="'obu'"default >Tipo validazione: OBU</mat-option>
               <mat-option [value]="'targa'" >Tipo validazione: Targa</mat-option>
@@ -52,7 +52,7 @@
 
           <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
             <mat-label> {{'manage-permission.parkSelection' | translate}}</mat-label>
-            <mat-select formControlName="ctrlAreaIdList" placeholder="Parcheggi" multiple>
+            <mat-select formControlName="ctrlParkIdList" placeholder="Parcheggi" multiple>
                 <mat-option *ngFor="let item of parks" [value]="item.idPark">
                     {{item.namePark}}
                 </mat-option>

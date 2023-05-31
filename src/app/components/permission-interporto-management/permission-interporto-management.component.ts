@@ -27,7 +27,6 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
    */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public permissionSwitch: {add?:string, edit?: string} = {};
   public complete = true;
   public formGroup: FormGroup;
   public start = moment(moment.now()).subtract(21, 'day');
@@ -116,6 +115,7 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
       this.subscription.push(this.permissionInterportoService.getPermission(start, end, isActive, obuSearch, licenseSearch ,permtypeSearch, idPark, category).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
+          console.log(this.dataSource.data),
           this.dataSource.paginator = this.paginator,
           //se modificationDate null allora fa sort per creationDate
           this.dataSource.sortingDataAccessor = (item, property) => {
@@ -125,8 +125,7 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
               default: return item[property];
             }
           },
-          this.dataSource.sort = this.sort,
-          console.log(this.dataSource.data)
+          this.dataSource.sort = this.sort
         ),
         error: () => this.complete = true,
         complete: () => (this.applyFilter(this.permissionStatus), this.complete = true)
@@ -229,19 +228,6 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
         this.operations = permission.operations;
-         console.log(  permission.operations);
-      /*  this.operations.forEach(element => {
-          if (element.code === "insert-permission"){
-            this.permissionSwitch.add = element.code;
-          }else if (element.code === "insert-permission-interporto"){
-            this.permissionSwitch.add = element.code;
-          };
-          if (element.code === "edit-permission"){
-            this.permissionSwitch.edit = element.code;
-          }else if (element.code === "edit-permission-interporto"){
-            this.permissionSwitch.edit = element.code;
-          };
-        }); */
       },
     ));
   }
