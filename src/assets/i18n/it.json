@@ -24,7 +24,8 @@
     "Batch Management": "Batch",
     "Holidays Selection": "Selezione Festività",
     "EFC List": "Lista Service Providers",
-    "Logs": "Log"
+    "Logs": "Log",
+    "Companies": "Aziende"
   },
   "common": {
     "searchLabel": "Cerca",
@@ -118,6 +119,24 @@
     "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?",
     "deleteTitle": "Eliminazione Utente",
     "deleteConfirm": "Sei sicur* di voler eliminare l'utente selezionato?",
+    "delete": "Elimina"
+  },
+  "manage_company":{
+    "title": "Gestione Aziende",
+    "companyLocation": "Sede",
+    "companyIvaCode": "Codice IVA",
+    "companyName": "Azienda",
+    "add": "Aggiungi",
+    "active": "Attivi",
+    "inactive": "Inattivi",
+    "ivaError": "Un codice IVA è formato da 11 caratteri",
+    "locationError": "Indirizzo Sede non valido.",
+    "nameError": "Un nome può contenere solamente lettere, spazi o apostrofi.",
+    "edit": "Modifica",
+    "cancel": "Annulla",
+    "searchLabel": "Ricerca",
+    "deleteTitle": "Eliminazione Azienda",
+    "deleteConfirm":"Sei sicur* di voler eliminare l'azienza selezionata?",
     "delete": "Elimina"
   },
   "manage_parks": {

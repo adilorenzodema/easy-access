@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'user-management',
         loadChildren: () => import("dema-users-management").then(m => m.DemaUsersManagementModule),
         canActivate: [AuthGuard]
+      },  {
+        path: 'company-management',
+        loadChildren: () => import("dema-company-management").then(m => m.DemaCompanyManagementModule ),
+        canActivate: [AuthGuard]
       },
       {
         path: 'area-management',

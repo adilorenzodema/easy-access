@@ -120,6 +120,24 @@
     "deleteConfirm": "Are you sure you want to delete the selected user?",
     "delete": "Delete"
   },
+  "manage_company":{
+    "title": "Companies Management",
+    "companyLocation": "Location",
+    "companyIvaCode": "VAT Code",
+    "companyName": "Company",
+    "add": "Add",
+    "active": "Active",
+    "inactive": "Inactive",
+    "ivaError": "A VAT code is made up of 11 characters",
+    "locationError": "Company loaction not valid.",
+    "nameError": "A name can only contain letters, spaces or apostrophe.",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "searchLabel": "Search",
+    "deleteTitle": "Delete Company",
+    "deleteConfirm":"Are you sure you want to delete the selected company?",
+    "delete": "Delete"
+  },
   "manage_parks": {
     "parkTitle": "Manage Parking Lots",
     "associatedParksTitle": "Parking lots assocciated with area: ",
