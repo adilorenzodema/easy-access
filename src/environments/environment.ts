@@ -18,7 +18,8 @@ export const environment = {
   login: {
     image: 'assets/images/logo.png',
     title: "Login Easy Access"
-  }
+  },
+  resetPassword: 'SHOW_RESET_PASSWORD'
 };
 /*
  * For easier debugging in development mode, you can import the following file
