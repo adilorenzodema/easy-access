@@ -21,7 +21,7 @@ import { PermissionManagementService } from 'src/app/service/permission-manageme
   templateUrl: './permission-interporto-management.component.html',
   styleUrls: ['./permission-interporto-management.component.css']
 })
-export class PermissionInterportoManagementComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PermissionInterportoManagementComponent implements OnInit, OnDestroy {
   /**
    * Pagina di gestione dei permessi
    */
@@ -73,16 +73,12 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
       category: new FormControl('')
     });
     this.callGetAPI();
+    this.getPermissionAPI();
     // this.getArea();
     this.getParks();
     this.dataSource.filterPredicate = (data: PermissionInterporto, filter: string) => {
       return data.permissionStatus === filter;
     };
-  }
-
-  ngAfterViewInit():void {
-    this.getPermissionAPI();
-
   }
 
   ngOnDestroy(): void {

@@ -20,7 +20,7 @@ import { ParkManagementService } from 'src/app/service/park-management.service';
   templateUrl: './permission-management.component.html',
   styleUrls: ['./permission-management.component.css']
 })
-export class PermissionManagementComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PermissionManagementComponent implements OnInit, OnDestroy {
   /**
    * Pagina di gestione dei permessi
    */
@@ -73,16 +73,12 @@ export class PermissionManagementComponent implements OnInit, OnDestroy, AfterVi
       category: new FormControl('')
     });
     this.callGetAPI();
+    this.getPermissionAPI();
     // this.getArea();
     this.getParks();
     this.dataSource.filterPredicate = (data: Permission, filter: string) => {
       return data.permissionStatus === filter;
     };
-  }
-
-  ngAfterViewInit():void {
-    this.getPermissionAPI();
-
   }
 
   ngOnDestroy(): void {
