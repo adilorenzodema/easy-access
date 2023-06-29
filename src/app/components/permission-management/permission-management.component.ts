@@ -26,7 +26,6 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
    */
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public permissionSwitch: {add?:string, edit?: string} = {};
   public complete = true;
   public formGroup: FormGroup;
   public start = moment(moment.now()).subtract(20, 'day');
@@ -222,18 +221,6 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
         this.operations = permission.operations;
-        this.operations.forEach(element => {
-          if (element.code === "insert-permission"){
-            this.permissionSwitch.add = element.code;
-          }else if (element.code === "insert-permission-interporto"){
-            this.permissionSwitch.add = element.code;
-          };
-          if (element.code === "edit-permission"){
-            this.permissionSwitch.edit = element.code;
-          }else if (element.code === "edit-permission-interporto"){
-            this.permissionSwitch.edit = element.code;
-          };
-        });
       },
     ));
   }
