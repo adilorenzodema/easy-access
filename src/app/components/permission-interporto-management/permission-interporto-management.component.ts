@@ -9,18 +9,19 @@ import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { PermissionManagementService } from 'src/app/service/permission-management.service';
 import { ModalFormConfirmComponent } from 'src/app/shared/components/modal-form-confirm/modal-form-confirm.component';
-import { Permission, PermissionSearchStatus } from '../../domain/interface';
+import { Permission, PermissionInterporto, PermissionSearchStatus } from '../../domain/interface';
 import { Park } from 'src/app/domain/class';
 import { ParkManagementService } from 'src/app/service/park-management.service';
+import { PermissionInterportoManagementService } from 'src/app/service/permission-interporto-management.service';
+import { PermissionManagementService } from 'src/app/service/permission-management.service';
 
 @Component({
-  selector: 'app-permission-management',
-  templateUrl: './permission-management.component.html',
-  styleUrls: ['./permission-management.component.css']
+  selector: 'app-permission-interporto-management',
+  templateUrl: './permission-interporto-management.component.html',
+  styleUrls: ['./permission-interporto-management.component.css']
 })
-export class PermissionManagementComponent implements OnInit, OnDestroy {
+export class PermissionInterportoManagementComponent implements OnInit, OnDestroy {
   /**
    * Pagina di gestione dei permessi
    */
@@ -28,9 +29,9 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   public complete = true;
   public formGroup: FormGroup;
-  public start = moment(moment.now()).subtract(20, 'day');
+  public start = moment(moment.now()).subtract(21, 'day');
   public end = moment(moment.now());
-  public dataSource = new MatTableDataSource<Permission>();
+  public dataSource = new MatTableDataSource<PermissionInterporto>();
 
   /**
     *displayedColumns - Array di stringhe utilizzato dalla matTable per generare le colonne della tabella
@@ -39,15 +40,14 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     * azioni eseguibili sull'area
     */
   public displayedColumns: string[] =
-    ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'codiceObu', 'validationDateStart', 'validationDateEnd', 'action'];
+    ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'title','validationDateStart', 'validationDateEnd', 'action'];
   public operations: Operation[] = [];
   public permissionStatus: PermissionSearchStatus = 'VALID';
-  //public areas: Area[] = [];
   public parks: Park[] = [];
-
   private subscription: Subscription[] = [];
 
   constructor(
+    private permissionInterportoService: PermissionInterportoManagementService,
     private permissionService: PermissionManagementService,
     private pagePermissionService: PagePermissionService,
     private parkManagementService : ParkManagementService,
@@ -66,6 +66,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       ctrlStart: new FormControl(moment(this.start).toDate(), Validators.required),
       ctrlEnd: new FormControl(moment(this.end).toDate(), Validators.required),
       ctrlObuSearch: new FormControl(''),
+      ctrlLicenseSearch: new FormControl(''),
       ctrlPermTypeSearch: new FormControl(''),
       ctrlActive: new FormControl(true),
       idPark: new FormControl(),
@@ -75,7 +76,7 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
     this.getPermissionAPI();
     // this.getArea();
     this.getParks();
-    this.dataSource.filterPredicate = (data: Permission, filter: string) => {
+    this.dataSource.filterPredicate = (data: PermissionInterporto, filter: string) => {
       return data.permissionStatus === filter;
     };
   }
@@ -100,15 +101,17 @@ export class PermissionManagementComponent implements OnInit, OnDestroy {
       this.complete = false;
       const isActive = this.formGroup.get('ctrlActive')?.value;
       const obuSearch = this.formGroup.get('ctrlObuSearch')?.value;
+      const licenseSearch = this.formGroup.get('ctrlLicenseSearch')?.value;
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
       const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
       const idPark = this.formGroup.get('idPark')?.value;
       const category = this.formGroup.get('category')?.value;
       //Orario inizio deve essere 00:00, orario fine 23:59
-      this.subscription.push(this.permissionService.getPermission(start, end, isActive, obuSearch, permtypeSearch, idPark, category).subscribe({
+      this.subscription.push(this.permissionInterportoService.getPermission(start, end, isActive, obuSearch, licenseSearch ,permtypeSearch, idPark, category).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
+          console.log(this.dataSource.data),
           this.dataSource.paginator = this.paginator,
           //se modificationDate null allora fa sort per creationDate
           this.dataSource.sortingDataAccessor = (item, property) => {

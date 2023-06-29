@@ -13,5 +13,6 @@ export const environment = {
   login: {
     image: 'assets/images/logo.png',
     title: "Login Easy Access"
-  }
+  },
+  resetPassword: 'SHOW_RESET_PASSWORD'
 };

@@ -91,6 +91,46 @@ export class AddDailyPermission extends AddPermission {
   }
 }
 
+export class AddPermissionInterporto {
+  obuCode?: number;
+  license?: string;
+  validationDateStart: Date;
+  validationDateEnd: Date;
+  parkIdList: Park[];
+  constructor(validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], obuCode?: number, license?: string) {
+    if (obuCode) this.obuCode = obuCode;
+    if (license) this.license = license;
+    this.validationDateStart = validationDateStart;
+    this.validationDateEnd = validationDateEnd;
+    this.parkIdList = parkIdList;
+  }
+}
+
+export class AddTemporaryPermissionInterporto extends AddPermissionInterporto {
+  permissionTypeId: number;
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], permissionTypeId: number,  obuCode?: number, license?: string) {
+    super(validationDateStart, validationDateEnd, parkIdList, obuCode, license);
+    this.permissionTypeId = permissionTypeId;
+  }
+}
+
+ export class AddPermanentPermissionInterporto extends AddPermissionInterporto {
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], obuCode?: number, license?: string ) {
+    super(validationDateStart, validationDateEnd, parkIdList, obuCode, license);
+  }
+}
+
+export class AddDailyPermissionInterporto extends AddPermissionInterporto {
+  startTime: string;
+  endTime: string;
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], startTime: string, endTime: string,  obuCode?: number, license?: string) {
+    super( validationDateStart, validationDateEnd, parkIdList, obuCode, license);
+    this.startTime = startTime;
+    this.endTime = endTime;
+  }
+} 
+
+
 
 export class AddEditTypePermission {
   idPermissionType?: number;

@@ -73,8 +73,11 @@ export interface Permission {
   modificationUser: number;
   modificationDate: Date;
   permissionStatus: PermissionSearchStatus;
-  // areaList: Area[];
   parkList: Park[];
+}
+
+export interface PermissionInterporto extends  Permission{
+  targa?: string;
 }
 
 export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';
@@ -149,7 +152,7 @@ export interface Incident {
   device: string;
 }
 
-export interface ErrorCode {
+export interface ErrorCode{
   errorCode: string;
   device: string;
 }
@@ -207,9 +210,9 @@ export type Status = 'OK' | 'KO';
 
 export type Domains = 'easyaccess' | 'interporto';
 
-export interface Logs {
+export interface Logs{
   nomeUtente: string;
-  cognomeUtente?: string;
+  cognomeUtente?:string;
   date: Date;
   nomeOperazione: string;
   nomeComponente: string;

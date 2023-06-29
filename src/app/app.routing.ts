@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'user-management',
         loadChildren: () => import("dema-users-management").then(m => m.DemaUsersManagementModule),
         canActivate: [AuthGuard]
+      },  {
+        path: 'company-management',
+        loadChildren: () => import("dema-company-management").then(m => m.DemaCompanyManagementModule ),
+        canActivate: [AuthGuard]
       },
       {
         path: 'area-management',
@@ -33,6 +37,11 @@ const routes: Routes = [
       {
         path: 'permission-management',
         loadChildren: () => import("src/app/components/permission-management/permission.module").then(m => m.PermissionModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'permission-interporto-management',
+        loadChildren: () => import("src/app/components/permission-interporto-management/permission-interporto.module").then(m => m.PermissionInterportoModule),
         canActivate: [AuthGuard]
       },
       {
