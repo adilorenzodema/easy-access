@@ -1,6 +1,6 @@
 {
   "yes": "Yes",
-  "en-easyaccess": "en",
+  "en": "en",
   "template": {
     "change_password": "Change password",
     "old_password": "Old password",
@@ -8,8 +8,8 @@
     "new_password": "New password",
     "repeat_password": "Repeat password",
     "back_login": "Back to login",
-    "it-easyaccess": "Italian",
-    "en-easyaccess": "English"
+    "it": "Italian",
+    "en": "English"
   },
   "Menu": {
     "Dashboard": "Dashboard",
@@ -24,7 +24,8 @@
     "Batch Management": "Batch",
     "Holidays Selection": "Holidays Selection",
     "EFC List": "Service Provider List",
-    "Logs": "Logs"
+    "Logs": "Logs",
+    "Companies": "Companies"
   },
   "common": {
     "searchLabel": "Search",

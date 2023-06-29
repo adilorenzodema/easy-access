@@ -1,6 +1,6 @@
 {
   "yes": "Si",
-  "it-easyaccess": "it",
+  "it": "it",
   "template": {
     "change_password": "Cambia password",
     "old_password": "Vecchia password",
@@ -8,8 +8,8 @@
     "new_password": "Nuova password",
     "repeat_password": "Ripeti password",
     "back_login": "Ritorna al login",
-    "it-easyaccess": "Italiano",
-    "en-easyaccess": "Inglese"
+    "it": "Italiano",
+    "en": "Inglese"
   },
   "Menu": {
     "Dashboard": "Dashboard",
