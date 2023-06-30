@@ -3,7 +3,7 @@ export const environment = {
   configFile: 'assets/config/config-app.json',
   header: {
     imgSidebar: 'assets/images/movyon.svg',
-    title: 'Easy access'
+    title: 'Interporto'
   },
   footer: {
     year: '2022',
