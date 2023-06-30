@@ -64,7 +64,7 @@ const routes: Routes = [
       {
         path: 'batch-management',
         loadChildren:
-          () => import("src/app/components/batch-management/batch-management.module").then(m => m.BatchManagementModule),
+          () => import("dema-batch-management").then(m => m.DemaBatchManagementModule),
         canActivate: [AuthGuard]
       },
       {
