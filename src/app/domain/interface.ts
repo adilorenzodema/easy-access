@@ -1,3 +1,4 @@
+import { Company } from "dema-company-management/lib/domain/class";
 import { Area, Park, FasciaOraria } from "./class";
 
 export interface User {
@@ -76,9 +77,13 @@ export interface Permission {
   parkList: Park[];
 }
 
-export interface PermissionInterporto extends  Permission{
+export interface PermissionInterporto extends Permission {
   targa?: string;
+  azienda: Company;
 }
+
+
+
 
 export type PermissionSearchStatus = 'ALL' | 'VALID' | 'EXPIRING' | 'EXPIRED';
 
@@ -152,7 +157,7 @@ export interface Incident {
   device: string;
 }
 
-export interface ErrorCode{
+export interface ErrorCode {
   errorCode: string;
   device: string;
 }
@@ -210,9 +215,9 @@ export type Status = 'OK' | 'KO';
 
 export type Domains = 'easyaccess' | 'interporto';
 
-export interface Logs{
+export interface Logs {
   nomeUtente: string;
-  cognomeUtente?:string;
+  cognomeUtente?: string;
   date: Date;
   nomeOperazione: string;
   nomeComponente: string;

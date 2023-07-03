@@ -3,15 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { DemaCompanyManagementService } from 'dema-company-management';
 import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { AddDailyPermissionInterporto, AddPermanentPermissionInterporto, AddTemporaryPermissionInterporto, Park } from 'src/app/domain/class';
 import { Category, PermissionInterporto, PermissionType } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { PermissionInterportoManagementService } from 'src/app/service/permission-interporto-management.service';
 import { PermissionTypeManagementService } from 'src/app/service/permission-type-management.service';
+import { Company } from "dema-company-management/lib/domain/class";
 
 @Component({
   selector: 'app-add-edit-permission-interporto',
@@ -22,6 +24,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
 
   public formGroup: FormGroup;
   public parks: Park[] = [];
+  public companies: Company[] = [];
   public permissionTypes: PermissionType[] = [];
   public permissionTypesFiltered: PermissionType[] = [];
   public permission: PermissionInterporto;
@@ -44,6 +47,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     private permissionInterportoService: PermissionInterportoManagementService,
     private parkManagementService: ParkManagementService,
     private permissionTypeService: PermissionTypeManagementService,
+    private companiesService: DemaCompanyManagementService,
     private translate: TranslateService
   ) {
     this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as PermissionInterporto;
@@ -53,7 +57,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.permission && this.router.url === '/permission-management/edit-permission-interporto') { this.router.navigate(['/permission-interporto-management']); }
-    this.getParks();
+    this.getParksAndCompanies();
     if (this.permission){
       const parksIdSelected: number[] = [];
       this.permission.parkList.map((park) => parksIdSelected.push(park.idPark));
@@ -62,6 +66,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
         ctrlObu: [{value: this.permission.obu?.obuCode, disabled: true}, [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
         ctrlPlate: [{value: this.permission.targa, disabled: true} , [Validators.required]], //regex per la targa???
         ctrlParkIdList: [parksIdSelected, Validators.required],
+        ctrlCompanyList: [{ value: this.permission.azienda.companyId , disabled: true }, Validators.required ],
         ctrlDateStart: [{ value: this.permission.validationDateStart, disabled: true }, Validators.required],
         ctrlDateEnd: [{ value: this.permission.validationDateEnd, disabled: true }, Validators.required],
       });
@@ -86,6 +91,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
         ctrlObu: ['', [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
         ctrlPlate: ['', [Validators.required]], //regex per la targa???
         ctrlParkIdList: ['', Validators.required],
+        ctrlCompanyList: ['', Validators.required ],
         ctrlDateStart: [moment(this.today).toDate(), Validators.required],
         ctrlDateEnd: [moment(this.today).toDate(), Validators.required],
       });
@@ -165,11 +171,11 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     const plate = (this.formGroup.get('ctrlPlate')) ? this.formGroup.get('ctrlPlate').value : "";
     const startDate = this.formGroup.get('ctrlDateStart').value;
     const idAreasSelected = this.formGroup.get('ctrlParkIdList').value;
-
+    const companyId = this.formGroup.get('ctrlCompanyList').value;
     if (categoryValue === 'T') { // temporaneo
       const endDate = this.formGroup.get('ctrlDateEnd').value;
       const permissionTypeList = this.formGroup.get('ctrlTypePermissionList').value;
-      const addTemp = new AddTemporaryPermissionInterporto(startDate, endDate, idAreasSelected, permissionTypeList, obuCode, plate );
+      const addTemp = new AddTemporaryPermissionInterporto(startDate, endDate, idAreasSelected, companyId,permissionTypeList, obuCode, plate );
       if (this.permission) { // edit
          this.subscription.push(this.permissionInterportoService.editTemporaryPermission(addTemp, this.permission.idPermission).subscribe({
           error: () => this.complete = true,
@@ -186,7 +192,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     }
     else if (categoryValue === 'P') { // permanente
       const endDateP = moment("2999-12-31").toDate();
-      const addPerm = new AddPermanentPermissionInterporto(startDate, endDateP, idAreasSelected,  obuCode, plate);
+      const addPerm = new AddPermanentPermissionInterporto(startDate, endDateP, idAreasSelected,  companyId,obuCode, plate);
       if (this.permission) { // edit
          this.subscription.push(this.permissionInterportoService.editPermanentPermission(addPerm, this.permission.idPermission).subscribe({
           error: () => this.complete = true,
@@ -206,7 +212,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       const startHour = this.formGroup.get('ctrlHourStartDaily').value;
       const endHour = this.formGroup.get('ctrlHourEndDaily').value == "00:00"? "23:59:59" : this.formGroup.get('ctrlHourEndDaily').value;
 
-      const addDaily = new AddDailyPermissionInterporto(startDate, endDateD, idAreasSelected, startHour, endHour, obuCode, plate);
+      const addDaily = new AddDailyPermissionInterporto(startDate, endDateD, idAreasSelected, companyId, startHour, endHour, obuCode, plate);
       if (this.permission) { // edit
          this.subscription.push(this.permissionInterportoService.editDailyPermission(addDaily, this.permission.idPermission).subscribe({
           error: () => this.complete = true,
@@ -228,15 +234,21 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     this.formGroup.patchValue({ ctrlDateEnd: endDateD });
   }
 
-  /**
-   * Popola le select dei parcheggi associati all'utente
-   */
-  private getParks():void{
-
-    this.subscription.push(this.parkManagementService.getAssociatedParksToUser().subscribe((res) => {
-      this.parks = res;
+  public getParksAndCompanies(): void {
+    this.complete = false;
+    this.subscription.push(forkJoin({
+      parks: this.parkManagementService.getAssociatedParksToUser(),
+      companies: this.companiesService.getManageableCompanies("", true)
+    }).subscribe({
+      next: ({ parks, companies }) => {
+        this.parks = parks;
+        this.companies = companies;
+      },
+      error: () => this.complete = true,
+      complete: () => this.complete = true
     }));
   }
+
 
   public dateValidator(): void {
     const dateStart = this.formGroup.get('ctrlDateStart')?.value;
@@ -268,7 +280,6 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
         this.operations = permission.operations;
-        console.log(this.operations)
       },
     ));
   }

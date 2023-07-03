@@ -50,7 +50,7 @@
             <mat-error> Targa error message </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30">
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
             <mat-label> {{'manage-permission.parkSelection' | translate}}</mat-label>
             <mat-select formControlName="ctrlParkIdList" placeholder="Parcheggi" multiple>
                 <mat-option *ngFor="let item of parks" [value]="item.idPark">
@@ -58,6 +58,16 @@
                 </mat-option>
             </mat-select>
             <mat-error>{{'manage-permission.parkAssociationError' | translate}}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
+            <mat-label> {{'manage-permission.companySelection' | translate}}</mat-label>
+            <mat-select formControlName="ctrlCompanyList" placeholder="Azienda" >
+                <mat-option *ngFor="let item of companies" [value]="item.companyId">
+                    {{item.companyName}}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{'manage-permission.companyAssociationError' | translate}}</mat-error>
           </mat-form-field>
 
           <!-- DAILY -->

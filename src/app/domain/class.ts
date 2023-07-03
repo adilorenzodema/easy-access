@@ -97,34 +97,36 @@ export class AddPermissionInterporto {
   validationDateStart: Date;
   validationDateEnd: Date;
   parkIdList: Park[];
-  constructor(validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], obuCode?: number, license?: string) {
+  companyId: number;
+  constructor(validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], companyId: number,obuCode?: number, license?: string) {
     if (obuCode) this.obuCode = obuCode;
     if (license) this.license = license;
     this.validationDateStart = validationDateStart;
     this.validationDateEnd = validationDateEnd;
     this.parkIdList = parkIdList;
+    this.companyId = companyId;
   }
 }
 
 export class AddTemporaryPermissionInterporto extends AddPermissionInterporto {
   permissionTypeId: number;
-  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], permissionTypeId: number,  obuCode?: number, license?: string) {
-    super(validationDateStart, validationDateEnd, parkIdList, obuCode, license);
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], companyId: number,permissionTypeId: number,  obuCode?: number, license?: string) {
+    super(validationDateStart, validationDateEnd, parkIdList, companyId,obuCode, license);
     this.permissionTypeId = permissionTypeId;
   }
 }
 
  export class AddPermanentPermissionInterporto extends AddPermissionInterporto {
-  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], obuCode?: number, license?: string ) {
-    super(validationDateStart, validationDateEnd, parkIdList, obuCode, license);
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], companyId: number,obuCode?: number, license?: string ) {
+    super(validationDateStart, validationDateEnd, parkIdList, companyId, obuCode, license);
   }
 }
 
 export class AddDailyPermissionInterporto extends AddPermissionInterporto {
   startTime: string;
   endTime: string;
-  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], startTime: string, endTime: string,  obuCode?: number, license?: string) {
-    super( validationDateStart, validationDateEnd, parkIdList, obuCode, license);
+  constructor( validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], companyId: number, startTime: string, endTime: string,  obuCode?: number, license?: string) {
+    super( validationDateStart, validationDateEnd, parkIdList, companyId, obuCode, license);
     this.startTime = startTime;
     this.endTime = endTime;
   }

@@ -46,8 +46,6 @@ export class AddEditPermissionComponent implements OnInit {
   ) {
     this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as Permission;
     this.daily = this.router.getCurrentNavigation()?.extras.state?.['daily'] as Boolean;
-
-    console.log(this.permission)
   }
 
   /*

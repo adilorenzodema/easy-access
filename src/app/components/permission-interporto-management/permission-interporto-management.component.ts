@@ -40,7 +40,7 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
     * azioni eseguibili sull'area
     */
   public displayedColumns: string[] =
-    ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'title','validationDateStart', 'validationDateEnd', 'action'];
+    ['category', 'permissionStatus', 'permissionType', 'modificationDate', 'modificationUser', 'title','validationDateStart', 'validationDateEnd', 'company','action'];
   public operations: Operation[] = [];
   public permissionStatus: PermissionSearchStatus = 'VALID';
   public parks: Park[] = [];
@@ -111,7 +111,6 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
       this.subscription.push(this.permissionInterportoService.getPermission(start, end, isActive, obuSearch, licenseSearch ,permtypeSearch, idPark, category).subscribe({
         next: (permission) => (
           this.dataSource.data = permission,
-          console.log(this.dataSource.data),
           this.dataSource.paginator = this.paginator,
           //se modificationDate null allora fa sort per creationDate
           this.dataSource.sortingDataAccessor = (item, property) => {
