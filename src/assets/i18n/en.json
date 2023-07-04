@@ -108,6 +108,7 @@
     "profile": "Profile",
     "edit": "Edit",
     "companyName": "Company",
+    "company": "Company",
     "disactivate": "Disactivate",
     "activate": "Activate",
     "nameError": "A name can only contain letters, spaces or apostrophe.",
