@@ -402,7 +402,8 @@
     "disactivateConfirm": "Are you sure you want to unschedule the selected Batch?",
     "executeJobTitle": "Execute Batch",
     "executeJobConfirm": "Are you sure you want to execute now the selected batch?",
-    "execute": "Execute Batch"
+    "execute": "Execute Batch",
+    "noBatches": "No batch found"
   },
   "manage_logs": {
     "noLogs": "No logs found.",

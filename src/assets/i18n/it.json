@@ -408,7 +408,8 @@
     "disactivateConfirm": "Sei sicur* di voler annullare la programmazione del batch selezionato?",
     "executeJobTitle": "Esegui Batch",
     "executeJobConfirm": "Sei sicur* di voler eseguire adesso il batch selezionato?",
-    "execute": "Esegui Batch"
+    "execute": "Esegui Batch",
+    "noBatches": "Nessun batch trovato"
   },
   "manage_logs": {
     "noLogs": "Nessun log trovato",
