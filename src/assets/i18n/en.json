@@ -538,6 +538,15 @@
       "endTimeBeforeStart": "End time can not be before start time",
       "startTimeAfterEnd": "Start time can not be after than end time"
     },
+    "company": {
+      "notFound": "Company not found",
+      "nameAlreadyExists": "Company name already exists",
+      "ivaCodeAlreadyExists": "Company iva code already exists",
+      "alreadyActivated": "Company is already activated",
+      "alreadyDeactivated": "Company is already deactivated",
+      "active": "Company is active",
+      "cannotDeleteCompanyWithUsers": "Cannot delete a company if users are related to it"
+    },
     "token": {
       "notFound": "Token not found",
       "wrongFormat": "Wrong token format",

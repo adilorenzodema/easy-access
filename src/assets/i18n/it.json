@@ -545,6 +545,15 @@
       "endTimeBeforeStart": "L'orario di fine non può essere precedente a quello di inizio",
       "startTimeAfterEnd": "L'orario di inizio non può essere successivo a quello di fine"
     },
+    "company": {
+      "notFound": "Azienda non trovata",
+      "nameAlreadyExists": "Nome già esistente",
+      "ivaCodeAlreadyExists": "Codice iva già esistente",
+      "alreadyActivated": "Azienda già attiva",
+      "alreadyDeactivated": "Azienda già disattiva",
+      "active": "Azienda attiva",
+      "cannotDeleteCompanyWithUsers": "Impossibile eliminare un azienda con utenti collegati"
+    },
     "token": {
       "notFound": "Token non trovato",
       "wrongFormat": "Formato token errato",
