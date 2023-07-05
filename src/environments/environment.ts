@@ -8,7 +8,7 @@ export const environment = {
   configFile: 'assets/config/config-test-app.json',
   header: {
     imgSidebar: 'assets/images/movyon.svg',
-    title: 'Easy access'
+    title: 'Interporto'
   },
   footer: {
     year: '2022',
@@ -17,7 +17,7 @@ export const environment = {
   },
   login: {
     image: 'assets/images/logo.png',
-    title: "Login Easy Access"
+    title: "Login Interporto"
   },
   resetPassword: 'SHOW_RESET_PASSWORD'
 };

@@ -561,7 +561,13 @@
       "notFound": "Permesso non trovato",
       "alreadyActivated": "Permesso già attivato",
       "alreadyDeactivated": "Permesso già disattivato",
-      "notValid": "Permesso non valido"
+      "notValid": "Permesso non valido",
+      "startDateEarlierCurrent": "La data di inizio non può essere precedente a quella attuale",
+      "endDateBeforeStart": "La data di fine non può essere precedente a quella di inizio",
+      "endAndStartEquals": "La data di inizio e quella di fine non possono essere uguali",
+      "endTimeEqualsStart": "L'orario di inizio e quello di fine non possono essere uguali",
+      "endTimeBeforeStart": "L'orario di fine non può essere precedente a quello di inizio",
+      "startTimeAfterEnd": "L'orario di inizio non può essere successivo a quello di fine"
     },
     "permissionType": {
       "alreadyExist": "Tipo permesso già esistente",
