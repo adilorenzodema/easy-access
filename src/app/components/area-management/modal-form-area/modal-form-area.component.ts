@@ -18,6 +18,7 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
        *Gestione della finestra modale per l'aggiunta di un'Area.
        */
   public inputUserForm: FormGroup;
+  public complete = true;
   private subscription: Subscription[] = [];
   constructor(
     public dialogRef: MatDialogRef<ModalFormAreaComponent>,
@@ -59,6 +60,8 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
    *@param idAdd - Stabilisce se si sta aggiungendo un'Area o se si sta modificando un'Area. (DEPRECATA)
    */
   public onSubmit(isAdd: boolean): void {
+    if (!this.complete) { return } // per non richiamare l'api in caso sia in corso
+    this.complete = false;
     const name = this.inputUserForm.get('ctrlAreaName')?.value;
     const formAreaAdd = new Area(name);
     if (isAdd) {
@@ -66,7 +69,8 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
         next: (data: Area) => {
           this.snackBar.showMessage(this.translate.instant('manage_areas.areaInsert'), 'INFO');
         },
-        complete: () => this.dialogRef.close(true)
+        error: () => this.complete = true,
+        complete: () => (this.complete = true, this.dialogRef.close(true))
       });
     } else {
       const idArea = this.data.idArea;
@@ -75,7 +79,8 @@ export class ModalFormAreaComponent implements OnInit, OnDestroy {
         next: (data: Area) => {
           this.snackBar.showMessage(this.translate.instant('manage_areas.areaEdit'), 'INFO');
         },
-        complete: () => this.dialogRef.close(true)
+        error: () => this.complete = true,
+        complete: () => (this.complete = true, this.dialogRef.close(true))
       });
     }
   }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PagePermissionService } from 'dema-movyon-template';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { ParkStatus, TableIncident } from 'src/app/domain/interface';
 import { ParkManagementService } from 'src/app/service/park-management.service';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
@@ -29,8 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   * getPermissionAPI() Ritorna tutti i permessi disponibili all'utente con la getPermissionAPI()
   */
   ngOnInit(): void {
-    this.getParkStatusAPI();
-    this.getPermissionAPI();
+    this.callApi();
   }
 
   /**
@@ -42,40 +41,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  /**
-   * Ritorna una lista di oggetti di tipo ParkStatus.
-   */
-  private getParkStatusAPI(): void {
+  private callApi(): void {
     this.complete = false;
-    this.subscription.push(this.parkService.getParkStatus().subscribe({
-      next: (status) => {
-        this.parkStatus = status;
-      },
-      error: () => this.complete = true,
-      complete: () => this.complete = true
-    }));
-  }
-
-  /*
-  * Inutilizzata
-  */
-  private saveAllIncident(): void {
-    this.parkStatus.forEach(
-      (park) => park.incidentList.forEach(
-        (list) => this.allIncidentList.push({ parkName: park.parkName, incident: list })
-      )
-    );
-
-  }
-
-  /**
-   * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
-   */
-  private getPermissionAPI(): void {
     const currentUrl = (window.location.hash).replace('#/', '');
-    this.subscription.push(this.permissionService.getPermissionPage(currentUrl).subscribe(
-      permission => { this.operations = permission.operations; }
-    ));
+    this.subscription.push(forkJoin({
+      // Ritorna una lista di oggetti di tipo ParkStatus.
+      parkStatus: this.parkService.getParkStatus(),
+      // Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
+      permission: this.permissionService.getPermissionPage(currentUrl)
+    })
+      .subscribe({
+        next: ({ parkStatus, permission }) => {
+          this.parkStatus = parkStatus;
+          this.operations = permission.operations;
+        },
+        error: () => this.complete = true,
+        complete: () => this.complete = true
+      }))
   }
 
 

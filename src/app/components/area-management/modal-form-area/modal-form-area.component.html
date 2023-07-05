@@ -1,3 +1,6 @@
+<div style="height: 5px;">
+  <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+</div>
 <form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
   <mat-card-title> {{"manage_areas.modalTitle" | translate}} </mat-card-title>
   <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="45" fxFlex.gt-lg="35">
@@ -8,7 +11,8 @@
   <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
     <button mat-raised-button (click)="dialogRef.close(false)">{{'common.cancel' | translate}}</button>
     <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid"
-      (click)="onSubmit(data ? false : true)">{{data ? ('common.edit' | translate): ('common.add' |
-      translate)}}</button>
+      (click)="onSubmit(data ? false : true)">
+      {{data ? ('common.edit' | translate): ('common.add' | translate)}}
+    </button>
   </div>
 </form>
