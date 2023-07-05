@@ -424,6 +424,8 @@
     "Efc": "Efc",
     "Logs": "Logs",
     "Dashboard": "Dashboard",
+    "insert-permission-permanent": "Insert permanent permission",
+    "insert-permission-interporto": "Insert interporto permission",
     "view-gate-status": "View gate status ",
     "view-park-incidents": "View park alerts",
     "view-gate-incidents": "View gate alerts",
@@ -528,6 +530,14 @@
     "notFound": "Operation not found",
     "searchPeriodTooLong": "Search period exceeded",
     "endDateBeforeStartDate": "End date cannot be before start date",
+    "invalidDate": {
+      "startDateEarlierCurrent": "Start date can not be earlier than the current date",
+      "endDateBeforeStart": "End date can not be before start date",
+      "endAndStartEquals": "Start date and end date should be the same date",
+      "endTimeEqualsStart": "End time can not be equal to start time",
+      "endTimeBeforeStart": "End time can not be before start time",
+      "startTimeAfterEnd": "Start time can not be after than end time"
+    },
     "token": {
       "notFound": "Token not found",
       "wrongFormat": "Wrong token format",
