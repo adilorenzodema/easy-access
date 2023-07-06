@@ -67,8 +67,8 @@ export class IncidentsComponent implements OnInit {
   public callGetAPI(): void {
     if (!this.formGroup.invalid) {
       this.complete = false;
-      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD' + '00:00:00');
-      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD' + '23:59:59');
+      const start = moment(this.formGroup.get('start')?.value).format('yyyy-MM-DD HH:mm:ss');
+      const end = moment(this.formGroup.get('end')?.value).format('yyyy-MM-DD HH:mm:ss');
       const parkSearch = this.formGroup.get('ctrlParkSearch')?.value;
       const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;
       const errorCode = this.formGroup.get('ctrlErrorCode')?.value;
