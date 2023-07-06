@@ -32,7 +32,7 @@ export class ModalFormParkComponent implements OnInit, OnDestroy {
     this.getAreas();
     this.inputUserForm = this.formBuilder.group({
       ctrlParkName: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF\u0027 ]*')]],
-      ctrlParkCountry: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
+      ctrlParkCountry: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF ]*')]],
       ctrlParkCity: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF]*')]],
       ctrlParkCAP: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(5), Validators.pattern('^[0-9]*$')]],
       ctrlParkAddress: [null, [Validators.required, Validators.pattern('[a-zA-Z\u00C0-\u00FF0-9 ]*')]],

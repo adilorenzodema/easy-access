@@ -104,7 +104,7 @@ export class PermissionInterportoManagementComponent implements OnInit, OnDestro
       const licenseSearch = this.formGroup.get('ctrlLicenseSearch')?.value;
       const permtypeSearch = this.formGroup.get('ctrlPermTypeSearch')?.value;
       const start = moment(this.formGroup.get('ctrlStart')?.value).format('yyyy-MM-DD HH:mm:ss');
-      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + "23:59:59");
+      const end = moment(this.formGroup.get('ctrlEnd')?.value).format('yyyy-MM-DD' + " 23:59:59");
       const idPark = this.formGroup.get('idPark')?.value;
       const category = this.formGroup.get('category')?.value;
       //Orario inizio deve essere 00:00, orario fine 23:59
