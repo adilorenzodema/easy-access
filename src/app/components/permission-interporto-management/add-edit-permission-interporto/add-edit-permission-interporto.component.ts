@@ -7,6 +7,7 @@ import { DemaCompanyManagementService } from 'dema-company-management';
 import { PagePermissionService, SnackBar } from 'dema-movyon-template';
 import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
+import Keyboard from "simple-keyboard";
 import { Subscription, forkJoin } from 'rxjs';
 import { AddDailyPermissionInterporto, AddPermanentPermissionInterporto, AddTemporaryPermissionInterporto, Park } from 'src/app/domain/class';
 import { Category, PermissionInterporto, PermissionType } from 'src/app/domain/interface';
@@ -18,7 +19,7 @@ import { Company } from "dema-company-management/lib/domain/class";
 @Component({
   selector: 'app-add-edit-permission-interporto',
   templateUrl: './add-edit-permission-interporto.component.html',
-  styleUrls: []
+  styleUrls: ['./add-edit-permission-interporto.component.css']
 })
 export class AddEditPermissionInterportoComponent implements OnInit {
 
@@ -35,7 +36,8 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   public maxDate = moment(moment.now()).add(1, 'year').toDate();
   public tipoInserimento = "obu";
   public operations: Operation[] = [];
-
+  public value = "";
+  public keyboard: Keyboard;
 
   private subscription: Subscription[] = [];
 
@@ -98,9 +100,13 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    //this.getPermissionAPI();
+  ngAfterViewInit() {
+    this.keyboard = new Keyboard({
+      onChange: input => this.onChange(input),
+      onKeyPress: button => this.onKeyPress(button)
+    });
   }
+
 
   changeSelect(event:MatSelectChange){
     this.tipoInserimento = event.value;
@@ -271,6 +277,33 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       )
     );
   }
+
+  public onChange = (input: string) => {
+    this.value = input;
+    console.log("Input changed", input);
+  };
+
+  public onKeyPress = (button: string) => {
+    console.log("Button pressed", button);
+
+    /**
+     * If you want to handle the shift and caps lock buttons
+     */
+    if (button === "{shift}" || button === "{lock}") this.handleShift();
+  };
+
+  public onInputChange = (event: any) => {
+    this.keyboard.setInput(event.target.value);
+  };
+
+  public handleShift = () => {
+    let currentLayout = this.keyboard.options.layoutName;
+    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+    this.keyboard.setOptions({
+      layoutName: shiftToggle
+    });
+  };
 
   /**
     * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.

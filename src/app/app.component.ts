@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Domains } from './domain/interface';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

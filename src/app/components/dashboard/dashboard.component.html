@@ -1,7 +1,4 @@
 <div fxLayout="column" fxLayoutGap="10px">
-    <div fxLayoutAlign="end" *ngIf="complete">
-        <button mat-button class="actionButton" [routerLink]="'../permission-management/add-permission'">{{"manage-permission.add" | translate }}</button>
-    </div>
     <div  style="height: 5px;">
         <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     </div>
