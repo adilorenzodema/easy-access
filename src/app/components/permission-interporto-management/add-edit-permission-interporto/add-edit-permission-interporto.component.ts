@@ -4,8 +4,8 @@ import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DemaCompanyManagementService } from 'dema-company-management';
-import { PagePermissionService, SnackBar } from 'dema-movyon-template';
-import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
+import { AuthService, PagePermissionService, SnackBar } from 'dema-movyon-template';
+import { Operation, Parametro } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
 import Keyboard from "simple-keyboard";
 import { Subscription, forkJoin } from 'rxjs';
@@ -40,6 +40,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   public keyboard: Keyboard;
 
   private subscription: Subscription[] = [];
+  private parametro : Parametro;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,7 +51,8 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     private parkManagementService: ParkManagementService,
     private permissionTypeService: PermissionTypeManagementService,
     private companiesService: DemaCompanyManagementService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ) {
     this.permission = this.router.getCurrentNavigation()?.extras.state?.['permission'] as PermissionInterporto;
     this.daily = this.router.getCurrentNavigation()?.extras.state?.['daily'] as Boolean;
@@ -105,6 +107,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       onChange: input => this.onChange(input),
       onKeyPress: button => this.onKeyPress(button)
     });
+    this.setDateEnd();
   }
 
 
@@ -236,6 +239,19 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   }
 
   public setDateEnd(): void{
+    this.authService.getAllParameters().subscribe({
+      next: ( parametro ) => {
+        console.log(parametro);
+        parametro.forEach(element => {
+          if (element.codiceParametro === 'PERMISSION_MAX_END_DATE') {
+            this.maxDate = moment(moment.now()).add(element.valoreParametro, 'days').toDate();
+            console.log(this.maxDate);
+          }
+        })
+      },
+      error: () => this.complete = true,
+      complete: () => this.complete = true
+    });
     const endDateD:Date = this.formGroup.get('ctrlDateStart').value;
     this.formGroup.patchValue({ ctrlDateEnd: endDateD });
   }
