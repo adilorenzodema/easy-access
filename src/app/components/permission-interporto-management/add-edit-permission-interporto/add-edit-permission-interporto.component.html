@@ -35,7 +35,7 @@
         <!-- SELEZIONE TRA OBU E TARGA -->
         <mat-form-field *ngIf="!this.permission" appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
           fxFlex.gt-md="20">
-          <mat-select (selectionChange)="changeSelect($event)" placeholder="Scegliere un tipo di validazione" required>
+          <mat-select (selectionChange)="changeSelect($event)" formControlName="ctrlValidation" placeholder="Scegliere un tipo di validazione" required>
             <mat-option [value]="'obu'" default>Tipo validazione: OBU</mat-option>
             <mat-option [value]="'targa'">Tipo validazione: Targa</mat-option>
           </mat-select>
@@ -53,8 +53,8 @@
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20"
           *ngIf="tipoInserimento == 'targa'">
           <mat-label>Inserire una targa</mat-label>
-          <input matInput type="text" formControlName="ctrlPlate" required>
-          <mat-error> Targa error message </mat-error>
+          <input (input)="onInputChange($event)" value={{value}} matInput type="input" formControlName="ctrlPlate" required>
+          <mat-error>{{'Targa error message' | translate }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
@@ -181,11 +181,11 @@
       <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
         (click)="addEditPermission()">{{'common.save' | translate}}</button>
     </div>
-
-    <div style="text-align:center">
-      <input (input)="onInputChange($event)" class="surbolo" value={{value}}
-        placeholder="Tap on the virtual keyboard to start" />
-      <div class="simple-keyboard"></div>
+    <div style="margin: auto; width: 50%; padding: 10px; text-align: center;" [style.display]="formGroup.get('ctrlValidation').value === 'targa'? '' : 'none'">
+      <mat-label>Gordo</mat-label>
+        <!-- <input (input)="onInputChange($event)" class="targa" value={{value}} -->
+        <!-- placeholder="Tap on the virtual keyboard to start" /> -->
+      <div class="simple-keyboard"></div> 
     </div>
   </mat-card-content>
 </mat-card>

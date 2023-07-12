@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DemaCompanyManagementService } from 'dema-company-management';
 import { AuthService, PagePermissionService, SnackBar } from 'dema-movyon-template';
-import { Operation, Parametro } from 'dema-movyon-template/lib/components/domain/interface';
+import { Operation } from 'dema-movyon-template/lib/components/domain/interface';
 import * as moment from 'moment';
 import Keyboard from "simple-keyboard";
 import { Subscription, forkJoin } from 'rxjs';
@@ -38,9 +38,9 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   public operations: Operation[] = [];
   public value = "";
   public keyboard: Keyboard;
+  public showKeyboard = false;
 
   private subscription: Subscription[] = [];
-  private parametro : Parametro;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,8 +67,9 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       this.permission.parkList.map((park) => parksIdSelected.push(park.idPark));
       this.formGroup = this.formBuilder.group({
         ctrlCategory: [{ value: this.permission.category, disabled: true }, Validators.required],
+        ctrlValidation: ['', Validators.required],
         ctrlObu: [{value: this.permission.obu?.obuCode, disabled: true}, [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlPlate: [{value: this.permission.targa, disabled: true} , [Validators.required]], //regex per la targa???
+        ctrlPlate: [{value: this.permission.targa, disabled: true} , [Validators.maxLength(9), Validators.required]], //regex per la targa???
         ctrlParkIdList: [parksIdSelected, Validators.required],
         ctrlCompanyList: [{ value: this.permission.azienda.companyId , disabled: true }, Validators.required ],
         ctrlDateStart: [{ value: this.permission.validationDateStart, disabled: true }, Validators.required],
@@ -92,24 +93,36 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     } else {
       this.formGroup = this.formBuilder.group({
         ctrlCategory: ['', Validators.required],
+        ctrlValidation: ['', Validators.required],
         ctrlObu: ['', [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlPlate: ['', [Validators.required]], //regex per la targa???
+        ctrlPlate: ['', [Validators.maxLength(9), Validators.required]], //regex per la targa???
         ctrlParkIdList: ['', Validators.required],
         ctrlCompanyList: ['', Validators.required ],
         ctrlDateStart: [moment(this.today).toDate(), Validators.required],
         ctrlDateEnd: [moment(this.today).toDate(), Validators.required],
       });
     }
-  }
 
-  ngAfterViewInit() {
     this.keyboard = new Keyboard({
       onChange: input => this.onChange(input),
-      onKeyPress: button => this.onKeyPress(button)
-    });
+      onKeyPress: button => this.onKeyPress(button),
+      layout: {
+        default: [
+            "{tab} à á â ã ä å æ ç è é {bksp}",
+            "{lock} ê ë ì í î ï ð ò l ó ô {enter}",
+            "{shift} õ ö ø ú û ü ù ý þ ÿ ÷ {shift}",
+            "{space}"
+          ],
+          shift: [
+            "{tab} À Á Â Ã Ä Å Æ Ç È É Ê {bksp}",
+            '{lock} Ë D Ì Í Ï Ï Ð Ò Ó Ô Õ {enter}',
+            "{shift} Ö × Ø Ù Ú Û Ü Ý Þ ß {shift}",
+            "{space}"
+          ]
+        },
+      });
     this.setDateEnd();
   }
-
 
   changeSelect(event:MatSelectChange){
     this.tipoInserimento = event.value;
@@ -241,11 +254,9 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   public setDateEnd(): void{
     this.authService.getAllParameters().subscribe({
       next: ( parametro ) => {
-        console.log(parametro);
         parametro.forEach(element => {
           if (element.codiceParametro === 'PERMISSION_MAX_END_DATE') {
             this.maxDate = moment(moment.now()).add(element.valoreParametro, 'days').toDate();
-            console.log(this.maxDate);
           }
         })
       },
