@@ -4,7 +4,7 @@ import { AddEditPermissionComponent } from './add-edit-permission/add-edit-permi
 import { PermissionManagementComponent } from './permission-management.component';
 const routes: Routes = [
   { path: '', component: PermissionManagementComponent},
-  { path: 'add-permission' , component: AddEditPermissionComponent},
+  { path: 'insert-permission' , component: AddEditPermissionComponent},
   { path: 'edit-permission' , component: AddEditPermissionComponent},
 ];
 
