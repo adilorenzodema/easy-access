@@ -41,20 +41,20 @@
                                 <mat-form-field appearance="outline">
                                     <mat-label> {{'manage_permission_type.startTime' | translate}}</mat-label>
                                     <input matInput formControlName="startTime" [ngxTimepicker]="pickerHourStart"
-                                        [format]="24" required>
+                                        [format]="24" [max]="minStartTime" required>
                                     <mat-error> {{'manage_permission_type.timeError' | translate}} </mat-error>
                                     <ngx-material-timepicker-toggle matSuffix
                                         [for]="pickerHourStart"></ngx-material-timepicker-toggle>
-                                    <ngx-material-timepicker #pickerHourStart [minutesGap]="30"></ngx-material-timepicker>
+                                    <ngx-material-timepicker #pickerHourStart [minutesGap]="30" (timeChanged)="setMaxTimeChanged(i, $event)"></ngx-material-timepicker>
                                 </mat-form-field>
                                 <mat-form-field appearance="outline">
                                     <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
                                     <input matInput formControlName="endTime" [ngxTimepicker]="pickerHourEnd"
-                                        [format]="24" required>
+                                        [format]="24" [min]="maxEndTime" required>
                                     <mat-error>{{'manage_permission_type.timeError' | translate}}</mat-error>
                                     <ngx-material-timepicker-toggle matSuffix
                                         [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
-                                    <ngx-material-timepicker #pickerHourEnd [minutesGap]="30"></ngx-material-timepicker>
+                                    <ngx-material-timepicker #pickerHourEnd [minutesGap]="30" (timeChanged)="setMinTimeChanged(i, $event)"></ngx-material-timepicker>
                                 </mat-form-field>
                             </ng-template>
                             <div fxLayout="column" fxLayoutGap="10px">
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                         <button mat-icon-button matTooltip="{{'manage_permission_type.removeTimeSlot' | translate}}"
-                            *ngIf="((permissionType && !viewMode) || !permissionType && $any(formGroup.get('ctrlTimesSlot')).controls.length > 1)"
+                            *ngIf="((permissionType && !viewMode) || !permissionType)"
                             (click)="removeTimeSlot(i)"><mat-icon>remove</mat-icon></button>
                     </div>
                 </ng-container>
@@ -102,7 +102,7 @@
                 {{viewMode ? "" : ('manage_permission_type.editDetails' | translate)}}
             </button>
             <ng-template #Add>
-                <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid"
+                <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || editable"
                     (click)="addEditPermissionType()">
                     {{'common.save' | translate}}
                 </button>
