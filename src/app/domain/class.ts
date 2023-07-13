@@ -57,35 +57,35 @@ export class AddPermission {
   obuCode: number;
   validationDateStart: Date;
   validationDateEnd: Date;
-  areaIdList: Area[];
+  parkIdList: Park[];
   constructor(
-    obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[]) {
+    obuCode: number, validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[]) {
     this.obuCode = obuCode;
     this.validationDateStart = validationDateStart;
     this.validationDateEnd = validationDateEnd;
-    this.areaIdList = areaIdList;
+    this.parkIdList = parkIdList;
   }
 }
 
 export class AddTemporaryPermission extends AddPermission {
   permissionTypeId: number;
-  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], permissionTypeId: number) {
-    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
+  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], permissionTypeId: number) {
+    super(obuCode, validationDateStart, validationDateEnd, parkIdList);
     this.permissionTypeId = permissionTypeId;
   }
 }
 
 export class AddPermanentPermission extends AddPermission {
-  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[]) {
-    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
+  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[]) {
+    super(obuCode, validationDateStart, validationDateEnd, parkIdList);
   }
 }
 
 export class AddDailyPermission extends AddPermission {
   startTime: string;
   endTime: string;
-  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, areaIdList: Area[], startTime: string, endTime: string) {
-    super(obuCode, validationDateStart, validationDateEnd, areaIdList);
+  constructor(obuCode: number, validationDateStart: Date, validationDateEnd: Date, parkIdList: Park[], startTime: string, endTime: string) {
+    super(obuCode, validationDateStart, validationDateEnd, parkIdList);
     this.startTime = startTime;
     this.endTime = endTime;
   }
