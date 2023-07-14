@@ -18,8 +18,7 @@ export const environment = {
   login: {
     image: 'assets/images/logo.png',
     title: "Login Interporto"
-  },
-  resetPassword: 'SHOW_RESET_PASSWORD'
+  }
 };
 /*
  * For easier debugging in development mode, you can import the following file

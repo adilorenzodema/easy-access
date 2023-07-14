@@ -13,6 +13,5 @@ export const environment = {
   login: {
     image: 'assets/images/logo.png',
     title: "Login Interporto"
-  },
-  resetPassword: 'SHOW_RESET_PASSWORD'
+  }
 };
