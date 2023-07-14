@@ -34,14 +34,8 @@ export class AddEditPermissionTypeComponent implements OnInit {
   public complete = true;
   public permissionType: PermissionType;
   public editable = false;
-  public minStartTime : string;
-  public maxEndTime : string;
-  
-  // @Output() selectedTimeEvent = new EventEmitter<{
-  //   timeField: string;
-  //   index: number;
-  // }>();
-
+  public maxStartTime : string;
+  public minEndTime : string;
 
 
   constructor(
@@ -88,10 +82,13 @@ export class AddEditPermissionTypeComponent implements OnInit {
    * se la variabile permissionType è undefined si tratta di una add, altrimenti è una edit
   * */
   public addEditPermissionType(): void {
-    // Controllo date che combacino e siano 00:00
-    // if( this.formGroup.get('ctrlTimesSlot').value.formControlName.startTime === this.formGroup.get('ctrlTimesSlot').value.formControlName.EndTime && this.formGroup.get('ctrlTimesSlot').value.formControlName.startTime === "00:00") {
-    //   this.formGroup.get('ctrlTimesSlot').value.formControlName.EndTime = "23:59";
-    // }
+    //controllo che i 2 orari combacino e che entrambi siano 00:00
+    const list = this.formGroup.get('ctrlTimesSlot').value;
+    for (let i = 0; i < list.length; i++) {
+      if(list[i].startTime === list[i].endTime && list[i].startTime === '00:00') {
+        list[i].endTime = '23:59';
+      }
+    }
     if (this.permissionType) {
       const name = this.formGroup.get('ctrlName').value;
       const list = this.formGroup.get('ctrlTimesSlot').value;
@@ -136,54 +133,45 @@ export class AddEditPermissionTypeComponent implements OnInit {
     }
   }
 
-/**
+ /*
   * Configurazione del valore massimo di startTime o minimo per endTime
   * Selezionando EndTime => startTime [max]=endTime - 30 minuti
   * Selezionando startTime => endTime [min]=startTime + 30 minuti  
   * orari che combaciano a 00:00 allora imposto endTime = 23:59  
  */
-setMaxTimeChanged(index: number, event: any) : void{
-  const list = this.formGroup.get('ctrlTimesSlot').value;
-  // console.log(list[index]);
-  // console.log(event);
-  //TODO: split su event sui : esempio ["13", "00"]
-  //TODO: se 2 valore 00 aggioungo 30 min
-  //TODO: se 2 valore 30: aggiungo +1 (se 23:30 allora diventa 00:00) al 1 valore e set min a 00
-  let stringTime = event.split(':');
-  if(stringTime[1] === '00'){
-    stringTime[1] = '30';
-  } else if(stringTime[1] === '30'){
-    stringTime[0] = (+stringTime[0] + 1).toString();
-    stringTime[1] = '00';
+  setMaxTimeChanged(index: number, event: any) : void{
+    const list = this.formGroup.get('ctrlTimesSlot').value;
+    //split su event sui : esempio ["13", "00"]
+    //se 2 valore 00 aggioungo 30 min
+    //se 2 valore 30: aggiungo +1 (se 23:30 allora diventa 00:00) al 1 valore e set min a 00
+    let stringTime = event.split(':');
+    if(stringTime[1] === '00'){
+      stringTime[1] = '30';
+    } else if(stringTime[1] === '30'){
+      stringTime[0] = (+stringTime[0] + 1).toString();
+      stringTime[1] = '00';
+    }
+    this.minEndTime = stringTime[0] + ':' + stringTime[1];
+    list[index].startTime = this.minEndTime;
   }
-  // console.log(stringTime);
-  this.maxEndTime = stringTime[0] + ':' + stringTime[1];
-}
 
-setMinTimeChanged(index: number, event: any) : void{  
-  const list = this.formGroup.get('ctrlTimesSlot').value;
-  // console.log(list[index]);
-  // console.log(event);
-  //TODO: split su event sui : esempio ["13", "00"]
-  //TODO: se 2 valore 00: settare valore 2 a 30 e -1 a valore 1  
-  //TODO: se 2 valore 30: settare valore 2 a 00    
-  let stringTime = event.split(':');
-  if(stringTime[1] === '00'){
-    stringTime[1] = '30';
-    stringTime[0] = (+stringTime[0] - 1).toString();
-  } else if(stringTime[1] === '30'){
-    stringTime[1] = '00';
+  setMinTimeChanged(index: number, event: any) : void{  
+    const list = this.formGroup.get('ctrlTimesSlot').value;
+    //split su event sui : esempio ["13", "00"]
+    //se 2 valore 00: settare valore 2 a 30 e -1 a valore 1  
+    //se 2 valore 30: settare valore 2 a 00    
+    let stringTime = event.split(':');
+    if(stringTime[1] === '00'){
+      stringTime[1] = '30';
+      stringTime[0] = (+stringTime[0] - 1).toString();
+    } else if(stringTime[1] === '30'){
+      stringTime[1] = '00';
+    }
+    // console.log(stringTime);
+    this.maxStartTime = stringTime[0] + ':' + stringTime[1];
+    list[index].endTime = this.maxStartTime;
   }
-  // console.log(stringTime);
-  this.minStartTime = stringTime[0] + ':' + stringTime[1];
-  list[index].endTime = this.minStartTime;
-}
-
-
-
-
-
-
+  
     /*
     * Controllo se startTime è sempre infeririore endTime partendo dal ctrlTimesSlot
     * */
