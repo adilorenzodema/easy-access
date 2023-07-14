@@ -19,7 +19,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 export class TransitComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public displayedColumns: string[] = ['idTransit', 'codeObu', 'obuStd', 'startDate', 'gate', 'park', 'validationType', 'flagPassed'];
+  public displayedColumns: string[] = ['idTransit', 'codeObu', 'plate', 'obuStd', 'startDate', 'gate', 'park', 'validationType', 'flagPassed'];
   public dataSource = new MatTableDataSource<Transit>();
   public start = moment(moment.now()).subtract(30, 'day').format("yyyy-MM-DD 00:00:00");
   public end = moment(moment.now()).format("yyyy-MM-DD 23:59:59");
@@ -39,8 +39,10 @@ export class TransitComponent implements OnInit {
       ctrlParkSearch: new FormControl(''),
       ctrlGateSearch: new FormControl(''),
       ctrlValidationType: new FormControl(''),
-      ctrlStatus: new FormControl('')
+      ctrlStatus: new FormControl(''),
+      ctrlPlateSearch: new FormControl('')
     });
+
     this.callGetAPI();
   }
 
@@ -53,9 +55,10 @@ export class TransitComponent implements OnInit {
       const parkSearch = this.formGroup.get('ctrlParkSearch')?.value;
       const gateSearch = this.formGroup.get('ctrlGateSearch')?.value;
       const validationType = this.formGroup.get('ctrlValidationType')?.value;
+      const plateSearch = this.formGroup.get('ctrlPlateSearch')?.value;
       var flagTransited: boolean | null;
       flagTransited = this.formGroup.get('ctrlStatus')?.value;
-      this.subscription.push(this.transitService.getTransitList(startDate, endDate, obuSearch, gateSearch, parkSearch, validationType, flagTransited ).subscribe({
+      this.subscription.push(this.transitService.getTransitList(startDate, endDate, obuSearch, gateSearch, parkSearch, validationType, flagTransited, plateSearch ).subscribe({
         next: transit => {
           this.dataSource.data = transit;
           this.dataSource.paginator = this.paginator;

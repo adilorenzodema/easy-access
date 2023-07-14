@@ -32,14 +32,21 @@
                 </mat-form-field>
             </div>
             <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
-                <mat-form-field appearance="outline" fxFlex="40">
+                <mat-form-field appearance="outline" fxFlex="25">
                     <mat-label>{{"manage_transits.searchByGate" | translate}}</mat-label>
                     <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
                     <button matPrefix mat-icon-button (click)="callGetAPI()">
                         <mat-icon>search</mat-icon>
                     </button>
                 </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
+                <mat-form-field appearance="outline" fxFlex="25">
+                  <mat-label>{{"manage_transits.searchByPlate" | translate}}</mat-label>
+                  <input matInput type="search" formControlName="ctrlPlateSearch" autocomplete="off">
+                  <button matPrefix mat-icon-button (click)="callGetAPI()">
+                      <mat-icon>search</mat-icon>
+                  </button>
+              </mat-form-field>
+                <mat-form-field appearance="outline" fxFlex="25" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-label>{{"manage_transits.validationType" | translate}}</mat-label>
                     <mat-select formControlName="ctrlValidationType"
                         placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
@@ -48,7 +55,7 @@
                         <mat-option value="">{{"common.all" | translate}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex="40" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
+                <mat-form-field appearance="outline" fxFlex="25" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
                     <mat-label>{{"manage_transits.status" | translate}}</mat-label>
                     <mat-select formControlName="ctrlStatus" placeholder="{{'manage_transits.status' | translate}}"
                         (selectionChange)="callGetAPI()">
@@ -77,12 +84,17 @@
 
               <ng-container matColumnDef="codeObu">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuCode" | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.obu.obuCode}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.obu?.obuCode}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="plate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.plate" | translate}} </th>
+                <td mat-cell *matCellDef="let element"> {{element?.plate}} </td>
               </ng-container>
 
               <ng-container matColumnDef="obuStd">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuStd" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.obu.obuStd}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.obu?.obuStd}} </td>
               </ng-container>
 
               <ng-container matColumnDef="startDate">

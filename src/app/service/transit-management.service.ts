@@ -30,11 +30,11 @@ export class TransitService {
      * @returns Observable<Transit[]>
      */
   getTransitList(startDate: string, endDate: string, obuCodeKeyword: string, gateNameKeyword: string, parkNameKeyword: string, validationType: string,
-    flagTransited: boolean): Observable<Transit[]> {
+    flagTransited: boolean, plate: string): Observable<Transit[]> {
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService),
-        startDate, endDate, obuCodeKeyword, gateNameKeyword, parkNameKeyword, validationType, flagTransited  })
+        startDate, endDate, obuCodeKeyword, gateNameKeyword, parkNameKeyword, validationType, flagTransited, plate })
     };
     return this.http.get<Transit[]>(this.apiURL + '/getAllTransits', options)
       .pipe(catchError(err => { throw err; }));

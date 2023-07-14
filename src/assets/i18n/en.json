@@ -386,7 +386,9 @@
     "park": "Parking lot",
     "transitStatus": "Transit Status",
     "noTransits": "There are no transits present.",
-    "obuStd": "Obu STD"
+    "obuStd": "Obu STD",
+    "plate": "License Plate",
+    "searchByPlate": "Search by Plate"
   },
   "manage_batches": {
     "title": "Batch Management",

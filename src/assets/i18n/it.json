@@ -392,7 +392,9 @@
     "transitStatus": "Status Transito",
     "noTransits": "Nessun transito presente.",
     "obuStd": "Obu STD",
-    "CDC": "CDC"
+    "CDC": "CDC",
+    "plate": "Targa",
+    "searchByPlate": "Ricerca per targa"
     },
   "manage_batches": {
     "title": "Gestione Batch",
