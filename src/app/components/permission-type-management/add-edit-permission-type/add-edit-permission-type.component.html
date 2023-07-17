@@ -41,7 +41,7 @@
                                 <mat-form-field appearance="outline">
                                     <mat-label> {{'manage_permission_type.startTime' | translate}}</mat-label>
                                     <input matInput formControlName="startTime" [ngxTimepicker]="pickerHourStart"
-                                        [format]="24" [max]="maxStartTime" required>
+                                        [format]="24" [max]="maxStartTime" required readonly="true">
                                     <mat-error> {{'manage_permission_type.timeError' | translate}} </mat-error>
                                     <ngx-material-timepicker-toggle matSuffix
                                         [for]="pickerHourStart"></ngx-material-timepicker-toggle>
@@ -50,7 +50,7 @@
                                 <mat-form-field appearance="outline">
                                     <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
                                     <input matInput formControlName="endTime" [ngxTimepicker]="pickerHourEnd"
-                                        [format]="24" [min]="minEndTime" required>
+                                        [format]="24" [min]="minEndTime" required readonly="true">
                                     <mat-error>{{'manage_permission_type.timeError' | translate}}</mat-error>
                                     <ngx-material-timepicker-toggle matSuffix
                                         [for]="pickerHourEnd"></ngx-material-timepicker-toggle>

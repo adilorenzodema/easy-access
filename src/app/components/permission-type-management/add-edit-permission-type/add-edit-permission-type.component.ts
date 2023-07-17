@@ -113,9 +113,9 @@ export class AddEditPermissionTypeComponent implements OnInit {
     }
   }
 
-  /**
+  /*
    * Aggiunge una nuova fascia oraria (creazione nuovo form per una fascia oraria aggiuntiva al tipo di permesso)
-   */
+   * */
   public addTimeSlot(): void {
     this.timesSlot.push(this.buildTimeSlotArray());
     if(this.timesSlot.length > 0){
