@@ -181,7 +181,7 @@
       <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
         (click)="addEditPermission()">{{'common.save' | translate}}</button>
     </div>
-    <div id="keyboard-container" [style.display]="formGroup.get('ctrlValidation').value === 'targa'? '' : 'none'">
+    <div id="keyboard-container" [style.display]="'none'">
         <!-- <input (input)="onInputChange($event)" class="targa" value={{value}} -->
         <!-- placeholder="Tap on the virtual keyboard to start" /> -->
       <div class="simple-keyboard no-focus" (mousedown)="noFocus($event)"></div>
