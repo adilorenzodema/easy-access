@@ -301,7 +301,8 @@
     "companySelection": "Select company",
     "searchByLicense": "Search by Plate",
     "permit": "Permit",
-    "company": "Company"
+    "company": "Company",
+    "insertPlate": "Insert Plate"
   },
   "manage_permission_type": {
     "title": "Manage Permission Types",

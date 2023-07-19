@@ -304,8 +304,9 @@
     "validationTypePlate": "Tipo validazione: Targa",
     "companySelection": "Scegli azienda",
     "searchByLicense": "Cerca per targa",
-    "permit": "Permesso",
-    "company": "Azienda"
+    "permit": "Titolo",
+    "company": "Azienda",
+    "insertPlate": "Inserire una targa"
   },
   "manage_permission_type": {
     "title": "Gestione Tipo Permessi",

@@ -346,4 +346,23 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   }
 
 
+  //Mostra la tastiera quando clicco sul campo di input dell'inserimento targa
+  onFocusShowKeyboard(): void {
+    const keyboard = document.getElementById('keyboard-container');
+    keyboard.style.display = '';
+  }
+
+
+  // Chiude tastiera quando clicco fuori dal campo di input della targa o dalla tastiera
+  onFocusOutHideKeyboard(): void {
+    const keyboard = document.getElementById('keyboard-container');
+    keyboard.style.display = 'none';
+  }
+
+  /**
+   * Necessario per non perdere il focus sul campo di input (quindi lasciare la keyboard a schermo)
+   * mentre ci sto scrivendo sopra
+  */
+  noFocus(e: Event): void { e.preventDefault(); }
+
 }
