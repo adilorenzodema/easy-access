@@ -277,6 +277,7 @@
     "editPermissionTitle": "Edit Permission",
     "addPermissionTitle": "Add Permission",
     "obuInsert": "Insert an OBU code",
+    "plateInsert": "Insert plate",
     "areaSelection": "Associate one or more Areas",
     "parkSelection": "Associate one or more Parks",
     "areaAssociationError": "Please, associate at least one Area",
@@ -293,7 +294,14 @@
     "permissionEdited": "Permission successfully edited!",
     "seachPermCategory": "Search by permission category",
     "searchArea": "Search by area",
-    "searchPark": "Search by park"
+    "searchPark": "Search by park",
+    "plateError": "Plate non valid",
+    "validationTypeObu": "Validation type: OBU",
+    "validationTypePlate": "Validation type: Plate",
+    "companySelection": "Select company",
+    "searchByLicense": "Search by Plate",
+    "permit": "Permit",
+    "company": "Company"
   },
   "manage_permission_type": {
     "title": "Manage Permission Types",

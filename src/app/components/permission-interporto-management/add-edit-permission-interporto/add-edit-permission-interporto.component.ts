@@ -36,7 +36,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   public maxDate = moment(moment.now()).add(1, 'year').toDate();
   public tipoInserimento = "obu";
   public operations: Operation[] = [];
-  public value = "";
+  public plateValue = "";
   public keyboard: Keyboard;
   public showKeyboard = false;
 
@@ -60,8 +60,11 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.operations) this.getPermissionAPI(); //caso di reload in add-permission
     if (!this.permission && this.router.url === '/permission-management/edit-permission-interporto') { this.router.navigate(['/permission-interporto-management']); }
+
     this.getParksAndCompanies();
+
     if (this.permission){
       const parksIdSelected: number[] = [];
       this.permission.parkList.map((park) => parksIdSelected.push(park.idPark));
@@ -69,7 +72,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
         ctrlCategory: [{ value: this.permission.category, disabled: true }, Validators.required],
         ctrlValidation: ['', Validators.required],
         ctrlObu: [{value: this.permission.obu?.obuCode, disabled: true}, [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlPlate: [{value: this.permission.targa, disabled: true} , [Validators.maxLength(9), Validators.required]], //regex per la targa???
+        ctrlPlate: [{value: this.permission.targa, disabled: true} , [Validators.required, Validators.maxLength(9)]],
         ctrlParkIdList: [parksIdSelected, Validators.required],
         ctrlCompanyList: [{ value: this.permission.azienda.companyId , disabled: true }, Validators.required ],
         ctrlDateStart: [{ value: this.permission.validationDateStart, disabled: true }, Validators.required],
@@ -95,7 +98,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
         ctrlCategory: ['', Validators.required],
         ctrlValidation: ['', Validators.required],
         ctrlObu: ['', [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlPlate: ['', [Validators.maxLength(9), Validators.required]], //regex per la targa???
+        ctrlPlate: ['', [Validators.required, Validators.maxLength(9)]],
         ctrlParkIdList: ['', Validators.required],
         ctrlCompanyList: ['', Validators.required ],
         ctrlDateStart: [moment(this.today).toDate(), Validators.required],
@@ -133,7 +136,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     }
 
     if (this.tipoInserimento == 'targa'){
-      this.formGroup.addControl('ctrlPlate', this.formBuilder.control('', Validators.required));
+      this.formGroup.addControl('ctrlPlate', this.formBuilder.control('', [Validators.required, Validators.maxLength(9)]));
       this.formGroup.removeControl('ctrlObu');
     }
 
@@ -185,7 +188,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   * */
 
   //Cambiare interfaccie e servizi
-  public addEditPermission(): void { 
+  public addEditPermission(): void {
     this.complete = false;
     const categoryValue: Category = this.formGroup.get('ctrlCategory').value;
     //settare null se vuote
@@ -203,7 +206,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
           error: () => this.complete = true,
           complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
             'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
-        })); 
+        }));
       } else { // add
         this.subscription.push(this.permissionInterportoService.addTemporaryPermission(addTemp).subscribe({
           error: () => this.complete = true,
@@ -220,7 +223,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
           error: () => this.complete = true,
           complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
             'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
-        })); 
+        }));
       } else { // add
         this.subscription.push(this.permissionInterportoService.addPermanentPermission(addPerm).subscribe({
           error: () => this.complete = true,
@@ -240,7 +243,7 @@ export class AddEditPermissionInterportoComponent implements OnInit {
           error: () => this.complete = true,
           complete: () => (this.snackBar.showMessage(this.translate.instant('manage-permission.permissionEdited'),
             'INFO'), this.router.navigate(['/permission-interporto-management']), this.complete = true)
-        })); 
+        }));
       } else { // add
         this.subscription.push(this.permissionInterportoService.addDailyPermission(addDaily).subscribe({
           error: () => this.complete = true,
@@ -306,13 +309,10 @@ export class AddEditPermissionInterportoComponent implements OnInit {
   }
 
   public onChange = (input: string) => {
-    this.value = input;
-    console.log("Input changed", input);
+    this.formGroup.get('ctrlPlate').setValue(input);
   };
 
   public onKeyPress = (button: string) => {
-    console.log("Button pressed", button);
-
     /**
      * If you want to handle the shift and caps lock buttons
      */
@@ -336,12 +336,14 @@ export class AddEditPermissionInterportoComponent implements OnInit {
     * Ritorna le operazioni disponibili all'utente nella pagina attuale in base al tipo del profilo.
   */
   private getPermissionAPI(): void {
-    const currentUrl = (window.location.hash).replace('#/', '');
+    let currentUrl = (window.location.hash).replace('#/', '');
+    currentUrl = currentUrl.split('/')[0]; //permission-interporto-management
     this.subscription.push(this.pagePermissionService.getPermissionPage(currentUrl).subscribe(
       permission => {
         this.operations = permission.operations;
       },
     ));
   }
+
 
 }

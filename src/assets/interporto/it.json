@@ -138,7 +138,7 @@
     "deleteTitle": "Eliminazione Azienda",
     "deleteConfirm":"Sei sicur* di voler eliminare l'azienza selezionata?",
     "delete": "Elimina"
-    
+
   },
   "manage_parks": {
     "parkTitle": "Gestione Stazioni",
@@ -280,6 +280,7 @@
     "activationError": "C'è stato un errore nell'attivazione!",
     "disactivationError": "C'è stato un errore nella disattivazione!",
     "obuInsert": "Inserire un codice OBU",
+    "plateInsert": "Inserire targa",
     "obuErrorMessage": "Un codice OBU è formato solamente da numeri ed ha lunghezza 10 o 19 caratteri.",
     "areaSelection": "Associa una o più Aree",
     "parkSelection": "Associa uno o più stazioni",
@@ -297,7 +298,14 @@
     "permissionEdited": "Permesso modificato con successo",
     "seachPermCategory": "Ricerca per categoria di permesso",
     "searchArea": "Ricerca per area",
-    "searchPark": "Ricerca per stazione"
+    "searchPark": "Ricerca per stazione",
+    "plateError": "Targa non valida",
+    "validationTypeObu": "Tipo validazione: OBU",
+    "validationTypePlate": "Tipo validazione: Targa",
+    "companySelection": "Scegli azienda",
+    "searchByLicense": "Cerca per targa",
+    "permit": "Titolo",
+    "company": "Azienda"
   },
   "manage_permission_type": {
     "title": "Gestione Tipo Permessi",

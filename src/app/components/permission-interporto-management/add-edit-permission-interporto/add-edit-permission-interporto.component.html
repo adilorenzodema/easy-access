@@ -36,8 +36,8 @@
         <mat-form-field *ngIf="!this.permission" appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
           fxFlex.gt-md="20">
           <mat-select (selectionChange)="changeSelect($event)" formControlName="ctrlValidation" placeholder="Scegliere un tipo di validazione" required>
-            <mat-option [value]="'obu'" default>Tipo validazione: OBU</mat-option>
-            <mat-option [value]="'targa'">Tipo validazione: Targa</mat-option>
+            <mat-option [value]="'obu'" default>{{ 'manage-permission.validationTypeObu' | translate }}</mat-option>
+            <mat-option [value]="'targa'">{{ 'manage-permission.validationTypePlate' | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -53,8 +53,8 @@
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20"
           *ngIf="tipoInserimento == 'targa'">
           <mat-label>Inserire una targa</mat-label>
-          <input (input)="onInputChange($event)" value={{value}} matInput type="input" formControlName="ctrlPlate" required>
-          <mat-error>{{'Targa error message' | translate }}</mat-error>
+          <input (input)="onInputChange($event)"  matInput type="input" formControlName="ctrlPlate" required>
+          <mat-error>{{'manage-permission.plateError' | translate }}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">

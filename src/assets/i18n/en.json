@@ -107,8 +107,6 @@
     "email": "E-mail",
     "profile": "Profile",
     "edit": "Edit",
-    "companyName": "Company",
-    "company": "Company",
     "disactivate": "Disactivate",
     "activate": "Activate",
     "nameError": "A name can only contain letters, spaces or apostrophe.",
@@ -258,9 +256,6 @@
     "permissionCategory": "Permission Category",
     "permissionName": "Permission Name",
     "obuCode": "OBU Code",
-    "companySelection": "Select a company",
-    "companyAssociationError": "There was an error in the association.",
-    "company": "Company",
     "obuErrorMessage": "An OBU code consists only of numbers and has a length of 10 or 19 characters",
     "validationDateStart": "Validity Start Date",
     "validationDateEnd": "Validity End Date ",
@@ -282,6 +277,7 @@
     "editPermissionTitle": "Edit Permission",
     "addPermissionTitle": "Add Permission",
     "obuInsert": "Insert an OBU code",
+    "plateInsert": "Insert plate",
     "areaSelection": "Associate one or more Areas",
     "parkSelection": "Associate one or more Parks",
     "areaAssociationError": "Please, associate at least one Area",
@@ -298,7 +294,14 @@
     "permissionEdited": "Permission successfully edited!",
     "seachPermCategory": "Search by permission category",
     "searchArea": "Search by area",
-    "searchPark": "Search by park"
+    "searchPark": "Search by park",
+    "plateError": "Plate non valid",
+    "validationTypeObu": "Validation type: OBU",
+    "validationTypePlate": "Validation type: Plate",
+    "companySelection": "Select company",
+    "searchByLicense": "Search by Plate",
+    "permit": "Permit",
+    "company": "Company"
   },
   "manage_permission_type": {
     "title": "Manage Permission Types",
@@ -386,9 +389,7 @@
     "park": "Parking lot",
     "transitStatus": "Transit Status",
     "noTransits": "There are no transits present.",
-    "obuStd": "Obu STD",
-    "plate": "License Plate",
-    "searchByPlate": "Search by Plate"
+    "obuStd": "Obu STD"
   },
   "manage_batches": {
     "title": "Batch Management",
@@ -404,20 +405,14 @@
     "disactivateConfirm": "Are you sure you want to unschedule the selected Batch?",
     "executeJobTitle": "Execute Batch",
     "executeJobConfirm": "Are you sure you want to execute now the selected batch?",
-    "execute": "Execute Batch",
-    "noBatches": "No batch found"
+    "execute": "Execute Batch"
   },
   "manage_logs": {
-    "noLogs": "No logs found.",
     "Area": "Area",
     "Park": "Parking lot",
     "User": "User",
     "Gate": "Gate",
     "Permission": "Permission",
-    "nameUser": "Name user",
-    "operation": "Operation",
-    "component": "Component",
-    "date": "Date",
     "PermissionType": "Permission type",
     "Transit": "Transit",
     "Incident": "Alert",
@@ -426,8 +421,6 @@
     "Efc": "Efc",
     "Logs": "Logs",
     "Dashboard": "Dashboard",
-    "insert-permission-permanent": "Insert permanent permission",
-    "insert-permission-interporto": "Insert interporto permission",
     "view-gate-status": "View gate status ",
     "view-park-incidents": "View park alerts",
     "view-gate-incidents": "View gate alerts",
@@ -510,7 +503,6 @@
   "manage_efc": {
     "title": "Manage EFCs",
     "efcCode": "EFC Code",
-    "noEfc": "There are no EFC present.",
     "serviceProvider": "Service Provider",
     "flagActive": "Active",
     "activateTitle": "Activate EFC",
@@ -532,23 +524,6 @@
     "notFound": "Operation not found",
     "searchPeriodTooLong": "Search period exceeded",
     "endDateBeforeStartDate": "End date cannot be before start date",
-    "invalidDate": {
-      "startDateEarlierCurrent": "Start date can not be earlier than the current date",
-      "endDateBeforeStart": "End date can not be before start date",
-      "endAndStartEquals": "Start date and end date should be the same date",
-      "endTimeEqualsStart": "End time can not be equal to start time",
-      "endTimeBeforeStart": "End time can not be before start time",
-      "startTimeAfterEnd": "Start time can not be after than end time"
-    },
-    "company": {
-      "notFound": "Company not found",
-      "nameAlreadyExists": "Company name already exists",
-      "ivaCodeAlreadyExists": "Company iva code already exists",
-      "alreadyActivated": "Company is already activated",
-      "alreadyDeactivated": "Company is already deactivated",
-      "active": "Company is active",
-      "cannotDeleteCompanyWithUsers": "Cannot delete a company if users are related to it"
-    },
     "token": {
       "notFound": "Token not found",
       "wrongFormat": "Wrong token format",
