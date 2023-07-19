@@ -111,16 +111,12 @@ export class AddEditPermissionInterportoComponent implements OnInit {
       onKeyPress: button => this.onKeyPress(button),
       layout: {
         default: [
-            "{tab} à á â ã ä å æ ç è é {bksp}",
-            "{lock} ê ë ì í î ï ð ò l ó ô {enter}",
-            "{shift} õ ö ø ú û ü ù ý þ ÿ ÷ {shift}",
-            "{space}"
-          ],
-          shift: [
-            "{tab} À Á Â Ã Ä Å Æ Ç È É Ê {bksp}",
-            '{lock} Ë D Ì Í Ï Ï Ð Ò Ó Ô Õ {enter}',
-            "{shift} Ö × Ø Ù Ú Û Ü Ý Þ ß {shift}",
-            "{space}"
+            "à á â ã ä å æ ç è é",
+            "ê ë ì í î ï ð ò l ó ô",
+            "õ ö ø ú û ü ù ý þ ÿ ÷",
+            "À Á Â Ã Ä Å Æ Ç È É Ê",
+            "Ë D Ì Í Ï Ï Ð Ò Ó Ô Õ",
+            "Ö × Ø Ù Ú Û Ü Ý Þ ß",
           ]
         },
       });
