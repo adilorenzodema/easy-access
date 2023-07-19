@@ -182,10 +182,9 @@
         (click)="addEditPermission()">{{'common.save' | translate}}</button>
     </div>
     <div style="margin: auto; width: 50%; padding: 10px; text-align: center;" [style.display]="formGroup.get('ctrlValidation').value === 'targa'? '' : 'none'">
-      <mat-label>Gordo</mat-label>
         <!-- <input (input)="onInputChange($event)" class="targa" value={{value}} -->
         <!-- placeholder="Tap on the virtual keyboard to start" /> -->
-      <div class="simple-keyboard"></div> 
+      <div class="simple-keyboard"></div>
     </div>
   </mat-card-content>
 </mat-card>
