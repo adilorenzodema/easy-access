@@ -1,4 +1,4 @@
-<div class="border-grey">
+<!-- <div class="border-grey">
     <form [formGroup]="formGroup" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
         <mat-form-field appearance="outline" fxFlex="80">
             <mat-label>{{'common.searchLabel' | translate }}</mat-label>
@@ -42,4 +42,63 @@
     <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
         [style.display]="dataSourceAssParks.data.length === 0  ? 'none' : ''">
     </mat-paginator>
+</div> -->
+
+
+<div class="row">
+  <div class="col-12 border-grey">
+    <form [formGroup]="formGroup">
+      <div class="row">
+        <div class="col-9">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.searchLabel' | translate }}</mat-label>
+            <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+            <button matPrefix mat-icon-button (click)="filter()">
+                <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col-3 text-end align-self-center">
+            <button mat-button class="actionButton" (click)="changeViewEdit()">
+                {{(viewMode ? 'manage_areas.edit_association' : 'common.annul') | translate}}
+            </button>
+          <button mat-button class="actionButton mx-3" (click)="saveAssociation()" *ngIf="!viewMode">{{'common.save' | translate}}</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-12">
+        <table mat-table [dataSource]="dataSourceAssParks" class="mat-elevation-z8" matSort
+          [style.display]="dataSourceAssParks.data.length === 0 ? 'none' : ''">
+
+          <ng-container matColumnDef="idPark">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+              <td mat-cell *matCellDef="let element"> {{element.idPark}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="namePark">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.namePark}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="associated" *ngIf="!viewMode">
+              <th mat-header-cell *matHeaderCellDef> Associazione </th>
+              <td mat-cell *matCellDef="let element">
+                  <mat-checkbox [(ngModel)]="element.associated" color="primary"></mat-checkbox>
+              </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsParks"
+              [style.display]="dataSourceAssParks.data.length === 0 ? 'none' : ''"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsParks;"></tr>
+        </table>
+
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            [style.display]="dataSourceAssParks.data.length === 0  ? 'none' : ''">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
 </div>

@@ -119,7 +119,8 @@
     "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?",
     "deleteTitle": "Eliminazione Utente",
     "deleteConfirm": "Sei sicur* di voler eliminare l'utente selezionato?",
-    "delete": "Elimina"
+    "delete": "Elimina",
+    "companyName": "Azienda"
   },
   "manage_company":{
     "title": "Gestione Aziende",
