@@ -1,43 +1,55 @@
-<mat-card fxLayout="column" fxLayoutGap="30px">
-    <mat-card-title>{{"select_holidays.title" | translate}}</mat-card-title>
-    <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
-        <mat-form-field appearance="outline" fxFlex="20" id="select-year">
-            <mat-label>{{("select_holidays.yearSelect" | translate)}} </mat-label>
-            <mat-select class="year" appearance="outline" fxFlex="20" required [(ngModel)]="defaultYear"
-                placeholder="Choose a year" (selectionChange)="callGetAPI()">
-                <mat-option *ngFor="let year of years" [value]="year">
-                    {{ year }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+<div class="row">
+  <div class="col-12">
+    <mat-card>
+      <mat-card-title>{{"select_holidays.title" | translate}}</mat-card-title>
 
-        <div fxLayout="column" fxLayoutAlign="end start" fxFlexOffset="60" appearance="outline" fxLayoutGap="20px">
-          <button mat-raised-button class="actionButton" (click)="getYearHolidays(defaultYear)"
-          matTooltip="Capodanno, epifania, liberazione, pasqua, pasquetta, festa del lavoro, festa della repubblica, assunzione, ognissanti, immacolata, natale, santo Stefano">
-            {{ ("select_holidays.loadHolidays" | translate) + defaultYear}}
-          </button>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{("select_holidays.yearSelect" | translate)}} </mat-label>
+              <mat-select class="year" appearance="outline" class="w-100" required [(ngModel)]="defaultYear"
+                  placeholder="Choose a year" (selectionChange)="callGetAPI()">
+                  <mat-option *ngFor="let year of years" [value]="year">
+                      {{ year }}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-9 text-end">
+            <button mat-raised-button class="actionButton" (click)="getYearHolidays(defaultYear)"
+              matTooltip="Capodanno, epifania, liberazione, pasqua,you pasquetta, festa del lavoro, festa della repubblica, assunzione, ognissanti, immacolata, natale, santo Stefano">
+              {{ ("select_holidays.loadHolidays" | translate) + defaultYear}}
+            </button>
+          </div>
         </div>
-    </div>
 
-    <mat-card-content fxLayout="column" fxLayoutGap="10px">
-        <mat-form-field>
-            <mat-label>{{("select_holidays.dateSelect" | translate)}} </mat-label>
-            <mat-chip-list #chipList (click)="picker.open()">
-                <mat-chip *ngFor="let value of model" [selectable]="false" [removable]="true" (removed)="remove(value)">
+        <div class="row">
+          <div class="col-12 d-flex">
+            <mat-form-field class="w-100">
+              <mat-label>{{("select_holidays.dateSelect" | translate)}} </mat-label>
+              <mat-chip-list #chipList (click)="picker.open()">
+                <mat-chip *ngFor="let value of model" [selectable]="false" [removable]="true" (removed)="remove(value)" class="d-flex">
                     {{ value | date }}
                     <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
                 </mat-chip>
                 <input [value]="resetModel" matInput [matDatepicker]="picker" placeholder="Choose a date"
                     (dateChange)="dateChanged($event)" [matChipInputFor]="chipList" [max]="maxDate" [min]="minDate"
                     hidden />
-            </mat-chip-list>
-            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass"></mat-datepicker>
-        </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="20px">
-            <!--             [disabled]=" model | holidaysTouched: startingHolidays"-->
-            <button mat-raised-button class="actionButton" (click)="addCalendar(defaultYear)">
-                {{ ("select_holidays.update" | translate) + defaultYear}} </button>
+              </mat-chip-list>
+              <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass"></mat-datepicker>
+            </mat-form-field>
+          </div>
         </div>
-    </mat-card-content>
-</mat-card>
+
+        <div class="row">
+          <div class="col-12 text-end">
+            <button mat-raised-button class="actionButton" (click)="addCalendar(defaultYear)">{{ ("select_holidays.update" | translate) + defaultYear}} </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
