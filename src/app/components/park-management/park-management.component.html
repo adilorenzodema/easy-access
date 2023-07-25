@@ -1,113 +1,138 @@
-<mat-card fxLayout="column" fxLayoutGap="20px">
-  <app-title-park [areaName]="areaName" [idArea]="idArea"> </app-title-park>
-  <mat-card-content fxLayout="column" fxLayoutGap="10px">
-    <form [formGroup]="search" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <mat-form-field appearance="outline" fxFlex="39">
-        <mat-label>{{"common.searchLabel" | translate}}</mat-label>
-        <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-        <button matPrefix mat-icon-button (click)="callGetAPI()">
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-      <mat-form-field  appearance="outline" fxFlex="39">
-        <mat-label> {{"manage_parks.filterArea" | translate}}</mat-label>
-        <mat-select formControlName="ctrlAreaIdList" placeholder="Area" (selectionChange)="callGetAPI()">
-          <mat-option [value]="">Tutti </mat-option>
-          <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
-            {{item.areaName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
-        {{search.controls['ctrlActive'].value ? ('manage_parks.active' | translate) : ('manage_parks.inactive' |
-        translate)}}
-      </mat-slide-toggle>
-      <button mat-raised-button class="actionButton" *ngIf="idArea" [routerLink]="'../area-management'">
-        {{"common.back" | translate}}</button>
-      <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-park'"
-        (click)="addPark()">{{"common.add" | translate}}</button>
-    </form>
-    <div style="height: 5px;">
-      <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
-    </div>
+<div class="row">
+  <div class="col-12">
+    <mat-card>
+      <app-title-park [areaName]="areaName" [idArea]="idArea"> </app-title-park>
 
-    <div class="root-table-container" style="height: 43em;">
-      <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
-        <div *ngIf="dataSource.data.length === 0 && complete"> {{"manage_parks.noParks" | translate}}</div>
+      <mat-card-content>
+        <form [formGroup]="search">
+          <div class="row">
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"common.searchLabel" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-          [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
-          <ng-container matColumnDef="idPark">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.idPark}} </td>
-          </ng-container>
+            <div class="col-4">
+              <mat-form-field  appearance="outline" class="w-100">
+                <mat-label> {{"manage_parks.filterArea" | translate}}</mat-label>
+                <mat-select formControlName="ctrlAreaIdList" placeholder="Area" (selectionChange)="callGetAPI()">
+                  <mat-option [value]="">Tutti </mat-option>
+                  <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
+                    {{item.areaName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-          <ng-container matColumnDef="namePark">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_parks.parkName" | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.namePark}} </td>
-          </ng-container>
+            <div class="col-2 align-self-center text-center">
+              <mat-slide-toggle formControlName="ctrlActive" color="primary" (change)="callGetAPI()">
+                {{search.controls['ctrlActive'].value ? ('manage_parks.active' | translate) : ('manage_parks.inactive' |
+                translate)}}
+              </mat-slide-toggle>
+            </div>
 
-          <ng-container matColumnDef="location">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_parks.parkAddress" | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.address}} {{element.location}} {{element.cap}}
-              {{element.country}} </td>
-          </ng-container>
+            <div class="col-2 align-self-center">
+              <button mat-raised-button class="actionButton" *ngIf="idArea" [routerLink]="'../area-management'">
+                {{"common.back" | translate}}</button>
+              <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-park'"
+                (click)="addPark()">{{"common.add" | translate}}</button>
+            </div>
+          </div>
+        </form>
 
-          <ng-container matColumnDef="creationUser">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{"manage_parks.creationUser" | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.creationUserFirstname}} {{element.creationUserLastname}} </td>
-          </ng-container>
+        <div class="row">
+          <div class="col-12" style="height: 5px;">
+            <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+          </div>
+        </div>
 
-          <ng-container matColumnDef="creationDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.creationDate" | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'y/MM/dd H:mm:ss' }} </td>
-          </ng-container>
+        <div class="row">
+          <div class="col-12">
+            <div class="root-table-container" style="height: 36em !important;">
+              <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+                <div *ngIf="dataSource.data.length === 0 && complete"> {{"manage_parks.noParks" | translate}}</div>
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+                  [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
+                  <ng-container matColumnDef="idPark">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idPark}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="namePark">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_parks.parkName" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.namePark}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_parks.parkAddress" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} {{element.location}} {{element.cap}}
+                      {{element.country}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="creationUser">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{"manage_parks.creationUser" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.creationUserFirstname}} {{element.creationUserLastname}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="creationDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.creationDate" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'y/MM/dd H:mm:ss' }} </td>
+                  </ng-container>
 
 
-          <ng-container matColumnDef="modificationUser">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.modificationUser" | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.modificationUserFirstname}}
-              {{element.modificationUserLastname}} </td>
-          </ng-container>
+                  <ng-container matColumnDef="modificationUser">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.modificationUser" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.modificationUserFirstname}}
+                      {{element.modificationUserLastname}} </td>
+                  </ng-container>
 
-          <ng-container matColumnDef="modificationDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.modificationDate" | translate}} </th>
-            <td mat-cell *matCellDef="let element"> {{element.modificationDate | date:'y/MM/dd H:mm:ss' }} </td>
-          </ng-container>
+                  <ng-container matColumnDef="modificationDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.modificationDate" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.modificationDate | date:'y/MM/dd H:mm:ss' }} </td>
+                  </ng-container>
 
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element" style="text-align: end;">
-              <button mat-icon-button *ngIf="operations | getPermissionPipe: 'edit-park'" [routerLink]="['edit-park']"
-                [state]="{ park: element}">
-                <mat-icon class="edit-icon" matTooltip="{{'common.longEdit' | translate}}">edit</mat-icon>
-              </button>
-              <button mat-icon-button
-                *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-park'">
-                <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
-                  (click)="onDisactivate(element.idPark)">power_off</mat-icon></button>
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element" style="text-align: end;">
+                      <button mat-icon-button *ngIf="operations | getPermissionPipe: 'edit-park'" [routerLink]="['edit-park']"
+                        [state]="{ park: element}">
+                        <mat-icon class="edit-icon" matTooltip="{{'common.longEdit' | translate}}">edit</mat-icon>
+                      </button>
+                      <button mat-icon-button
+                        *ngIf="search.controls['ctrlActive'].value && operations | getPermissionPipe: 'disactivate-park'">
+                        <mat-icon style="color: red" matTooltip="{{'common.disactivate' | translate}}"
+                          (click)="onDisactivate(element.idPark)">power_off</mat-icon></button>
 
-              <button mat-icon-button
-                *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-park'">
-                <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
-                  (click)="activePark(element.idPark)">refresh</mat-icon></button>
+                      <button mat-icon-button
+                        *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'activate-park'">
+                        <mat-icon class="refreshIcon" matTooltip="{{'common.activate' | translate}}"
+                          (click)="activePark(element.idPark)">refresh</mat-icon></button>
 
-              <button mat-icon-button
-                *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
-                <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
-                  (click)="deletePark(element.idPark)">delete</mat-icon></button>
-            </td>
-          </ng-container>
+                      <button mat-icon-button
+                        *ngIf="!search.controls['ctrlActive'].value && operations | getPermissionPipe: 'delete-park'">
+                        <mat-icon style="color: red" matTooltip="{{'common.delete' | translate}}"
+                          (click)="deletePark(element.idPark)">delete</mat-icon></button>
+                    </td>
+                  </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"
-            [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </ng-scrollbar>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                    [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </ng-scrollbar>
 
-      <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-        [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
-      </mat-paginator>
-    </div>
-  </mat-card-content>
-</mat-card>
+              <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,53 +1,71 @@
-<form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px">
-  <mat-card-title> {{"manage_parks.modalTitle" | translate}} </mat-card-title>
-  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="inputUserForm">
+      <mat-card-title> {{"manage_parks.modalTitle" | translate}} </mat-card-title>
 
-    <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-      <mat-label>{{"manage_parks.parkName" | translate}}</mat-label>
-      <input matInput type="text" required formControlName="ctrlParkName" />
-      <mat-error>{{"manage_parks.nameError" | translate}}</mat-error>
-    </mat-form-field>
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>{{"manage_parks.parkName" | translate}}</mat-label>
+            <input matInput type="text" required formControlName="ctrlParkName" />
+            <mat-error>{{"manage_parks.nameError" | translate}}</mat-error>
+          </mat-form-field>
+        </div>
 
-    <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-      <mat-label>{{"manage_parks.parkCountry" | translate}}</mat-label>
-      <input matInput type="text" required formControlName="ctrlParkCountry" />
-      <mat-error>{{"manage_parks.countryError" | translate}}</mat-error>
-    </mat-form-field>
+        <div class="col-12">
+          <mat-form-field appearance="fill"  class="w-100">
+            <mat-label>{{"manage_parks.parkCountry" | translate}}</mat-label>
+            <input matInput type="text" required formControlName="ctrlParkCountry" />
+            <mat-error>{{"manage_parks.countryError" | translate}}</mat-error>
+          </mat-form-field>
+        </div>
 
-    <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-      <mat-label>{{"manage_parks.parkLocation" | translate}}</mat-label>
-      <input matInput type="text" required formControlName="ctrlParkCity" />
-      <mat-error>{{"manage_parks.locationError" | translate}}</mat-error>
-    </mat-form-field>
+        <div class="col-12">
+          <mat-form-field appearance="fill"  class="w-100">
+            <mat-label>{{"manage_parks.parkLocation" | translate}}</mat-label>
+            <input matInput type="text" required formControlName="ctrlParkCity" />
+            <mat-error>{{"manage_parks.locationError" | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field appearance="fill"  class="w-100">
+            <mat-label>{{"manage_parks.parkPostalCode" | translate}}</mat-label>
+            <input matInput type="text" required formControlName="ctrlParkCAP" />
+            <mat-error>{{"manage_parks.postalCodeError" | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>{{"manage_parks.parkAddress" | translate}} </mat-label>
+            <input matInput type="text" required formControlName="ctrlParkAddress" />
+            <mat-error>{{"manage_parks.addressError" | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label> {{"manage_parks.associateAreas" | translate}}</mat-label>
+            <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
+              <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
+                {{item.areaName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{"manage_parks.associationError" | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-raised-button color="primary" (click)="onCancel()">{{"common.cancel" | translate}}</button>
+          <button mat-raised-button color="primary" class="mx-3" [disabled]="inputUserForm.invalid" (click)="onSubmit()">
+            {{"common.add" | translate}}</button>
+        </div>
+      </div>
+    </form>
   </div>
-
-  <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
-    <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-      <mat-label>{{"manage_parks.parkPostalCode" | translate}}</mat-label>
-      <input matInput type="text" required formControlName="ctrlParkCAP" />
-      <mat-error>{{"manage_parks.postalCodeError" | translate}}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-      <mat-label>{{"manage_parks.parkAddress" | translate}} </mat-label>
-      <input matInput type="text" required formControlName="ctrlParkAddress" />
-      <mat-error>{{"manage_parks.addressError" | translate}}</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30">
-      <mat-label> {{"manage_parks.associateAreas" | translate}}</mat-label>
-      <mat-select formControlName="ctrlAreaIdList" placeholder="Aree" multiple>
-        <mat-option *ngFor="let item of areaFiltered" [value]="item.idArea">
-          {{item.areaName}}
-        </mat-option>  
-      </mat-select>
-      <mat-error>{{"manage_parks.associationError" | translate}}</mat-error>
-    </mat-form-field>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-    <button mat-raised-button color="primary" (click)="onCancel()">{{"common.cancel" | translate}}</button>
-    <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid" (click)="onSubmit()">
-      {{"common.add" | translate}}</button>
-  </div>  
-</form>
+</div>
