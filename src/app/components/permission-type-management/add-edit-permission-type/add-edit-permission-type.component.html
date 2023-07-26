@@ -1,112 +1,140 @@
-<mat-card fxLayout="column" fxLayoutGap="20px">
-    <div fxLayout="row wrap" fxLayoutAlign="space-between">
-        <mat-card-title> {{'manage_permission_type.title' | translate}}: {{permissionType ?  ('manage_permission_type.editTitle' | translate) : ('manage_permission_type.addTitle' | translate)}}</mat-card-title>
-        <div fxLayoutGap="10px">
-            <button mat-button class="actionButton" *ngIf="permissionType" (click)="viewMode = !viewMode">
-                {{(viewMode) ? ('common.edit' | translate) : ('common.view' | translate) }} </button>
-            <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.back' | translate}}</button>
-        </div>
+<mat-card>
+  <div class="row">
+    <div class="col-9">
+      <mat-card-title> {{'manage_permission_type.title' | translate}}: {{permissionType ?  ('manage_permission_type.editTitle' | translate) : ('manage_permission_type.addTitle' | translate)}}</mat-card-title>
     </div>
-    <mat-card-content fxLayout="column" fxLayoutGap="20px">
-        <div  style="height: 5px;">
-        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+    <div class="col-3 text-end">
+      <button mat-button class="actionButton mx-3" *ngIf="permissionType" (click)="viewMode = !viewMode">
+        {{(viewMode) ? ('common.edit' | translate) : ('common.view' | translate) }} </button>
+      <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.back' | translate}}</button>
+    </div>
+  </div>
+
+  <mat-progress-bar style="height: 5px;" *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+
+  <mat-card-content>
+    <form [formGroup]="formGroup">
+      <div class="row">
+        <div class="col-12 text-center">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'manage_permission_type.nameInsert' | translate}}</mat-label>
+            <input matInput type="text" formControlName="ctrlName" [readonly]="permissionType && viewMode" [required]="!viewMode"
+                [style.opacity]="permissionType && viewMode ? '0.5' : ''">
+            <mat-error>{{'manage_permission_type.nameError' | translate}}</mat-error>
+          </mat-form-field>
         </div>
-        <form [formGroup]="formGroup">
-            <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
-                <mat-form-field appearance="outline" fxFlex="20">
-                    <mat-label>{{'manage_permission_type.nameInsert' | translate}}</mat-label>
-                    <input matInput type="text" formControlName="ctrlName" [readonly]="permissionType && viewMode" [required]="!viewMode"
-                        [style.opacity]="permissionType && viewMode ? '0.5' : ''">
-                    <mat-error>{{'manage_permission_type.nameError' | translate}}</mat-error>
-                </mat-form-field>
-            </div>
-            <button mat-icon-button matTooltip="{{'manage_permission_type.addTimeSlot' | translate}}"
-                *ngIf="(permissionType && !viewMode) || !permissionType"
-                (click)="addTimeSlot()"><mat-icon>add</mat-icon></button>
-            <ng-container formArrayName="ctrlTimesSlot">
-                <ng-container *ngFor="let timeSlot of timesSlot.controls; let i = index">
-                    <div [formGroupName]="i" fxLayout="row">
-                        <div fxLayout="row wrap" fxLayoutGap="30px" class="timeSlot" >
-                            <ng-container *ngIf="permissionType && viewMode else insertMode">
-                                <mat-form-field appearance="outline">
-                                    <mat-label> {{'manage_permission_type.startTime' | translate}} </mat-label>
-                                    <input matInput formControlName="startTime" readonly [required]="false">
-                                </mat-form-field>
-                                <mat-form-field appearance="outline">
-                                    <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
-                                    <input matInput formControlName="endTime" readonly [required]="false">
-                                </mat-form-field>
-                            </ng-container>
-                            <ng-template #insertMode>
-                                <mat-form-field appearance="outline">
-                                    <mat-label> {{'manage_permission_type.startTime' | translate}}</mat-label>
-                                    <input matInput formControlName="startTime" [ngxTimepicker]="pickerHourStart"
-                                        [format]="24" [max]="maxStartTime" required readonly="true">
-                                    <mat-error> {{'manage_permission_type.timeError' | translate}} </mat-error>
-                                    <ngx-material-timepicker-toggle matSuffix
-                                        [for]="pickerHourStart"></ngx-material-timepicker-toggle>
-                                    <ngx-material-timepicker #pickerHourStart [minutesGap]="30" (timeChanged)="setMaxTimeChanged(i, $event)"></ngx-material-timepicker>
-                                </mat-form-field>
-                                <mat-form-field appearance="outline">
-                                    <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
-                                    <input matInput formControlName="endTime" [ngxTimepicker]="pickerHourEnd"
-                                        [format]="24" [min]="minEndTime" required readonly="true">
-                                    <mat-error>{{'manage_permission_type.timeError' | translate}}</mat-error>
-                                    <ngx-material-timepicker-toggle matSuffix
-                                        [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
-                                    <ngx-material-timepicker #pickerHourEnd [minutesGap]="30" (timeChanged)="setMinTimeChanged(i, $event)"></ngx-material-timepicker>
-                                </mat-form-field>
-                            </ng-template>
-                            <div fxLayout="column" fxLayoutGap="10px">
-                                <ng-container *ngFor="let day of days">
-                                    <!--view mode div i giorni  altrimenti #-->
-                                    <div *ngIf="viewMode && permissionType else insertModeDay" fxLayout="row">
-                                        <mat-icon matPrefix style="color: green;"
-                                            *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">done</mat-icon>
-                                        <mat-icon matPrefix style="color: red;"
-                                            *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">close</mat-icon>
-                                        <div>{{'common.days.' + day | translate}}</div>
-                                    </div>
-                                    <ng-template #insertModeDay>
-                                        <mat-checkbox [formControlName]="day" color="primary">
-                                            {{'common.days.' + day | translate}}</mat-checkbox>
-                                    </ng-template>
-                                </ng-container>
-                            </div>
-                            <div fxLayout="column" fxLayoutGap="10px">
-                                <ng-container *ngFor="let dayH of holidays">
-                                    <div *ngIf="viewMode && permissionType else insertMode" fxLayout="row">
-                                        <mat-icon matPrefix style="color: green;"
-                                            *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">done</mat-icon>
-                                        <mat-icon matPrefix style="color: red;"
-                                            *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">close</mat-icon>
-                                        <div>{{'common.days.' + dayH | translate}}</div>
-                                    </div>
-                                    <ng-template #insertMode>
-                                        <mat-checkbox [formControlName]="dayH" color="primary">
-                                            {{'common.days.' + dayH | translate}}</mat-checkbox>
-                                    </ng-template>
-                                </ng-container>
-                            </div>
-                        </div>
-                        <button mat-icon-button matTooltip="{{'manage_permission_type.removeTimeSlot' | translate}}"
-                            *ngIf="((permissionType && !viewMode) || !permissionType)"
-                            (click)="removeTimeSlot(i)"><mat-icon>remove</mat-icon></button>
+      </div>
+
+      <button mat-icon-button matTooltip="{{'manage_permission_type.addTimeSlot' | translate}}" *ngIf="(permissionType && !viewMode) || !permissionType"
+        (click)="addTimeSlot()"><mat-icon>add</mat-icon>
+      </button>
+
+      <div class="row">
+        <div class="col-12">
+          <ng-container formArrayName="ctrlTimesSlot">
+            <ng-container *ngFor="let timeSlot of timesSlot.controls; let i = index">
+              <div class="row" [formGroupName]="i">
+                <div class="col-12 timeSlot">
+                  <div class="row">
+                    <div class="col-8">
+                      <ng-container *ngIf="permissionType && viewMode else insertMode">
+                        <mat-form-field appearance="outline">
+                          <mat-label> {{'manage_permission_type.startTime' | translate}} </mat-label>
+                          <input matInput formControlName="startTime" readonly [required]="false">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="mx-3">
+                          <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
+                          <input matInput formControlName="endTime" readonly [required]="false">
+                        </mat-form-field>
+                      </ng-container>
+
+                      <ng-template #insertMode>
+                        <mat-form-field appearance="outline" style="margin-right: 0.5em;">
+                            <mat-label> {{'manage_permission_type.startTime' | translate}}</mat-label>
+                            <input matInput formControlName="startTime" [ngxTimepicker]="pickerHourStart"
+                                [format]="24" [max]="maxStartTime" required readonly="true">
+                            <mat-error> {{'manage_permission_type.timeError' | translate}} </mat-error>
+                            <ngx-material-timepicker-toggle matSuffix
+                                [for]="pickerHourStart"></ngx-material-timepicker-toggle>
+                              <ngx-material-timepicker #pickerHourStart [minutesGap]="30" (timeChanged)="setMaxTimeChanged(i, $event)"></ngx-material-timepicker>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label> {{'manage_permission_type.endTime' | translate}}</mat-label>
+                            <input matInput formControlName="endTime" [ngxTimepicker]="pickerHourEnd"
+                                [format]="24" [min]="minEndTime" required readonly="true">
+                            <mat-error>{{'manage_permission_type.timeError' | translate}}</mat-error>
+                            <ngx-material-timepicker-toggle matSuffix
+                                [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
+                            <ngx-material-timepicker #pickerHourEnd [minutesGap]="30" (timeChanged)="setMinTimeChanged(i, $event)"></ngx-material-timepicker>
+                          </mat-form-field>
+                      </ng-template>
                     </div>
-                </ng-container>
+
+                    <div class="col-2">
+                      <ng-container *ngFor="let day of days">
+                        <div class="row">
+                          <div class="col-12">
+                            <div *ngIf="viewMode && permissionType else insertModeDay">
+                              <mat-icon matPrefix style="color: green;"
+                                  *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">done</mat-icon>
+                              <mat-icon matPrefix style="color: red;"
+                                  *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[day]">close</mat-icon>
+                              <div>{{'common.days.' + day | translate}}</div>
+                            </div>
+                            <ng-template #insertModeDay>
+                                <mat-checkbox [formControlName]="day" color="primary">
+                                    {{'common.days.' + day | translate}}</mat-checkbox>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+
+                    <div class="col-2">
+                      <ng-container *ngFor="let dayH of holidays">
+                        <div class="row">
+                          <div class="col-12">
+                            <div *ngIf="viewMode && permissionType else insertMode">
+                              <mat-icon matPrefix style="color: green;"
+                                  *ngIf="$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">done</mat-icon>
+                              <mat-icon matPrefix style="color: red;"
+                                  *ngIf="!$any(formGroup.get('ctrlTimesSlot')).controls[i].value[dayH]">close</mat-icon>
+                              <div>{{'common.days.' + dayH | translate}}</div>
+                            </div>
+
+                            <ng-template #insertMode>
+                              <mat-checkbox [formControlName]="dayH" color="primary">
+                                  {{'common.days.' + dayH | translate}}</mat-checkbox>
+                            </ng-template>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <button mat-icon-button matTooltip="{{'manage_permission_type.removeTimeSlot' | translate}}"
+                  *ngIf="((permissionType && !viewMode) || !permissionType)"
+                  (click)="removeTimeSlot(i)"><mat-icon>remove</mat-icon></button>
+              </div>
             </ng-container>
-        </form>
-        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid"
-                *ngIf="permissionType else Add" (click)="addEditPermissionType()">
-                {{viewMode ? "" : ('manage_permission_type.editDetails' | translate)}}
-            </button>
-            <ng-template #Add>
-                <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || editable"
-                    (click)="addEditPermissionType()">
-                    {{'common.save' | translate}}
-                </button>
-            </ng-template>
+          </ng-container>
         </div>
-    </mat-card-content>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid"
+          *ngIf="permissionType else Add" (click)="addEditPermissionType()">
+          {{viewMode ? "" : ('manage_permission_type.editDetails' | translate)}}
+        </button>
+        <ng-template #Add>
+            <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || editable"
+                (click)="addEditPermissionType()">
+                {{'common.save' | translate}}
+            </button>
+        </ng-template>
+      </div>
+    </div>
+  </mat-card-content>
 </mat-card>

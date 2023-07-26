@@ -121,3 +121,151 @@
         </div>
     </mat-card-content>
 </mat-card>
+
+<div class="row">
+  <div class="col-12">
+    <mat-card>
+      <mat-card-title>{{"manage_incidents.incidentTitle" | translate}}</mat-card-title>
+
+      <mat-card-content>
+        <form [formGroup]="formGroup">
+          <div class="row">
+            <div class="col-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="start">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker [stepMinute]="5" > </ngx-mat-datetime-picker>
+             </mat-form-field>
+            </div>
+
+            <div class="col-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" formControlName="end" (dateChange)="callGetAPI()">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 [stepMinute]="1"> </ngx-mat-datetime-picker>
+             </mat-form-field>
+            </div>
+
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_incidents.parkSearch" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_incidents.gateSearch" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+
+        <div class="row">
+          <div class="col-6 col-lg-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{"manage_incidents.component" | translate}}</mat-label>
+              <mat-select formControlName="ctrlComponent" placeholder="{{'manage_incidents.component' | translate}}" (selectionChange)="callGetAPI()">
+                  <mat-option value="2" (click)="changeOpShowed()" >{{"manage_incidents.device.2" | translate}}</mat-option> <!-- Fotocellula -->
+                  <mat-option value="0" (click)="changeOpShowed()" >{{"manage_incidents.device.0" | translate}}</mat-option> <!-- Antenna -->
+                  <mat-option value="1"(click)="changeOpShowed()" >{{"manage_incidents.device.1" | translate}}</mat-option> <!-- Sbarra -->
+                  <mat-option value="GATE" (click)="changeOpShowed()" >{{"manage_incidents.device.GATE" | translate}}</mat-option> <!-- Gate -->
+                  <mat-option value="" (click)="changeOpShowed()" >{{"common.all" | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{"manage_incidents.errorCode" | translate}}</mat-label>
+              <mat-select formControlName="ctrlErrorCode" placeholder="{{'manage_incidents.errorCode' | translate}}" (selectionChange)="callGetAPI()">
+                <mat-option value="">{{"common.all" | translate}}</mat-option>
+                <mat-option *ngFor="let err of showListaError " [value]="err">{{ ("manage_incidents.error." + err) | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-6 col-lg-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>{{"manage_incidents.status" | translate}}</mat-label>
+              <mat-select formControlName="ctrlStatus" placeholder="{{'manage_incidents.status' | translate}}" (selectionChange)="callGetAPI()">
+                  <mat-option value="Risolto"> {{"manage_incidents.resolved" | translate}}</mat-option>
+                  <mat-option value="In corso">{{"manage_incidents.ongoing" | translate}}</mat-option>
+                  <mat-option value="">{{"common.all" | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-progress-bar style="height: 5px;" *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+
+        <div class="row">
+          <div class="col-12 root-table-container">
+            <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+              <div *ngIf="dataSource.data.length === 0 && complete"> {{"manage_incidents.noIncidents" | translate}}</div>
+
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+                [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
+
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateStart" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"common.dateEnd" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.endDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="gateName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.gate" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gate.gateDescription}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="parkName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.park" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gate.park.namePark}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="device">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.component" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{("manage_incidents.device." + element.device) | translate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="errorCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorCode" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{ ("manage_incidents.error." + element.errorCode) | translate }}</td> <!-- aggiungere info aggiuntuive -->
+                </ng-container>
+
+                <ng-container matColumnDef="errorMessage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.errorMessage" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.errorMessage }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_incidents.status" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.status ? ('manage_incidents.resolved' | translate) : ('manage_incidents.ongoing' | translate) }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                    [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </ng-scrollbar>
+
+            <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

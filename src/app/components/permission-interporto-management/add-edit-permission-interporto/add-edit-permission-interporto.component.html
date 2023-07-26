@@ -1,189 +1,205 @@
-<mat-card fxLayout="column" fxLayoutGap="20px">
+<mat-card>
   <mat-card-title> {{"manage-permission.title" | translate}}:
     {{permission ? ('manage-permission.editPermissionTitle' | translate) :
     ('manage-permission.addPermissionTitle' | translate) }}</mat-card-title>
 
   <mat-card-content>
-    <div style="height: 5px;">
-      <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
-    </div>
+    <mat-progress-bar style="height: 5px;" *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
 
-    <form [formGroup]="formGroup" fxLayout="column" fxLayoutGap="10px">
-      <ng-container *ngIf="!this.permission else edit">
-        <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
-          (change)="changeCategory()">
-          <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
-          <mat-radio-button [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
-          <mat-radio-button [value]="'P'"
-            *ngIf="operations | getPermissionPipe: 'insert-permission-permanent'">{{'manage-permission.permanent' |
-            translate}}</mat-radio-button>
-        </mat-radio-group>
-      </ng-container>
-      <ng-template #edit>
-        <mat-radio-group formControlName="ctrlCategory" color="primary" fxLayoutGap="10px" fxFlexAlign="center"
-          (change)="changeCategory()">
-          <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
-          <mat-radio-button [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
-          <mat-radio-button [value]="'P'"
-            *ngIf="operations | getPermissionPipe: 'insert-permission-permanent'">{{'manage-permission.permanent' |
-            translate}}</mat-radio-button>
-        </mat-radio-group>
-      </ng-template>
-
-      <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
-
-        <!-- SELEZIONE TRA OBU E TARGA -->
-        <mat-form-field *ngIf="!this.permission" appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20"
-          fxFlex.gt-md="20">
-          <mat-select (selectionChange)="changeSelect($event)" formControlName="ctrlValidation" placeholder="Scegliere un tipo di validazione" required>
-            <mat-option [value]="'obu'" default>{{ 'manage-permission.validationTypeObu' | translate }}</mat-option>
-            <mat-option [value]="'targa'">{{ 'manage-permission.validationTypePlate' | translate }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <!-- form field obu -->
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20"
-          *ngIf="tipoInserimento == 'obu'">
-          <mat-label>{{'manage-permission.obuInsert' | translate}}</mat-label>
-          <input matInput type="text" formControlName="ctrlObu" required>
-          <mat-error> {{'manage-permission.obuErrorMessage' | translate}}</mat-error>
-        </mat-form-field>
-
-        <!-- form field targa -->
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20"
-          *ngIf="tipoInserimento == 'targa'">
-          <mat-label>{{ 'manage-permission.insertPlate' | translate}}</mat-label>
-          <input (input)="onInputChange($event)" (focus)="onFocusShowKeyboard()" (focusout)="onFocusOutHideKeyboard()" matInput type="input" formControlName="ctrlPlate" required>
-          <mat-error>{{'manage-permission.plateError' | translate }}</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-          <mat-label> {{'manage-permission.parkSelection' | translate}}</mat-label>
-          <mat-select formControlName="ctrlParkIdList" placeholder="Parcheggi" multiple>
-            <mat-option *ngFor="let item of parks" [value]="item.idPark">
-              {{item.namePark}}
-            </mat-option>
-          </mat-select>
-          <mat-error>{{'manage-permission.parkAssociationError' | translate}}</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-          <mat-label> {{'manage-permission.companySelection' | translate}}</mat-label>
-          <mat-select formControlName="ctrlCompanyList" placeholder="Azienda">
-            <mat-option *ngFor="let item of companies" [value]="item.companyId">
-              {{item.companyName}}
-            </mat-option>
-          </mat-select>
-          <mat-error>{{'manage-permission.companyAssociationError' | translate}}</mat-error>
-        </mat-form-field>
-
-        <!-- DAILY -->
-        <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'D'">
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-            <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-            <input matInput readonly [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate"
-              (dateChange)="setDateEnd()">
-            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-            <mat-datepicker #pickerStart></mat-datepicker>
-            <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
-              {{'manage-permission.invalidDate' | translate}}
-            </mat-error>
-            <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
-              {{'manage-permission.dateError' | translate}}
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-            <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
-            <input matInput readonly [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd">
-            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-            <mat-datepicker disabled="true" #pickerEnd></mat-datepicker>
-            <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
-          </mat-form-field>
-          <div fxLayoutGap="10px">
-            <!-- <mat-form-field appearance="outline">
-                    <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
-                    <input matInput readonly formControlName="ctrlHourStartDaily" required>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
-                    <input matInput readonly formControlName="ctrlHourEndDaily" required>
-                </mat-form-field> -->
-            <mat-form-field appearance="outline">
-              <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
-              <input matInput formControlName="ctrlHourStartDaily" [ngxTimepicker]="pickerHourStart" [format]="24"
-                required>
-              <ngx-material-timepicker-toggle matSuffix [disabled]="this.permission ? true : false"
-                [for]="pickerHourStart"></ngx-material-timepicker-toggle>
-              <ngx-material-timepicker #pickerHourStart [minutesGap]="5"></ngx-material-timepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
-              <input matInput formControlName="ctrlHourEndDaily" [ngxTimepicker]="pickerHourEnd" [format]="24" required>
-              <ngx-material-timepicker-toggle matSuffix [disabled]="this.permission ? true : false"
-                [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
-              <ngx-material-timepicker #pickerHourEnd [minutesGap]="5"></ngx-material-timepicker>
-            </mat-form-field>
-          </div>
-        </ng-container>
-
-        <!-- TEMPORANEO -->
-        <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'T'">
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-            <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-            <input matInput [matDatepicker]="pickerStart" [min]="minDate" [max]="maxDate"
-              formControlName="ctrlDateStart" (dateChange)="dateValidator()">
-            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-            <mat-datepicker #pickerStart></mat-datepicker>
-            <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
-              {{'manage-permission.invalidDate' | translate}}
-            </mat-error>
-            <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
-              {{'manage-permission.dateError' | translate}}
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-            <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
-            <input matInput [matDatepicker]="pickerEnd" [min]="minDate" [max]="maxDate" formControlName="ctrlDateEnd"
-              (dateChange)="dateValidator()">
-            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-            <mat-datepicker #pickerEnd></mat-datepicker>
-            <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex.gt-xs="80" fxFlex.gt-lg="40" fxFlex.gt-md="40">
-            <mat-label> {{'manage-permission.permissionTypeSelection' | translate}}</mat-label>
-            <mat-select formControlName="ctrlTypePermissionList">
-              <mat-option *ngFor="let item of permissionTypesFiltered" [value]="item.permissionTypeId">
-                {{item.permissionTypeDesc}}
-              </mat-option>
-            </mat-select>
-            <mat-error>{{'manage-permission.permissionTypeAssociationError' | translate}}</mat-error>
-          </mat-form-field>
-        </ng-container>
-
-        <!-- PERMANENTE -->
-        <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'P'">
-          <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="20" fxFlex.gt-md="20">
-            <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
-            <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate">
-            <!-- (dateChange)="dateValidator()" -->
-            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-            <mat-datepicker #pickerStart></mat-datepicker>
-          </mat-form-field>
-        </ng-container>
-
+    <form [formGroup]="formGroup">
+      <div class="row">
+        <div class="col-12 text-center mb-2">
+          <ng-container *ngIf="!this.permission else edit">
+            <mat-radio-group formControlName="ctrlCategory" color="primary" (change)="changeCategory()">
+              <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
+              <mat-radio-button class="mx-2" [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
+              <mat-radio-button [value]="'P'"
+                *ngIf="operations | getPermissionPipe: 'insert-permission-permanent'">{{'manage-permission.permanent' |
+                translate}}</mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+          <ng-template #edit>
+            <mat-radio-group formControlName="ctrlCategory" color="primary" (change)="changeCategory()">
+              <mat-radio-button [value]="'T'">{{'manage-permission.temporary' | translate}}</mat-radio-button>
+              <mat-radio-button class="mx-2" [value]="'D'">{{'manage-permission.daily' | translate}}</mat-radio-button>
+              <mat-radio-button [value]="'P'"
+                *ngIf="operations | getPermissionPipe: 'insert-permission-permanent'">{{'manage-permission.permanent' |
+                translate}}</mat-radio-button>
+            </mat-radio-group>
+          </ng-template>
+        </div>
       </div>
 
+      <div class="container">
+        <!-- prima riga  di campi input -->
+        <div class="row px-5">
+          <div class="col-3">
+            <mat-form-field *ngIf="!this.permission" appearance="outline" class="w-100">
+              <mat-select (selectionChange)="changeSelect($event)" formControlName="ctrlValidation" placeholder="Scegliere un tipo di validazione" required>
+                <mat-option [value]="'obu'" default>{{ 'manage-permission.validationTypeObu' | translate }}</mat-option>
+                <mat-option [value]="'targa'">{{ 'manage-permission.validationTypePlate' | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field appearance="outline" class="w-100" *ngIf="tipoInserimento == 'obu'">
+              <mat-label>{{'manage-permission.obuInsert' | translate}}</mat-label>
+              <input matInput type="text" formControlName="ctrlObu" required>
+              <mat-error> {{'manage-permission.obuErrorMessage' | translate}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100" *ngIf="tipoInserimento == 'targa'">
+              <mat-label>{{ 'manage-permission.insertPlate' | translate}}</mat-label>
+              <input (input)="onInputChange($event)" (focus)="onFocusShowKeyboard()" (focusout)="onFocusOutHideKeyboard()" matInput type="input" formControlName="ctrlPlate" required>
+              <mat-error>{{'manage-permission.plateError' | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label> {{'manage-permission.parkSelection' | translate}}</mat-label>
+              <mat-select formControlName="ctrlParkIdList" placeholder="Parcheggi" multiple>
+                <mat-option *ngFor="let item of parks" [value]="item.idPark">
+                  {{item.namePark}}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{'manage-permission.parkAssociationError' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label> {{'manage-permission.companySelection' | translate}}</mat-label>
+              <mat-select formControlName="ctrlCompanyList" placeholder="Azienda">
+                <mat-option *ngFor="let item of companies" [value]="item.companyId">
+                  {{item.companyName}}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{'manage-permission.companyAssociationError' | translate}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- seconda riga di campi input -->
+        <div class="row px-5">
+          <!-- DAILY -->
+          <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'D'">
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
+                <input matInput readonly [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate"
+                  (dateChange)="setDateEnd()">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+                <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
+                  {{'manage-permission.invalidDate' | translate}}
+                </mat-error>
+                <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
+                  {{'manage-permission.dateError' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
+                <input matInput readonly [matDatepicker]="pickerEnd" formControlName="ctrlDateEnd">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker disabled="true" #pickerEnd></mat-datepicker>
+                <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> {{'manage-permission.startTime' | translate}}</mat-label>
+                <input matInput formControlName="ctrlHourStartDaily" [ngxTimepicker]="pickerHourStart" [format]="24"
+                  required>
+                <ngx-material-timepicker-toggle matSuffix [disabled]="this.permission ? true : false"
+                  [for]="pickerHourStart"></ngx-material-timepicker-toggle>
+                <ngx-material-timepicker #pickerHourStart [minutesGap]="5"></ngx-material-timepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> {{'manage-permission.endTime' | translate}}</mat-label>
+                <input matInput formControlName="ctrlHourEndDaily" [ngxTimepicker]="pickerHourEnd" [format]="24" required>
+                <ngx-material-timepicker-toggle matSuffix [disabled]="this.permission ? true : false"
+                  [for]="pickerHourEnd"></ngx-material-timepicker-toggle>
+                <ngx-material-timepicker #pickerHourEnd [minutesGap]="5"></ngx-material-timepicker>
+              </mat-form-field>
+            </div>
+          </ng-container>
+
+          <!-- TEMPORANEO -->
+          <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'T'">
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
+                <input matInput [matDatepicker]="pickerStart" [min]="minDate" [max]="maxDate"
+                  formControlName="ctrlDateStart" (dateChange)="dateValidator()">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+                <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('required')">
+                  {{'manage-permission.invalidDate' | translate}}
+                </mat-error>
+                <mat-error *ngIf="formGroup.controls['ctrlDateStart'].hasError('invalidDate')">
+                  {{'manage-permission.dateError' | translate}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'manage-permission.validationDateEnd' | translate}}</mat-label>
+                <input matInput [matDatepicker]="pickerEnd" [min]="minDate" [max]="maxDate" formControlName="ctrlDateEnd"
+                  (dateChange)="dateValidator()">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+                <mat-error> {{'manage-permission.invalidDate' | translate}}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> {{'manage-permission.permissionTypeSelection' | translate}}</mat-label>
+                <mat-select formControlName="ctrlTypePermissionList">
+                  <mat-option *ngFor="let item of permissionTypesFiltered" [value]="item.permissionTypeId">
+                    {{item.permissionTypeDesc}}
+                  </mat-option>
+                </mat-select>
+                <mat-error>{{'manage-permission.permissionTypeAssociationError' | translate}}</mat-error>
+              </mat-form-field>
+            </div>
+          </ng-container>
+
+          <!-- PERMANENTE -->
+          <ng-container *ngIf="formGroup.get('ctrlCategory').value === 'P'">
+            <div class="col-4 offset-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{'manage-permission.validationDateStart' | translate}}</mat-label>
+                <input matInput [matDatepicker]="pickerStart" formControlName="ctrlDateStart" [min]="minDate">
+                <!-- (dateChange)="dateValidator()" -->
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </form>
 
-    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-      <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.cancel' | translate}}</button>
-      <!--  dirty permette l'edit solo se è stato cambiato almeno un campo -->
-      <button mat-raised-button class="actionButton" [disabled]="formGroup.invalid || !formGroup.dirty"
-        (click)="addEditPermission()">{{'common.save' | translate}}</button>
+    <!-- buttons -->
+    <div class="row">
+      <div class="col-12 text-center">
+        <button mat-raised-button class="actionButton" [routerLink]="'../'">{{'common.cancel' | translate}}</button>
+        <!--  dirty permette l'edit solo se è stato cambiato almeno un campo -->
+        <button mat-raised-button class="actionButton mx-3" [disabled]="formGroup.invalid || !formGroup.dirty"
+          (click)="addEditPermission()">{{'common.save' | translate}}</button>
+      </div>
     </div>
+
     <div id="keyboard-container" [style.display]="'none'">
-        <!-- <input (input)="onInputChange($event)" class="targa" value={{value}} -->
-        <!-- placeholder="Tap on the virtual keyboard to start" /> -->
       <div class="simple-keyboard no-focus" (mousedown)="noFocus($event)"></div>
     </div>
   </mat-card-content>
