@@ -16,7 +16,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="col-2 align-self-center">
+              <div class="col-2 text-end px-3 align-self-center">
                 <button mat-raised-button class="actionButton" (click)="add()" [disabled]="!complete"
                 *ngIf="operations | getPermissionPipe: 'insert-area'">
                 {{'common.add' | translate}}</button>

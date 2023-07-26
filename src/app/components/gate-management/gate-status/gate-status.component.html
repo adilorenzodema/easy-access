@@ -137,3 +137,14 @@
 
     </mat-card-content>
 </mat-card>
+
+<mat-card>
+  <div class="row">
+    <mat-card-header>
+      <div class="col-12 d-flex justify-content-between">
+        <span> {{"manage_gates.statusTitle" | translate}}{{gate.gateDescription}}</span>
+        <mat-icon class="center-icon-title" [ngStyle]="{'color':gate.status === 'OK' ? 'green' : 'red' }">radio_button_checked</mat-icon>
+      </div>
+    </mat-card-header>
+  </div>
+</mat-card>

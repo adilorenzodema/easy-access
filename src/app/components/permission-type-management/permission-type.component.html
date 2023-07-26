@@ -20,7 +20,7 @@
           </mat-slide-toggle>
         </div>
 
-        <div class="col-2 text-end align-self-center">
+        <div class="col-2 text-end px-3 align-self-center">
           <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-permissiontype'"
             [routerLink]="'add-permission-type'">{{'common.add' | translate}}
           </button>

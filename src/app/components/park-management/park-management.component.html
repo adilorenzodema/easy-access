@@ -35,7 +35,7 @@
               </mat-slide-toggle>
             </div>
 
-            <div class="col-2 align-self-center">
+            <div class="col-2 align-self-center text-end px-3">
               <button mat-raised-button class="actionButton" *ngIf="idArea" [routerLink]="'../area-management'">
                 {{"common.back" | translate}}</button>
               <button mat-raised-button class="actionButton" *ngIf="operations | getPermissionPipe: 'insert-park'"
