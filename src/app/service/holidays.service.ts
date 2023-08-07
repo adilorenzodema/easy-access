@@ -14,7 +14,8 @@ export class HolidaysService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    @Inject('beUrl') private beUrl: string) { }
+    @Inject('beUrl') private beUrl: string,
+    @Inject('loginTitle') private loginTitle) { }
 
     /**
      * Prende le vacanze selezionate in un intervallo di date richiamando le API fornite da backend (GestioneCalendarioRestController)
@@ -25,6 +26,8 @@ export class HolidaysService {
      * @returns Observable<Calendar[]>
      */
   getCalendar(startDate: string, endDate: string): Observable<Calendar[]> {
+    console.log("loginne preso da config.app ",this.loginTitle)
+
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
       params: HttpUtils.createHttpParams({ token: Cookie.getToken(this.cookieService), startDate , endDate })
