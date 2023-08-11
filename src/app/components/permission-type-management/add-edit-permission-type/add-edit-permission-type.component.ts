@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SnackBar } from 'dema-movyon-template';
@@ -84,11 +84,11 @@ export class AddEditPermissionTypeComponent implements OnInit {
   public addEditPermissionType(): void {
     //controllo che i 2 orari combacino e che entrambi siano 00:00
     const list = this.formGroup.get('ctrlTimesSlot').value;
+
     for (let i = 0; i < list.length; i++) {
-      if(list[i].startTime === list[i].endTime && list[i].startTime === '00:00') {
-        list[i].endTime = '23:59';
-      }
+      if(list[i].startTime === list[i].endTime && list[i].startTime === '00:00') list[i].endTime = '23:59';
     }
+
     if (this.permissionType) {
       const name = this.formGroup.get('ctrlName').value;
       const list = this.formGroup.get('ctrlTimesSlot').value;
@@ -136,8 +136,8 @@ export class AddEditPermissionTypeComponent implements OnInit {
  /*
   * Configurazione del valore massimo di startTime o minimo per endTime
   * Selezionando EndTime => startTime [max]=endTime - 30 minuti
-  * Selezionando startTime => endTime [min]=startTime + 30 minuti  
-  * orari che combaciano a 00:00 allora imposto endTime = 23:59  
+  * Selezionando startTime => endTime [min]=startTime + 30 minuti
+  * orari che combaciano a 00:00 allora imposto endTime = 23:59
  */
   setMaxTimeChanged(index: number, event: any) : void{
     const list = this.formGroup.get('ctrlTimesSlot').value;
@@ -145,55 +145,43 @@ export class AddEditPermissionTypeComponent implements OnInit {
     //se 2 valore 00 aggioungo 30 min
     //se 2 valore 30: aggiungo +1 (se 23:30 allora diventa 00:00) al 1 valore e set min a 00
     let stringTime = event.split(':');
-    if(stringTime[1] === '00'){
-      stringTime[1] = '30';
-    } else if(stringTime[1] === '30'){
+
+    if (stringTime[0] == '00' && stringTime[1] == '00') {
+      this.minEndTime = '00:00';
+      list[index].startTime = this.minEndTime;
+      return;
+    }
+
+    if(stringTime[1] === '00') stringTime[1] = '30';
+
+    else if(stringTime[1] === '30'){
       stringTime[0] = (+stringTime[0] + 1).toString();
       stringTime[1] = '00';
     }
+
     this.minEndTime = stringTime[0] + ':' + stringTime[1];
     list[index].startTime = this.minEndTime;
   }
 
-  setMinTimeChanged(index: number, event: any) : void{  
+  setMinTimeChanged(index: number, event: any) : void{
     const list = this.formGroup.get('ctrlTimesSlot').value;
     //split su event sui : esempio ["13", "00"]
-    //se 2 valore 00: settare valore 2 a 30 e -1 a valore 1  
-    //se 2 valore 30: settare valore 2 a 00    
+    //se 2 valore 00: settare valore 2 a 30 e -1 a valore 1
+    //se 2 valore 30: settare valore 2 a 00
+
+
     let stringTime = event.split(':');
+
     if(stringTime[1] === '00'){
       stringTime[1] = '30';
       stringTime[0] = (+stringTime[0] - 1).toString();
-    } else if(stringTime[1] === '30'){
-      stringTime[1] = '00';
     }
+    else if(stringTime[1] === '30') stringTime[1] = '00';
+
     // console.log(stringTime);
     this.maxStartTime = stringTime[0] + ':' + stringTime[1];
     list[index].endTime = this.maxStartTime;
   }
-  
-    /*
-    * Controllo se startTime è sempre infeririore endTime partendo dal ctrlTimesSlot
-    * */
-//  public isStartTimeAfterEndTime(): boolean {
-//   let error = false;
-//   const list = this.formGroup.get('ctrlTimesSlot').value;
-//   for (let i = 0; i < list.length; i++) {
-//     console.log(list[i]);
-//     const startTime = list[i].startTime; 
-//     const endTime = list[i].endTime;
-//     console.log(startTime);
-//     console.log(endTime);
-//     if (moment(startTime).isAfter(endTime)){
-//       error = true;
-//       console.log(error);
-//       } else {
-//         error = false;
-//         console.log(error);
-//       }
-//     }
-//     return error;
-//   }
 
   /*
    * creazione formGroup per i checkbox della scelta dei giorni e la scelta dell'orario

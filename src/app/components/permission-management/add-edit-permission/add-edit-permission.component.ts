@@ -32,6 +32,7 @@ export class AddEditPermissionComponent implements OnInit {
   public today = moment(moment.now());
   public minDate = moment(this.today).toDate();
   public maxDate = moment(moment.now()).add(1, 'year').toDate();
+  public permScaduto = false;
 
   private subscription: Subscription[] = [];
 
@@ -57,18 +58,23 @@ export class AddEditPermissionComponent implements OnInit {
     this.getParks();
 
     if (this.permission) {
+
+      this.permScaduto = moment(this.permission.validationDateEnd).isBefore(moment.now());
+
       const parksIdSelected: number[] = [];
       this.permission.parkList.map((park) => parksIdSelected.push(park.idPark));
       this.formGroup = this.formBuilder.group({
         ctrlCategory: [{ value: this.permission.category, disabled: true }, Validators.required],
-        ctrlObu: [this.permission.obu.obuCode, [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
-        ctrlAreaIdList: [parksIdSelected, Validators.required],
+        ctrlObu: [{ value: this.permission.obu.obuCode, disabled: true }, [Validators.minLength(9), Validators.maxLength(19), Validators.pattern('[0-9]*'), Validators.required]],
+        ctrlAreaIdList: [{ value: parksIdSelected, disabled: this.permScaduto }, Validators.required],
         ctrlDateStart: [{ value: this.permission.validationDateStart, disabled: true }, Validators.required],
         ctrlDateEnd: [{ value: this.permission.validationDateEnd, disabled: true }, Validators.required],
       });
       if (this.permission.category === 'T') { // temporaneo
         this.getPermissionType();
         this.formGroup.addControl('ctrlTypePermissionList', this.formBuilder.control(this.permission.permissionType.permissionTypeId, Validators.required));
+        this.formGroup.get('ctrlTypePermissionList').disable();
+
       } else if (this.permission.category === 'D') { //daily
         this.formGroup.addControl('ctrlHourStartDaily', this.formBuilder.control(moment(this.permission.startTime, 'hh:mm:ss').format('HH:mm'),
           Validators.required));

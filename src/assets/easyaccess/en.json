@@ -118,7 +118,8 @@
     "disactivateConfirm": "Are you sure you want to disactivate the selected user?",
     "deleteTitle": "Delete User",
     "deleteConfirm": "Are you sure you want to delete the selected user?",
-    "delete": "Delete"
+    "delete": "Delete",
+    "companyName": "Company name"
   },
   "manage_parks": {
     "parkTitle": "Manage Parking Lots",
@@ -367,6 +368,7 @@
   "manage_batches": {
     "title": "Batch Management",
     "jobName": "Batch name",
+    "noBatches": "there are no batches present.",
     "batchDescription": "Batch description",
     "chronExpression": "Cron expression",
     "chronDescription": "Cron description",
@@ -381,6 +383,8 @@
     "execute": "Execute Batch"
   },
   "manage_logs": {
+    "title": "Logs monitoring",
+    "noLogs": "There are no logs present.",
     "Area": "Area",
     "Park": "Parking lot",
     "User": "User",
@@ -449,7 +453,20 @@
     "disactivate-user": "Disactivate user",
     "open-gate": "Open gate",
     "close-gate": "Close gate",
-    "auto-gate": "Auto gate"
+    "auto-gate": "Auto gate",
+    "reboot-gate": "Reebot gate",
+    "date": "Data",
+    "nameUser": "Nome utente",
+    "operation": "Operazione",
+    "component": "Componente",
+    "insert-permission-permanent": "Insert permanent permission",
+    "edit-parameter": "Edit parameters",
+    "insertable-userprofiles": "Insertable userprofiles",
+    "Company": "Company",
+    "Parameter": "Parameter",
+    "searchByUsername": "Search by username",
+    "searchByComponent": "Search by component",
+    "searchByOperation": "Search by operation"
   },
   "dashboard": {
     "areas": "Associated areas: ",
