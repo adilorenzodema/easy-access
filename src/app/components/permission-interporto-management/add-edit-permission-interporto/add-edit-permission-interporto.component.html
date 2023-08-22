@@ -35,7 +35,7 @@
         <div class="row px-5">
           <div class="col-3">
             <mat-form-field *ngIf="!this.permission" appearance="outline" class="w-100">
-              <mat-select (selectionChange)="changeSelect($event)" formControlName="ctrlValidation" placeholder="Scegliere un tipo di validazione" required>
+              <mat-select (selectionChange)="changeSelect($event)" formControlName="ctrlValidation" [placeholder]="'manage-permission.permissionTypeSelection' | translate" required>
                 <mat-option [value]="'obu'" default>{{ 'manage-permission.validationTypeObu' | translate }}</mat-option>
                 <mat-option [value]="'targa'">{{ 'manage-permission.validationTypePlate' | translate }}</mat-option>
               </mat-select>

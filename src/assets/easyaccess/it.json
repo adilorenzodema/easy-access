@@ -353,6 +353,7 @@
     "rangeError": "Errore nel range inserito",
     "searchByOBU": "Ricerca per OBU",
     "searchByPark": "Ricerca per parcheggio",
+    "searchByPlate": "Cerca per targa",
     "searchByGate": "Ricerca per varco",
     "validationType": "Tipo Validazione",
     "status": "Status",
@@ -366,8 +367,7 @@
     "transitStatus": "Status Transito",
     "noTransits": "Nessun transito presente.",
     "obuStd": "Obu STD",
-    "CDC": "CDC",
-    "searchByPlate": "Cerca per targa"
+    "CDC": "CDC"
     },
   "manage_batches": {
     "title": "Gestione Batch",

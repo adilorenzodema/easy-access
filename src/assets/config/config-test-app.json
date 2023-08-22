@@ -1,7 +1,7 @@
 {
-    "be_url": "http://localhost:8080/easyaccess/",
+  "be_url": "http://localhost:8080/easyaccess/",
     "path_url": "areamanagement/allAreasToAdmin/",
-    "domain": "easyaccess",
-    "headerValue": "EasyAccess",
-    "loginHeader": "Login EasyAccess"
+    "domain": "interporto",
+    "headerValue": "Interport",
+    "loginHeader": "Login Inteporto"
 }
