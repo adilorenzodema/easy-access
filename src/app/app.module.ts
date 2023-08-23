@@ -50,7 +50,17 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     {
       provide: 'domainValue',
       useFactory: getPropertyFromConfig, multi: false, deps: ['domain', ConfigInitService]
-    }, 
+    },
+    { provide: 'headerValue', useValue: 'headerValue' },
+    {
+      provide: 'headerTitle',
+      useFactory: getPropertyFromConfig, multi: false, deps: ['headerValue', ConfigInitService]
+    },
+    { provide: 'loginHeader', useValue: 'loginHeader' },
+    {
+      provide: 'loginTitle',
+      useFactory: getPropertyFromConfig, multi: false, deps: ['loginHeader', ConfigInitService]
+    },
     { provide: 'header', useValue: environment.header },
     { provide: 'footer', useValue: environment.footer },
     { provide: 'env', useValue: environment },

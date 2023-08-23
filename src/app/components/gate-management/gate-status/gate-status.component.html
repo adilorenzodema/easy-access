@@ -137,3 +137,28 @@
 
     </mat-card-content>
 </mat-card>
+
+<mat-card>
+  <!-- card header -->
+  <div class="row">
+    <div class="col-6">
+      <mat-card-title>
+          <span> {{"manage_gates.statusTitle" | translate}}{{gate.gateDescription}}</span>
+          <mat-icon class="center-icon-title mx-3" [ngStyle]="{'color':gate.status === 'OK' ? 'green' : 'red' }">radio_button_checked</mat-icon>
+      </mat-card-title>
+      <mat-card-subtitle>
+        Antenna IP: {{gate.ipAntenna}} - {{"manage_gates.antennaPort" | translate}}: {{gate.portAntenna}} -
+        {{"manage_gates.gateDirection" | translate}}: {{gate.gateDirection}}
+        - {{"manage_gates.associatedPark" | translate}}: {{gate.park.namePark}} - Status: {{gate.status}}
+      </mat-card-subtitle>
+    </div>
+    <div class="col-6 text-end">
+      <span><button mat-button class="actionButton mx-3" routerLink="../">{{'common.back' | translate}}</button></span>
+      <span> <button mat-button class="actionButton" (click)="testGateConnection()">{{'manage_gates.gateStatus.connectionTest' | translate}}</button></span>
+    </div>
+  </div>
+
+  <mat-card-content *ngIf="gateStatus">
+
+  </mat-card-content>
+</mat-card>

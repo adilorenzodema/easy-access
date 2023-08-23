@@ -116,9 +116,9 @@ export class AddEditPermissionInterportoComponent implements OnInit {
             "õ ö ø ú û ü ù ý þ ÿ ÷",
             "À Á Â Ã Ä Å Æ Ç È É Ê",
             "Ë D Ì Í Ï Ï Ð Ò Ó Ô Õ",
-            "Ö × Ø Ù Ú Û Ü Ý Þ ß",
+            "Ö × Ø Ù Ú Û Ü Ý Þ ß"
           ]
-        },
+        }
       });
     this.setDateEnd();
   }

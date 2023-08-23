@@ -1,139 +1,167 @@
-<mat-card fxLayout="column" fxLayoutGap="20px">
-    <mat-card-title>{{"manage_transits.title" | translate}}</mat-card-title>
-    <mat-card-content fxLayout="column" fxLayoutGap="10px">
+<div class="row">
+  <div class="col-12">
+    <mat-card>
+      <mat-card-title>{{"manage_transits.title" | translate}}</mat-card-title>
+
+      <mat-card-content>
         <form [formGroup]="formGroup">
-            <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
 
-                <mat-form-field appearance="outline" fxFlex="15">
-                    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="start">
-                    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #picker [stepMinute]="30" > </ngx-mat-datetime-picker>
-                 </mat-form-field>
-
-                 <mat-form-field appearance="outline" fxFlex="15">
-                    <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" formControlName="end" (dateChange)="callGetAPI()">
-                    <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker #picker2 [stepMinute]="30"> </ngx-mat-datetime-picker>
-                 </mat-form-field>
-
-                <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>{{"manage_transits.searchByOBU" | translate}}</mat-label>
-                    <input matInput type="search" formControlName="ctrlOBUSearch" autocomplete="off">
-                    <button matPrefix mat-icon-button (click)="callGetAPI()">
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex="40">
-                    <mat-label>{{"manage_transits.searchByPark" | translate}}</mat-label>
-                    <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
-                    <button matPrefix mat-icon-button (click)="callGetAPI()">
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-form-field>
+          <div class="row">
+            <div class="col-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="start">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker [stepMinute]="30" > </ngx-mat-datetime-picker>
+             </mat-form-field>
             </div>
-            <div fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="20px">
-                <mat-form-field appearance="outline" fxFlex="25">
-                    <mat-label>{{"manage_transits.searchByGate" | translate}}</mat-label>
-                    <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
-                    <button matPrefix mat-icon-button (click)="callGetAPI()">
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex="25">
-                  <mat-label>{{"manage_transits.searchByPlate" | translate}}</mat-label>
-                  <input matInput type="search" formControlName="ctrlPlateSearch" autocomplete="off">
-                  <button matPrefix mat-icon-button (click)="callGetAPI()">
-                      <mat-icon>search</mat-icon>
-                  </button>
+
+            <div class="col-2">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" formControlName="end" (dateChange)="callGetAPI()">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker2 [stepMinute]="30"> </ngx-mat-datetime-picker>
+             </mat-form-field>
+            </div>
+
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_transits.searchByOBU" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlOBUSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
               </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex="25" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-label>{{"manage_transits.validationType" | translate}}</mat-label>
-                    <mat-select formControlName="ctrlValidationType"
-                        placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
-                        <mat-option value="CDC">{{'manage_transits.CDC' | translate}}</mat-option>
-                        <mat-option value="Antenna">Antenna</mat-option>
-                        <mat-option value="">{{"common.all" | translate}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="outline" fxFlex="25" fxFlex.gt-xs="60" fxFlex.gt-lg="30">
-                    <mat-label>{{"manage_transits.status" | translate}}</mat-label>
-                    <mat-select formControlName="ctrlStatus" placeholder="{{'manage_transits.status' | translate}}"
-                        (selectionChange)="callGetAPI()">
-                        <mat-option value="true">{{"manage_transits.complete" | translate}}</mat-option>
-                        <mat-option value="false">{{"manage_transits.incomplete" | translate}}</mat-option>
-                        <mat-option value="">{{"common.all" | translate}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
             </div>
+
+            <div class="col-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_transits.searchByPark" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlParkSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_transits.searchByGate" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlGateSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_transits.searchByPlate" | translate}}</mat-label>
+                <input matInput type="search" formControlName="ctrlPlateSearch" autocomplete="off">
+                <button matPrefix mat-icon-button (click)="callGetAPI()">
+                    <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_transits.validationType" | translate}}</mat-label>
+                <mat-select formControlName="ctrlValidationType"
+                    placeholder="{{'manage_transits.validationType' | translate}}" (selectionChange)="callGetAPI()">
+                    <mat-option value="CDC">{{'manage_transits.CDC' | translate}}</mat-option>
+                    <mat-option value="Antenna">Antenna</mat-option>
+                    <mat-option value="">{{"common.all" | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{"manage_transits.status" | translate}}</mat-label>
+                <mat-select formControlName="ctrlStatus" placeholder="{{'manage_transits.status' | translate}}"
+                    (selectionChange)="callGetAPI()">
+                    <mat-option value="true">{{"manage_transits.complete" | translate}}</mat-option>
+                    <mat-option value="false">{{"manage_transits.incomplete" | translate}}</mat-option>
+                    <mat-option value="">{{"common.all" | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </form>
-        <div style="height: 5px;">
-            <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+
+        <mat-progress-bar style="height: 5px;" *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+
+        <div class="row">
+          <div class="col-12 root-table-container">
+            <ng-scrollbar class="my-scrollbar table-container" style="height: 34em !important;">
+              <div *ngIf="dataSource.data.length === 0"> {{"manage_transits.noTransits" | translate}}</div>
+
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
+                [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
+
+                <ng-container matColumnDef="idTransit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.idTransit}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="codeObu">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuCode" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.obu?.obuCode}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="plate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.plate" | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.plate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="obuStd">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuStd" | translate}} </th>
+                  <td mat-cell *matCellDef="let element"> {{element.obu?.obuStd}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.dateStart" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="gate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.gate" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gate.gateDescription}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="park">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.park" | translate}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element.gate.park.namePark}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="validationType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.validationType" | translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{(element.validationType === "CDC") ? ('manage_transits.CDC' | translate) : element.validationType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="flagPassed">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.transitStatus" | translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.flagPassed ? ("manage_transits.complete" | translate)
+                        : ("manage_transits.incomplete" | translate) }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"
+                    [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </ng-scrollbar>
+
+            <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
+            </mat-paginator>
+          </div>
         </div>
 
-        <div class="root-table-container">
-          <ng-scrollbar class="my-scrollbar table-container" style="height: 34em !important;">
-            <div *ngIf="dataSource.data.length === 0"> {{"manage_transits.noTransits" | translate}}</div>
-
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort
-              [style.display]="dataSource.data.length === 0 ? 'none' : ''" style="width: 100%;">
-
-              <ng-container matColumnDef="idTransit">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                  <td mat-cell *matCellDef="let element"> {{element.idTransit}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="codeObu">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuCode" | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.obu?.obuCode}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="plate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.plate" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element?.plate}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="obuStd">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.obuStd" | translate}} </th>
-                <td mat-cell *matCellDef="let element"> {{element.obu?.obuStd}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="startDate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.dateStart" | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.startDate | date: 'dd/MM/yyyy H:mm:ss'}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="gate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.gate" | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.gate.gateDescription}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="park">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.park" | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.gate.park.namePark}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="validationType">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.validationType" | translate}}
-                  </th>
-                  <td mat-cell *matCellDef="let element"> {{(element.validationType === "CDC") ? ('manage_transits.CDC' | translate) : element.validationType}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="flagPassed">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> {{"manage_transits.transitStatus" | translate}}
-                  </th>
-                  <td mat-cell *matCellDef="let element"> {{ element.flagPassed ? ("manage_transits.complete" | translate)
-                      : ("manage_transits.incomplete" | translate) }}</td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"
-                  [style.display]="dataSource.data.length === 0 ? 'none' : '' "></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </ng-scrollbar>
-
-          <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-              [style.display]="dataSource.data.length === 0 ? 'none' : '' ">
-          </mat-paginator>
-        </div>
-    </mat-card-content>
-</mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,40 +1,57 @@
-<div class="border-grey">
-  <form [formGroup]="formGroup" fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
-      <mat-form-field appearance="outline" fxFlex="80">
-          <mat-label>{{'common.searchLabel' | translate }}</mat-label>
-          <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
-          <button matPrefix mat-icon-button (click)="filter()">
-              <mat-icon>search</mat-icon>
-          </button>
-      </mat-form-field>
-      <div><button mat-button class="actionButton" (click)="changeViewEdit()">{{viewMode ? ('manage_parks.edit_association' | translate) : ('common.cancel' | translate)}}</button></div>
-      <div><button mat-button class="actionButton" (click)="saveAssociation()" *ngIf="!viewMode">{{'common.save' | translate }}</button></div>
-  </form>
-  <table mat-table [dataSource]="dataSourceAssAreas" class="mat-elevation-z8" matSort
-      [style.display]="dataSourceAssAreas.data.length === 0 ? 'none' : ''">
+<div class="row">
+  <div class="col-12 border-grey">
+    <form [formGroup]="formGroup">
 
-      <ng-container matColumnDef="idArea">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-          <td mat-cell *matCellDef="let element"> {{element.idArea}} </td>
-      </ng-container>
+      <div class="row">
+        <div class="col-9">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'common.searchLabel' | translate }}</mat-label>
+            <input matInput type="search" formControlName="ctrlSearch" autocomplete="off">
+            <button matPrefix mat-icon-button (click)="filter()">
+                <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
 
-      <ng-container matColumnDef="areaName">
-          <th mat-header-cell *matHeaderCellDef> {{'manage_areas.areaName' | translate}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.areaName}} </td>
-      </ng-container>
+        <div class="col-3">
+          <button mat-button class="actionButton" (click)="changeViewEdit()">{{viewMode ? ('manage_parks.edit_association' | translate) : ('common.cancel' | translate)}}</button>
+          <button mat-button class="actionButton mx-3" (click)="saveAssociation()" *ngIf="!viewMode">{{'common.save' | translate }}</button>
+        </div>
+      </div>
 
-      <ng-container matColumnDef="associated" *ngIf="!viewMode">
-          <th mat-header-cell *matHeaderCellDef> {{'common.associations' | translate}} </th>
-          <td mat-cell *matCellDef="let element">
-              <mat-checkbox [(ngModel)]="element.associated" color="primary"></mat-checkbox>
-          </td>
-      </ng-container>
+      <div class="row">
+        <div class="col-12">
+          <table mat-table [dataSource]="dataSourceAssAreas" class="mat-elevation-z8" matSort
+            [style.display]="dataSourceAssAreas.data.length === 0 ? 'none' : ''">
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumnsAreas"
-          [style.display]="dataSourceAssAreas.data.length === 0 ? 'none' : ''"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumnsAreas;"></tr>
-  </table>
-  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-      [style.display]="dataSourceAssAreas.data.length === 0  ? 'none' : ''">
-  </mat-paginator>
+            <ng-container matColumnDef="idArea">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.idArea}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="areaName">
+                <th mat-header-cell *matHeaderCellDef> {{'manage_areas.areaName' | translate}} </th>
+                <td mat-cell *matCellDef="let element"> {{element.areaName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="associated" *ngIf="!viewMode">
+                <th mat-header-cell *matHeaderCellDef> {{'common.associations' | translate}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-checkbox [(ngModel)]="element.associated" color="primary"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAreas"
+                [style.display]="dataSourceAssAreas.data.length === 0 ? 'none' : ''"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAreas;"></tr>
+          </table>
+
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            [style.display]="dataSourceAssAreas.data.length === 0  ? 'none' : ''">
+          </mat-paginator>
+        </div>
+      </div>
+
+    </form>
+  </div>
 </div>

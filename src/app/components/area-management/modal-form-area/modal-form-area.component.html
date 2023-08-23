@@ -1,11 +1,11 @@
-<div style="height: 5px;">
-  <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+<!-- <div style="height: 5px;" *ngIf="!complete">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 <form [formGroup]="inputUserForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
   <mat-card-title> {{"manage_areas.modalTitle" | translate}} </mat-card-title>
   <mat-form-field appearance="fill" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-md="45" fxFlex.gt-lg="35">
     <mat-label>{{'manage_areas.areaName' | translate}}</mat-label>
-    <input matInput type="text" required formControlName="ctrlAreaName" />
+    <input matInput type="text" required formControlName="ctrlAreaName"/>
     <mat-error>{{'manage_areas.nameError' | translate}}</mat-error>
   </mat-form-field>
   <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
@@ -15,4 +15,45 @@
       {{data ? ('common.edit' | translate): ('common.add' | translate)}}
     </button>
   </div>
-</form>
+</form> -->
+
+
+<div class="row">
+  <div class="col-12" style="height: 5px;" *ngIf="!complete">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="inputUserForm">
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <mat-card-title> {{"manage_areas.modalTitle" | translate}} </mat-card-title>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <mat-form-field appearance="fill">
+            <mat-label>{{'manage_areas.areaName' | translate}}</mat-label>
+            <input matInput type="text" required formControlName="ctrlAreaName"/>
+            <mat-error>{{'manage_areas.nameError' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-raised-button (click)="dialogRef.close(false)" style="margin-right: 1.25em;">{{'common.cancel' | translate}}</button>
+          <button mat-raised-button color="primary" [disabled]="inputUserForm.invalid"
+            (click)="onSubmit(data ? false : true)">
+            {{data ? ('common.edit' | translate): ('common.add' | translate)}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

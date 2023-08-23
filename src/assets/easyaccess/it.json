@@ -118,7 +118,8 @@
     "disactivateConfirm": "Sei sicur* di voler disattivare l'utente selezionato?",
     "deleteTitle": "Eliminazione Utente",
     "deleteConfirm": "Sei sicur* di voler eliminare l'utente selezionato?",
-    "delete": "Elimina"
+    "delete": "Elimina",
+    "companyName": "Nome azienda"
   },
   "manage_parks": {
     "parkTitle": "Gestione Parcheggi",
@@ -352,6 +353,7 @@
     "rangeError": "Errore nel range inserito",
     "searchByOBU": "Ricerca per OBU",
     "searchByPark": "Ricerca per parcheggio",
+    "searchByPlate": "Cerca per targa",
     "searchByGate": "Ricerca per varco",
     "validationType": "Tipo Validazione",
     "status": "Status",
@@ -370,6 +372,7 @@
   "manage_batches": {
     "title": "Gestione Batch",
     "jobName": "Nome batch",
+    "noBatches": "Nessun batch presente.",
     "batchDescription": "Descrizione batch",
     "chronExpression": "Espressione Cron",
     "chronDescription" : "Descrizione Cron",
@@ -384,6 +387,8 @@
     "execute": "Esegui Batch"
   },
   "manage_logs": {
+    "noLogs": "Nessun log presente.",
+    "title": "Monitoraggio log",
     "Area": "Area",
     "Park": "Parcheggio",
     "User": "Utente",
@@ -400,7 +405,7 @@
     "view-gate-status": "Visualizza status varchi",
     "view-park-incidents": "Visualizza alert parcheggio",
     "view-gate-incidents": "Visualizza alert varco",
-    "view-park-status": "Visualizza status parcheggi",
+    "view-park-status": "Visualizza status stazioni",
     "view-gate": "Visualizza varchi",
     "view-user": "Visualizza utenti",
     "view-permission": "Visualizza permessi",
@@ -427,7 +432,7 @@
     "insert-user": "Inserimento utente",
     "activate-park": "Attivazione parcheggio",
     "insert-park": "Inserimento parcheggio",
-    "view-park": "Visualizza parcheggi",
+    "view-park": "Visualizza stazioni",
     "edit-permissiontype": "Modifica tipo permesso",
     "activate-area": "Attivazione area",
     "pilot-gate": "Pilotaggio varchi",
@@ -452,7 +457,25 @@
     "disactivate-user": "Disattiva utente",
     "open-gate": "Aperta barriera",
     "close-gate": "Chiusa barriera",
-    "auto-gate": "Barriera automatica"
+    "auto-gate": "Barriera automatica",
+    "reboot-gate": "Riavvio varco",
+    "insert-company": "Inserimento azienda",
+    "delete-company": "Elimina azienda",
+    "edit-company": "Modifica azienda",
+    "date": "Data",
+    "nameUser": "Nome utente",
+    "operation": "Operazione",
+    "component": "Componente",
+    "insert-permission-interporto": "Inserimento permesso",
+    "edit-permission-interporto": "Modifica permesso",
+    "insert-permission-permanent": "Inserimento permesso pemanente",
+    "edit-parameter": "Modifica parametri",
+    "insertable-userprofiles": "Inserimento profilo utente",
+    "Company": "Azienda",
+    "Parameter": "Parametro",
+    "searchByUsername": "Ricerca per nome utente",
+    "searchByComponent": "Ricerca per componente",
+    "searchByOperation": "Ricerca per operazione"
   },
 
   "dashboard": {

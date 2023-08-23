@@ -1,53 +1,67 @@
-<div fxLayout="column" fxLayoutGap="10px">
+<div class="row">
+  <div class="col-12">
     <div  style="height: 5px;">
-        <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar *ngIf="!complete" mode="indeterminate"></mat-progress-bar>
     </div>
-    <div fxLayout="row wrap" fxLayoutGap="20px">
-        <ng-container *ngIf="parkStatus.length > 0 else noStatus">
-            <mat-card *ngFor="let status of parkStatus" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-lg="30" fxFlex.gt-md="30"
-                class="margin-bottom">
-                <mat-card-content fxLayout="column" fxLayoutGap="15px">
-                    <div fxLayout="row" fxLayoutAlign="space-between">
-                        <div>{{status.parkName}}</div>
-                        <mat-icon [style.color]="status.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
-                    </div>
-                    <ng-container *ngIf="status.incidentList.length > 0 else noIncidents">
-                        <mat-card-subtitle>
-                            {{("dashboard.areas" | translate) + status.areaList }}<br>
-                        </mat-card-subtitle>
-                        <!-- ("manage_incidents.error." + element.incident.errorCode) | translate -->
-                        <mat-card-subtitle>
-                            {{("dashboard.lastIncident" | translate) + status.incidentList[0].errorMessage}}<br>
-                        </mat-card-subtitle>
-                        <mat-card-subtitle>
-                            {{ ("dashboard.date" | translate) + (status.incidentList[0].startDate | date: 'dd/MM/YYYY H:mm')}}<br>
-                        </mat-card-subtitle>
-                        <mat-card-subtitle>
-                             {{ ("dashboard.device" | translate) + status.incidentList[0].device}}
-                        </mat-card-subtitle>
-                        <div fxLayout="row" fxLayoutAlign="space-between">
-                            <mat-card-subtitle>
-                                 {{ ("dashboard.gate" | translate) + status.incidentList[0].gateName}}
-                            </mat-card-subtitle>
-                            <button mat-icon-button *ngIf="operations | getPermissionPipe: 'view-park-incident-dashboard'"
-                                [routerLink]="['../incidents-management']" [state]="{parkName: status.parkName}">
-                                <mat-icon style="color: red"
-                                    matTooltip="{{'dashboard.history' | translate}}">warning</mat-icon>
-                            </button>
-                        </div>
-                    </ng-container>
-                    <ng-template #noIncidents>
-                        <mat-card-subtitle>{{"dashboard.noIncidents" | translate}}</mat-card-subtitle>
-                    </ng-template>
-                </mat-card-content>
-            </mat-card>
-        </ng-container>
-        <ng-template #noStatus>
-            {{"dashboard.noIncidents" | translate}}
-        </ng-template>
-    </div>
-
-    <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
-      <app-table-incidents *ngIf="parkStatus.length > 0" [parkStatus]="parkStatus"></app-table-incidents>
-    </ng-scrollbar>
+  </div>
 </div>
+
+<div class="row">
+  <div class="col-12">
+    <ng-container *ngIf="parkStatus.length > 0 else noStatus">
+
+      <div class="row">
+        <div class="col-4 col-md-4 margin-bottom" *ngFor="let status of parkStatus">
+          <mat-card>
+            <div class="row">
+              <div class="col-12">
+                <mat-card-content>
+                  <div fxLayout="row" fxLayoutAlign="space-between">
+                      <div>{{status.parkName}}</div>
+                      <mat-icon [style.color]="status.status === 'OK' ? 'green' : 'red'">radio_button_checked</mat-icon>
+                  </div>
+                  <ng-container *ngIf="status.incidentList.length > 0 else noIncidents">
+                      <mat-card-subtitle>
+                          {{("dashboard.areas" | translate) + status.areaList }}<br>
+                      </mat-card-subtitle>
+
+                      <mat-card-subtitle>
+                          {{("dashboard.lastIncident" | translate) + status.incidentList[0].errorMessage}}<br>
+                      </mat-card-subtitle>
+                      <mat-card-subtitle>
+                          {{ ("dashboard.date" | translate) + (status.incidentList[0].startDate | date: 'dd/MM/YYYY H:mm')}}<br>
+                      </mat-card-subtitle>
+                      <mat-card-subtitle>
+                           {{ ("dashboard.device" | translate) + status.incidentList[0].device}}
+                      </mat-card-subtitle>
+                      <div fxLayout="row" fxLayoutAlign="space-between">
+                          <mat-card-subtitle>
+                               {{ ("dashboard.gate" | translate) + status.incidentList[0].gateName}}
+                          </mat-card-subtitle>
+                          <button mat-icon-button *ngIf="operations | getPermissionPipe: 'view-park-incident-dashboard'"
+                              [routerLink]="['../incidents-management']" [state]="{parkName: status.parkName}">
+                              <mat-icon style="color: red"
+                                  matTooltip="{{'dashboard.history' | translate}}">warning</mat-icon>
+                          </button>
+                      </div>
+                  </ng-container>
+                  <ng-template #noIncidents>
+                      <mat-card-subtitle>{{"dashboard.noIncidents" | translate}}</mat-card-subtitle>
+                  </ng-template>
+                </mat-card-content>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </ng-container>
+        <ng-template #noStatus>
+      {{"dashboard.noIncidents" | translate}}
+    </ng-template>
+  </div>
+
+  <ng-scrollbar class="my-scrollbar table-container" style="height: 36em !important;">
+    <app-table-incidents *ngIf="parkStatus.length > 0" [parkStatus]="parkStatus"></app-table-incidents>
+  </ng-scrollbar>
+</div>
+
